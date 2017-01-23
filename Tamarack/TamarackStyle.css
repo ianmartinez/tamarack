@@ -1,0 +1,151 @@
+body 
+{
+	margin: 2px;
+}
+
+a 
+{ 
+	text-decoration: none; font-weight: thin;
+}
+
+a:focus 
+{
+	outline: thin dotted;
+}
+
+a:hover, a:active 
+{
+	outline: 0; 
+}
+
+a 
+{
+	color: #747474;
+}
+
+a:hover 
+{
+	color: #bbbbbb;
+	-webkit-transition: ease-in 0.2s;
+	-moz-transition: ease-in 0.2s;
+	-o-transition: ease-in 0.2s;
+	-ms-transition: ease-in 0.2s;
+	transition: ease-in 0.2s;
+}
+
+button
+{
+	margin: 1px;
+}
+
+/* tkTabView */
+.tkTabView
+{
+	width: 100%;
+	height: 300px;
+}    
+
+.tkTabView ul,
+.tkTabView li
+{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.tkTabView,
+.tkTabView input[type="radio"]:checked + label
+{
+	position: relative;
+}
+
+.tkTabView li,
+.tkTabView input[type="radio"] + label
+{
+	display: inline-block;
+}
+
+.tkTabView li > div,
+.tkTabView input[type="radio"]
+{
+	position: absolute;
+}
+
+.tkTabView li > div,
+.tkTabView input[type="radio"] + label
+{
+	border: solid 1px #ccc;
+}
+
+.tkTabView
+{
+	font: normal 11px Arial, Sans-serif;
+	color: #404040;
+}
+
+.tkTabView li
+{
+	vertical-align: top;
+}
+
+.tkTabView li:first-child
+{
+	margin-left: 8px;
+}
+ 
+.tkTabView li > div
+{
+	top: 33px;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 8px;
+	overflow: auto;
+	background: #fff;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+ 
+.tkTabView input[type="radio"] + label
+{
+	margin: 0 2px 0 0;
+	padding: 0 18px;
+	line-height: 32px;
+	background: #f1f1f1;
+	text-align: center;
+	border-radius: 5px 5px 0 0;
+	cursor: pointer;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+ 
+.tkTabView input[type="radio"]:checked + label
+{
+	z-index: 1;
+	background: #fff;
+	border-bottom-color: #fff;
+	cursor: default;
+}
+ 
+.tkTabView input[type="radio"]
+{
+	opacity: 0;
+}
+ 
+.tkTabView input[type="radio"] ~ div
+{
+	display: none;
+}
+ 
+.tkTabView input[type="radio"]:checked:not(:disabled) ~ div
+{
+	display: block;
+}
+ 
+.tkTabView input[type="radio"]:disabled + label
+{
+	opacity: .5;
+	cursor: no-drop;
+}

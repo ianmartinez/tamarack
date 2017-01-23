@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="stylesheet" href="Normalize.css">
+
+	<!-- Import Tamarack -->
+	<link rel="stylesheet" href="Tamarack/TamarackStyle.css">
+	<script src="Tamarack/TamarackCore.js"></script>
+	<script src="Tamarack/TamarackUI.js"></script>
+
+</head>
+<body>
+	<script>
+		(
+			function Main()
+			{
+				SetTitle("Coin Toss Demo");
+				PutHeader("Coin Toss","h1");
+				
+				var btn = new tkButton("btnToss");
+				btn.Text = "Toss Coin!";
+				btn.AddElementTo(document.body);
+				
+				btn.GetElement().onclick = () => 
+				{
+					var CurrentLine = PutLine((GetRandom(0,1) == 0) ? "Heads" : "Tails"); 
+					document.body.appendChild(CurrentLine);
+				};
+			}
+		)();
+	</script>
+</body>
+</html>
