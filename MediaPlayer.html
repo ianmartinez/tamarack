@@ -20,28 +20,14 @@
 				doc.title = "Media Players Demo";
 				doc.putHeader("Media Player Demo","h1");
 				
-				var rating = 4.1; 
-				
-				doc.putLine("Video Rating: " + rating + "/5 Stars");
-				
-				var metVideo = new tkReviewMeter("metVideo", rating);
-				metVideo.addToElement(document.body);
-				doc.putLine();doc.putLine();
-				
-				var btnFullscreen = new tkButton("btnFullscreen");
+				var p = doc.putLine();				
+				var btnFullscreen = new tkButton();
 				btnFullscreen.text = "Go Fullscreen";
-				btnFullscreen.addToElement(document.body);
+				btnFullscreen.addToElement(p);
 				
-				btnFullscreen.element.onclick = () => 
-				{
-					vid.makeFullscreen();
-				};
+				btnFullscreen.element.onclick = () => vid.makeFullScreen();
 				
-				doc.putLine();
-				
-				var vid = new tkVideoPlayer("vidBunny");
-				vid.setControls(true);
-				vid.setDimensions("700px", "400px");
+				var vid = new tkVideoPlayer();
 				vid.source = "mov_bbb.mp4";
 				vid.addToElement(document.body);
 			}

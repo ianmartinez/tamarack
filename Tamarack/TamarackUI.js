@@ -1,15 +1,24 @@
-var id_list = new Array();
+function make(_tag)
+{
+	return document.createElement(_tag);
+}
+
 class tkControl 
 {
-	constructor(_id) 
+	constructor() 
 	{
-		if (id_list.indexOf(_id) != -1)
-			throw "Error: ID already registered with another control";
-		else 
-		{
-			this.element = document.createElement("div");
-			this.element.id = _id;
-		}
+		this.element = make("div");
+		this.element.id = "";
+	}
+	
+	get id() 
+	{
+		return this.element.id;
+	}
+	
+	set id(_id) 
+	{
+		this.element.id = _id;
 	}
 
 	get innerHtml() {
@@ -45,7 +54,7 @@ class tkControl
 		_destination.getElement().appendChild(this.getElement());
 	}
 	
-	makeFullscreen()
+	makeFullScreen()
 	{
 		if (this.element.requestFullscreen)
 			this.element.requestFullscreen();
@@ -93,18 +102,18 @@ class tkElement extends tkControl
 	}
 }
 
-function makeElement(_id) {
-	return new tkElement(document.getElementById(_id));
+function makeElement() {
+	return new tkElement(document.getElementById());
 }
 
 
 class tkText extends tkControl 
 {
-	constructor(_id,_tag) 
+	constructor(_tag) 
 	{
-		super(_id);
+		super();
 		
-		this.element = document.createElement(_tag);
+		this.element = make(_tag);
 		this.textNode = document.createTextNode("");
 		this.element.appendChild(this.textNode);
 	}
@@ -122,9 +131,9 @@ class tkText extends tkControl
 
 class tkLink extends tkText
 {
-	constructor(_id)
+	constructor()
 	{
-		super(_id, "a");
+		super("a");
 	}
 		
 	// Link source
@@ -141,27 +150,27 @@ class tkLink extends tkText
 
 class tkButton extends tkText 
 {
-	constructor(_id) 
+	constructor() 
 	{
-		super(_id,"a");
+		super("a");
 		this.element.className = "tkButton";
 	}
 }
 
 class tkDiv extends tkControl 
 {
-	constructor(_id) 
+	constructor() 
 	{
-		super(_id);
-		this.element = document.createElement("div");
+		super();
+		this.element = make("div");
 	}
 }
 
 class tkMediaPlayer extends tkControl 
 {
-	constructor(_id) 
+	constructor() 
 	{
-		super(_id);
+		super();
 	}
 
 	// Media source
@@ -301,28 +310,29 @@ class tkMediaPlayer extends tkControl
 
 class tkVideoPlayer extends tkMediaPlayer
 {
-	constructor(_id)
+	constructor()
 	{
-		super(_id);
-		this.element = document.createElement("video"); 
+		super();
+		this.element = make("video"); 
+		this.setControls(true);
 	}
 }
 
 class tkAudioPlayer extends tkMediaPlayer
 {
-	constructor(_id)
+	constructor()
 	{
-		super(_id);
-		this.element = document.createElement("audio"); 
+		super();
+		this.element = make("audio"); 
 	}
 }
 
 class tkImage extends tkControl
 {
-	constructor(_id)
+	constructor()
 	{
-		super(_id);
-		this.element = document.createElement("img"); 
+		super();
+		this.element = make("img"); 
 	}
 	
 	// Image source
@@ -350,10 +360,10 @@ class tkImage extends tkControl
 
 class tkProgress extends tkControl
 {
-	constructor(_id)
+	constructor()
 	{
-		super(_id);
-		this.element = document.createElement("progress"); 
+		super();
+		this.element = make("progress"); 
 	}
 	
 	get max()
@@ -379,10 +389,10 @@ class tkProgress extends tkControl
 
 class tkMeter extends tkControl
 {
-	constructor(_id)
+	constructor()
 	{
-		super(_id);
-		this.element = document.createElement("meter"); 
+		super();
+		this.element = make("meter"); 
 	}
 	
 	get value()
@@ -448,15 +458,44 @@ class tkMeter extends tkControl
 
 class tkReviewMeter extends tkMeter
 {
-	constructor(_id,_Rating)
+	constructor(_rating)
 	{
-		super(_id);
+		super();
 		
-		this.Value = _Rating;
+		this.Value = _rating;
 		this.max = 5;
 		this.min = 0;
 		this.optimum = 5;
 		this.low =2;
 		this.high = 4;
+	}
+}
+
+class tkNotebookPage
+{
+	constructor(_title)
+	{
+		this.tab = new tkLink();
+		
+		// A <li> that holds the tab button
+		this.tabcontainer = make("li");
+		this.tabcontainer.className = "borderless";
+		
+		/*	A <div> that contains the content that
+			is brought up when the tab is clicked	*/
+		this.content = make("div");
+		this.content.className = "tab-pane fade";
+	}
+	
+	
+	
+}
+
+class tkNotebook extends tkControl
+{
+	constructor() 
+	{
+		super();
+		this.tabs = [];
 	}
 }

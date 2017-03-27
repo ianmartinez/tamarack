@@ -3,13 +3,16 @@
   <head>
 
     <title>Tabs Demo</title>
+	
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="bootstrap/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
     <!-- Tamarack CSS -->
     <link href="tamarack/tamarackStyle.css" rel="stylesheet">
   </head>
   
-  <!-- Tamarack -->
-  <script src="tamarack/tamarackCore.js"></script>
-  <script src="tamarack/tamarackUI.js"></script>
 
   <body class="fill">
     <div class="container fill">
@@ -22,21 +25,28 @@
 
         <div class="tab-content">
             <div id="start" class="tab-pane fade in active">
-              <iframe class="screen_display" id="start_screen" src="screens/start.html"></iframe>
+              <p>1</p>
             </div>
             <div id="design" class="tab-pane fade">
-              <iframe class="screen_display" id="design_screen" src="screens/designer.html"></iframe>
+              <p>2</p>
             </div>
             <div id="config" class="tab-pane fade">
+              <p>3</p>
             </div>
             <div id="output" class="tab-pane fade">
-              <iframe class="screen_display" id="editor_screen" src="screens/editor.html?loc=test_ui.scui"></iframe>
+              <p>4</p>
             </div>
         </div>
     </div>
 
-    <script>
-      
-    </script>
+	  <!-- Bootstrap core JavaScript -->
+	  <script src="jquery/jquery.min.js"></script>
+	  <script src="bootstrap/js/bootstrap.min.js"></script>
+	  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	  <script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>  
+	  
+	  <!-- Tamarack -->
+	  <script src="tamarack/tamarackCore.js"></script>
+	  <script src="tamarack/tamarackUI.js"></script>
   </body>
 </html>

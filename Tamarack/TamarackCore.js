@@ -71,11 +71,11 @@ class tkDocument
 			_string = "";
 		
 		var t = document.createTextNode(_string);
-		var br = document.createElement("br");
-		this.output.appendChild(t);
-		this.output.appendChild(br);
+		var p = document.createElement("p"); 
+		p.appendChild(t);
+		this.output.appendChild(p);
 			
-		return t;
+		return p;
 	}
 
 	putLines(_strings)
