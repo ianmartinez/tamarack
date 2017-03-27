@@ -3,7 +3,7 @@ An easy to use JavaScript library that can create, modify, and style HTML throug
 
 For example to add a video and show its controls all you have to do is type:
 ```javascript
-var video = new tkVideoPlayer("video");
+var video = new tkVideoPlayer();
 video.source = "video_source.mp4";
 video.addToElement(document.body);
 ```
