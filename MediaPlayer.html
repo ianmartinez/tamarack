@@ -5,45 +5,45 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<link rel="stylesheet" href="Normalize.css">
 
-	<!-- Import Tamarack -->
-	<link rel="stylesheet" href="Tamarack/TamarackStyle.css">
-	<script src="Tamarack/TamarackCore.js"></script>
-	<script src="Tamarack/TamarackUI.js"></script>
+	<!-- Import tamarack -->
+	<link rel="stylesheet" href="tamarack/tamarackStyle.css">
+	<script src="tamarack/tamarackCore.js"></script>
+	<script src="tamarack/tamarackUI.js"></script>
 
 </head>
 <body>
 	<script>
 		(
-			function Main()
+			function main()
 			{
-				SetTitle("Media Players Demo");
-				PutHeader("Media Player Demo","h1");
+				var doc = new tkDocument();
+				doc.title = "Media Players Demo";
+				doc.putHeader("Media Player Demo","h1");
 				
-				var Rating = 4.1; 
+				var rating = 4.1; 
 				
-				PutLine("Video Rating: " + Rating + "/5 Stars");
+				doc.putLine("Video Rating: " + rating + "/5 Stars");
 				
-				var metVideo = new tkReviewMeter("metVideo",Rating);
-				metVideo.AddElementTo(document.body);
-				PutLine();PutLine();
+				var metVideo = new tkReviewMeter("metVideo", rating);
+				metVideo.addToElement(document.body);
+				doc.putLine();doc.putLine();
 				
 				var btnFullscreen = new tkButton("btnFullscreen");
-				btnFullscreen.Text = "Go Fullscreen";
-				btnFullscreen.AddElementTo(document.body);
+				btnFullscreen.text = "Go Fullscreen";
+				btnFullscreen.addToElement(document.body);
 				
-				btnFullscreen.GetElement().onclick = () => 
+				btnFullscreen.element.onclick = () => 
 				{
-					vid.RequestFullscreen();
+					vid.makeFullscreen();
 				};
 				
-				PutLine();
+				doc.putLine();
 				
 				var vid = new tkVideoPlayer("vidBunny");
-				vid.SetControls(true);
-				vid.Width = "700px";
-				vid.Height = "400px";
-				vid.Source = "mov_bbb.mp4";
-				vid.AddElementTo(document.body);
+				vid.setControls(true);
+				vid.setDimensions("700px", "400px");
+				vid.source = "mov_bbb.mp4";
+				vid.addToElement(document.body);
 			}
 		)();
 	</script>

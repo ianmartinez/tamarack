@@ -1,464 +1,462 @@
-var IdList = new Array();
-
+var id_list = new Array();
 class tkControl 
 {
-	constructor(_Id) 
+	constructor(_id) 
 	{
-		if (IdList.indexOf(_Id) != -1)
+		if (id_list.indexOf(_id) != -1)
 			throw "Error: ID already registered with another control";
 		else 
 		{
-			this.Element = document.createElement("div");
-			this.Element.id = _Id;
+			this.element = document.createElement("div");
+			this.element.id = _id;
 		}
 	}
 
-	get InnerHtml() {
-		return this.Element.innerHTML;
+	get innerHtml() {
+		return this.element.innerHTML;
 	}
 
-	set InnerHtml(_html) {
-		this.Element.innerHTML = _html;
+	set innerHtml(_html) {
+		this.element.innerHTML = _html;
 	}
 
-	GetId() 
+	getId() 
 	{
-		return this.Element.id;
+		return this.element.id;
 	}
 
-	GetElement() 
+	getElement() 
 	{
-		return this.Element;
+		return this.element;
 	}
 	
-	GetClassList()
+	getClassList()
 	{
-		return this.Element.classList;
+		return this.element.classList;
 	}
 
-	AddElementTo(_Destination) 
+	addToElement(_destination) 
 	{
-		_Destination.appendChild(this.GetElement());
+		_destination.appendChild(this.getElement());
 	}
 
-	AddTo(_Destination) 
+	addTo(_destination) 
 	{
-		_Destination.GetElement().appendChild(this.GetElement());
+		_destination.getElement().appendChild(this.getElement());
 	}
 	
-	RequestFullscreen()
+	makeFullscreen()
 	{
-		if (this.Element.requestFullscreen)
-			this.Element.requestFullscreen();
-		else if (this.Element.msRequestFullscreen) 
-		  this.Element.msRequestFullscreen();
-		else if (this.Element.mozRequestFullScreen) 
-		  this.Element.mozRequestFullScreen();
-		else if (this.Element.webkitRequestFullscreen) 
-		  this.Element.webkitRequestFullscreen();
+		if (this.element.requestFullscreen)
+			this.element.requestFullscreen();
+		else if (this.element.msRequestFullscreen) 
+		  this.element.msRequestFullscreen();
+		else if (this.element.mozRequestFullScreen) 
+		  this.element.mozRequestFullScreen();
+		else if (this.element.webkitRequestFullscreen) 
+		  this.element.webkitRequestFullscreen();
 	}	
 	
-	get Width()
+	get width()
 	{
-		return this.Element.getAttribute("width");
+		return this.element.getAttribute("width");
 	}
 	
-	set Width(_Width)
+	set width(_width)
 	{
-		this.Element.setAttribute("width",_Width);
+		this.element.setAttribute("width",_width);
 	}
-	
-	
-	get Height()
+		
+	get height()
 	{
-		return this.Element.getAttribute("height");
+		return this.element.getAttribute("height");
 	}
 
-	
-	set Height(_Height)
+	set height(_height)
 	{
-		this.Element.setAttribute("height",_Height);
+		this.element.setAttribute("height",_height);
+	}
+	
+	setDimensions(_width,_height) 
+	{
+		this.width = _width;
+		this.height = _height;
 	}
 }
 
 class tkElement extends tkControl 
 {
-	constructor(_Element) 
+	constructor(_element) 
 	{
-		super(_Element.id);
-		this.Element = _Element;
+		super(_element.id);
+		this.element = _element;
 	}
 }
 
-function MakeElement(_id) {
+function makeElement(_id) {
 	return new tkElement(document.getElementById(_id));
 }
 
 
 class tkText extends tkControl 
 {
-	constructor(_Id,_Tag) 
+	constructor(_id,_tag) 
 	{
-		super(_Id);
+		super(_id);
 		
-		this.Element = document.createElement(_Tag);
-		this.TextNode = document.createTextNode("");
-		this.Element.appendChild(this.TextNode);
+		this.element = document.createElement(_tag);
+		this.textNode = document.createTextNode("");
+		this.element.appendChild(this.textNode);
 	}
 
-	get Text() 
+	get text() 
 	{
-		return this.TextNode.nodeValue;
+		return this.textNode.nodeValue;
 	}
 	
-	set Text(_String) 
+	set text(_String) 
 	{
-		this.TextNode.nodeValue = _String;
+		this.textNode.nodeValue = _String;
 	}
 }
 
 class tkLink extends tkText
 {
-	constructor(_Id)
+	constructor(_id)
 	{
-		super(_Id, "a");
+		super(_id, "a");
 	}
 		
 	// Link source
-	get Source() 
+	get source() 
 	{
-		return this.Element.getAttribute("href");
+		return this.element.getAttribute("href");
 	}
 
-	set Source(_Source) 
+	set source(_source) 
 	{
-		this.Element.setAttribute("href",_Source);
+		this.element.setAttribute("href",_source);
 	}
 }
 
 class tkButton extends tkText 
 {
-	constructor(_Id) 
+	constructor(_id) 
 	{
-		super(_Id,"button");
+		super(_id,"a");
+		this.element.className = "tkButton";
 	}
 }
 
 class tkDiv extends tkControl 
 {
-	constructor(_Id) 
+	constructor(_id) 
 	{
-		super(_Id);
-		
-		this.Element = document.createElement("div");
+		super(_id);
+		this.element = document.createElement("div");
 	}
 }
 
 class tkMediaPlayer extends tkControl 
 {
-	constructor(_Id) 
+	constructor(_id) 
 	{
-		super(_Id);
+		super(_id);
 	}
 
 	// Media source
-	get Source() 
+	get source() 
 	{
-		return this.Element.src;
+		return this.element.src;
 	}
 
-	set Source(_Source) 
+	set source(_source) 
 	{
-		this.Element.src = _Source;
+		this.element.src = _source;
 	}
 	
 	// Controls
-	HasControls()
+	hasControls()
 	{
-		return (this.Element.hasAttribute("controls"));
+		return (this.element.hasAttribute("controls"));
 	}
 	
-	SetControls(_Visibility)
+	setControls(_visibility)
 	{
-		if (this.HasControls() == true)
-			this.Element.removeAttribute("controls");
+		if (this.hasControls() == true)
+			this.element.removeAttribute("controls");
 		
-		if (_Visibility == true)
+		if (_visibility == true)
 		{
-			var ControlAtt = document.createAttribute("controls"); 
-			this.Element.setAttributeNode(ControlAtt);
+			var controls = document.createAttribute("controls"); 
+			this.element.setAttributeNode(controls);
 		}
 	}
 	
-	IsPaused()
+	isPaused()
 	{
-		return this.Element.paused;
+		return this.element.paused;
 	}
 	
-	Play()
+	play()
 	{
-		this.Element.play();
+		this.element.play();
 	}
 	
-	Pause()
+	pause()
 	{
-		this.Element.pause();
+		this.element.pause();
 	}
 	
-	IsLooping()
+	get looping()
 	{
-		return this.Element.loop;
+		return this.element.loop;
 	}
 	
-	SetLooping(_Looping)
+	set looping(_looping)
 	{
-		this.Element.loop = _Looping;
+		this.element.loop = _looping;
 	}
 	
-	IsMuted()
+	get muted()
 	{
-		return this.Element.muted;
+		return this.element.muted;
 	}
 	
-	SetMuted(_Muted)
+	set muted(_muted)
 	{
-		this.Element.muted = _Muted;
+		this.element.muted = _muted;
 	}
 	
-	get CurrentTime()
+	get currentTime()
 	{
-		return this.Element.currentTime;
+		return this.element.currentTime;
 	}
 	
-	set CurrentTime(_Time)
+	set currentTime(_Time)
 	{
-		this.Element.currentTime = _Time;
+		this.element.currentTime = _Time;
 	}
 	
-	GetDuration()
+	get duration()
 	{
-		return this.Element.duration;
+		return this.element.duration;
 	}
 	
-	get PlaybackRate()
+	get playbackRate()
 	{
-		return this.Element.playbackRate;
+		return this.element.playbackRate;
 	}
 	
-	set PlaybackRate(_Rate)
+	set playbackRate(_rate)
 	{
-		this.Element.playbackRate = _Rate;
+		this.element.playbackRate = _rate;
 	}
 	
-	GetNetworkState()
+	getNetworkState()
 	{
-		return this.Element.networkState;
+		return this.element.networkState;
 	}
 	
-	GetReadyState()
+	getReadyState()
 	{
-		return this.Element.readyState;
+		return this.element.readyState;
 	}
 	
-	GetSeekable()
+	getSeekable()
 	{
-		return this.Element.seekable;
+		return this.element.seekable;
 	}
 	
-	IsSeeking()
+	isSeeking()
 	{
-		return this.Element.seeking;
+		return this.element.seeking;
 	}
 	
-	get TextTracks()
+	get textTracks()
 	{
-		return this.Element.textTracks;
+		return this.element.textTracks;
 	}
 	
-	set TextTracks(_Tracks)
+	set textTracks(_tracks)
 	{
-		this.Element.textTracks = _Tracks;
+		this.element.textTracks = _Tracks;
 	}
 	
-	get Volume()
+	get volume()
 	{
-		return this.Element.volume;
+		return this.element.volume;
 	}
 	
-	set Volume(_Volume)
+	set volume(_volume)
 	{
-		this.Element.volume = _Volume;
+		this.element.volume = _volume;
 	}
 	
-	CanPlay(_Type)
+	canPlay(_type)
 	{
-		return this.Element.csnPlsyType(_Type);
+		return this.element.canPlayType(_type);
 	}
 }
 
 class tkVideoPlayer extends tkMediaPlayer
 {
-	constructor(_Id)
+	constructor(_id)
 	{
-		super(_Id);
-		
-		this.Element = document.createElement("video"); 
+		super(_id);
+		this.element = document.createElement("video"); 
 	}
 }
 
 class tkAudioPlayer extends tkMediaPlayer
 {
-	constructor(_Id)
+	constructor(_id)
 	{
-		super(_Id);
-		
-		this.Element = document.createElement("audio"); 
+		super(_id);
+		this.element = document.createElement("audio"); 
 	}
 }
 
 class tkImage extends tkControl
 {
-	constructor(_Id)
+	constructor(_id)
 	{
-		super(_Id);
-		
-		this.Element = document.createElement("img"); 
+		super(_id);
+		this.element = document.createElement("img"); 
 	}
 	
 	// Image source
-	get Source() 
+	get source() 
 	{
-		return this.Element.src;
+		return this.element.src;
 	}
 
-	set Source(_Source) 
+	set source(_source) 
 	{
-		this.Element.src = _Source;
+		this.element.src = _source;
 	}
 	
 	// Image alternative text
-	get Alt() 
+	get alt() 
 	{
-		return this.Element.alt;
+		return this.element.alt;
 	}
 
-	set Alt(_Alt) 
+	set alt(_alt) 
 	{
-		this.Element.alt = _Alt;
+		this.element.alt = _alt;
 	}
 }
 
 class tkProgress extends tkControl
 {
-	constructor(_Id)
+	constructor(_id)
 	{
-		super(_Id);
-		
-		this.Element = document.createElement("progress"); 
+		super(_id);
+		this.element = document.createElement("progress"); 
 	}
 	
-	get Max()
+	get max()
 	{
-		return this.Element.max;
+		return this.element.max;
 	}
 	
-	set Max(_Max)
+	set max(_max)
 	{
-		this.Element.max = _Max;
+		this.element.max = _max;
 	}
 	
-	get Value()
+	get value()
 	{
-		return this.Element.value;
+		return this.element.value;
 	}
 	
-	set Value(_Value)
+	set value(_value)
 	{
-		this.Element.value = _Value;
+		this.element.value = _value;
 	}
 }
 
 class tkMeter extends tkControl
 {
-	constructor(_Id)
+	constructor(_id)
 	{
-		super(_Id);
-		
-		this.Element = document.createElement("meter"); 
+		super(_id);
+		this.element = document.createElement("meter"); 
 	}
 	
-	get Value()
+	get value()
 	{
-		return this.Element.value;
+		return this.element.value;
 	}
 	
-	set Value(_Value)
+	set value(_value)
 	{
-		this.Element.value = _Value;
+		this.element.value = _value;
 	}
 	
-	get High()
+	get high()
 	{
-		return this.Element.high;
+		return this.element.high;
 	}
 	
-	set High(_High)
+	set high(_high)
 	{
-		this.Element.high = _High;
+		this.element.high = _high;
 	}
 	
-	get Low()
+	get low()
 	{
-		return this.Element.low;
+		return this.element.low;
 	}
 	
-	set Low(_Low)
+	set low(_low)
 	{
-		this.Element.low = _Low;
+		this.element.low = _low;
 	}
 	
-	get Max()
+	get max()
 	{
-		return this.Element.max;
+		return this.element.max;
 	}
 	
-	set Max(_Max)
+	set max(_max)
 	{
-		this.Element.max = _Max;
+		this.element.max = _max;
 	}
 	
-	get Min()
+	get min()
 	{
-		return this.Element.min;
+		return this.element.min;
 	}
 	
-	set Min(_Min)
+	set min(_min)
 	{
-		this.Element.min = _Min;
+		this.element.min = _min;
 	}
 	
-	get Optimum()
+	get optimum()
 	{
-		return this.Element.optimum;
+		return this.element.optimum;
 	}
 	
-	set Optimum(_Optimum)
+	set optimum(_optimum)
 	{
-		this.Element.optimum = _Optimum;
+		this.element.optimum = _optimum;
 	}
 }
 
 class tkReviewMeter extends tkMeter
 {
-	constructor(_Id,_Rating)
+	constructor(_id,_Rating)
 	{
-		super(_Id);
+		super(_id);
 		
 		this.Value = _Rating;
-		this.Max = 5;
-		this.Min = 0;
-		this.Optimum = 5;
-		this.Low =2;
-		this.High = 4;
+		this.max = 5;
+		this.min = 0;
+		this.optimum = 5;
+		this.low =2;
+		this.high = 4;
 	}
 }

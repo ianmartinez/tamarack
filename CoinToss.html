@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<link rel="stylesheet" href="Normalize.css">
-
-	<!-- Import Tamarack -->
-	<link rel="stylesheet" href="Tamarack/TamarackStyle.css">
-	<script src="Tamarack/TamarackCore.js"></script>
-	<script src="Tamarack/TamarackUI.js"></script>
+	<!-- Import tamarack -->
+	<link rel="stylesheet" href="tamarack/tamarackStyle.css">
+	<script src="tamarack/tamarackCore.js"></script>
+	<script src="tamarack/tamarackUI.js"></script>
 
 </head>
 <body>
 	<script>
 		(
-			function Main()
+			function main()
 			{
-				SetTitle("Coin Toss Demo");
-				PutHeader("Coin Toss","h1");
+				var doc = new tkDocument();
+				doc.title = "Coin Toss Demo";
+				doc.putHeader("Coin Toss","h1");
 				
 				var btn = new tkButton("btnToss");
-				btn.Text = "Toss Coin!";
-				btn.AddElementTo(document.body);
+				btn.text = "Toss Coin!";
+				btn.addToElement(document.body);
 				
-				btn.GetElement().onclick = () => 
+				btn.element.onclick = () => 
 				{
-					var CurrentLine = PutLine((GetRandom(0,1) == 0) ? "Heads" : "Tails"); 
-					document.body.appendChild(CurrentLine);
+					var new_line = new tkText("new_line","p");
+					var flip_coin = (random(0,1) == 0) ? "Heads" : "Tails";
+					new_line.text = flip_coin;
+					
+					if (flip_coin == "Heads") 
+						new_line.element.style.color = "red";
+						
+					new_line.addToElement(document.body);
 				};
 			}
 		)();

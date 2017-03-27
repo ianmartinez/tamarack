@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Tabs Demo</title>
+    <!-- Tamarack CSS -->
+    <link href="tamarack/tamarackStyle.css" rel="stylesheet">
+  </head>
+  
+  <!-- Tamarack -->
+  <script src="tamarack/tamarackCore.js"></script>
+  <script src="tamarack/tamarackUI.js"></script>
+
+  <body class="fill">
+    <div class="container fill">
+        <ul class="nav nav-tabs">
+            <li class="active"><a class="borderless" data-toggle="tab" href="#start">Start</a></li>
+            <li><a class="borderless" data-toggle="tab" href="#design">Design</a></li>
+            <li><a class="borderless" data-toggle="tab" href="#config">Configuration</a></li>
+            <li><a class="borderless" data-toggle="tab" href="#output">Output</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="start" class="tab-pane fade in active">
+              <iframe class="screen_display" id="start_screen" src="screens/start.html"></iframe>
+            </div>
+            <div id="design" class="tab-pane fade">
+              <iframe class="screen_display" id="design_screen" src="screens/designer.html"></iframe>
+            </div>
+            <div id="config" class="tab-pane fade">
+            </div>
+            <div id="output" class="tab-pane fade">
+              <iframe class="screen_display" id="editor_screen" src="screens/editor.html?loc=test_ui.scui"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      
+    </script>
+  </body>
+</html>

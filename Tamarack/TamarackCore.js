@@ -1,11 +1,11 @@
-function GetRandom(min,max)
+function random(min,max)
 {
     min = Math.ceil(min);
 	max = Math.floor(max);
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function AddParameters(_url,_args,_vals) {
+function addParameters(_url,_args,_vals) {
 	let url = _url + "?";
 	let max = Math.min(_args.length,_vals.length);
 	for(var i=0; i<max; i++) {
@@ -16,92 +16,84 @@ function AddParameters(_url,_args,_vals) {
 	return url;
 }
 
-function GetParameterFromURL(name, url) 
+function getParameterFromURL(_name, _url) 
 {
 	if (!url) 
 	{
-		url = window.location.href;
+		_url = window.location.href;
 	}
-	name = name.replace(/[\[\]]/g, "\\$&");
-	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-		results = regex.exec(url);
+	_name = _name.replace(/[\[\]]/g, "\\$&");
+	var regex = new RegExp("[?&]" + _name + "(=([^&#]*)|&|#|$)"),
+		results = regex.exec(_url);
 	if (!results) return null;
 	if (!results[2]) return '';
 	return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function GetParameter(name) {
-	return GetParameterFromURL(name,GetUrl());
+function getParameter(_name) {
+	return getParameterFromURL(_name,getUrl());
 }
 			
-function GetUrl()
+function getUrl()
 {
 	return window.location.href;
 }
-
-// Document
-function GetTitle()
-{
-	return document.title;
-}
-
-
-function SetTitle(_Title)
-{
-	return document.title = _Title;
-}
-
-// Output
-var Output;
-
-function SetOutput(_Output)
-{
-	Output = _Output;
-}
-
-function GetOutput()
-{
-	if (Output == null)
-		Output = document.body;
-	return Output;
-}
-
-function PutString(_String)
-{
-	var t = document.createTextNode(_String);
-	GetOutput().appendChild(t);
-	
-	return t;
-}
-
-function PutLine(_String)
-{
-	if (_String == "undefined" || _String == null)
-		_String = "";
-	
-	var t = document.createTextNode(_String);
-	var br = document.createElement("br");
-	GetOutput().appendChild(t);
-	GetOutput().appendChild(br);
-		
-	return t;
-}
-
-function PutLines(_Strings)
-{
-	for (let str of _Strings)
-		PutLine(str);
-}
-
-function PutHeader(_String, _Header)
-{
-	if(["h1","h2","h3","h4","h5","h6"].indexOf(_Header.toLowerCase()) != -1)
+class tkDocument 
+{	
+	constructor() 
 	{
-		var h = document.createElement(_Header);
-		var t = document.createTextNode(_String);
-		h.appendChild(t);
-		GetOutput().appendChild(h);
+		this.output = document.body;
+	}
 		
-		return h;
+	// Document
+	get title()
+	{
+		return document.title;
+	}
+
+
+	set title(_title)
+	{
+		return document.title = _title;
+	}
+
+	put(_str)
+	{
+		var t = document.createTextNode(_str);
+		this.output.appendChild(t);
+		
+		return t;
+	}
+
+	putLine(_string)
+	{
+		if (_string == "undefined" || _string == null)
+			_string = "";
+		
+		var t = document.createTextNode(_string);
+		var br = document.createElement("br");
+		this.output.appendChild(t);
+		this.output.appendChild(br);
+			
+		return t;
+	}
+
+	putLines(_strings)
+	{
+		for (let str of _strings)
+			this.putLine(str);
+	}
+
+	putHeader(_string, _header)
+	{
+		if(["h1","h2","h3","h4","h5","h6"].indexOf(_header.toLowerCase()) != -1)
+		{
+			var h = document.createElement(_header);
+			var t = document.createTextNode(_string);
+			h.appendChild(t);
+			this.output.appendChild(h);
+			
+			return h;
+		}
 	}
 }
