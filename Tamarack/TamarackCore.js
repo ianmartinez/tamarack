@@ -38,6 +38,12 @@ function getUrl()
 {
 	return window.location.href;
 }
+
+function say(_text)
+{
+	return document.createTextNode(_text);
+}
+
 class tkDocument 
 {	
 	constructor() 

@@ -91,6 +91,12 @@ class tkControl
 		this.width = _width;
 		this.height = _height;
 	}
+	
+	clear()
+	{
+		while (this.element.firstChild) 
+			this.element.removeChild(this.element.firstChild);
+	}
 }
 
 class tkElement extends tkControl 
@@ -123,9 +129,9 @@ class tkText extends tkControl
 		return this.textNode.nodeValue;
 	}
 	
-	set text(_String) 
+	set text(_string) 
 	{
-		this.textNode.nodeValue = _String;
+		this.textNode.nodeValue = _string;
 	}
 }
 
@@ -466,29 +472,57 @@ class tkReviewMeter extends tkMeter
 		this.max = 5;
 		this.min = 0;
 		this.optimum = 5;
-		this.low =2;
+		this.low = 2;
 		this.high = 4;
 	}
 }
 
 class tkNotebookPage
 {
-	constructor(_title)
+	constructor(_title,_id)
 	{
 		this.tab = new tkLink();
 		
 		// A <li> that holds the tab button
-		this.tabcontainer = make("li");
-		this.tabcontainer.className = "borderless";
+		this.tabContainer = make("li");
+		
+		// A <a> that makes up the tab button
+		this.tab = make("a");
+		this.tab.setAttribute("data-toggle","tab");
+		this.tabContainer.appendChild(this.tab);
+		this.tab.setAttribute("href","#"+_id);
+		
+		// Text node to hold title text
+		this.titleTextNode = document.createTextNode(_title);
+		this.tab.appendChild(this.titleTextNode);
 		
 		/*	A <div> that contains the content that
 			is brought up when the tab is clicked	*/
-		this.content = make("div");
-		this.content.className = "tab-pane fade";
+		this.contentArea = make("div");
+		this.contentArea.id = _id;
+		this.contentArea.className = "tab-pane fade";
 	}
 	
+	get title()
+	{
+		return this.titleTextNode.nodeValue;
+	}
 	
+	set title(_string)
+	{
+		
+		this.titleTextNode.nodeValue = _string;
+	}
 	
+	addContent(_content)
+	{
+		this.contentArea.appendChild(_content);
+	}
+	
+	removeContent(_content)
+	{
+		this.contentArea.removeChild(_content);
+	}
 }
 
 class tkNotebook extends tkControl
@@ -496,6 +530,62 @@ class tkNotebook extends tkControl
 	constructor() 
 	{
 		super();
+		this.element = make("div"); 
+		this.element.className = "container";
+		
+		this.tabBar = make("ul");
+		this.tabBar.className = "nav nav-tabs";
+		this.element.appendChild(this.tabBar);
+		
+		this.contentPanel = make("div");
+		this.contentPanel.className = "tab-content";
+		this.element.appendChild(this.contentPanel);
+		this.activeIndex = 0;
+		
 		this.tabs = [];
+	}
+	
+	addPage(_page)
+	{
+		this.tabBar.appendChild(_page.tabContainer);
+		this.contentPanel.appendChild(_page.contentArea);
+		this.tabs.push(_page);
+		
+		if (this.getIndex(_page) == this.activeIndex)
+			this.active = _page;
+	}
+	
+	addPages()
+	{
+		for(var i=0;i<arguments.length;i++)
+			this.addPage(arguments[i]);
+	}
+	
+	removePage(_page)
+	{
+		this.tabBar.removeChild(_page.tabContainer);
+		this.contentPanel.removeChild(_page.contentArea);
+		this.tabs.splice(this.getIndex(_page),1);
+		
+		this.activeIndex = Math.max(0,activeIndex-1);
+	}
+	
+	set active(_page)
+	{
+		// Make all tabs inactive
+		for(var i=0;i<this.tabBar.childNodes.length;i++)
+			this.tabBar.childNodes[i].className = " ";
+		for(var i=0;i<this.contentPanel.childNodes.length;i++)
+			this.contentPanel.childNodes[i].className = "tab-pane fade";
+		
+		_page.tabContainer.className = "active";
+		_page.contentArea.className = "tab-pane fade in active";
+
+		this.activeIndex = this.getIndex(_page);
+	}
+	
+	getIndex(_page)
+	{
+		return this.tabs.indexOf(_page);
 	}
 }
