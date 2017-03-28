@@ -22,13 +22,11 @@ btnFullscreen.element.onclick = () => vid.makeFullScreen();
 ```javascript
 var notebook = new tkNotebook();
 
-var page1 = new tkNotebookPage();
-page1.title = "Page 1";
-page1.content = "Hello";
+var page1 = new tkNotebookPage("Page 1", "page1");
+page1.addContent(say("Hello"));
 
-var page2 = new tkNotebookPage();
-page2.title = "Page 2";
-page2.content = "World";
+var page2 = new tkNotebookPage("Page 2", "page2");
+page2.addContent(say("World!"));
 
 notebook.addPages(page1,page2);
 notebook.addToElement(document.body);
