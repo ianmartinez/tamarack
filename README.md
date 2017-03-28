@@ -15,6 +15,7 @@ video.addToElement(document.body);
 var btnFullscreen = new tkButton();
 btnFullscreen.text = "Go Fullscreen";				
 btnFullscreen.element.onclick = () => vid.makeFullScreen();
+btnFullscreen.addToElement(document.body);
 ```
 
 
