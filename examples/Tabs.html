@@ -27,16 +27,18 @@
 					var btnTab = new tkButton();
 					var notebook = new tkNotebook();
 					var backButton = new tkButton();
+					backButton.e.className = "tkRedButton";
 					var nextButton = new tkButton();
+					nextButton.e.className = "tkRedButton";
 					
 					doc.title = "Tabs Demo";
 					doc.putHeader("Tabs Demo","h1");
 										
 					var pageCount = 1;
-					btnTab.element.onclick = () => 
+					btnTab.e.onclick = () => 
 					{
 						var page = new tkNotebookPage("Page " + pageCount,"page" + pageCount);
-						page.addContent(say("Showing Page " + pageCount));
+						page.addContent(say("Page " + pageCount));
 						notebook.addPage(page);
 						pageCount++;
 					};	
@@ -44,13 +46,13 @@
 					
 					btnTab.text = "Add Tab";
 					backButton.text = "<";
-					backButton.element.onclick = () => 
+					backButton.e.onclick = () => 
 					{
 						notebook.back();
 					};
 					
 					nextButton.text = ">";
-					nextButton.element.onclick = () => 
+					nextButton.e.onclick = () => 
 					{
 						notebook.next();
 					};

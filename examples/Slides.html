@@ -24,10 +24,15 @@
 				function main()
 				{
 					var doc = new tkDocument();
+					var container = new tkDiv();
+					container.e.className = "fill";
 					var slideshow = new tkSlideshow();
 					var photos = ["1.jpg","2.jpg","3.jpg"];
 					var backButton = new tkButton();
+					backButton.e.className = "tkRedButton";
 					var nextButton = new tkButton();
+					nextButton.e.className = "tkRedButton";
+					var fullScreenButton = new tkButton();
 					
 					doc.title = "Slides Demo";
 					doc.putHeader("Slides Demo","h1");
@@ -40,28 +45,36 @@
 						
 						photo.source = photos[i];
 						caption.text = "Beach Photo " + (parseInt(i,10)+1).toString() + "/" + photos.length;
-						caption.element.className = "caption";
+						caption.e.className = "caption";
 						
-						slide.addContent(photo.element);
-						slide.addContent(caption.element);
+						slide.addContent(photo.e);
+						slide.addContent(caption.e);
 						slideshow.addPage(slide);
 					};	
 					
 					backButton.text = "<";
-					backButton.element.onclick = () => 
+					backButton.e.onclick = () => 
 					{
 						slideshow.back();
 					};
 					
 					nextButton.text = ">";
-					nextButton.element.onclick = () => 
+					nextButton.e.onclick = () => 
 					{
 						slideshow.next();
 					};
 					
-					backButton.addToElement(document.body);
-					nextButton.addToElement(document.body);
-					slideshow.addToElement(document.body);
+					fullScreenButton.text = "Make Fullscreen";
+					fullScreenButton.e.onclick = () => 
+					{
+						makeElement(slideshow.getActive().contentArea).makeFullscreen();
+					};
+					
+					backButton.addTo(container);
+					nextButton.addTo(container);
+					fullScreenButton.addTo(container);
+					slideshow.addTo(container);
+					container.addToElement(document.body);
 				}
 			)();
 		</script>

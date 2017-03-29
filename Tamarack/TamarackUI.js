@@ -64,7 +64,7 @@ class tkControl
 		_destination.getElement().appendChild(this.getElement());
 	}
 	
-	makeFullScreen()
+	makeFullscreen()
 	{
 		if (this.element.requestFullscreen)
 			this.element.requestFullscreen();
@@ -118,8 +118,12 @@ class tkElement extends tkControl
 	}
 }
 
-function makeElement() {
-	return new tkElement(document.getElementById());
+function makeElement(_elem) {
+	return new tkElement(_elem);
+}
+
+function makeElementId(_id) {
+	return new tkElement(document.getElementById(_id));
 }
 
 
@@ -605,6 +609,7 @@ class tkNotebook extends tkControl
 	
 	set active(_page)
 	{
+		if(!_page) return;
 		// Make all tabs inactive
 		for(var i=0;i<this.tabBar.childNodes.length;i++)
 			this.tabBar.childNodes[i].className = " ";
@@ -622,6 +627,11 @@ class tkNotebook extends tkControl
 		for(var i=0;i<this.tabBar.childNodes.length;i++)
 			if (this.tabBar.childNodes[i].classList.contains("active"))
 				return i;
+	}
+	
+	getActive()
+	{
+		return this.tabs[this.getActiveIndex()];
 	}
 	
 	getIndex(_page)
@@ -696,6 +706,7 @@ class tkSlideshow extends tkControl
 	
 	set active(_page)
 	{
+		if(!_page) return;
 		// Make all pages inactive
 		for(var i=0;i<this.contentPanel.childNodes.length;i++)
 			this.contentPanel.childNodes[i].className = "slide fade";
@@ -710,6 +721,11 @@ class tkSlideshow extends tkControl
 		for(var i=0;i<this.contentPanel.childNodes.length;i++)
 			if (this.contentPanel.childNodes[i].classList.contains("show"))
 				return i;
+	}
+	
+	getActive()
+	{
+		return this.slides[this.getActiveIndex()];
 	}
 	
 	getIndex(_page)

@@ -31,6 +31,7 @@ body {
 .container {
     padding: 0px;
 	margin: 0px;
+    width: auto;
 }
 
 ::-webkit-scrollbar {
@@ -94,11 +95,7 @@ body {
     width: 100%;
     height: 100%;
     margin: 0px;
-    display: flex;
-    flex-flow: column;
-    flex: 1 1 auto;
-    flex-wrap: nowrap;
-    overflow: hidden;
+	background-color: transparent;
     height: 100%;
 }
 
@@ -164,12 +161,50 @@ iframe {
     justify-content: center;
 }
 
+.tkRedButton {
+	position: relative;
+    box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.1);
+    background: linear-gradient(to bottom, #e62e2e 0%, #da4444 100%);
+    border-radius: 3px;
+    border: 0px solid transparent;
+    cursor: pointer;
+    color: #ffffff;
+    padding: 6px 12px;
+	margin: 1px;    
+	display: inline-block;
+    text-decoration: none;
+}
+
+.tkRedButton:hover {
+    background: linear-gradient(to bottom, #d91414 0%, #b73527 100%);
+    background-color: #74c2eb;
+    border: 0px solid transparent;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tkRedButton:active {
+    color: #ffffff;
+    background: linear-gradient(to bottom, #b01111 0%, #932a1f 100%);
+    text-decoration: none;
+}
+
+.tkRedButton:focus {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tkRedButton:visited {
+    color: #ffffff;
+    text-decoration: none;
+}
+
 .tkButton {
 	position: relative;
     box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.1);
     background: linear-gradient(to bottom, #3daee9 0%, #1d99f3 100%);
     border-radius: 3px;
-    border: 0px solid #5193b3;
+    border: 0px solid transparent;
     cursor: pointer;
     color: #ffffff;
     padding: 6px 12px;
@@ -181,7 +216,7 @@ iframe {
 .tkButton:hover {
     background: linear-gradient(to bottom, #3498db 0%, #2980b9 100%);
     background-color: #74c2eb;
-    border: 0px solid #73b0ce;
+    border: 0px solid transparent;
     color: #ffffff;
     text-decoration: none;
 }
@@ -313,8 +348,6 @@ pre {
     width: 100%;
     height: 100%;
     display: flex;
-    flex-flow: column;
-    flex: 1 1 auto;
 }
 
 .tab-content > .active {
