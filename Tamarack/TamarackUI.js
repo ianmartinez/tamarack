@@ -16,6 +16,16 @@ class tkControl
 		return this.element.id;
 	}
 	
+	get e()
+	{
+		return this.element;
+	}
+	
+	set e(_e)
+	{
+		this.element = _e;
+	}
+	
 	set id(_id) 
 	{
 		this.element.id = _id;
