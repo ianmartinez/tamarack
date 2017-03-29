@@ -561,6 +561,10 @@ class tkNotebook extends tkControl
 		this.element.appendChild(this.contentPanel);
 		this.activeIndex = 0;
 		
+		/*	Whether or not to wrap around when the
+			end of index is reached*/
+		this.wrap = true;
+		
 		this.tabs = [];
 	}
 	
@@ -603,6 +607,13 @@ class tkNotebook extends tkControl
 		this.activeIndex = this.getIndex(_page);
 	}
 	
+	getActiveIndex()
+	{
+		for(var i=0;i<this.tabBar.childNodes.length;i++)
+			if (this.tabBar.childNodes[i].classList.contains("active"))
+				return i;
+	}
+	
 	getIndex(_page)
 	{
 		return this.tabs.indexOf(_page);
@@ -615,12 +626,18 @@ class tkNotebook extends tkControl
 	
 	back()
 	{
-		this.goToIndex(Math.max(0, this.activeIndex-1));		
+		if (this.getActiveIndex()-1 < 0 && this.wrap)
+			this.goToIndex(this.tabs.length-1);
+		else
+			this.goToIndex(Math.max(0, this.getActiveIndex()-1));		
 	}
 	
 	next()
 	{
-		this.goToIndex(Math.min(this.tabs.length-1, this.activeIndex+1));		
+		if (this.getActiveIndex()+1 >= this.tabs.length && this.wrap)
+			this.goToIndex(0);
+		else
+			this.goToIndex(Math.min(this.tabs.length-1, this.getActiveIndex()+1));		
 	}
 }
 
@@ -636,6 +653,10 @@ class tkSlideshow extends tkControl
 		this.contentPanel.className = "tab-content";
 		this.element.appendChild(this.contentPanel);
 		this.activeIndex = 0;
+		
+		/*	Whether or not to wrap around when the
+			end of index is reached*/
+		this.wrap = true;
 		
 		this.slides = [];
 	}
@@ -674,6 +695,13 @@ class tkSlideshow extends tkControl
 		this.activeIndex = this.getIndex(_page);
 	}
 	
+	getActiveIndex()
+	{
+		for(var i=0;i<this.contentPanel.childNodes.length;i++)
+			if (this.contentPanel.childNodes[i].classList.contains("show"))
+				return i;
+	}
+	
 	getIndex(_page)
 	{
 		return this.slides.indexOf(_page);
@@ -686,11 +714,17 @@ class tkSlideshow extends tkControl
 	
 	back()
 	{
-		this.goToIndex(Math.max(0, this.activeIndex-1));		
+		if (this.getActiveIndex()-1 < 0 && this.wrap)
+			this.goToIndex(this.slides.length-1);
+		else
+			this.goToIndex(Math.max(0, this.getActiveIndex()-1));		
 	}
 	
 	next()
 	{
-		this.goToIndex(Math.min(this.slides.length-1, this.activeIndex+1));		
+		if (this.getActiveIndex()+1 >= this.slides.length && this.wrap)
+			this.goToIndex(0);
+		else
+			this.goToIndex(Math.min(this.slides.length-1, this.getActiveIndex()+1));		
 	}
 }

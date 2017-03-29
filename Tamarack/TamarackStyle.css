@@ -550,6 +550,13 @@ h5 {
     font-size: 15px;
 }
 
+.caption {
+    display: block;
+    font-style: italic;
+    margin: 4px;
+    color: rgba(0,0,0,0.6);
+}
+
 /* Widget Styles */
 .dsWidgetContainer {  
     display: block;

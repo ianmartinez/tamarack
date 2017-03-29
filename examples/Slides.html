@@ -36,19 +36,24 @@
 					{
 						var slide = new tkSlide();
 						var photo = new tkImage();
+						var caption = new tkText("p");
+						
 						photo.source = photos[i];
+						caption.text = "Beach Photo " + (parseInt(i,10)+1).toString() + "/" + photos.length;
+						caption.element.className = "caption";
 						
 						slide.addContent(photo.element);
+						slide.addContent(caption.element);
 						slideshow.addPage(slide);
 					};	
 					
-					backButton.text = "Back";
+					backButton.text = "<";
 					backButton.element.onclick = () => 
 					{
 						slideshow.back();
 					};
 					
-					nextButton.text = "Next";
+					nextButton.text = ">";
 					nextButton.element.onclick = () => 
 					{
 						slideshow.next();
