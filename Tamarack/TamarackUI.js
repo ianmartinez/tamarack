@@ -158,7 +158,7 @@ class tkButton extends tkText
 {
 	constructor() 
 	{
-		super("a");
+		super("button");
 		this.element.className = "tkButton";
 	}
 }
@@ -481,8 +481,6 @@ class tkNotebookPage
 {
 	constructor(_title,_id)
 	{
-		this.tab = new tkLink();
-		
 		// A <li> that holds the tab button
 		this.tabContainer = make("li");
 		
@@ -512,6 +510,27 @@ class tkNotebookPage
 	{
 		
 		this.titleTextNode.nodeValue = _string;
+	}
+	
+	addContent(_content)
+	{
+		this.contentArea.appendChild(_content);
+	}
+	
+	removeContent(_content)
+	{
+		this.contentArea.removeChild(_content);
+	}
+}
+
+class tkSlide
+{
+	constructor()
+	{
+		/*	A <div> that contains the content that
+		is brought up when the slide is shown	*/
+		this.contentArea = make("div");
+		this.contentArea.className = "slide fade";
 	}
 	
 	addContent(_content)
@@ -587,5 +606,91 @@ class tkNotebook extends tkControl
 	getIndex(_page)
 	{
 		return this.tabs.indexOf(_page);
+	}
+	
+	goToIndex(_index)
+	{
+		this.active = this.tabs[_index];
+	}
+	
+	back()
+	{
+		this.goToIndex(Math.max(0, this.activeIndex-1));		
+	}
+	
+	next()
+	{
+		this.goToIndex(Math.min(this.tabs.length-1, this.activeIndex+1));		
+	}
+}
+
+class tkSlideshow extends tkControl
+{
+	constructor()
+	{
+		super();
+		this.element = make("div"); 
+		this.element.className = "container";
+		
+		this.contentPanel = make("div");
+		this.contentPanel.className = "tab-content";
+		this.element.appendChild(this.contentPanel);
+		this.activeIndex = 0;
+		
+		this.slides = [];
+	}
+	
+	addPage(_page)
+	{
+		this.contentPanel.appendChild(_page.contentArea);
+		this.slides.push(_page);
+		
+		if (this.getIndex(_page) == this.activeIndex)
+			this.active = _page;
+	}
+	
+	addPages()
+	{
+		for(var i=0;i<arguments.length;i++)
+			this.addPage(arguments[i]);
+	}
+	
+	removePage(_page)
+	{
+		this.contentPanel.removeChild(_page.contentArea);
+		this.slides.splice(this.getIndex(_page),1);
+		
+		this.activeIndex = Math.max(0,activeIndex-1);
+	}
+	
+	set active(_page)
+	{
+		// Make all pages inactive
+		for(var i=0;i<this.contentPanel.childNodes.length;i++)
+			this.contentPanel.childNodes[i].className = "slide fade";
+		
+		_page.contentArea.className = "show slide fade in";
+
+		this.activeIndex = this.getIndex(_page);
+	}
+	
+	getIndex(_page)
+	{
+		return this.slides.indexOf(_page);
+	}
+	
+	goToIndex(_index)
+	{
+		this.active = this.slides[_index];
+	}
+	
+	back()
+	{
+		this.goToIndex(Math.max(0, this.activeIndex-1));		
+	}
+	
+	next()
+	{
+		this.goToIndex(Math.min(this.slides.length-1, this.activeIndex+1));		
 	}
 }
