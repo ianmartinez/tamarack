@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+			<!-- Bootstrap core CSS -->
+			<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+			<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+			<link href="../bootstrap/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+			<!-- Tamarack CSS -->
+			<link href="../tamarack/tamarackStyle.css" rel="stylesheet">
+	</head>
+	<body>
+		<!-- Bootstrap core JavaScript -->
+		<script src="../jquery/jquery.min.js"></script
+		<script src="../bootstrap/js/bootstrap.min.js"></script>
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<script src="../bootstrap/js/ie10-viewport-bug-workaround.js"></script>  
+
+		<!-- Tamarack -->
+		<script src="../tamarack/tamarackCore.js"></script>
+		<script src="../tamarack/tamarackUI.js"></script>
+		<script>
+			(
+				function main()
+				{
+					var doc = new tkDocument();		
+					var video = new tkVideoPlayer();
+					var list = new tkList();
+					var playlist = ["1.jpg","2.jpg","3.jpg"];
+					
+					doc.title = "Media Player Playlist Demo";
+					doc.putHeader("Media Player Playlist Demo","h1");
+					
+					for (var i=0; i<playlist.length; i++)
+					{
+						var item = new tkListItem();
+						item.text = "Track " + i;
+						list.addItem(item);
+					};	
+					
+					video.source = "mov_bbb.mp4";
+					video.addToElement(document.body);
+					list.addToElement(document.body);
+				}
+			)();
+		</script>
+	</body>
+</html>

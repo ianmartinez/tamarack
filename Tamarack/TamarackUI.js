@@ -16,19 +16,26 @@ class tkControl
 		return this.element.id;
 	}
 	
+	set id(_id) 
+	{
+		this.element.id = _id;
+	}
+	
+	get style()
+	{
+		return this.element.style;
+	}
+	
+	// shorthand for this.element
 	get e()
 	{
 		return this.element;
 	}
 	
+	
 	set e(_e)
 	{
 		this.element = _e;
-	}
-	
-	set id(_id) 
-	{
-		this.element.id = _id;
 	}
 
 	get innerHtml() {
@@ -76,24 +83,50 @@ class tkControl
 		  this.element.webkitRequestFullscreen();
 	}	
 	
+	hasAttribute(_attribute)
+	{
+		return this.element.hasAttribute(_attribute);
+	}
+	
+	getAttribute(_attribute)
+	{
+		return this.element.getAttribute(_attribute);
+	}
+	
+	setAttribute(_attribute,_value)
+	{
+		this.element.setAttribute(_attribute,_value);		
+	}
+	
+	removeAttribute(_attribute)
+	{
+		this.element.removeAttribute(_attribute);
+	}
+	
+	addAttribute(_attribute)
+	{
+		var attribute = document.createAttribute(_attribute); 
+		this.element.setAttributeNode(attribute);
+	}
+	
 	get width()
 	{
-		return this.element.getAttribute("width");
+		return this.getAttribute("width");
 	}
 	
 	set width(_width)
 	{
-		this.element.setAttribute("width",_width);
+		this.setAttribute("width",_width);
 	}
 		
 	get height()
 	{
-		return this.element.getAttribute("height");
+		return this.getAttribute("height");
 	}
 
 	set height(_height)
 	{
-		this.element.setAttribute("height",_height);
+		this.setAttribute("height",_height);
 	}
 	
 	setDimensions(_width,_height) 
@@ -159,12 +192,12 @@ class tkLink extends tkText
 	// Link source
 	get source() 
 	{
-		return this.element.getAttribute("href");
+		return this.getAttribute("href");
 	}
 
 	set source(_source) 
 	{
-		this.element.setAttribute("href",_source);
+		this.setAttribute("href",_source);
 	}
 }
 
@@ -204,21 +237,34 @@ class tkMediaPlayer extends tkControl
 		this.element.src = _source;
 	}
 	
-	// Controls
-	hasControls()
+	get showControls()
 	{
-		return (this.element.hasAttribute("controls"));
+		return (this.hasAttribute("controls"));
 	}
 	
-	setControls(_visibility)
+	set showControls(_visible)
 	{
-		if (this.hasControls() == true)
-			this.element.removeAttribute("controls");
+		if (this.showControls == true)
+			this.removeAttribute("controls");
 		
-		if (_visibility == true)
+		if (_visible)
+			this.addAttribute("controls");
+	}
+	
+	get autoplay()
+	{
+		return (this.hasAttribute("autoplay"));
+	}
+	
+	set autoplay(_enabled)
+	{
+		if (this.autoplay == true)
+			this.removeAttribute("autoplay");
+		
+		if (_enabled)
 		{
-			var controls = document.createAttribute("controls"); 
-			this.element.setAttributeNode(controls);
+			var auto = document.createAttribute("autoplay"); 
+			this.setAttributeNode(auto);
 		}
 	}
 	
@@ -334,7 +380,7 @@ class tkVideoPlayer extends tkMediaPlayer
 	{
 		super();
 		this.element = make("video"); 
-		this.setControls(true);
+		this.showControls = true;
 	}
 }
 
@@ -752,5 +798,108 @@ class tkSlideshow extends tkControl
 			this.goToIndex(0);
 		else
 			this.goToIndex(Math.min(this.slides.length-1, this.getActiveIndex()+1));		
+	}
+}
+
+class tkListItem extends tkButton
+{
+	constructor()
+	{
+		super();
+		this.e.className = "tkButton";
+	}
+	
+	get checked()
+	{
+		
+	}
+	
+	set checked(_checked)
+	{
+		
+	}
+}
+
+class tkList extends tkControl 
+{
+	constructor() 
+	{
+		super();
+		
+		this.element = make("div");
+		this.items = [];
+		
+		this.wrap = true;
+	}
+	
+	addItem(_item)
+	{
+		this.element.appendChild(_item.element);
+		this.items.push(_item);
+		
+		if (this.getIndex(_item) == this.activeIndex)
+			this.active = _item;
+	}
+	
+	addItems()
+	{
+		for(var i=0;i<arguments.length;i++)
+			this.addItem(arguments[i]);
+	}
+	
+	removeItem(_item)
+	{
+		this.element.removeChild(_item.element);
+		this.items.splice(this.getIndex(_item),1);
+		
+		this.activeIndex = Math.max(0,activeIndex-1);
+	}
+	
+	set active(_item)
+	{
+		if(!_item) return;
+		for(var i=0;i<this.items.length;i++)
+			if(_item==this.items[i])
+				this.items[i].checked = true;
+
+		this.activeIndex = this.getIndex(_item);
+	}
+	
+	getActiveIndex()
+	{
+		for(var i=0;i<this.items.length;i++)
+			if(_item.checked == true)
+				return i;
+	}
+	
+	getActive()
+	{
+		return this.items[this.getActiveIndex()];
+	}
+	
+	getIndex(_item)
+	{
+		return this.items.indexOf(_item);
+	}
+	
+	goToIndex(_index)
+	{
+		this.active = this.items[_index];
+	}
+	
+	back()
+	{
+		if (this.getActiveIndex()-1 < 0 && this.wrap)
+			this.goToIndex(this.items.length-1);
+		else
+			this.goToIndex(Math.max(0, this.getActiveIndex()-1));		
+	}
+	
+	next()
+	{
+		if (this.getActiveIndex()+1 >= this.items.length && this.wrap)
+			this.goToIndex(0);
+		else
+			this.goToIndex(Math.min(this.items.length-1, this.getActiveIndex()+1));		
 	}
 }

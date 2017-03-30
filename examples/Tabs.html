@@ -40,6 +40,7 @@
 						var page = new tkNotebookPage("Page " + pageCount,"page" + pageCount);
 						page.addContent(say("Page " + pageCount));
 						notebook.addPage(page);
+						notebook.goToIndex(pageCount-1);
 						pageCount++;
 					};	
 					
