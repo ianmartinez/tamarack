@@ -30,14 +30,20 @@
 					
 					var btnFullscreen = new tkButton();
 					var p = doc.putLine();		
-					var mi = new tkMediaItem("1.mp4","Mystic", null, () => {
-						alert(mi.getFormattedDuration());	
+					var vf = new tkVideoFile("2.mp4","Mystic", null, () => {
+						var duration = new tkText("p");
+						duration.text = "Video Duration: " + vf.getFormattedDuration();	
+						duration.addToElement(p);
+						
+						var resolution = new tkText("p");
+						resolution.text = "Video Resolution: " + vf.getResolutionBracket();	
+						resolution.addToElement(p);
 					});
 					
 					btnFullscreen.text = "Go Fullscreen";
 					btnFullscreen.addToElement(p);
 					btnFullscreen.element.onclick = () => video.makeFullscreen();
-					video.source = "1.mp4";
+					video.source = "2.mp4";
 					video.setDimensions("700px","400px");
 					video.addToElement(document.body);
 					

@@ -384,8 +384,9 @@ class tkNativeVideoPlayer extends tkMediaPlayer
 		this.showControls = true;
 	}	
 }
+
 var videoIds = [];
-var regMediaItems = [];
+var regVideoFiles = [];
 function randomVideoId()
 {
 	var id = "video_" + random(0,100000000);
@@ -393,11 +394,12 @@ function randomVideoId()
 		id = "video_" + random(0,100000000);
 	return id;
 }
-class tkMediaItem
+
+class tkVideoFile
 {
 	constructor(_source,_title,_thumb,_on_media_init)
 	{
-		regMediaItems.push(this);
+		regVideoFiles.push(this);
 		this.source = _source;
 		
 		if(_title) 
@@ -422,16 +424,18 @@ class tkMediaItem
 		this.tempVideo.element.style.display = "none";
 		
 		this.tempVideo.element.addEventListener('loadedmetadata', function (e) {
-			for(var i=0;i<regMediaItems.length;i++) {
-				if (e.target.id == regMediaItems[i].id) {
-					regMediaItems[i].duration = e.target.duration;
-					regMediaItems[i].durationSet = true;
+			for(var i=0;i<regVideoFiles.length;i++) {
+				if (this.id == regVideoFiles[i].id) {
+					var mediaItem = regVideoFiles[i];
+					mediaItem.duration = this.duration;
+					mediaItem.width = this.videoWidth;
+					mediaItem.height = this.videoHeight;
 					
 					// Function to call when duration is set
-					if(regMediaItems[i].onMediaInit)
-						regMediaItems[i].onMediaInit();
+					if(mediaItem.onMediaInit)
+						mediaItem.onMediaInit();
 					
-					document.body.removeChild(e.target);
+					document.body.removeChild(this);
 				}
 			}
 		});
@@ -451,6 +455,68 @@ class tkMediaItem
 		
 		var hoursString = (hours != "00") ? hours + ':' : "";
 		return hoursString + minutes + ':' + seconds;
+	}
+	
+	getWidth()
+	{
+		return this.width;
+	}
+	
+	getHeight()
+	{
+		return this.height;
+	}
+	
+	getResolution()
+	{
+		return width + "x" + height;
+	}
+	
+	getResolutionBracket(_only_numbers)
+	{
+		var thresh144p = 256 * 144; // 36,864
+		var thresh240p = 426 * 240; // 102,240 
+		var thresh360p = 640 * 360; // 230,400
+		var thresh480p = 854 * 480; // 409,920
+		var thresh720p = 1280 * 720; // 921,600
+		var thresh1080p = 1920 * 1080; // 2,073,600
+		var thresh1440p = 2560 * 1440; // 3,686,400
+		var thresh2160p = 3840 * 2160; // 8,294,400
+		var thresh4k = 4096 * 2160; // 8,847,360
+		var thresh8k = 7680 * 4320; // 33,177,600
+		
+		var resolution = this.getWidth() * this.getHeight();
+		
+		if (resolution < thresh240p)
+			return (_only_numbers) ? 144 : "144p";
+		
+		else if (resolution < thresh360p)
+			return (_only_numbers) ? 240 : "240p";
+		
+		else if (resolution < thresh480p)
+			return (_only_numbers) ? 360 : "360p";
+		
+		else if (resolution < thresh720p)
+			return (_only_numbers) ? 480 : "480p";
+		
+		else if (resolution < thresh1080p)
+			return (_only_numbers) ? 720 : "720p";
+		
+		else if (resolution < thresh1440p)
+			return (_only_numbers) ? 1080 : "1080p";
+		
+		else if (resolution < thresh2160p)
+			return (_only_numbers) ? 1440 : "1440p";
+		
+		else if (resolution < thresh4k)
+			return (_only_numbers) ? 2160 : "2160p";
+		
+		else if (resolution < thresh8k)
+			return (_only_numbers) ? 2160 : "4k";
+		
+		else
+			return (_only_numbers) ? 4320 : "8k";	
+		
 	}
 }
 
