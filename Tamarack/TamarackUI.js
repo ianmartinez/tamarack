@@ -1,3 +1,4 @@
+var tkVideoIcon = "";
 function make(_tag)
 {
 	return document.createElement(_tag);
@@ -313,7 +314,7 @@ class tkMediaPlayer extends tkControl
 		this.element.currentTime = _Time;
 	}
 	
-	get duration()
+	getDuration()
 	{
 		return this.element.duration;
 	}
@@ -374,13 +375,92 @@ class tkMediaPlayer extends tkControl
 	}
 }
 
-class tkVideoPlayer extends tkMediaPlayer
+class tkNativeVideoPlayer extends tkMediaPlayer
 {
 	constructor()
 	{
 		super();
 		this.element = make("video"); 
 		this.showControls = true;
+	}	
+}
+var videoIds = [];
+var regMediaItems = [];
+function randomVideoId()
+{
+	var id = "video_" + random(0,100000000);
+	while(videoIds.includes(id))
+		id = "video_" + random(0,100000000);
+	return id;
+}
+class tkMediaItem
+{
+	constructor(_source,_title,_thumb,_on_media_init)
+	{
+		regMediaItems.push(this);
+		this.source = _source;
+		
+		if(_title) 
+			this.title  = _title
+		else {
+			var crumbs = source.split("/");
+			this.title = crumbs[crumbs.length-1];
+		}
+		
+		if (_thumb)
+			this.thumb = _thumb;
+		else 
+			this.thumb = tkVideoIcon;
+		
+		this.onMediaInit = _on_media_init;
+		this.id = randomVideoId();
+		this.duration = 0;
+		this.tempVideo = new tkNativeVideoPlayer();
+		this.tempVideo.source = _source;
+		this.tempVideo.id = this.id;
+		this.tempVideo.addToElement(document.body);
+		this.tempVideo.element.style.display = "none";
+		
+		this.tempVideo.element.addEventListener('loadedmetadata', function (e) {
+			for(var i=0;i<regMediaItems.length;i++) {
+				if (e.target.id == regMediaItems[i].id) {
+					regMediaItems[i].duration = e.target.duration;
+					regMediaItems[i].durationSet = true;
+					
+					// Function to call when duration is set
+					if(regMediaItems[i].onMediaInit)
+						regMediaItems[i].onMediaInit();
+					
+					document.body.removeChild(e.target);
+				}
+			}
+		});
+	}
+	
+	// functions should only be called within this.onMediaInit()
+	getFormattedDuration()
+	{
+		var durationSeconds = this.duration.toFixed(0);
+		var hours   = Math.floor(durationSeconds / 3600);
+		var minutes = Math.floor((durationSeconds - (hours * 3600)) / 60);
+		var seconds = durationSeconds - (hours * 3600) - (minutes * 60);
+
+		if (hours   < 10) {hours   = "0" + hours;}
+		if (minutes < 10) {minutes = "0" + minutes;}
+		if (seconds < 10) {seconds = "0" + seconds;}
+		
+		var hoursString = (hours != "00") ? hours + ':' : "";
+		return hoursString + minutes + ':' + seconds;
+	}
+}
+
+class tkVideoPlayer extends tkControl
+{
+	constructor()
+	{
+		super();
+		this.element = make("div");
+		this.video = new tkNativeVideoPlayer();
 	}
 }
 

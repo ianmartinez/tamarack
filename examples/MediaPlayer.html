@@ -22,20 +22,25 @@
 			(
 				function main()
 				{
-					var doc = new tkDocument();
-					var p = doc.putLine();				
-					var btnFullscreen = new tkButton();
-					var video = new tkVideoPlayer();
+					var doc = new tkDocument();		
+					var video = new tkNativeVideoPlayer();
 					
 					doc.title = "Media Players Demo";
 					doc.putHeader("Media Player Demo","h1");
 					
+					var btnFullscreen = new tkButton();
+					var p = doc.putLine();		
+					var mi = new tkMediaItem("1.mp4","Mystic", null, () => {
+						alert(mi.getFormattedDuration());	
+					});
+					
 					btnFullscreen.text = "Go Fullscreen";
 					btnFullscreen.addToElement(p);
-					
 					btnFullscreen.element.onclick = () => video.makeFullscreen();
-					video.source = "mov_bbb.mp4";
+					video.source = "1.mp4";
+					video.setDimensions("700px","400px");
 					video.addToElement(document.body);
+					
 				}
 			)();
 		</script>
