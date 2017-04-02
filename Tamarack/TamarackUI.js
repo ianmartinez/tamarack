@@ -424,8 +424,10 @@ class tkVideoFile
 		this.tempVideo.element.style.display = "none";
 		
 		this.tempVideo.element.addEventListener('loadedmetadata', function (e) {
-			for(var i=0;i<regVideoFiles.length;i++) {
-				if (this.id == regVideoFiles[i].id) {
+			for(var i=0;i<regVideoFiles.length;i++) 
+			{
+				if (this.id == regVideoFiles[i].id) 
+				{
 					var mediaItem = regVideoFiles[i];
 					mediaItem.duration = this.duration;
 					mediaItem.width = this.videoWidth;
@@ -469,7 +471,7 @@ class tkVideoFile
 	
 	getResolution()
 	{
-		return width + "x" + height;
+		return this.getWidth() + "x" + this.getHeight();
 	}
 	
 	getResolutionBracket(_only_numbers)

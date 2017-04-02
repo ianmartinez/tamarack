@@ -35,8 +35,12 @@
 						duration.text = "Video Duration: " + vf.getFormattedDuration();	
 						duration.addToElement(p);
 						
+						var resolutionBracket = new tkText("p");
+						resolutionBracket.text = "Video Resolution Bracket: " + vf.getResolutionBracket();	
+						resolutionBracket.addToElement(p);
+						
 						var resolution = new tkText("p");
-						resolution.text = "Video Resolution: " + vf.getResolutionBracket();	
+						resolution.text = "Video Resolution: " + vf.getResolution();	
 						resolution.addToElement(p);
 					});
 					
