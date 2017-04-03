@@ -23,14 +23,21 @@
 				function main()
 				{
 					var doc = new tkDocument();		
-					var video = new tkNativeVideoPlayer();
+					var video = new tkVideoPlayer();
 					
 					doc.title = "Media Players Demo";
-					doc.putHeader("Media Player Demo","h1");
 					
 					var btnFullscreen = new tkButton();
 					var p = doc.putLine();		
-					var vf = new tkVideoFile("2.mp4","Mystic", null, () => {
+					var vf = new tkVideoFile("1.mp4","Mystic Lands", null, () => {
+						var title = new tkText("h1");
+						title.text = vf.getTitle();	
+						title.addToElement(p);
+						
+						var source = new tkText("p");
+						source.text = "Video Source: " + vf.getSource();	
+						source.addToElement(p);
+						
 						var duration = new tkText("p");
 						duration.text = "Video Duration: " + vf.getFormattedDuration();	
 						duration.addToElement(p);
@@ -42,15 +49,15 @@
 						var resolution = new tkText("p");
 						resolution.text = "Video Resolution: " + vf.getResolution();	
 						resolution.addToElement(p);
+						
+						video.setDimensions(vf.getWidth()/2, vf.getHeight()/2);
+						btnFullscreen.text = "Go Fullscreen";
+						btnFullscreen.addToElement(p);
+						btnFullscreen.element.onclick = () => video.makeFullscreen();
 					});
-					
-					btnFullscreen.text = "Go Fullscreen";
-					btnFullscreen.addToElement(p);
-					btnFullscreen.element.onclick = () => video.makeFullscreen();
-					video.source = "2.mp4";
-					video.setDimensions("700px","400px");
+					video.source = vf.getSource();
+					video.loop = true;
 					video.addToElement(document.body);
-					
 				}
 			)();
 		</script>

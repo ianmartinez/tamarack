@@ -365,58 +365,12 @@ pre {
     padding: 0px 15px;
 }
 
-
-@media (min-width: 400px) {
-    .app_toolbar {
-        width: 100%;
-        padding: 0px;
-        min-height: 40px;
-        flex: 0 1 40px;
-        background-color: rgba(0,0,0,.06);
-        border-bottom: 0px solid rgba(0, 0, 0, 0);
-    }
-
-    .app_toolbar_sep {
-        height: calc(100% - 10px);
-        width: 1px;
-        position: relative;
-        display: inline-block;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        margin-left: 4px;
-        margin-right: 4px;
-        background-color: rgba(0, 0, 0, 0.15);
-    }
-}
-
-@media (max-width: 400px) {
-    .app_toolbar {
-        width: 100%;
-        padding: 0px;
-        min-height: 100px;
-        flex: 0 1 100px;
-        background-color: rgba(0,0,0,.06);
-        border-bottom: 0px solid rgba(0, 0, 0, 0);
-    }
-
-    .app_toolbar_sep {
-        height: calc(50% - 10px);
-        width: 1px;
-        position: relative;
-        display: inline-block;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        margin-left: 4px;
-        margin-right: 4px;
-        background-color: rgba(0, 0, 0, 0.15);
-    }
-}
-
-.app_toolbar_button {
-    min-width: 32px;
-    min-height: 32px;
+.tkToolbarButton {
+    min-width: 24px;
+    min-height: 24px;
     box-sizing: content-box;
     display: inline-block;
+    margin: auto 0px;
     justify-content: center;
     flex-direction: column;
     background-color: rgba(0,0,0,0);
@@ -424,45 +378,31 @@ pre {
     color: #ffffff;
     font-size: 14px;
     font-weight: bold;
-    padding: 4px;
+    padding: 2px;
     text-decoration: none;
     border: 0px solid transparent;
 }
 
-.app_toolbar_button:hover {
+.tkToolbarButton:hover {
     background-color: rgba(9,128,184,0.2);
     color: #ffffff;
     text-decoration: none;
 }
 
-.app_toolbar_button:active {
+.tkToolbarButton:active {
     background-color: rgba(9,128,184,0.4);
     color: #ffffff;
     text-decoration: none;
 }
 
-.app_toolbar_button:focus {
+.tkToolbarButton:focus {
     color: #ffffff;
     text-decoration: none;
 }
 
-.app_toolbar_button:visited {
+.tkToolbarButton:visited {
     color: #ffffff;
     text-decoration: none;
-}
-
-.img_app_toolbar {
-    width: 24px;
-    height: 24px;
-    display: block;
-    margin: 4px auto;
-}
-
-.img_menu {
-    width: 24px;
-    height: 24px;
-    display: inline-block;
-    margin: 0px 4px;
 }
 
 .dropdown {
@@ -626,6 +566,34 @@ h5 {
 .tkListItem:visited {
     color: #ffffff;
     text-decoration: none;
+}
+.tk
+.tkToolbarIconSmall {
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin: 4px auto;
+}
+/* tkVideoPlayer */
+.tkVideoPlayer {
+    position: relative;
+}
+
+.tkVideoPlayerInternal {
+    width: 100%;
+    height: 100%;
+}
+
+.tkVideoPlayerControls {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    margin: 0px;
+    padding: 2px;
+    height: 32px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 100;
 }
 
 /* Widget Styles */

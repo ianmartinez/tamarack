@@ -4,12 +4,20 @@ function make(_tag)
 	return document.createElement(_tag);
 }
 
+function findInReg(_reg,_id) {
+	for(var i=0;i<_reg.length;i++) 
+		if (_id == _reg[i].id) 
+			return _reg[i];
+}
+
 class tkControl 
 {
 	constructor() 
 	{
 		this.element = make("div");
 		this.element.id = "";
+		this.extraWidth = 0;
+		this.extraHeight = 0;
 	}
 	
 	get id() 
@@ -32,7 +40,6 @@ class tkControl
 	{
 		return this.element;
 	}
-	
 	
 	set e(_e)
 	{
@@ -83,6 +90,34 @@ class tkControl
 		else if (this.element.webkitRequestFullscreen) 
 		  this.element.webkitRequestFullscreen();
 	}	
+
+	exitFullscreen()
+	{
+		if (document.exitFullscreen) {
+			document.exitFullscreen();
+		} else if (document.webkitExitFullscreen) {
+			document.webkitExitFullscreen();
+		} else if (document.mozCancelFullScreen) {
+			document.mozCancelFullScreen();
+		} else if (document.msExitFullscreen) {
+			document.msExitFullscreen();
+		}
+	}
+
+	isFullscreen()
+	{
+		if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) 
+ 			return true;
+		return false;
+	}
+
+	toggleFullscreen()
+	{
+		if (this.isFullscreen())
+			this.exitFullscreen();
+		else
+			this.makeFullscreen();
+	}
 	
 	hasAttribute(_attribute)
 	{
@@ -109,7 +144,7 @@ class tkControl
 		var attribute = document.createAttribute(_attribute); 
 		this.element.setAttributeNode(attribute);
 	}
-	
+
 	get width()
 	{
 		return this.getAttribute("width");
@@ -118,6 +153,7 @@ class tkControl
 	set width(_width)
 	{
 		this.setAttribute("width",_width);
+		this.element.style.width = _width + this.extraWidth + "px";
 	}
 		
 	get height()
@@ -128,6 +164,7 @@ class tkControl
 	set height(_height)
 	{
 		this.setAttribute("height",_height);
+		this.element.style.height = _height + this.extraHeight + "px";
 	}
 	
 	setDimensions(_width,_height) 
@@ -159,7 +196,6 @@ function makeElement(_elem) {
 function makeElementId(_id) {
 	return new tkElement(document.getElementById(_id));
 }
-
 
 class tkText extends tkControl 
 {
@@ -227,7 +263,6 @@ class tkMediaPlayer extends tkControl
 		super();
 	}
 
-	// Media source
 	get source() 
 	{
 		return this.element.src;
@@ -283,25 +318,33 @@ class tkMediaPlayer extends tkControl
 	{
 		this.element.pause();
 	}
+
+	togglePlay() 
+	{
+		if(this.isPaused()) 
+			this.play();
+		else
+			this.pause();
+	}
 	
-	get looping()
+	get loop()
 	{
 		return this.element.loop;
 	}
 	
-	set looping(_looping)
+	set loop(_loop)
 	{
-		this.element.loop = _looping;
+		this.element.loop = _loop;
 	}
 	
-	get muted()
+	get mute()
 	{
 		return this.element.muted;
 	}
 	
-	set muted(_muted)
+	set mute(_mute)
 	{
-		this.element.muted = _muted;
+		this.element.muted = _mute;
 	}
 	
 	get currentTime()
@@ -309,9 +352,9 @@ class tkMediaPlayer extends tkControl
 		return this.element.currentTime;
 	}
 	
-	set currentTime(_Time)
+	set currentTime(_time)
 	{
-		this.element.currentTime = _Time;
+		this.element.currentTime = _time;
 	}
 	
 	getDuration()
@@ -385,13 +428,13 @@ class tkNativeVideoPlayer extends tkMediaPlayer
 	}	
 }
 
-var videoIds = [];
+var videoFileIds = [];
 var regVideoFiles = [];
-function randomVideoId()
+function randomVideoFileId()
 {
-	var id = "video_" + random(0,100000000);
-	while(videoIds.includes(id))
-		id = "video_" + random(0,100000000);
+	var id = "video_file_" + random(0,100000000);
+	while(videoFileIds.includes(id))
+		id = "video_file_" + random(0,100000000);
 	return id;
 }
 
@@ -415,7 +458,7 @@ class tkVideoFile
 			this.thumb = tkVideoIcon;
 		
 		this.onMediaInit = _on_media_init;
-		this.id = randomVideoId();
+		this.id = randomVideoFileId();
 		this.duration = 0;
 		this.tempVideo = new tkNativeVideoPlayer();
 		this.tempVideo.source = _source;
@@ -424,21 +467,18 @@ class tkVideoFile
 		this.tempVideo.element.style.display = "none";
 		
 		this.tempVideo.element.addEventListener('loadedmetadata', function (e) {
-			for(var i=0;i<regVideoFiles.length;i++) 
+			var mediaItem = findInReg(regVideoFiles,this.id);
+			if (mediaItem) 
 			{
-				if (this.id == regVideoFiles[i].id) 
-				{
-					var mediaItem = regVideoFiles[i];
-					mediaItem.duration = this.duration;
-					mediaItem.width = this.videoWidth;
-					mediaItem.height = this.videoHeight;
-					
-					// Function to call when duration is set
-					if(mediaItem.onMediaInit)
-						mediaItem.onMediaInit();
-					
-					document.body.removeChild(this);
-				}
+				mediaItem.duration = this.duration;
+				mediaItem.width = this.videoWidth;
+				mediaItem.height = this.videoHeight;
+				
+				// Function to call when duration is set
+				if(mediaItem.onMediaInit)
+					mediaItem.onMediaInit();
+				
+				document.body.removeChild(this);
 			}
 		});
 	}
@@ -457,6 +497,21 @@ class tkVideoFile
 		
 		var hoursString = (hours != "00") ? hours + ':' : "";
 		return hoursString + minutes + ':' + seconds;
+	}
+	
+	getSource()
+	{
+		return this.source;
+	}
+	
+	getTitle()
+	{
+		return this.title;
+	}
+	
+	getThumb()
+	{
+		return this.thumb;
 	}
 	
 	getWidth()
@@ -521,6 +576,18 @@ class tkVideoFile
 		
 	}
 }
+var videoIds = [];
+var regVideo = [];
+function randomVideoId()
+{
+	var id = "video_" + random(0,100000000);
+	while(videoFileIds.includes(id))
+		id = "video_" + random(0,100000000);
+	return id;
+}
+
+var lastFocusedVideo;
+var attachedGlobalVideoHandlers = false;
 
 class tkVideoPlayer extends tkControl
 {
@@ -528,7 +595,306 @@ class tkVideoPlayer extends tkControl
 	{
 		super();
 		this.element = make("div");
+		this.id = randomVideoId();
+		regVideo.push(this);
+
+		this.oldWidth = 0;
+		this.oldHeight = 0;
+
+		this.element.className = "tkVideoPlayer";
+
+		this.controlsPanel = make("div");
+		this.controlsPanel.className = "tkVideoPlayerControls";
+		this.extraHeight = 0;
+		this.element.appendChild(this.controlsPanel);
+
+	  	this.playPauseButton = make("a");
+		this.playPauseButton.id = "play_pause_" + this.id;
+		this.playPauseButton.className = "tkToolbarButton";
+		this.playPauseButton.setAttribute("role","button");
+		this.controlsPanel.appendChild(this.playPauseButton);
+	  	this.playPauseButtonIcon = make("img");
+		this.playPauseButtonIcon.className = "tkToolbarIconSmall";
+		this.pauseIconFile = "../icons/actions_dark/22/media-playback-pause.svg";
+		this.playIconFile = "../icons/actions_dark/22/media-playback-start.svg";
+		this.playPauseButtonIcon.src = this.playIconFile;
+		this.playPauseButton.appendChild(this.playPauseButtonIcon);
+		this.playPauseButton.onclick = function() {
+			findInReg(regVideo,this.id.replace("play_pause_","")).togglePlay();
+		};
+
+		this.fullscreenButton = make("a");
+		this.fullscreenButton.id = "fullscreen_" + this.id;
+		this.fullscreenButton.className = "tkToolbarButton";
+		this.fullscreenButton.setAttribute("role","button");
+		this.controlsPanel.appendChild(this.fullscreenButton);
+	  	this.fullscreenButtonIcon = make("img");
+		this.fullscreenButtonIcon.className = "tkToolbarIconSmall";
+		this.fullscreenIconFile = "../icons/actions_dark/22/zoom-fullscreen.svg";
+		this.fullscreenButtonIcon.src = this.fullscreenIconFile;
+		this.fullscreenButton.style.float = "right";
+		this.fullscreenButton.appendChild(this.fullscreenButtonIcon);
+		this.fullscreenButton.onclick = function() {
+			findInReg(regVideo,this.id.replace("fullscreen_","")).toggleFullscreen();
+		};
+
 		this.video = new tkNativeVideoPlayer();
+		this.video.element.className = "tkVideoPlayerInternal";
+		this.video.showControls = false;
+		this.video.addToElement(this.element);
+
+		// watch for fullscreen change
+		var screen_change_events = "webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange";
+		$(this.element).on(screen_change_events, function () {
+			var control = findInReg(regVideo,this.id);
+			if(!control.isFullscreen()) control.resetDimensions();
+		});
+
+		$(this.element).focus(function() {
+			lastFocusedVideo = findInReg(regVideo,this.id);
+		});
+
+		var onKeyDown = function(e) {
+			switch (e.keyCode) 
+			{
+				case 32: // space - toggle Play/Pause
+					lastFocusedVideo.togglePlay();
+					break;
+				case 13: // enter - toggle Fullscreen
+					lastFocusedVideo.toggleFullscreen();
+					break;
+			}
+		};
+
+		if (!attachedGlobalVideoHandlers) {
+			window.addEventListener("keydown", onKeyDown, false);
+			attachedGlobalVideoHandlers = true;
+		}
+
+		if (!lastFocusedVideo)
+			lastFocusedVideo = this;
+	}
+
+	get lightsOut()
+	{
+		
+	}
+	
+	set lightsOut(_lightsOut)
+	{
+		
+	}
+		
+	// show controls
+	
+	get showControls()
+	{
+		
+	}
+	
+	set showControls(_show)
+	{
+		
+	}
+	
+	get showPlayPause()
+	{
+		
+	}
+	
+	set showPlayPause(_show)
+	{
+		
+	}
+	
+	get showTime()
+	{
+		
+	}
+	
+	set showTime(_show)
+	{
+		
+	}
+	
+	get showTrackBar()
+	{
+		
+	}
+	
+	set showTrackBar(_show)
+	{
+		
+	}
+	
+	get showVolume()
+	{
+		
+	}
+	
+	set showVolume(_show)
+	{
+		
+	}
+	
+	resetDimensions()
+	{
+		this.element.style.height = this.oldHeight;
+		this.element.style.width = this.oldWidth;
+	}
+
+	toggleFullscreen()
+	{
+		super.toggleFullscreen();
+		
+		if(this.isFullscreen()) {
+			this.oldHeight = this.element.style.height;
+			this.oldWidth = this.element.style.width;
+
+			this.element.className = "tkVideoPlayer fill";
+
+			this.element.style.height = "100%";
+			this.element.style.width = "100%";
+		} else {
+			this.element.className = "tkVideoPlayer";
+			this.resetDimensions();
+		}
+	}
+
+	// direct calls to video control
+	get source() 
+	{
+		return this.video.source;
+	}
+
+	set source(_source) 
+	{
+		this.video.source = _source;
+	}
+	
+	get autoplay()
+	{
+		return this.video.autoplay;
+	}
+	
+	set autoplay(_enabled)
+	{
+		this.video.autoplay = _enabled;
+	}
+	
+	isPaused()
+	{
+		return this.video.isPaused();
+	}
+	
+	play()
+	{
+		this.video.play();
+		this.playPauseButtonIcon.src = this.pauseIconFile;
+	}
+	
+	pause()
+	{
+		this.video.pause();
+		this.playPauseButtonIcon.src = this.playIconFile;
+	}
+
+	togglePlay() 
+	{
+		if(this.isPaused()) 
+			this.play();
+		else
+			this.pause();
+	}
+	
+	get loop()
+	{
+		return this.video.loop;
+	}
+	
+	set loop(_loop)
+	{
+		this.video.loop = _loop;
+	}
+	
+	get mute()
+	{
+		return this.video.mute;
+	}
+	
+	set mute(_mute)
+	{
+		this.video.mute = _mute;
+	}
+	
+	get currentTime()
+	{
+		return this.video.currentTime;
+	}
+	
+	set currentTime(_time)
+	{
+		this.video.currentTime = _time;
+	}
+	
+	getDuration()
+	{
+		return this.video.getDuration();
+	}
+	
+	get playbackRate()
+	{
+		return this.video.playbackRate;
+	}
+	
+	set playbackRate(_rate)
+	{
+		this.video.playbackRate = _rate;
+	}
+	
+	getNetworkState()
+	{
+		return this.video.getNetworkState();
+	}
+	
+	getReadyState()
+	{
+		return this.video.getReadyState();
+	}
+	
+	getSeekable()
+	{
+		return this.video.getSeekable();
+	}
+	
+	isSeeking()
+	{
+		return this.video.isSeeking();
+	}
+	
+	get textTracks()
+	{
+		return this.video.textTracks;
+	}
+	
+	set textTracks(_tracks)
+	{
+		this.video.textTracks = _Tracks;
+	}
+	
+	get volume()
+	{
+		return this.video.volume;
+	}
+	
+	set volume(_volume)
+	{
+		this.video.volume = _volume;
+	}
+	
+	canPlay(_type)
+	{
+		return this.video.canPlay(_type);
 	}
 }
 
@@ -716,7 +1082,6 @@ class tkNotebookPage
 	
 	set title(_string)
 	{
-		
 		this.titleTextNode.nodeValue = _string;
 	}
 	
