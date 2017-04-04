@@ -502,6 +502,11 @@ class tkVideoFile
 		var hoursString = (hours != "00") ? hours + ':' : "";
 		return hoursString + minutes + ':' + seconds;
 	}
+
+	getTempId() 
+	{
+		return this.tempVideo.id;
+	}
 	
 	getSource()
 	{
@@ -695,10 +700,10 @@ class tkVideoPlayer extends tkControl
 		if (_lightsOut) {
 			this.oldZIndex = this.element.style.zIndex;
 			this.element.style.zIndex = tkLightsOutDiv.style.zIndex + 1;
-			tkLightsOutDiv.style.display = "block";
+			$(tkLightsOutDiv).fadeIn();
 		} else {
 			this.element.style.zIndex = this.oldZIndex;
-			tkLightsOutDiv.style.display = "none";
+			$(tkLightsOutDiv).fadeOut();
 		}
 	}
 
@@ -800,7 +805,7 @@ class tkVideoPlayer extends tkControl
 	}
 
 	// direct calls to video control
-	get source() 
+	get source()
 	{
 		return this.video.source;
 	}
@@ -1349,108 +1354,5 @@ class tkSlideshow extends tkControl
 			this.goToIndex(0);
 		else
 			this.goToIndex(Math.min(this.slides.length-1, this.getActiveIndex()+1));		
-	}
-}
-
-class tkListItem extends tkButton
-{
-	constructor()
-	{
-		super();
-		this.e.className = "tkButton";
-	}
-	
-	get checked()
-	{
-		
-	}
-	
-	set checked(_checked)
-	{
-		
-	}
-}
-
-class tkList extends tkControl 
-{
-	constructor() 
-	{
-		super();
-		
-		this.element = make("div");
-		this.items = [];
-		
-		this.wrap = true;
-	}
-	
-	addItem(_item)
-	{
-		this.element.appendChild(_item.element);
-		this.items.push(_item);
-		
-		if (this.getIndex(_item) == this.activeIndex)
-			this.active = _item;
-	}
-	
-	addItems()
-	{
-		for(var i=0;i<arguments.length;i++)
-			this.addItem(arguments[i]);
-	}
-	
-	removeItem(_item)
-	{
-		this.element.removeChild(_item.element);
-		this.items.splice(this.getIndex(_item),1);
-		
-		this.activeIndex = Math.max(0,activeIndex-1);
-	}
-	
-	set active(_item)
-	{
-		if(!_item) return;
-		for(var i=0;i<this.items.length;i++)
-			if(_item==this.items[i])
-				this.items[i].checked = true;
-
-		this.activeIndex = this.getIndex(_item);
-	}
-	
-	getActiveIndex()
-	{
-		for(var i=0;i<this.items.length;i++)
-			if(_item.checked == true)
-				return i;
-	}
-	
-	getActive()
-	{
-		return this.items[this.getActiveIndex()];
-	}
-	
-	getIndex(_item)
-	{
-		return this.items.indexOf(_item);
-	}
-	
-	goToIndex(_index)
-	{
-		this.active = this.items[_index];
-	}
-	
-	back()
-	{
-		if (this.getActiveIndex()-1 < 0 && this.wrap)
-			this.goToIndex(this.items.length-1);
-		else
-			this.goToIndex(Math.max(0, this.getActiveIndex()-1));		
-	}
-	
-	next()
-	{
-		if (this.getActiveIndex()+1 >= this.items.length && this.wrap)
-			this.goToIndex(0);
-		else
-			this.goToIndex(Math.min(this.items.length-1, this.getActiveIndex()+1));		
 	}
 }

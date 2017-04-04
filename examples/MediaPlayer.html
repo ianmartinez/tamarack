@@ -27,7 +27,6 @@
 					
 					doc.title = "Media Players Demo";
 					
-					var btnFullscreen = new tkButton();
 					var p = doc.putLine();		
 					var vf = new tkVideoFile("1.mp4","Jellyfish", null, () => {
 						var title = new tkText("h1");
@@ -51,9 +50,6 @@
 						resolution.addToElement(p);
 						
 						video.setDimensions(vf.getWidth()/2, vf.getHeight()/2);
-						btnFullscreen.text = "Go Fullscreen";
-						btnFullscreen.addToElement(p);
-						btnFullscreen.element.onclick = () => video.makeFullscreen();
 					});
 					video.source = vf.getSource();
 					video.loop = true;
