@@ -384,13 +384,13 @@ pre {
 }
 
 .tkToolbarButton:hover {
-    background-color: rgba(9,128,184,0.2);
+    background-color: rgba(9,128,184,0.4);
     color: #ffffff;
     text-decoration: none;
 }
 
 .tkToolbarButton:active {
-    background-color: rgba(9,128,184,0.4);
+    background-color: rgba(9,128,184,0.2);
     color: #ffffff;
     text-decoration: none;
 }
@@ -567,33 +567,90 @@ h5 {
     color: #ffffff;
     text-decoration: none;
 }
-.tk
 .tkToolbarIconSmall {
-    width: 20px;
-    height: 20px;
     display: block;
-    margin: 4px auto;
+    margin: auto;    
+    width: 100%;
+    height: 100%;
 }
 /* tkVideoPlayer */
 .tkVideoPlayer {
     position: relative;
 }
 
-.tkVideoPlayerInternal {
+.tkVideoPlayer {
+    width: 100%;
+    background-color: black;
+    height: 100%;
+}
+
+.tkVideoInnerPanel {
     width: 100%;
     height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: transparent;
 }
 
 .tkVideoPlayerControls {
     position: absolute;
-    left: 0px;
     bottom: 0px;
     margin: 0px;
     padding: 2px;
     height: 32px;
     width: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0,0,0,0.65);
     z-index: 100;
+}
+
+.tkVideoButton {
+    width: 24px;
+    height: 24px;
+    box-sizing: content-box;
+    display: inline-block;
+    margin: auto 0px;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(0,0,0,0);
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px;
+    text-decoration: none;
+    border: 0px solid transparent;
+}
+
+.tkVideoButton:hover {
+    background-color: rgba(9,128,184,0.6);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tkVideoButton:active {
+    background-color: rgba(9,128,184,0.4);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tkVideoButton:focus {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tkVideoButton:visited {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tkLightsOutDiv {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    top: 0px;
+    left: 0px;
+    position: fixed;
+    display: block;
 }
 
 /* Widget Styles */

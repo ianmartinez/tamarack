@@ -8,6 +8,7 @@ function findInReg(_reg,_id) {
 	for(var i=0;i<_reg.length;i++) 
 		if (_id == _reg[i].id) 
 			return _reg[i];
+	return null;
 }
 
 class tkControl 
@@ -16,8 +17,6 @@ class tkControl
 	{
 		this.element = make("div");
 		this.element.id = "";
-		this.extraWidth = 0;
-		this.extraHeight = 0;
 	}
 	
 	get id() 
@@ -145,6 +144,11 @@ class tkControl
 		this.element.setAttributeNode(attribute);
 	}
 
+	setAttributeNode(_attribute)
+	{
+		this.element.setAttributeNode(_attribute);
+	}
+
 	get width()
 	{
 		return this.getAttribute("width");
@@ -153,7 +157,7 @@ class tkControl
 	set width(_width)
 	{
 		this.setAttribute("width",_width);
-		this.element.style.width = _width + this.extraWidth + "px";
+		this.element.style.width = _width + "px";
 	}
 		
 	get height()
@@ -164,7 +168,7 @@ class tkControl
 	set height(_height)
 	{
 		this.setAttribute("height",_height);
-		this.element.style.height = _height + this.extraHeight + "px";
+		this.element.style.height = _height + "px";
 	}
 	
 	setDimensions(_width,_height) 
@@ -544,31 +548,31 @@ class tkVideoFile
 		
 		var resolution = this.getWidth() * this.getHeight();
 		
-		if (resolution < thresh240p)
+		if (resolution < thresh240p-(thresh240p*0.1))
 			return (_only_numbers) ? 144 : "144p";
 		
-		else if (resolution < thresh360p)
+		else if (resolution < thresh360p-(thresh360p*0.1))
 			return (_only_numbers) ? 240 : "240p";
 		
-		else if (resolution < thresh480p)
+		else if (resolution < thresh480p-(thresh480p*0.1))
 			return (_only_numbers) ? 360 : "360p";
 		
-		else if (resolution < thresh720p)
+		else if (resolution < thresh720p-(thresh720p*0.1))
 			return (_only_numbers) ? 480 : "480p";
 		
-		else if (resolution < thresh1080p)
+		else if (resolution < thresh1080p-(thresh1080p*0.1))
 			return (_only_numbers) ? 720 : "720p";
 		
-		else if (resolution < thresh1440p)
+		else if (resolution < thresh1440p-(thresh1440p*0.1))
 			return (_only_numbers) ? 1080 : "1080p";
 		
-		else if (resolution < thresh2160p)
+		else if (resolution < thresh2160p-(thresh2160p*0.1))
 			return (_only_numbers) ? 1440 : "1440p";
 		
-		else if (resolution < thresh4k)
+		else if (resolution < thresh4k-(thresh4k*0.1))
 			return (_only_numbers) ? 2160 : "2160p";
 		
-		else if (resolution < thresh8k)
+		else if (resolution < thresh8k-(thresh8k*0.1))
 			return (_only_numbers) ? 2160 : "4k";
 		
 		else
@@ -576,8 +580,10 @@ class tkVideoFile
 		
 	}
 }
+
 var videoIds = [];
 var regVideo = [];
+var tkLightsOutDiv;
 function randomVideoId()
 {
 	var id = "video_" + random(0,100000000);
@@ -586,9 +592,6 @@ function randomVideoId()
 	return id;
 }
 
-var lastFocusedVideo;
-var attachedGlobalVideoHandlers = false;
-
 class tkVideoPlayer extends tkControl
 {
 	constructor()
@@ -596,21 +599,21 @@ class tkVideoPlayer extends tkControl
 		super();
 		this.element = make("div");
 		this.id = randomVideoId();
+		this.element.className = "tkVideoPlayer";
 		regVideo.push(this);
 
-		this.oldWidth = 0;
-		this.oldHeight = 0;
-
-		this.element.className = "tkVideoPlayer";
+		this.innerPanel = make("div");
+		this.innerPanel.className = "tkVideoInnerPanel";
+		this.element.appendChild(this.innerPanel);
 
 		this.controlsPanel = make("div");
+		this.controlsPanel.id = "controls_" + this.id;
 		this.controlsPanel.className = "tkVideoPlayerControls";
-		this.extraHeight = 0;
-		this.element.appendChild(this.controlsPanel);
+		this.innerPanel.appendChild(this.controlsPanel);
 
-	  	this.playPauseButton = make("a");
+	  	this.playPauseButton = make("button");
 		this.playPauseButton.id = "play_pause_" + this.id;
-		this.playPauseButton.className = "tkToolbarButton";
+		this.playPauseButton.className = "tkVideoButton";
 		this.playPauseButton.setAttribute("role","button");
 		this.controlsPanel.appendChild(this.playPauseButton);
 	  	this.playPauseButtonIcon = make("img");
@@ -623,9 +626,9 @@ class tkVideoPlayer extends tkControl
 			findInReg(regVideo,this.id.replace("play_pause_","")).togglePlay();
 		};
 
-		this.fullscreenButton = make("a");
+		this.fullscreenButton = make("button");
 		this.fullscreenButton.id = "fullscreen_" + this.id;
-		this.fullscreenButton.className = "tkToolbarButton";
+		this.fullscreenButton.className = "tkVideoButton";
 		this.fullscreenButton.setAttribute("role","button");
 		this.controlsPanel.appendChild(this.fullscreenButton);
 	  	this.fullscreenButtonIcon = make("img");
@@ -638,63 +641,101 @@ class tkVideoPlayer extends tkControl
 			findInReg(regVideo,this.id.replace("fullscreen_","")).toggleFullscreen();
 		};
 
-		this.video = new tkNativeVideoPlayer();
-		this.video.element.className = "tkVideoPlayerInternal";
-		this.video.showControls = false;
-		this.video.addToElement(this.element);
-
-		// watch for fullscreen change
-		var screen_change_events = "webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange";
-		$(this.element).on(screen_change_events, function () {
-			var control = findInReg(regVideo,this.id);
-			if(!control.isFullscreen()) control.resetDimensions();
-		});
-
-		$(this.element).focus(function() {
-			lastFocusedVideo = findInReg(regVideo,this.id);
-		});
-
-		var onKeyDown = function(e) {
-			switch (e.keyCode) 
-			{
-				case 32: // space - toggle Play/Pause
-					lastFocusedVideo.togglePlay();
-					break;
-				case 13: // enter - toggle Fullscreen
-					lastFocusedVideo.toggleFullscreen();
-					break;
-			}
+		this.lightsOutButton = make("button");
+		this.lightsOutButton.id = "lightsOut_" + this.id;
+		this.lightsOutButton.className = "tkVideoButton";
+		this.lightsOutButton.setAttribute("role","button");
+		this.controlsPanel.appendChild(this.lightsOutButton);
+	  	this.lightsOutButtonIcon = make("img");
+		this.lightsOutButtonIcon.className = "tkToolbarIconSmall";
+		this.lightsOutIconFile = "../icons/actions_dark/22/games-hint.svg";
+		this.lightsOutButtonIcon.src = this.lightsOutIconFile;
+		this.lightsOutButton.style.float = "right";
+		this.lightsOutButton.appendChild(this.lightsOutButtonIcon);
+		this.lightsOutButton.onclick = function() {
+			findInReg(regVideo,this.id.replace("lightsOut_","")).toggleLightsOut();
 		};
 
-		if (!attachedGlobalVideoHandlers) {
-			window.addEventListener("keydown", onKeyDown, false);
-			attachedGlobalVideoHandlers = true;
-		}
+		this.video = new tkNativeVideoPlayer();
+		this.video.element.className = "tkVideoPlayer";
+		this.video.showControls = false;
+		this.video.id =  "video_element_" + this.id;
+		this.video.addToElement(this.innerPanel);
+		this.video.loop = true;
+		
+		this.video.element.addEventListener ("dblclick", function(e) {
+			findInReg(regVideo,this.id.replace("video_element_","")).togglePlay();
+		}, false);
 
-		if (!lastFocusedVideo)
-			lastFocusedVideo = this;
+		this.element.onmouseenter = function() {
+			findInReg(regVideo,this.id).showControls = true;
+		};
+
+		this.element.onmouseleave = function() {
+			findInReg(regVideo,this.id).showControls = false;
+		};
+		
+		if (!tkLightsOutDiv) 
+		{
+			tkLightsOutDiv = make("div");
+			tkLightsOutDiv.className = "tkLightsOutDiv";
+			tkLightsOutDiv.style.display = "none";
+			tkLightsOutDiv.style.zIndex = 99999;
+			document.body.appendChild(tkLightsOutDiv);
+		}
 	}
 
 	get lightsOut()
 	{
-		
+		return (tkLightsOutDiv.style.display != "none");
 	}
 	
 	set lightsOut(_lightsOut)
 	{
-		
+		if (_lightsOut) {
+			this.oldZIndex = this.element.style.zIndex;
+			this.element.style.zIndex = tkLightsOutDiv.style.zIndex + 1;
+			tkLightsOutDiv.style.display = "block";
+		} else {
+			this.element.style.zIndex = this.oldZIndex;
+			tkLightsOutDiv.style.display = "none";
+		}
+	}
+
+	toggleLightsOut()
+	{
+		if (this.lightsOut)
+			this.lightsOut = false;
+		else
+			this.lightsOut = true;
 	}
 		
 	// show controls
 	
 	get showControls()
 	{
-		
+		return (this.controlsPanel.style.display != "none");
 	}
 	
 	set showControls(_show)
 	{
-		
+		if (_show)
+			$(this.controlsPanel).fadeIn();
+		else
+			$(this.controlsPanel).fadeOut();
+	}
+	
+	get showLightsOut()
+	{
+		return (this.lightsOutButton.style.display != "none");
+	}
+	
+	set showLightsOut(_show)
+	{
+		if (_show)
+			this.lightsOutButton.style.display = "inline-block";
+		else
+			this.lightsOutButton.style.display = "none";
 	}
 	
 	get showPlayPause()
@@ -737,28 +778,25 @@ class tkVideoPlayer extends tkControl
 		
 	}
 	
-	resetDimensions()
+	makeFullscreen()
 	{
-		this.element.style.height = this.oldHeight;
-		this.element.style.width = this.oldWidth;
+		var innerPanel = new tkElement(this.innerPanel);
+		innerPanel.makeFullscreen();
+		this.showLightsOut = false;
+	}
+
+	exitFullscreen()
+	{
+		var innerPanel = new tkElement(this.innerPanel);
+		innerPanel.exitFullscreen();
+		this.showLightsOut = true;
 	}
 
 	toggleFullscreen()
 	{
-		super.toggleFullscreen();
-		
-		if(this.isFullscreen()) {
-			this.oldHeight = this.element.style.height;
-			this.oldWidth = this.element.style.width;
-
-			this.element.className = "tkVideoPlayer fill";
-
-			this.element.style.height = "100%";
-			this.element.style.width = "100%";
-		} else {
-			this.element.className = "tkVideoPlayer";
-			this.resetDimensions();
-		}
+		var innerPanel = new tkElement(this.innerPanel);
+		innerPanel.toggleFullscreen();		
+		this.showLightsOut = (!innerPanel.isFullscreen());
 	}
 
 	// direct calls to video control
