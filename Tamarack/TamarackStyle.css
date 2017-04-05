@@ -162,6 +162,7 @@ iframe {
 }
 
 .tkRedButton {
+    transition: all 0.3s ease-in-out;
 	position: relative;
     box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.1);
     background: linear-gradient(to bottom, #e62e2e 0%, #da4444 100%);
@@ -176,7 +177,8 @@ iframe {
 }
 
 .tkRedButton:hover {
-    background: linear-gradient(to bottom, #d91414 0%, #b73527 100%);
+    background: linear-gradient(to bottom, #e62e2e 0%, #da4444 100%);
+    box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.2);
     background-color: #74c2eb;
     border: 0px solid transparent;
     color: #ffffff;
@@ -185,7 +187,8 @@ iframe {
 
 .tkRedButton:active {
     color: #ffffff;
-    background: linear-gradient(to bottom, #b01111 0%, #932a1f 100%);
+    background: linear-gradient(to bottom, #e62e2e 0%, #da4444 100%);
+    box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.4);
     text-decoration: none;
 }
 
@@ -327,6 +330,7 @@ pre {
 }
 
 .nav > li > a {
+    transition: all 0.3s ease-in-out;
     background-color: #e5e5e5;
     border: 1px solid #d6d6d6;
     border-bottom: 0px solid transparent;
@@ -449,7 +453,6 @@ pre {
     height: 100%;
     display: none;
 }
-
 
 /* Design Tab */
 .designer_content {

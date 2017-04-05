@@ -1266,9 +1266,8 @@ class tkSlideshow extends tkControl
 		this.activeIndex = 0;
 		
 		/*	Whether or not to wrap around when the
-			end of index is reached*/
+			end of index is reached */
 		this.wrap = true;
-		
 		this.slides = [];
 	}
 	
@@ -1299,10 +1298,10 @@ class tkSlideshow extends tkControl
 	{
 		if(!_page) return;
 		// Make all pages inactive
-		for(var i=0;i<this.contentPanel.childNodes.length;i++)
-			this.contentPanel.childNodes[i].className = "slide fade";
+		for(var i=0;i<this.contentPanel.childNodes.length;i++) 
+			this.contentPanel.childNodes[i].className = "slide";
 		
-		_page.contentArea.className = "show slide fade in";
+		_page.contentArea.className = "show slide";
 
 		this.activeIndex = this.getIndex(_page);
 	}
