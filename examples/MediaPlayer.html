@@ -22,38 +22,40 @@
 			(
 				function main()
 				{
-					var doc = new tkDocument();		
-					var video = new tkVideoPlayer();
-					
+					var doc = new tkDocument();						
 					doc.title = "Media Players Demo";
+					var p = doc.putLine();
 					
-					var p = doc.putLine();		
-					var vf = new tkVideoFile("1.mp4","Jellyfish", null, () => {
+					var video = new tkVideoPlayer();
+					video.source = "1.mp4";
+					video.loop = true;
+					video.addToElement(document.body);
+
+					video.loaded = function() {
+						var vi = extractVideoInfo(video.video.element, "Jellyfish");
+
 						var title = new tkText("h1");
-						title.text = vf.getTitle();	
+						title.text = vi.title;	
 						title.addToElement(p);
 						
 						var source = new tkText("p");
-						source.text = "Video Source: " + vf.getSource();	
+						source.text = "Video Source: " + vi.source;	
 						source.addToElement(p);
 						
 						var duration = new tkText("p");
-						duration.text = "Video Duration: " + vf.getFormattedDuration();	
+						duration.text = "Video Duration: " + vi.getFormattedDuration();	
 						duration.addToElement(p);
 						
 						var resolutionBracket = new tkText("p");
-						resolutionBracket.text = "Video Resolution Bracket: " + vf.getResolutionBracket();	
+						resolutionBracket.text = "Video Resolution Bracket: " + vi.resolution.getResolutionBracket();	
 						resolutionBracket.addToElement(p);
 						
 						var resolution = new tkText("p");
-						resolution.text = "Video Resolution: " + vf.getResolution();	
+						resolution.text = "Video Resolution: " + vi.resolution.getResolution();	
 						resolution.addToElement(p);
 						
-						video.setDimensions(vf.getWidth()/2, vf.getHeight()/2);
-					});
-					video.source = vf.getSource();
-					video.loop = true;
-					video.addToElement(document.body);
+						video.setDimensions(vi.resolution.getWidth()/2, vi.resolution.getHeight()/2);
+					};
 				}
 			)();
 		</script>

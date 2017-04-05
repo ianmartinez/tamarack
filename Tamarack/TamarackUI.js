@@ -432,62 +432,16 @@ class tkNativeVideoPlayer extends tkMediaPlayer
 	}	
 }
 
-var videoFileIds = [];
-var regVideoFiles = [];
-function randomVideoFileId()
+class tkVideoInfo
 {
-	var id = "video_file_" + random(0,100000000);
-	while(videoFileIds.includes(id))
-		id = "video_file_" + random(0,100000000);
-	return id;
-}
-
-class tkVideoFile
-{
-	constructor(_source,_title,_thumb,_on_media_init)
+	constructor(_source,_resolution,_duration,_title)
 	{
-		regVideoFiles.push(this);
 		this.source = _source;
-		
-		if(_title) 
-			this.title  = _title
-		else {
-			var crumbs = source.split("/");
-			this.title = crumbs[crumbs.length-1];
-		}
-		
-		if (_thumb)
-			this.thumb = _thumb;
-		else 
-			this.thumb = tkVideoIcon;
-		
-		this.onMediaInit = _on_media_init;
-		this.id = randomVideoFileId();
-		this.duration = 0;
-		this.tempVideo = new tkNativeVideoPlayer();
-		this.tempVideo.source = _source;
-		this.tempVideo.id = this.id;
-		this.tempVideo.addToElement(document.body);
-		this.tempVideo.element.style.display = "none";
-		
-		this.tempVideo.element.addEventListener('loadedmetadata', function (e) {
-			var mediaItem = findInReg(regVideoFiles,this.id);
-			if (mediaItem) 
-			{
-				mediaItem.duration = this.duration;
-				mediaItem.width = this.videoWidth;
-				mediaItem.height = this.videoHeight;
-				
-				// Function to call when duration is set
-				if(mediaItem.onMediaInit)
-					mediaItem.onMediaInit();
-				
-				document.body.removeChild(this);
-			}
-		});
+		this.resolution = _resolution;
+		this.duration = _duration;
+		this.title = (_title) ? _title : _source;
 	}
-	
-	// functions should only be called within this.onMediaInit()
+
 	getFormattedDuration()
 	{
 		var durationSeconds = this.duration.toFixed(0);
@@ -502,25 +456,20 @@ class tkVideoFile
 		var hoursString = (hours != "00") ? hours + ':' : "";
 		return hoursString + minutes + ':' + seconds;
 	}
+}
 
-	getTempId() 
+// must be called after the loadedmetadata event has fired
+function extractVideoInfo(_video,_title)
+ {
+	return new tkVideoInfo(_video.source, new tkResolution(_video.videoWidth, _video.videoHeight), _video.duration, _title);
+}
+
+class tkResolution
+{
+	constructor(_width,_height)
 	{
-		return this.tempVideo.id;
-	}
-	
-	getSource()
-	{
-		return this.source;
-	}
-	
-	getTitle()
-	{
-		return this.title;
-	}
-	
-	getThumb()
-	{
-		return this.thumb;
+		this.width = _width;
+		this.height = _height;
 	}
 	
 	getWidth()
@@ -581,8 +530,7 @@ class tkVideoFile
 			return (_only_numbers) ? 2160 : "4k";
 		
 		else
-			return (_only_numbers) ? 4320 : "8k";	
-		
+			return (_only_numbers) ? 4320 : "8k";
 	}
 }
 
@@ -592,7 +540,7 @@ var tkLightsOutDiv;
 function randomVideoId()
 {
 	var id = "video_" + random(0,100000000);
-	while(videoFileIds.includes(id))
+	while(videoIds.includes(id))
 		id = "video_" + random(0,100000000);
 	return id;
 }
@@ -690,6 +638,16 @@ class tkVideoPlayer extends tkControl
 		}
 	}
 
+	set loaded(_on_load) 
+	{
+		var vid = document.getElementById(this.video.id);
+		$(document).ready(function() {
+			$(vid).on('loadedmetadata', function() {
+				_on_load();
+			});
+		});
+	}
+
 	get lightsOut()
 	{
 		return (tkLightsOutDiv.style.display != "none");
@@ -714,8 +672,6 @@ class tkVideoPlayer extends tkControl
 		else
 			this.lightsOut = true;
 	}
-		
-	// show controls
 	
 	get showControls()
 	{
