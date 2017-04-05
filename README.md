@@ -5,7 +5,7 @@ Examples
 -------
 **Add HTML5 video:**
 ```javascript
-var video = new tkVideoPlayer();
+var video = new tkVideo();
 video.source = "video_source.mp4";
 video.addToElement(document.body);
 ```
@@ -31,4 +31,20 @@ page2.addContent(say("World!"));
 
 notebook.addPages(page1,page2);
 notebook.addToElement(document.body);
+```
+
+**Set the background from a color dialog: (Coming Soon)**
+```javascript
+var doc = new tkDocument();
+var dlgColor = new tkColorDialog();
+if (dlgColor.showDialog() == tkDialogResult.OK)
+    doc.backColor = dlgColor.color;
+```
+
+**Initialize a property panel to modify an object: (Coming in a later version)**
+```javascript
+var prop = new tkPropertyPanel();
+var button = new tkButton();
+doc.add(prop,button);
+prop.associatedControl = button;
 ```
