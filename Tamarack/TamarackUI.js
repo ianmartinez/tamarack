@@ -632,8 +632,14 @@ class tkVideoPlayer extends tkControl
 		{
 			tkLightsOutDiv = make("div");
 			tkLightsOutDiv.className = "tkLightsOutDiv";
+			tkLightsOutDiv.id = "lights_out_" + this.id;
 			tkLightsOutDiv.style.display = "none";
 			tkLightsOutDiv.style.zIndex = 99999;
+
+			tkLightsOutDiv.addEventListener ("click", function(e) {
+				findInReg(regVideo,this.id.replace("lights_out_","")).lightsOut = false;
+			}, false);
+
 			document.body.appendChild(tkLightsOutDiv);
 		}
 	}
@@ -643,6 +649,7 @@ class tkVideoPlayer extends tkControl
 		var vid = document.getElementById(this.video.id);
 		$(document).ready(function() {
 			$(vid).on('loadedmetadata', function() {
+				alert()
 				_on_load();
 			});
 		});
