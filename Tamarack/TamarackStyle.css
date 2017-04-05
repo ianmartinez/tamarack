@@ -26,6 +26,7 @@ body {
     height: 100%;
     width: 100%;
     position: absolute;
+    padding: 3px;
 }
 
 .container {
@@ -351,7 +352,8 @@ pre {
 
 }
 
-.tab-content {
+.tab-content {    
+    padding-top: 2px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -452,6 +454,11 @@ pre {
     width: 100%;
     height: 100%;
     display: none;
+}
+
+.shadow
+{
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Design Tab */
@@ -585,7 +592,6 @@ h5 {
     width: 100%;
     background-color: black;
     height: 100%;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .tkVideoInnerPanel {
@@ -604,6 +610,8 @@ h5 {
     height: 32px;
     width: 100%;
     background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(10px);
+    webkit-backdrop-filter: blur(10px);
     z-index: 100;
 }
 

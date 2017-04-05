@@ -1,4 +1,3 @@
-var tkVideoIcon = "";
 function make(_tag)
 {
 	return document.createElement(_tag);
@@ -618,7 +617,7 @@ class tkVideoPlayer extends tkControl
 		};
 
 		this.video = new tkNativeVideoPlayer();
-		this.video.element.className = "tkVideoPlayer";
+		this.video.element.className = "tkVideoPlayer shadow";
 		this.video.showControls = false;
 		this.video.id =  "video_element_" + this.id;
 		this.video.addToElement(this.innerPanel);
