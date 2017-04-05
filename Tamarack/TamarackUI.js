@@ -11,6 +11,13 @@ function findInReg(_reg,_id) {
 	return null;
 }
 
+function isFullscreenRunning()
+{
+	if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) 
+ 			return true;
+		return false;
+}
+
 class tkControl 
 {
 	constructor() 
@@ -105,9 +112,10 @@ class tkControl
 
 	isFullscreen()
 	{
-		if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) 
- 			return true;
-		return false;
+		return (document.fullscreenElement == this.element 
+				|| document.mozFullScreenElement == this.element 
+				|| document.webkitFullscreenElement == this.element 
+				|| document.msFullscreenElement == this.element);
 	}
 
 	toggleFullscreen()
@@ -461,7 +469,7 @@ class tkVideoInfo
 // must be called after the loadedmetadata event has fired
 function extractVideoInfo(_video,_title)
  {
-	return new tkVideoInfo(_video.source, new tkResolution(_video.videoWidth, _video.videoHeight), _video.duration, _title);
+	return new tkVideoInfo(_video.src, new tkResolution(_video.videoWidth, _video.videoHeight), _video.duration, _title);
 }
 
 class tkResolution
@@ -642,6 +650,12 @@ class tkVideoPlayer extends tkControl
 
 			document.body.appendChild(tkLightsOutDiv);
 		}
+
+		var screen_change_events = "webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange";
+		var vid = this;
+		$(document).on(screen_change_events, function () {
+			vid.showLightsOut = (!vid.isFullscreen());
+		});
 	}
 
 	set loaded(_on_load) 
@@ -649,7 +663,6 @@ class tkVideoPlayer extends tkControl
 		var vid = document.getElementById(this.video.id);
 		$(document).ready(function() {
 			$(vid).on('loadedmetadata', function() {
-				alert()
 				_on_load();
 			});
 		});
@@ -745,7 +758,15 @@ class tkVideoPlayer extends tkControl
 	{
 		
 	}
-	
+
+	isFullscreen()
+	{
+		return (document.fullscreenElement == this.innerPanel 
+				|| document.mozFullScreenElement == this.innerPanel 
+				|| document.webkitFullscreenElement == this.innerPanel 
+				|| document.msFullscreenElement == this.innerPanel);
+	}
+
 	makeFullscreen()
 	{
 		var innerPanel = new tkElement(this.innerPanel);
@@ -763,8 +784,13 @@ class tkVideoPlayer extends tkControl
 	toggleFullscreen()
 	{
 		var innerPanel = new tkElement(this.innerPanel);
-		innerPanel.toggleFullscreen();		
-		this.showLightsOut = (!innerPanel.isFullscreen());
+
+		if (this.isFullscreen())
+			this.exitFullscreen();
+		else
+			this.makeFullscreen();	
+
+		this.showLightsOut = (!isFullscreenRunning());
 	}
 
 	// direct calls to video control

@@ -36,6 +36,13 @@
 					{
 						var slide = new tkSlide();
 						var video = new tkVideoPlayer();
+						video.loaded = function() {
+							var vi = extractVideoInfo(video.video.e);
+							var resolution_caption = new tkText("p");
+							resolution_caption.e.className = "caption";
+							resolution_caption.text = "Resolution Bracket:" + vi.resolution.getResolutionBracket();		
+							slide.addContent(resolution_caption.e);					
+						};
 						video.source = videos[i];
 						video.setDimensions(700,500);
 
@@ -45,18 +52,7 @@
 						
 						slide.addContent(video.e);
 						slide.addContent(caption.e);
-
-						video.loaded = function() {
-							alert()
-							var vi = extractVideoInfo(video.video.element);
-							var resolution_caption = new tkText("p");
-							resolution_caption.e.className = "caption";
-							resolution_caption.text = "Resolution Bracket:" + vi.resolution.getResolutionBracket();		
-							slide.addContent(resolution_caption.e);					
-						};
-
 						slideshow.addPage(slide);
-
 						videoControls.push(video);
 					};	
 					
