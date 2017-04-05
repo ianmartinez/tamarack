@@ -1,3 +1,13 @@
+function getTamarackVersion() 
+{
+	return 0.3;
+}
+
+function isTamarackBeta()
+{
+	return true;
+}
+
 function random(min,max)
 {
     min = Math.ceil(min);
