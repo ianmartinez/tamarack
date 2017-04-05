@@ -199,9 +199,10 @@ iframe {
     text-decoration: none;
 }
 
-.tkButton {
+.tkButton { 
+    transition: all 0.3s ease-in-out;
 	position: relative;
-    box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.1);
+    box-shadow: inset 10px 10px 140px 0px transparent;
     background: linear-gradient(to bottom, #3daee9 0%, #1d99f3 100%);
     border-radius: 3px;
     border: 0px solid transparent;
@@ -214,7 +215,8 @@ iframe {
 }
 
 .tkButton:hover {
-    background: linear-gradient(to bottom, #3498db 0%, #2980b9 100%);
+    background: linear-gradient(to bottom, #3daee9 0%, #1d99f3 100%);
+    box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.2);
     background-color: #74c2eb;
     border: 0px solid transparent;
     color: #ffffff;
@@ -223,7 +225,8 @@ iframe {
 
 .tkButton:active {
     color: #ffffff;
-    background: linear-gradient(to bottom, #2b7fb7 0%, #246fa0 100%);
+    background: linear-gradient(to bottom, #3daee9 0%, #1d99f3 100%);
+    box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.4);
     text-decoration: none;
 }
 
@@ -602,6 +605,7 @@ h5 {
 }
 
 .tkVideoButton {
+    transition: all 0.3s ease-in-out;
     width: 24px;
     height: 24px;
     box-sizing: content-box;

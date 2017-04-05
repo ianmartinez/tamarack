@@ -466,7 +466,7 @@ class tkVideoInfo
 	}
 }
 
-// must be called after the loadedmetadata event has fired
+// must be called in the tkVideo.load event has fired
 function extractVideoInfo(_video,_title)
  {
 	return new tkVideoInfo(_video.src, new tkResolution(_video.videoWidth, _video.videoHeight), _video.duration, _title);
