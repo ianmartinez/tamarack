@@ -668,8 +668,8 @@ h5 {
 .tkDialog {
     width: auto;
     height: auto;
-    color: rgba(255,255,255,0.9);
-    background-color: rgba(64,64,64,0.9);
+    color: rgba(0,0,0,0.9);
+    background-color: rgba(255,255,255,0.9);
     top: 0px;
     position: fixed;
     display: block;

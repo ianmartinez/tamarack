@@ -15,6 +15,16 @@ function random(min,max)
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function randomRGB()
+{
+	return "rgb(" + random(0,255) + "," + random(0,255) + "," + random(0,255) + ")";
+}
+
+function randomRGBA()
+{
+	return "rgba(" + random(0,255) + "," + random(0,255) + "," + random(0,255) + "," + Math.random() + ")";
+}
+
 function addParameters(_url,_args,_vals) {
 	let url = _url + "?";
 	let max = Math.min(_args.length,_vals.length);
@@ -118,6 +128,11 @@ class tkDocument
 		document.body.style.background = _background;
 	}
 
+	setBackgroundGradient(_angle_deg,_start,_end)
+	{
+		document.body.style.background = "linear-gradient(" + _angle_deg + "deg," + _start  + "," + _end + ") fixed";
+	}
+
 	setBackgroundImage(_background)
 	{
 		document.body.style.backgroundImage = _background;
@@ -126,6 +141,11 @@ class tkDocument
 	setBackgroundImageCover(_image)
 	{
 		document.body.style.background = "url(" + _image + ") no-repeat center center fixed";
+	}
+
+	clearBackground()
+	{
+		document.body.style.background = null;
 	}
 }
 
@@ -140,6 +160,7 @@ var tkDialogResult = {
   NO: 6,
   RETRY: 7,
 };
+
 // global functions
 function make(_tag)
 {
@@ -227,6 +248,16 @@ class tkControl
 		_destination.getElement().appendChild(this.getElement());
 	}
 	
+	removeFromElement(_destination) 
+	{
+		_destination.removeChild(this.getElement());
+	}
+
+	removeFrom(_destination) 
+	{
+		_destination.getElement().removeChild(this.getElement());
+	}
+
 	makeFullscreen()
 	{
 		if (this.element.requestFullscreen)
@@ -335,17 +366,17 @@ class tkControl
 
 	fadeIn()
 	{
-		$(this.element).fadeIn();
+		$(this.element).fadeIn(150);
 	}
 
 	fadeOut()
 	{
-		$(this.element).fadeOut();
+		$(this.element).fadeOut(150);
 	}
 
 	slide()
 	{
-		$(this.element).slideToggle(400);
+		$(this.element).slideToggle(200);
 	}
 }
 
@@ -1462,6 +1493,7 @@ class tkSlideshow extends tkControl
 	}
 }
 
+var tkDialogLightsOutDiv;
 class tkDialog extends tkControl
 {
 	constructor()
@@ -1477,11 +1509,30 @@ class tkDialog extends tkControl
 		this.buttonArea = make("div");
 		this.buttonArea.className = "tkDialogButtonArea";
 		this.element.appendChild(this.buttonArea);
-
+		
+		/* 	An array of tkDialogResult listing 
+			the buttons that are shown */
 		this.choices = [];
 		this.choicesButtons = [];
-	}
 
+		if (!tkDialogLightsOutDiv) 
+		{
+			var dialog = this;
+			tkDialogLightsOutDiv = make("div");
+			tkDialogLightsOutDiv.className = "tkLightsOutDiv";
+			tkDialogLightsOutDiv.id = "dialog_lights_out";
+			tkDialogLightsOutDiv.style.display = "none";
+			tkDialogLightsOutDiv.style.zIndex = 99999;
+			tkDialogLightsOutDiv.addEventListener ("click", function(e) {
+				dialog.close();
+			}, false);
+
+			document.body.appendChild(tkDialogLightsOutDiv);
+		}
+
+		this.element.style.zIndex = tkDialogLightsOutDiv.style.zIndex + 1;
+	}
+	
 	addContent(_content)
 	{
 		this.contentArea.appendChild(_content);
@@ -1492,48 +1543,90 @@ class tkDialog extends tkControl
 		this.contentArea.removeChild(_content);
 	}
 
-	/* 	An array of tkDialogResult listing 
-		the buttons that are shown */
-	get choices()
+	/*	Returns a tkDialogResult that 
+		corresponds to the button clicked */
+	show(_on_dialog_result)
 	{
-		return this.choices;
-	}
+		$(tkDialogLightsOutDiv).fadeIn();
+		this.element.style.display = "none";
+		this.addToElement(document.body);
+		this.slide();
+		
+		// Make sure to clear buttons from previous opening
+		var buttonArea = makeElement(this.buttonArea);
+		buttonArea.clear();
 
-	set choices(_choices)
-	{
 		this.choicesButtons = [];
-		for(var i=0;i<_choices.length;i++) 
+		for(var i=0;i<this.choices.length;i++) 
 		{
 			var button = new tkButton();
-			switch (_choices[i]) 
+			var result;
+			var dialog = this;
+
+			switch (this.choices[i]) 
 			{
 				case tkDialogResult.NOTHING:
 					continue;
 					break;
 				case tkDialogResult.OK:
 					button.text = "OK";
+					button.element.onclick = function() {
+						result = tkDialogResult.OK;
+						_on_dialog_result(result);
+						dialog.close();
+					};
 					break;
 				case tkDialogResult.CANCEL:
 					button.text = "Cancel";
 					button.element.className = "tkRedButton";
+					button.element.onclick = function() {
+						result = tkDialogResult.CANCEL;
+						_on_dialog_result(result);
+						dialog.close();
+					};
 					break;
 				case tkDialogResult.ABORT:
 					button.text = "Abort";
 					button.element.className = "tkRedButton";
+					button.element.onclick = function() {
+						result = tkDialogResult.ABORT;
+						_on_dialog_result(result);
+						dialog.close();
+					};
 					break;
 				case tkDialogResult.IGNORE:
 					button.text = "Ignore";
 					button.element.className = "tkRedButton";
+					button.element.onclick = function() {
+						result = tkDialogResult.IGNORE;
+						_on_dialog_result(result);
+						dialog.close();
+					};
 					break;
 				case tkDialogResult.YES:
 					button.text = "Yes";
+					button.element.onclick = function() {
+						result = tkDialogResult.YES;
+						_on_dialog_result(result);
+						dialog.close();
+					};
 					break;
 				case tkDialogResult.NO:
 					button.text = "No";
 					button.element.className = "tkRedButton";
+					button.element.onclick = function() {
+						result = tkDialogResult.NO;
+						_on_dialog_result(result);
+						dialog.close();
+					};
 					break;
 				case tkDialogResult.RETRY:
 					button.text = "Retry";
+					button.element.onclick = function() {
+						result = tkDialogResult.RETRY;
+						_on_dialog_result(result);
+						dialog.close();
+					};
 					break;
 			}
 
@@ -1542,18 +1635,11 @@ class tkDialog extends tkControl
 		}
 	}
 
-	/*	Returns a tkDialogResult that 
-		corresponds to the button clicked */
-	show(_on_dialog_result)
-	{
-		this.element.style.display = "none";
-		this.addToElement(document.body);
-		this.slide();
-	}
-
 	close()
 	{
-		
+		$(tkDialogLightsOutDiv).fadeOut();
+		this.removeFromElement(document.body);
+		this.slide();
 	}
 
 	// Expand to fill document
