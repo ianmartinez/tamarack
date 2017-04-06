@@ -33,7 +33,7 @@ notebook.addPages(page1,page2);
 notebook.addToElement(document.body);
 ```
 
-**Show a yes/no dialog: (Coming Soon)**
+**Show a yes/no dialog:**
 ```javascript
 var dlgMessage = new tkDialog();
 
@@ -41,7 +41,8 @@ dlgMessage.choices = [tkDialogResult.YES, tkDialogResult.NO];
 dlgMessage.addContent(say("Do you like this demo?"));
 
 dlgMessage.show((dialogResult) => {
-    alert(dialogResult);
+    if(dialogResult == tkDialogResult.YES)
+        alert("Thanks!");
 });
 ```
 
