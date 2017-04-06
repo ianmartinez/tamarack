@@ -37,7 +37,7 @@ notebook.addToElement(document.body);
 ```javascript
 var dlgMessage = new tkDialog();
 
-dlgMessage.choices = [tkDialogResult.YES, tkDialogResult.NO, tkDialogResult.CANCEL];
+dlgMessage.choices = [tkDialogResult.YES, tkDialogResult.NO];
 dlgMessage.addContent(say("Do you like this demo?"));
 
 dlgMessage.show((dialogResult) => {
