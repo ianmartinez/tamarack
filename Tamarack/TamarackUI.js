@@ -1387,7 +1387,7 @@ class tkDialog extends tkControl
 	{
 		this.contentArea.removeChild(_content);
 	}
-	
+
 	/* 	An array of tkDialogResult listing 
 		the buttons that are shown */
 	get choices()
@@ -1402,7 +1402,7 @@ class tkDialog extends tkControl
 
 	/*	Returns a tkDialogResult that 
 		corresponds to the button clicked */
-	show()
+	show(_on_show)
 	{
 
 	}

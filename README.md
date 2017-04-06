@@ -33,18 +33,36 @@ notebook.addPages(page1,page2);
 notebook.addToElement(document.body);
 ```
 
+**Show a yes/no dialog: (Coming Soon)**
+```javascript
+var dlgMessage = new tkDialog();
+
+dlgMessage.choices = [tkDialogResult.YES, tkDialogResult.NO, tkDialogResult.CANCEL];
+dlgMessage.addContent(say("Do you like this demo?"));
+
+dlgMessage.show((dialogResult) => {
+    alert(dialogResult);
+});
+```
+
 **Set the background from a color dialog: (Coming Soon)**
 ```javascript
 var doc = new tkDocument();
 var dlgColor = new tkColorDialog();
-if (dlgColor.showDialog() == tkDialogResult.OK)
-    doc.backColor = dlgColor.color;
+
+dlgColor.show((dialogResult) => {
+    if (dialogResult == tkDialogResult.OK)
+        doc.backColor = dlgColor.color;
+});
 ```
 
 **Initialize a property panel to modify an object: (Coming in a later version)**
 ```javascript
 var prop = new tkPropertyPanel();
 var button = new tkButton();
-doc.add(prop,button);
+
 prop.associatedControl = button;
+
+prop.addToElement(document.body);
+button.addToElement(document.body);
 ```
