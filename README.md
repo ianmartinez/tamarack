@@ -47,7 +47,6 @@ dlgMessage.show((dialogResult) => {
 
 **Set the background from a color dialog: (Coming Soon)**
 ```javascript
-var doc = new tkDocument();
 var dlgColor = new tkColorDialog();
 
 dlgColor.show((dialogResult) => {
