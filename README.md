@@ -1,5 +1,5 @@
 # Tamarack
-An easy to use JavaScript library that can create, modify, and style HTML through ECMAScript 6 classes. The backbone of [Socorro Designer](https://github.com/ianmartinez/Socorro-Designer), a user interace designer that outputs content that can be modified dynamically using this library.
+An easy to use JavaScript library that can create, modify, and style HTML through ECMAScript 6 classes. The backbone of [Socorro Designer](https://github.com/ianmartinez/Socorro-Designer), a user interface designer that outputs content that can be modified dynamically using this library.
 
 Examples
 -------

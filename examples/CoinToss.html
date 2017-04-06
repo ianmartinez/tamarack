@@ -40,8 +40,10 @@
 						new_line.text = flip_coin;						
 						new_line.element.style.color = (flip_coin == "Heads") ? "maroon" : "midnightblue";
 						new_line.element.style.fontWeight = "bold";
+						new_line.element.style.display = "none";
 							
 						new_line.addToElement(document.body);
+						new_line.fadeIn();
 					};
 				}
 			)();

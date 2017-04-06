@@ -1,3 +1,15 @@
+// enums
+var tkDialogResult = {
+  NOTHING: 0,
+  OK: 1,
+  CANCEL: 2,
+  ABORT: 3,
+  IGNORE: 4,
+  YES: 5,
+  NO: 6,
+  RETRY: 7,
+};
+// global functions
 function make(_tag)
 {
 	return document.createElement(_tag);
@@ -188,6 +200,16 @@ class tkControl
 	{
 		while (this.element.firstChild) 
 			this.element.removeChild(this.element.firstChild);
+	}
+
+	fadeIn()
+	{
+		$(this.element).fadeIn();
+	}
+
+	fadeOut()
+	{
+		$(this.element).fadeOut();
 	}
 }
 
@@ -1341,5 +1363,85 @@ class tkSlideshow extends tkControl
 			this.goToIndex(0);
 		else
 			this.goToIndex(Math.min(this.slides.length-1, this.getActiveIndex()+1));		
+	}
+}
+
+class tkDialog extends tkControl
+{
+	constructor()
+	{
+		super();
+		this.element = make("div"); 
+		
+		this.contentArea = make("div");
+		this.element.appendChild(this.contentArea);
+		this.choices = [];
+	}
+
+	addContent(_content)
+	{
+		this.contentArea.appendChild(_content);
+	}
+	
+	removeContent(_content)
+	{
+		this.contentArea.removeChild(_content);
+	}
+	
+	/* 	An array of tkDialogResult listing 
+		the buttons that are shown */
+	get choices()
+	{
+
+	}
+
+	set choices(_choices)
+	{
+
+	}
+
+	/*	Returns a tkDialogResult that 
+		corresponds to the button clicked */
+	show()
+	{
+
+	}
+
+	close()
+	{
+
+	}
+
+	// Expand to fill document
+	get maximized()
+	{
+
+	}
+
+	set maximized(_maximized)
+	{
+
+	}
+
+	// Button click when user pressed ESC key
+	get escButton()
+	{
+
+	}
+
+	set escButton(_esc_button)
+	{
+
+	}
+
+	// Button click when user pressed ENTER key
+	get enterButton()
+	{
+
+	}
+
+	set enterButton(_esc_button)
+	{
+
 	}
 }
