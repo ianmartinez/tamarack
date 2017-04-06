@@ -21,9 +21,15 @@ p {
     margin: 10px 0px 5px 0px;
 }
 
+@media (max-width: 600px) {
+    body {    
+        font-size: x-large;
+    }
+}
 
 body {
     height: 100%;
+    width: 100%;
     position: absolute;
     padding: 3px;
 }
@@ -632,6 +638,16 @@ h5 {
     border: 0px solid transparent;
 }
 
+@media (max-width: 600px) {
+    .tkVideoPlayerControls {    
+        height: 52px;
+    }
+    .tkVideoButton {
+        width: 45px;
+        height: 45px;
+    }
+}
+
 .tkVideoButton:hover {
     background-color: rgba(9,128,184,0.6);
     color: #ffffff;
@@ -668,6 +684,7 @@ h5 {
 .tkDialog {
     width: auto;
     height: auto;
+    font-size: medium;
     color: rgba(0,0,0,0.9);
     background-color: rgba(255,255,255,0.9);
     top: 0px;
@@ -684,8 +701,15 @@ h5 {
     border-bottom-right-radius: 3px;
 }
 
+@media (max-width: 600px) {
+    .tkDialog {    
+        width: 90%;
+        font-size: x-large;
+    }
+}
+
 .tkDialogButtonArea {
-    text-align: center;
+    text-align: center;    
 }
 
 .tkDialogContentArea {
