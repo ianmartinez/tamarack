@@ -24,7 +24,6 @@ p {
 
 body {
     height: 100%;
-    width: 100%;
     position: absolute;
     padding: 3px;
 }
@@ -165,8 +164,8 @@ iframe {
 .tkRedButton {
     transition: all 0.3s ease-in-out;
 	position: relative;
-    box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.1);
-    background: linear-gradient(to bottom, #e62e2e 0%, #da4444 100%);
+    box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.1);    
+    background: linear-gradient(to bottom, #f53838 0%, #ce3d3d 100%);
     border-radius: 3px;
     border: 0px solid transparent;
     cursor: pointer;
@@ -178,9 +177,8 @@ iframe {
 }
 
 .tkRedButton:hover {
-    background: linear-gradient(to bottom, #e62e2e 0%, #da4444 100%);
+    background: linear-gradient(to bottom, #f53838 0%, #ce3d3d 100%);
     box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.2);
-    background-color: #74c2eb;
     border: 0px solid transparent;
     color: #ffffff;
     text-decoration: none;
@@ -188,7 +186,7 @@ iframe {
 
 .tkRedButton:active {
     color: #ffffff;
-    background: linear-gradient(to bottom, #e62e2e 0%, #da4444 100%);
+    background: linear-gradient(to bottom, #f53838 0%, #ce3d3d 100%);
     box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.4);
     text-decoration: none;
 }
@@ -664,6 +662,35 @@ h5 {
     left: 0px;
     position: fixed;
     display: block;
+}
+
+/* Dialog */
+.tkDialog {
+    width: auto;
+    height: auto;
+    color: rgba(255,255,255,0.9);
+    background-color: rgba(64,64,64,0.9);
+    top: 0px;
+    position: fixed;
+    display: block;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 8888;
+    padding: 10px 20px;
+    backdrop-filter: blur(10px);
+    webkit-backdrop-filter: blur(10px);
+    border-radius: 0px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.tkDialogButtonArea {
+    text-align: center;
+}
+
+.tkDialogContentArea {
+    padding: 30px 0px;
+    text-align: center;
 }
 
 /* Widget Styles */

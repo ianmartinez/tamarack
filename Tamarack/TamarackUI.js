@@ -1,3 +1,134 @@
+function getTamarackVersion() 
+{
+	return 0.3;
+}
+
+function isTamarackBeta()
+{
+	return true;
+}
+
+function random(min,max)
+{
+    min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function addParameters(_url,_args,_vals) {
+	let url = _url + "?";
+	let max = Math.min(_args.length,_vals.length);
+	for(var i=0; i<max; i++) {
+		url += _args[i] + "=" + _vals[i];
+		if (i < max-1) url += "&";
+	}
+
+	return url;
+}
+
+function getParameterFromURL(_name, _url) 
+{
+	if (!url) 
+	{
+		_url = window.location.href;
+	}
+	_name = _name.replace(/[\[\]]/g, "\\$&");
+	var regex = new RegExp("[?&]" + _name + "(=([^&#]*)|&|#|$)"),
+		results = regex.exec(_url);
+	if (!results) return null;
+	if (!results[2]) return '';
+	return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function getParameter(_name) {
+	return getParameterFromURL(_name,getUrl());
+}
+			
+function getUrl()
+{
+	return window.location.href;
+}
+
+function say(_text)
+{
+	return document.createTextNode(_text);
+}
+
+class tkDocument 
+{	
+	constructor() 
+	{
+		this.output = document.body;
+	}
+		
+	// Document
+	get title()
+	{
+		return document.title;
+	}
+
+
+	set title(_title)
+	{
+		return document.title = _title;
+	}
+
+	put(_str)
+	{
+		var t = document.createTextNode(_str);
+		this.output.appendChild(t);
+		
+		return t;
+	}
+
+	putLine(_string)
+	{
+		if (_string == "undefined" || _string == null)
+			_string = "";
+		
+		var t = document.createTextNode(_string);
+		var p = document.createElement("p"); 
+		p.appendChild(t);
+		this.output.appendChild(p);
+			
+		return p;
+	}
+
+	putLines(_strings)
+	{
+		for (let str of _strings)
+			this.putLine(str);
+	}
+
+	putHeader(_string, _header)
+	{
+		if(["h1","h2","h3","h4","h5","h6"].indexOf(_header.toLowerCase()) != -1)
+		{
+			var h = document.createElement(_header);
+			var t = document.createTextNode(_string);
+			h.appendChild(t);
+			this.output.appendChild(h);
+			
+			return h;
+		}
+	}
+
+	setBackground(_background)
+	{
+		document.body.style.background = _background;
+	}
+
+	setBackgroundImage(_background)
+	{
+		document.body.style.backgroundImage = _background;
+	}
+
+	setBackgroundImageCover(_image)
+	{
+		document.body.style.background = "url(" + _image + ") no-repeat center center fixed";
+	}
+}
+
 // enums
 var tkDialogResult = {
   NOTHING: 0,
@@ -210,6 +341,11 @@ class tkControl
 	fadeOut()
 	{
 		$(this.element).fadeOut();
+	}
+
+	slide()
+	{
+		$(this.element).slideToggle(400);
 	}
 }
 
@@ -738,46 +874,6 @@ class tkVideoPlayer extends tkControl
 			this.lightsOutButton.style.display = "inline-block";
 		else
 			this.lightsOutButton.style.display = "none";
-	}
-	
-	get showPlayPause()
-	{
-		
-	}
-	
-	set showPlayPause(_show)
-	{
-		
-	}
-	
-	get showTime()
-	{
-		
-	}
-	
-	set showTime(_show)
-	{
-		
-	}
-	
-	get showTrackBar()
-	{
-		
-	}
-	
-	set showTrackBar(_show)
-	{
-		
-	}
-	
-	get showVolume()
-	{
-		
-	}
-	
-	set showVolume(_show)
-	{
-		
 	}
 
 	isFullscreen()
@@ -1372,10 +1468,18 @@ class tkDialog extends tkControl
 	{
 		super();
 		this.element = make("div"); 
+		this.element.className = "tkDialog shadow";
 		
 		this.contentArea = make("div");
+		this.contentArea.className = "tkDialogContentArea";
 		this.element.appendChild(this.contentArea);
+
+		this.buttonArea = make("div");
+		this.buttonArea.className = "tkDialogButtonArea";
+		this.element.appendChild(this.buttonArea);
+
 		this.choices = [];
+		this.choicesButtons = [];
 	}
 
 	addContent(_content)
@@ -1392,24 +1496,64 @@ class tkDialog extends tkControl
 		the buttons that are shown */
 	get choices()
 	{
-
+		return this.choices;
 	}
 
 	set choices(_choices)
 	{
+		this.choicesButtons = [];
+		for(var i=0;i<_choices.length;i++) 
+		{
+			var button = new tkButton();
+			switch (_choices[i]) 
+			{
+				case tkDialogResult.NOTHING:
+					continue;
+					break;
+				case tkDialogResult.OK:
+					button.text = "OK";
+					break;
+				case tkDialogResult.CANCEL:
+					button.text = "Cancel";
+					button.element.className = "tkRedButton";
+					break;
+				case tkDialogResult.ABORT:
+					button.text = "Abort";
+					button.element.className = "tkRedButton";
+					break;
+				case tkDialogResult.IGNORE:
+					button.text = "Ignore";
+					button.element.className = "tkRedButton";
+					break;
+				case tkDialogResult.YES:
+					button.text = "Yes";
+					break;
+				case tkDialogResult.NO:
+					button.text = "No";
+					button.element.className = "tkRedButton";
+					break;
+				case tkDialogResult.RETRY:
+					button.text = "Retry";
+					break;
+			}
 
+			this.buttonArea.appendChild(button.element);
+			this.choicesButtons.push(button);
+		}
 	}
 
 	/*	Returns a tkDialogResult that 
 		corresponds to the button clicked */
-	show(_on_show)
+	show(_on_dialog_result)
 	{
-
+		this.element.style.display = "none";
+		this.addToElement(document.body);
+		this.slide();
 	}
 
 	close()
 	{
-
+		
 	}
 
 	// Expand to fill document
