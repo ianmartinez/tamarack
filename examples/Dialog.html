@@ -39,7 +39,7 @@
 								doc.setBackgroundGradient(random(0,360), randomRGB(), randomRGB());
 							else if (dialogResult == tkDialogResult.NOTHING) // if user exits without clicking a button
 								console.log("User exited without making a choice.");
-						});
+						},tkDialogResult.OK);
 					};
 
 					dialogButton.addToElement(document.body);

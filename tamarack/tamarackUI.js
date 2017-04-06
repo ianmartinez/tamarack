@@ -1635,6 +1635,13 @@ class tkDialog extends tkControl
 			this.buttonArea.appendChild(button.element);
 			this.choicesButtons.push(button);
 		}
+
+		document.onkeyup = function(e) {
+			if (e.keyCode == 27) { // esc
+				if(tkDialogLightsOutDiv.style.display != "none")
+					dialog.close();
+			}
+		};
 	}
 
 	close()
@@ -1642,38 +1649,5 @@ class tkDialog extends tkControl
 		$(tkDialogLightsOutDiv).fadeOut();
 		this.removeFromElement(document.body);
 		this.slide();
-	}
-
-	// Expand to fill document
-	get maximized()
-	{
-
-	}
-
-	set maximized(_maximized)
-	{
-
-	}
-
-	// Button click when user pressed ESC key
-	get escButton()
-	{
-
-	}
-
-	set escButton(_esc_button)
-	{
-
-	}
-
-	// Button click when user pressed ENTER key
-	get enterButton()
-	{
-
-	}
-
-	set enterButton(_esc_button)
-	{
-
 	}
 }
