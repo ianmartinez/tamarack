@@ -35,9 +35,10 @@
 					dialogButton.e.onclick = () => 
 					{
 						messageDialog.show((dialogResult) => {
-							if(dialogResult == tkDialogResult.YES) {
+							if(dialogResult == tkDialogResult.YES) 
 								doc.setBackgroundGradient(random(0,360), randomRGB(), randomRGB());
-							}
+							else if (dialogResult == tkDialogResult.NOTHING) // if user exits without clicking a button
+								console.log("User exited without making a choice.");
 						});
 					};
 

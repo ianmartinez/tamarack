@@ -1523,9 +1523,6 @@ class tkDialog extends tkControl
 			tkDialogLightsOutDiv.id = "dialog_lights_out";
 			tkDialogLightsOutDiv.style.display = "none";
 			tkDialogLightsOutDiv.style.zIndex = 99999;
-			tkDialogLightsOutDiv.addEventListener ("click", function(e) {
-				dialog.close();
-			}, false);
 
 			document.body.appendChild(tkDialogLightsOutDiv);
 		}
@@ -1560,8 +1557,13 @@ class tkDialog extends tkControl
 		for(var i=0;i<this.choices.length;i++) 
 		{
 			var button = new tkButton();
-			var result;
+			var result = tkDialogResult.NOTHING;
 			var dialog = this;
+
+			tkDialogLightsOutDiv.onclick = function() {
+				dialog.close();
+				_on_dialog_result(result);
+			};
 
 			switch (this.choices[i]) 
 			{
