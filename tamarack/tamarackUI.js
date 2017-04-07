@@ -1540,6 +1540,7 @@ class tkDialog extends tkControl
 		}
 
 		this.element.style.zIndex = tkDialogLightsOutDiv.style.zIndex + 1;
+		this.isOpen = false;
 	}
 	
 	addContent(_content)
@@ -1556,6 +1557,7 @@ class tkDialog extends tkControl
 		corresponds to the button clicked */
 	show(_on_dialog_result)
 	{
+		this.isOpen = true;
 		$(tkDialogLightsOutDiv).fadeIn();
 		this.element.style.display = "none";
 		this.addToElement(document.body);
@@ -1659,6 +1661,7 @@ class tkDialog extends tkControl
 
 	close()
 	{
+		this.isOpen = false;
 		$(tkDialogLightsOutDiv).fadeOut();
 		this.removeFromElement(document.body);
 		this.slide();
