@@ -125,6 +125,11 @@ class tkDocument
 
 	setBackground(_background)
 	{
+		document.body.style.backgroundColor = _background;
+	}
+
+	setBackgroundColor(_background)
+	{
 		document.body.style.background = _background;
 	}
 
@@ -159,6 +164,13 @@ var tkDialogResult = {
   YES: 5,
   NO: 6,
   RETRY: 7,
+};
+
+var tkColorMode = {
+  RGB: 0,
+  RGBA: 1,
+  HSL: 2,
+  HSLA: 3
 };
 
 // global functions
@@ -1552,18 +1564,19 @@ class tkDialog extends tkControl
 		// Make sure to clear buttons from previous opening
 		var buttonArea = makeElement(this.buttonArea);
 		buttonArea.clear();
+		
+		var dialog = this;
+
+		tkDialogLightsOutDiv.onclick = function() {
+			dialog.close();
+			_on_dialog_result(tkDialogResult.NOTHING);
+		};
 
 		this.choicesButtons = [];
 		for(var i=0;i<this.choices.length;i++) 
 		{
 			var button = new tkButton();
 			var result = tkDialogResult.NOTHING;
-			var dialog = this;
-
-			tkDialogLightsOutDiv.onclick = function() {
-				dialog.close();
-				_on_dialog_result(result);
-			};
 
 			switch (this.choices[i]) 
 			{
@@ -1649,5 +1662,22 @@ class tkDialog extends tkControl
 		$(tkDialogLightsOutDiv).fadeOut();
 		this.removeFromElement(document.body);
 		this.slide();
+	}
+}
+
+class tkColorDialog extends tkDialog
+{
+	constructor()
+	{
+		super();
+		this.choices = [tkDialogResult.OK,tkDialogResult.CANCEL];
+
+		this.palette = [];
+		this.showPalette = true;
+		this.customPalette = [];
+		this.showCustomPalette = false;
+
+		this.color = "black";
+		this.colorMode = tkColorMode.HSLA;
 	}
 }

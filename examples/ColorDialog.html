@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Bootstrap core CSS -->
+		<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<link href="../bootstrap/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+		<!-- Tamarack CSS -->
+		<link href="../tamarack/tamarackStyle.css" rel="stylesheet">
+	</head>
+	<body>
+		<!-- Bootstrap core JavaScript -->
+		<script src="../jquery/jquery.min.js"></script>
+		<script src="../bootstrap/js/bootstrap.min.js"></script>
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<script src="../bootstrap/js/ie10-viewport-bug-workaround.js"></script>  
+
+		<!-- Tamarack -->
+		<script src="../tamarack/tamarackUI.js"></script>
+		
+		<script>
+			(
+				function main()
+				{
+					var doc = new tkDocument();
+					doc.title = "Dolor Dialog Demo";
+					var backgroundColor = randomRGB();
+					doc.setBackgroundColor(backgroundColor);
+					
+					var colorDialog = new tkColorDialog();
+					var dialogButton = new tkButton();
+					dialogButton.text = "New Color";
+					dialogButton.e.onclick = () => 
+					{
+						colorDialog.show((dialogResult) => {
+							if(dialogResult == tkDialogResult.OK) 
+							{
+								backgroundColor = colorDialog.color;
+								doc.setBackgroundColor(backgroundColor);
+							}
+						});
+					};
+
+					dialogButton.addToElement(document.body);
+				}
+			)();
+		</script>
+	</body>
+</html>
