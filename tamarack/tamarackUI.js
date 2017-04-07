@@ -163,7 +163,7 @@ var tkDialogResult = {
   IGNORE: 4,
   YES: 5,
   NO: 6,
-  RETRY: 7,
+  RETRY: 7
 };
 
 var tkColorMode = {
@@ -1524,7 +1524,7 @@ class tkDialog extends tkControl
 		
 		/* 	An array of tkDialogResult listing 
 			the buttons that are shown */
-		this.choices = [];
+		this.choices = [tkDialogResult.OK];
 		this.choicesButtons = [];
 
 		if (!tkDialogLightsOutDiv) 
@@ -1562,6 +1562,8 @@ class tkDialog extends tkControl
 		this.element.style.display = "none";
 		this.addToElement(document.body);
 		this.slide();
+
+		if(!_on_dialog_result) _on_dialog_result = function() {};
 		
 		// Make sure to clear buttons from previous opening
 		var buttonArea = makeElement(this.buttonArea);
@@ -1673,6 +1675,7 @@ class tkColorDialog extends tkDialog
 	constructor()
 	{
 		super();
+
 		this.choices = [tkDialogResult.OK,tkDialogResult.CANCEL];
 
 		this.palette = [];
