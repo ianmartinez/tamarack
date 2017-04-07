@@ -23,7 +23,7 @@ p {
 
 @media (max-width: 600px) {
     body {    
-        font-size: x-large;
+        font-size: large;
     }
 }
 
@@ -706,7 +706,7 @@ h5 {
 @media (max-width: 600px) {
     .tkDialog {    
         width: 90%;
-        font-size: x-large;
+        font-size: large;
     }
 }
 
