@@ -3,7 +3,7 @@ An easy to use JavaScript library that can create, modify, and style HTML throug
 
 Architecture 
 -------
-Most of Tamarack is a collection of controls that provide a wrapper around html elements, such as tkButton, which wraps around <button> or tkImage which wraps around <img>. All of these controls inherit from tkControl, which provides them with basic functionality such as making the element full-screen or adding the control to another control. In addition, there are also composite controls, such as tkNotebook and tkDialog, that represent multiple html elements in one single class, cutting down the need for massive amounts of boilerplate code for simple tasks.
+Most of Tamarack is a collection of controls that provide a wrapper around html elements, such as tkButton, which wraps around &lt;button&gt; or tkImage which wraps around &lt;img&gt;. All of these controls inherit from tkControl, which provides them with basic functionality such as making the element full-screen or adding the control to another control. In addition, there are also composite controls, such as tkNotebook and tkDialog, that represent multiple html elements in one single class, cutting down the need for massive amounts of boilerplate code for simple tasks.
 
 Examples
 -------
