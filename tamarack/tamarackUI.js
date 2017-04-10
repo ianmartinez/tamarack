@@ -25,7 +25,142 @@ function randomRGBA()
 	return "rgba(" + random(0,255) + "," + random(0,255) + "," + random(0,255) + "," + Math.random() + ")";
 }
 
-function addParameters(_url,_args,_vals) {
+class tkColor
+{
+	constructor()
+	{
+		this.r = 0;
+		this.g = 0;
+		this.b = 0;
+
+		this.h = 0;
+		this.s = 0;
+		this.l = 0;
+
+		this.a = 1;
+	}
+
+	fromRgba(_r,_g,_b,_a)
+	{
+		var hsl = this.rgbToHsl(_r,_g,_b);
+		this.r = _r;
+		this.g = _g;
+		this.b = _b;
+
+		this.h = hsl[0];
+		this.s = hsl[1];
+		this.l = hsl[2];
+
+		this.a = _a;
+	}
+
+	fromHsla(_h,_s,_l,_a)
+	{
+		var rgb = this.hslToRgb(_h,_s,_l);
+		this.r = rgb[0];
+		this.g = rgb[1];
+		this.b = rgb[2];
+
+		this.h = _h;
+		this.s = _s;
+		this.l = _l;
+
+		this.a = _a;
+	}
+
+	fromHex(_hex)
+	{
+		var rgb = this.hexToRgb(_hex);
+		this.fromRgba(rgb[0],rgb[1],rgb[2],this.a);
+	}
+
+	getHslaCss()
+	{
+		return "hsla(" + this.h + "," + this.s + "%," + this.l + "%," + this.a + ")";
+	}
+
+	getRgbaCss()
+	{
+		return "rgba(" + this.r + "," + this.g + "," + this.b + "," + this.a + ")";
+	}
+
+	getHexCss()
+	{
+		return this.rgbToHex(this.r,this.g,this.b);
+	}
+
+	hslToRgb(h, s, l)
+	{
+		var r, g, b;
+
+		if(h>0) h /= 360;
+		if(s>0) s /= 100;
+		if(l>0) l /= 100;
+
+		if(s == 0) {
+			r = g = b = l; // achromatic
+		} else {
+			var hue2rgb = function hue2rgb(p, q, t) {
+				if(t < 0) t += 1;
+				if(t > 1) t -= 1;
+				if(t < 1/6) return p + (q - p) * 6 * t;
+				if(t < 1/2) return q;
+				if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+				return p;
+			}
+
+			var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+			var p = 2 * l - q;
+			r = hue2rgb(p, q, h + 1/3);
+			g = hue2rgb(p, q, h);
+			b = hue2rgb(p, q, h - 1/3);
+		}
+
+		return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+	}
+
+	rgbToHsl(r, g, b)
+	{
+		r /= 255, g /= 255, b /= 255;
+		var max = Math.max(r, g, b), min = Math.min(r, g, b);
+		var h, s, l = (max + min) / 2;
+
+		if(max == min) {
+			h = s = 0; // achromatic
+		} else {
+			var d = max - min;
+			s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+			switch(max) {
+				case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+				case g: h = (b - r) / d + 2; break;
+				case b: h = (r - g) / d + 4; break;
+			}
+			h /= 6;
+		}
+
+		return [h*360, s*100, l*100];
+	}
+
+	hexToRgb(_hex)
+	{
+		// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+		var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+		_hex = _hex.replace(shorthandRegex, function(m, r, g, b) {
+			return r + r + g + g + b + b;
+		});
+
+		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(_hex);
+		return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : null;
+	}
+
+	rgbToHex(_r,_g,_b)
+	{
+		return "#" + ((1 << 24) + (_r << 16) + (_g << 8) + _b).toString(16).slice(1);
+	}
+}
+
+function addParameters(_url,_args,_vals) 
+{
 	let url = _url + "?";
 	let max = Math.min(_args.length,_vals.length);
 	for(var i=0; i<max; i++) {
@@ -50,7 +185,8 @@ function getParameterFromURL(_name, _url)
 	return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function getParameter(_name) {
+function getParameter(_name) 
+{
 	return getParameterFromURL(_name,getUrl());
 }
 			
@@ -62,6 +198,14 @@ function getUrl()
 function say(_text)
 {
 	return document.createTextNode(_text);
+}
+
+function sayP(_text)
+{
+	var textNode = document.createTextNode(_text);
+	var p = make("p");
+	p.appendChild(textNode);
+	return p;
 }
 
 class tkDocument 
@@ -164,11 +308,6 @@ var tkDialogResult = {
   YES: 5,
   NO: 6,
   RETRY: 7
-};
-
-var tkColorMode = {
-  HSL: 0,
-  HSLA: 1
 };
 
 // global functions
@@ -1707,6 +1846,18 @@ class tkDialog extends tkControl
 	}
 }
 
+class tkAboutTamarackDialog extends tkDialog
+{
+	constructor()
+	{
+		super();
+
+		var lines = [sayP("Tamarack " + getTamarackVersion()), sayP("By Ian Martinez")];
+		this.choices = [tkDialogResult.OK];
+		lines.forEach((e) => this.addContent(e));
+	}
+}
+
 class tkColorDialog extends tkDialog
 {
 	constructor()
@@ -1719,9 +1870,6 @@ class tkColorDialog extends tkDialog
 		this.showPalette = true;
 		this.customPalette = [];
 		this.showCustomPalette = false;
-
-		this.color = "black";
-		this.colorMode = tkColorMode.HSLA;
 
 		this.colorPicker = new tkColorPicker();
 		this.addContent(this.colorPicker.element);
@@ -1744,48 +1892,44 @@ class tkColorPicker extends tkControl
 		this.customPalette = [];
 		this.showCustomPalette = false;
 
-		this.color = "black";
-		this.colorMode = tkColorMode.HSLA;
-
 		this.hueRange = new tkHueSlider();
 		this.hueRange.addTo(this);
 
-	/*	this.saturationRange = new tkSaturationSlider();
+		this.saturationRange = new tkSaturationSlider();
 		this.saturationRange.addTo(this);
 
 		this.lightnessRange = new tkLightnessSlider();
 		this.lightnessRange.addTo(this);
 
 		this.alphaRange = new tkAlphaSlider();
-		this.alphaRange.addTo(this);8=*/
+		this.alphaRange.addTo(this);
+
+		this.intColor = new tkColor();
+		this.intColor.fromRgba(25,72,11,1);
+		this.refreshColor();
 	}
-}
 
-function getNumericStyleProperty(style, prop){
-    return parseInt(style.getPropertyValue(prop),10) ;
-}
+	get color()
+	{
+		return this.intColor;
+	}
 
-function getRelativePosition(e)
-{
-	var x = 0, y = 0;
-    var inner = true ;
-    do {
-        x += e.offsetLeft;
-        y += e.offsetTop;
-        var style = getComputedStyle(e,null) ;
-        var borderTop = getNumericStyleProperty(style,"border-top-width") ;
-        var borderLeft = getNumericStyleProperty(style,"border-left-width") ;
-        y += borderTop ;
-        x += borderLeft ;
-        if (inner){
-          var paddingTop = getNumericStyleProperty(style,"padding-top") ;
-          var paddingLeft = getNumericStyleProperty(style,"padding-left") ;
-          y += paddingTop ;
-          x += paddingLeft ;
-        }
-        inner = false ;
-    } while (e = e.offsetParent);
-    return { x: x, y: y };
+	set color(_color)
+	{		
+		this.intColor = _color;
+		refreshColor();
+	}
+
+	refreshColor()
+	{
+		console.log(this.intColor.getHslaCss());
+		console.log(this.intColor.getRgbaCss());
+		console.log(this.intColor.getHexCss());
+		this.hueRange.setPosition(this.intColor.h,360);
+		this.saturationRange.setPosition(this.intColor.s,100);
+		this.lightnessRange.setPosition(this.intColor.l,100);
+		this.alphaRange.setPosition(this.intColor.a,1);
+	}
 }
 
 class tkSlider extends tkControl
@@ -1804,6 +1948,8 @@ class tkSlider extends tkControl
 		this.thumb = make("div");
 		this.thumb.className = "tkSliderThumb";
 		this.track.appendChild(this.thumb);
+		
+		this.setPosition(0,100);
 
 		// Internal values - do not use
 		this.x = 0;
@@ -1839,7 +1985,31 @@ class tkSlider extends tkControl
 		slider.xPercentage = Math.max(slider.xPercentage,0); 
 		slider.xPercentage = Math.min(slider.xPercentage,100); 
 		
-		this.thumb.style.left = this.xPercentage + '%';	
+		slider.setPercent(slider.xPercentage);
+	}
+
+	getMax()
+	{
+		return this.maxValue;
+	}
+
+	getValue()
+	{
+		return this.valueValue;
+	}
+
+	setPosition(_value,_max)
+	{
+		var percent = toPercentNum(_value,_max);
+		this.maxValue = _max;
+		this.valueValue = _value;
+		this.thumb.style.left = percent + '%';	
+	}
+
+	setPercent(_percent)
+	{
+		var new_value = fromPercent(_percent,this.getMax());
+		this.setPosition(new_value,this.getMax());
 	}
 }
 
@@ -1863,7 +2033,6 @@ function toPercentNum(_value,_max)
 
 function fromPercent(_value,_max)
 {
-	_value = _value.replace("%","");
 	return ((_value*_max)/100);
 }
 
@@ -1933,11 +2102,6 @@ class tkColorSlider extends tkSlider
 	{
 		this.alphaValue = _alpha_value;
 		this.refreshColors();
-	}
-
-	refreshColors()
-	{
-
 	}
 }
 
