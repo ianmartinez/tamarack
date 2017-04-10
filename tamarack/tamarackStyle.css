@@ -738,7 +738,7 @@ h5 {
 /* Dialog */
 .tkDialog {
     width: auto;    
-    min-width: 35%;
+    min-width: 25%;
     height: auto;
     font-size: medium;
     color: rgba(0,0,0,0.9);

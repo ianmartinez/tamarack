@@ -1874,6 +1874,16 @@ class tkColorDialog extends tkDialog
 		this.colorPicker = new tkColorPicker();
 		this.addContent(this.colorPicker.element);
 	}
+
+	get color()
+	{
+		return this.colorPicker.color;
+	}
+	
+	set color(_color)
+	{
+		this.colorPicker.color = _color;
+	}
 }
 
 class tkColorPicker extends tkControl
