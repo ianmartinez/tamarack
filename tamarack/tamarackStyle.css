@@ -32,12 +32,12 @@ body {
     width: 100%;
     position: absolute;
     padding: 3px;
+    background-color: white;
 }
 
 .container {
     padding: 0px;
 	margin: 0px;
-    width: auto;
 }
 
 ::-webkit-scrollbar {
@@ -167,15 +167,15 @@ iframe {
     justify-content: center;
 }
 
-.tkRedButton {
+.tkRedButton { 
     transition: all 0.3s ease-in-out;
 	position: relative;
-    box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.1);    
-    background: linear-gradient(to bottom, #f53838 0%, #ce3d3d 100%);
+    box-shadow: inset 0px 0px 1px 0px rgba(255,255,255,0.3);
+    background: linear-gradient(to bottom, #e0584c 0%, #cb2f34 100%);
     border-radius: 3px;
-    border: 0px solid transparent;
+    border: 1px solid #a92228;
     cursor: pointer;
-    color: #ffffff;
+    color: white;
     padding: 6px 12px;
 	margin: 1px;    
 	display: inline-block;
@@ -183,39 +183,83 @@ iframe {
 }
 
 .tkRedButton:hover {
-    background: linear-gradient(to bottom, #f53838 0%, #ce3d3d 100%);
-    box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.2);
-    border: 0px solid transparent;
-    color: #ffffff;
+    border: 1px solid #962025;
+    box-shadow:  inset 10px 10px 140px 0px rgba(0,0,0,0.1);
+    color: white;
     text-decoration: none;
 }
 
 .tkRedButton:active {
-    color: #ffffff;
-    background: linear-gradient(to bottom, #f53838 0%, #ce3d3d 100%);
-    box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.4);
+    border: 1px solid #962025;
+    background: linear-gradient(to top, #e0584c 0%, #cb2f34 100%);
+    color: white;
+    outline: none;
+    box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.2), inset 0px 0px 1px 0px rgba(0,0,0,0.4);
     text-decoration: none;
 }
 
 .tkRedButton:focus {
-    color: #ffffff;
+    color: white;
+    outline: none;
     text-decoration: none;
 }
 
 .tkRedButton:visited {
-    color: #ffffff;
+    color: white;
+    text-decoration: none;
+}
+
+.tkBlueButton { 
+    transition: all 0.3s ease-in-out;
+	position: relative;
+    box-shadow: inset 0px 0px 1px 0px rgba(255,255,255,0.3);
+    background: linear-gradient(to bottom, #51b8eb 0%, #429de8 100%);
+    border-radius: 3px;
+    border: 1px solid #3194dc;
+    cursor: pointer;
+    color: white;
+    padding: 6px 12px;
+	margin: 1px;    
+	display: inline-block;
+    text-decoration: none;
+}
+
+.tkBlueButton:hover {
+    border: 1px solid #2a84c6;
+    box-shadow:  inset 10px 10px 140px 0px rgba(0,0,0,0.1);
+    color: white;
+    text-decoration: none;
+}
+
+.tkBlueButton:active {
+    border: 1px solid #2a84c6;
+    background: linear-gradient(to top, #51b8eb 0%, #429de8 100%);
+    color: white;
+    outline: none;
+    box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.2), inset 0px 0px 1px 0px rgba(0,0,0,0.4);
+    text-decoration: none;
+}
+
+.tkBlueButton:focus {
+    color: white;
+    outline: none;
+    text-decoration: none;
+}
+
+.tkBlueButton:visited {
+    color: white;
     text-decoration: none;
 }
 
 .tkButton { 
     transition: all 0.3s ease-in-out;
 	position: relative;
-    box-shadow: inset 10px 10px 140px 0px transparent;
-    background: linear-gradient(to bottom, #3daee9 0%, #1d99f3 100%);
+    box-shadow: inset 0px 0px 1px 0px rgba(255,255,255,0.8);
+    background: linear-gradient(to bottom, #f5f5f5 0%, #ececec 100%);
     border-radius: 3px;
-    border: 0px solid transparent;
+    border: 1px solid rgba(200,200,200,1);
     cursor: pointer;
-    color: #ffffff;
+    color: black;
     padding: 6px 12px;
 	margin: 1px;    
 	display: inline-block;
@@ -223,28 +267,29 @@ iframe {
 }
 
 .tkButton:hover {
-    background: linear-gradient(to bottom, #3daee9 0%, #1d99f3 100%);
-    box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.2);
-    background-color: #74c2eb;
-    border: 0px solid transparent;
-    color: #ffffff;
+    border: 1px solid rgba(180,180,180,1);  
+    box-shadow:  inset 10px 10px 140px 0px rgba(0,0,0,0.1);
+    color: black;
     text-decoration: none;
 }
 
 .tkButton:active {
-    color: #ffffff;
-    background: linear-gradient(to bottom, #3daee9 0%, #1d99f3 100%);
-    box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.4);
+    border: 1px solid rgba(180,180,180,1);
+    background: linear-gradient(to top, #f5f5f5 0%, #ececec 100%);
+    color: black;
+    outline: none;
+    box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.2), inset 0px 0px 1px 0px rgba(0,0,0,0.4);
     text-decoration: none;
 }
 
 .tkButton:focus {
-    color: #ffffff;
+    color: black;
+    outline: none;
     text-decoration: none;
 }
 
 .tkButton:visited {
-    color: #ffffff;
+    color: black;
     text-decoration: none;
 }
 
@@ -320,44 +365,54 @@ pre {
     padding-top: 3px;
 }
 
+.nav-tabs > li {
+    float: left;
+    margin-bottom: -1px;
+}
+
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
     color: #555;
     cursor: default;
-    background-color: #fff;
-    border: 1px solid #ddd;
-	box-shadow: inset 0px 2px 0px 0px #3498db;
+    background: transparent;
+    background-color: rgb(255,255,255);
+    border: 1px solid rgba(200,200,200,1);
     border-bottom: 0px solid transparent;
+    box-shadow: none;
+    border-top-left-radius: 3px;  
+    border-top-right-radius: 3px;
 }
 
 .nav-tabs > li > a {
-    border-radius: 2px;
+    border-radius: 3px;
     border: 0px solid transparent;
 }
 
 .nav > li > a {
     transition: all 0.3s ease-in-out;
-    background-color: #e5e5e5;
-    border: 1px solid #d6d6d6;
+    background-color: #ececec;
+    border: 1px solid rgba(200,200,200,1);
+    box-shadow: inset 0px -1px 0px 0px rgba(200,200,200,1);
     border-bottom: 0px solid transparent;
     color: #555;
     padding: 4px 8px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
+    border-top-left-radius: 3px;  
+    border-top-right-radius: 3px;    
 }
 
 .nav-tabs > li > a:hover {
     background-color: #d8d8d8;
-    border: 1px solid #c7c6c6;
-	box-shadow: inset 0px 2px 0px 0px #2980b9;
-    padding: 4px 8px;
+    border: 1px solid #a8a8a8;
     border-bottom: 0px solid transparent;
-
+    box-shadow:  inset 10px 10px 140px 0px rgba(0,0,0,0.1), inset 0px -1px 0px 0px rgba(200,200,200,1);
+    padding: 4px 8px;    
 }
 
 .tab-content {    
     padding-top: 2px;
+    background-color: transparent;
+    min-height: 50px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -687,6 +742,7 @@ h5 {
     height: auto;
     font-size: medium;
     color: rgba(0,0,0,0.9);
+    background: linear-gradient(to bottom, #f8f8f8 70%, #f0f0f0 100%);
     background-color: rgba(255,255,255,0.9);
     top: 0px;
     position: fixed;
@@ -720,6 +776,51 @@ h5 {
     text-align: center;
 }
 
+/* Color */
+.tkColorSlider {
+    cursor: pointer;
+    padding-left: 5px;
+    position: relative;
+    width: 100%;
+    margin: 5px auto;
+    height: 25px;
+    max-height: 25px;
+    border-radius: 3px;
+    box-shadow: inset 0px 8px 12px 0px rgba(255,255,255,.3), inset 0px 0px 0px 1px rgba(0,0,0,0.3);;
+    background-image: url("transparency.png");
+}
+
+.tkColorPicker {
+
+}
+
+.tkSlider {
+  cursor: pointer;
+  height: 25px;
+  padding-left: 5px;
+  width: 100%;
+  position: relative;
+  background-color: black;
+}
+
+.tkSliderTrack {
+  height: 100%;
+  width: calc(100% - 5px);
+  position: absolute;
+  top: 0;
+  cursor: pointer;
+}
+
+.tkSliderThumb {
+  position: absolute;
+  left: 0;
+  margin: 0px;
+  margin-left: -5px;
+  width: 5px;
+  height: 100%;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.7);
+}
 /* Widget Styles */
 .dsWidgetContainer {  
     display: block;

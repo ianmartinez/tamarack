@@ -23,12 +23,12 @@
 				function main()
 				{
 					var doc = new tkDocument();
-					doc.title = "Dolor Dialog Demo";
+					doc.title = "Color Dialog Demo";
 					var backgroundColor = randomRGB();
-					doc.setBackgroundColor(backgroundColor);
 					
 					var colorDialog = new tkColorDialog();
 					var dialogButton = new tkButton();
+
 					dialogButton.text = "New Color";
 					dialogButton.e.onclick = () => 
 					{

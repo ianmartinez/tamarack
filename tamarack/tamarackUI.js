@@ -167,10 +167,8 @@ var tkDialogResult = {
 };
 
 var tkColorMode = {
-  RGB: 0,
-  RGBA: 1,
-  HSL: 2,
-  HSLA: 3
+  HSL: 0,
+  HSLA: 1
 };
 
 // global functions
@@ -389,6 +387,46 @@ class tkControl
 	slide()
 	{
 		$(this.element).slideToggle(200);
+	}
+
+	get left()
+	{
+		return this.element.getBoundingClientRect().left;
+	}
+
+	get right()
+	{
+		return this.element.getBoundingClientRect().right;
+	}
+
+	get top()
+	{
+		return this.element.getBoundingClientRect().top;
+	}
+
+	get bottom()
+	{
+		return this.element.getBoundingClientRect().bottom;		
+	}
+
+	get leftScroll()
+	{
+		return this.left + $(window).scrollLeft();
+	}
+
+	get rightScroll()
+	{
+		return this.right + $(window).scrollLeft();
+	}
+
+	get topScroll()
+	{
+		return this.top + $(window).scrollTop();
+	}
+
+	get bottomScroll()
+	{
+		return this.bottom +  $(window).scrollTop();		
 	}
 }
 
@@ -1589,6 +1627,7 @@ class tkDialog extends tkControl
 					break;
 				case tkDialogResult.OK:
 					button.text = "OK";
+					button.element.className = "tkBlueButton";
 					button.element.onclick = function() {
 						result = tkDialogResult.OK;
 						_on_dialog_result(result);
@@ -1597,7 +1636,6 @@ class tkDialog extends tkControl
 					break;
 				case tkDialogResult.CANCEL:
 					button.text = "Cancel";
-					button.element.className = "tkRedButton";
 					button.element.onclick = function() {
 						result = tkDialogResult.CANCEL;
 						_on_dialog_result(result);
@@ -1606,7 +1644,6 @@ class tkDialog extends tkControl
 					break;
 				case tkDialogResult.ABORT:
 					button.text = "Abort";
-					button.element.className = "tkRedButton";
 					button.element.onclick = function() {
 						result = tkDialogResult.ABORT;
 						_on_dialog_result(result);
@@ -1615,7 +1652,6 @@ class tkDialog extends tkControl
 					break;
 				case tkDialogResult.IGNORE:
 					button.text = "Ignore";
-					button.element.className = "tkRedButton";
 					button.element.onclick = function() {
 						result = tkDialogResult.IGNORE;
 						_on_dialog_result(result);
@@ -1624,6 +1660,7 @@ class tkDialog extends tkControl
 					break;
 				case tkDialogResult.YES:
 					button.text = "Yes";
+					button.element.className = "tkBlueButton";
 					button.element.onclick = function() {
 						result = tkDialogResult.YES;
 						_on_dialog_result(result);
@@ -1632,7 +1669,6 @@ class tkDialog extends tkControl
 					break;
 				case tkDialogResult.NO:
 					button.text = "No";
-					button.element.className = "tkRedButton";
 					button.element.onclick = function() {
 						result = tkDialogResult.NO;
 						_on_dialog_result(result);
@@ -1641,6 +1677,7 @@ class tkDialog extends tkControl
 					break;
 				case tkDialogResult.RETRY:
 					button.text = "Retry";
+					button.element.className = "tkBlueButton";
 					button.element.onclick = function() {
 						result = tkDialogResult.RETRY;
 						_on_dialog_result(result);
@@ -1685,5 +1722,318 @@ class tkColorDialog extends tkDialog
 
 		this.color = "black";
 		this.colorMode = tkColorMode.HSLA;
+
+		this.colorPicker = new tkColorPicker();
+		this.addContent(this.colorPicker.element);
+	}
+}
+
+class tkColorPicker extends tkControl
+{
+	constructor()
+	{
+		super();
+
+		this.element = make("div");
+		this.element.className = "tkColorPicker";
+
+		this.choices = [tkDialogResult.OK,tkDialogResult.CANCEL];
+
+		this.palette = [];
+		this.showPalette = true;
+		this.customPalette = [];
+		this.showCustomPalette = false;
+
+		this.color = "black";
+		this.colorMode = tkColorMode.HSLA;
+
+		this.hueRange = new tkHueSlider();
+		this.hueRange.addTo(this);
+
+	/*	this.saturationRange = new tkSaturationSlider();
+		this.saturationRange.addTo(this);
+
+		this.lightnessRange = new tkLightnessSlider();
+		this.lightnessRange.addTo(this);
+
+		this.alphaRange = new tkAlphaSlider();
+		this.alphaRange.addTo(this);8=*/
+	}
+}
+
+function getNumericStyleProperty(style, prop){
+    return parseInt(style.getPropertyValue(prop),10) ;
+}
+
+function getRelativePosition(e)
+{
+	var x = 0, y = 0;
+    var inner = true ;
+    do {
+        x += e.offsetLeft;
+        y += e.offsetTop;
+        var style = getComputedStyle(e,null) ;
+        var borderTop = getNumericStyleProperty(style,"border-top-width") ;
+        var borderLeft = getNumericStyleProperty(style,"border-left-width") ;
+        y += borderTop ;
+        x += borderLeft ;
+        if (inner){
+          var paddingTop = getNumericStyleProperty(style,"padding-top") ;
+          var paddingLeft = getNumericStyleProperty(style,"padding-left") ;
+          y += paddingTop ;
+          x += paddingLeft ;
+        }
+        inner = false ;
+    } while (e = e.offsetParent);
+    return { x: x, y: y };
+}
+
+class tkSlider extends tkControl
+{
+	constructor()
+	{
+		super();
+
+		this.element = make("div");
+		this.element.className = "tkSlider";
+
+		this.track = make("div");
+		this.track.className = "tkSliderTrack";
+		this.element.appendChild(this.track);
+
+		this.thumb = make("div");
+		this.thumb.className = "tkSliderThumb";
+		this.track.appendChild(this.thumb);
+
+		// Internal values - do not use
+		this.x = 0;
+		this.sliderEnd = 0;
+		this.xPercentage = 0;
+
+		// Listeners
+		var slider = this;
+		this.element.onmousemove  = (e) => {
+			if((e.buttons == 1 || e.buttons == 3))
+				slider.thumbPositionListener(e,slider);
+		};
+		this.track.onmousemove  = (e) => {
+			if((e.buttons == 1 || e.buttons == 3))
+				slider.thumbPositionListener(e,slider);
+		};
+		this.thumb.onmousemove  = (e) => {
+			if((e.buttons == 1 || e.buttons == 3))
+				slider.thumbPositionListener(e,slider);
+		};
+		
+		this.element.onclick = (e) => {slider.thumbPositionListener(e,slider)};
+		this.track.onclick = (e) => {slider.thumbPositionListener(e,slider)};
+	}
+
+	thumbPositionListener(e,slider)
+	{ 
+		slider.sliderEnd = slider.rightScroll - slider.leftScroll;
+		slider.x = e.clientX - slider.leftScroll;
+		slider.xPercentage = toPercentNum(slider.x,slider.sliderEnd);
+		
+		// make sure it's between 0% and 100%
+		slider.xPercentage = Math.max(slider.xPercentage,0); 
+		slider.xPercentage = Math.min(slider.xPercentage,100); 
+		
+		this.thumb.style.left = this.xPercentage + '%';	
+	}
+}
+
+function createLinearGradient(_angle_deg,_colors)
+{
+	var gradient = "linear-gradient(" + _angle_deg + "deg";
+	for(var i=0;i<_colors.length;i++)
+		gradient += ("," + _colors[i] + " " + toPercent(i,_colors.length));
+	return gradient + " )";
+}
+
+function toPercent(_value,_max)
+{
+	return ((_value*100)/_max) + "%";
+}
+
+function toPercentNum(_value,_max)
+{
+	return ((_value*100)/_max);
+}
+
+function fromPercent(_value,_max)
+{
+	_value = _value.replace("%","");
+	return ((_value*_max)/100);
+}
+
+class tkColorSlider extends tkSlider
+{
+	constructor()
+	{
+		super();
+		this.element.className = "tkColorSlider";
+
+		// a gradient with an array of colors
+		this.colors = ["black","white"];
+		
+		this.hue = 0;
+		this.saturation = 100;
+		this.lightness = 50;
+		this.alpha = 1;
+		this.init = true;
+
+		this.refreshColors();
+	}
+
+	set colors(_colors)
+	{
+		this.element.style.background = createLinearGradient(90,_colors) + ",url(\"transparency.png\")";
+	}
+
+	get hue()
+	{
+		return this.hueValue;
+	}
+
+	set hue(_hue_value)
+	{
+		this.hueValue = _hue_value;
+		this.refreshColors();
+	}
+
+	get saturation()
+	{
+		return this.saturationValue;
+	}
+
+	set saturation(_saturation_value)
+	{
+		this.saturationValue = _saturation_value;
+		this.refreshColors();
+	}
+
+	get lightness()
+	{
+		return this.lightnessValue;
+	}
+
+	set lightness(_lightness_value)
+	{
+		this.lightnessValue = _lightness_value;
+		this.refreshColors();
+	}
+
+	get alpha()
+	{
+		return this.alphaValue;
+	}
+
+	set alpha(_alpha_value)
+	{
+		this.alphaValue = _alpha_value;
+		this.refreshColors();
+	}
+
+	refreshColors()
+	{
+
+	}
+}
+
+class tkHueSlider extends tkColorSlider
+{
+	constructor()
+	{
+		super();
+	}
+
+	refreshColors()
+	{
+		if (!this.init) return;
+		var hueColors = [];
+		for(var i=0;i<=360;i++)
+			hueColors.push("hsla(" + i + "," + this.saturationValue + "%," + this.lightnessValue + "%," + this.alphaValue + ")");		
+		this.colors = hueColors;
+	}
+}
+
+class tkSaturationSlider extends tkColorSlider
+{
+	constructor()
+	{
+		super();
+	}
+
+	refreshColors()
+	{
+		if (!this.init) return;
+		var saturationColors = [];
+		for(var i=0;i<=100;i++) 
+			saturationColors.push("hsla(" + this.hueValue + "," + i + "%," + this.lightnessValue + "%," + this.alphaValue + ")");	
+		this.colors = saturationColors;
+	}
+}
+
+class tkLightnessSlider extends tkColorSlider
+{
+	constructor()
+	{
+		super();
+	}
+
+	refreshColors()
+	{
+		if (!this.init) return;
+		var lightnessColors = [];
+		for(var i=0;i<=100;i++) 
+			lightnessColors.push("hsla(" + this.hueValue + "," + this.saturationValue + "%," + i + "%," + this.alphaValue + ")");	
+		this.colors = lightnessColors;
+	}
+}
+
+class tkAlphaSlider extends tkColorSlider
+{
+	constructor()
+	{
+		super();
+	}
+
+	refreshColors()
+	{
+		if (!this.init) return;
+		var alphaColors = [];
+		for(var i=0;i<=1;i+=0.001) 
+			alphaColors.push("hsla(" + this.hueValue + "," + this.saturationValue + "%," + this.lightnessValue + "%," + i + ")");	
+		this.colors = alphaColors;
+	}
+}
+
+// Forms
+class tkInput extends tkControl
+{
+	constructor()
+	{
+		super();
+		this.element = make("input"); 
+	}
+
+	get type()
+	{
+		this.getAttribute("type");
+	}
+
+	set type(_type)
+	{
+		this.setAttribute("type",_type);
+	}
+}
+
+class tkRange extends tkInput 
+{
+	constructor()
+	{
+		super();
+		this.type = "range";
 	}
 }
