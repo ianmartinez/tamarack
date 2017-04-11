@@ -52,6 +52,13 @@ class tkColor
 		this.fromRgba(random(0,255),random(0,255),random(0,255),Math.random());
 	}
 
+	clone()
+	{
+		var new_color = new tkColor();
+		new_color.fromHsla(this.h,this.s,this.l,this.a);
+		return new_color;
+	}
+
 	fromRgba(_r,_g,_b,_a)
 	{
 		var hsl = this.rgbToHsl(_r,_g,_b);
@@ -1755,7 +1762,6 @@ class tkDialog extends tkControl
 
 	set title(_title)
 	{
-		this.titleElement.style.display = (_title) ? "block" : "none";
 		this.titleNode.nodeValue = _title;
 	}
 

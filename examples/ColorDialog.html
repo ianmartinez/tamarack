@@ -34,10 +34,11 @@
 					dialogButton.text = "New Color";
 					dialogButton.e.onclick = () => 
 					{
-						colorDialog.color = backgroundColor;
+						colorDialog.color = backgroundColor.clone();
 						colorDialog.show((dialogResult) => {
 							if(dialogResult == tkDialogResult.OK) 
 							{
+								backgroundColor = colorDialog.color;
 								backColor = colorDialog.color.getHslaCss();
 								doc.setBackgroundColor(backColor);
 							}
