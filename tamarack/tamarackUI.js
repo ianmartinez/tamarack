@@ -525,7 +525,7 @@ class tkControl
 
 	slide()
 	{
-		$(this.element).slideToggle(200);
+		$(this.element).slideToggle(250);
 	}
 
 	get left()
@@ -1690,7 +1690,14 @@ class tkDialog extends tkControl
 		super();
 		this.element = make("div"); 
 		this.element.className = "tkDialog shadow";
-		
+
+		this.titleElement =  make("p");
+		this.titleNode = say("");
+		this.title = "";
+		this.titleElement.appendChild(this.titleNode);
+		this.titleElement.className = "tkDialogTitle";
+		this.element.appendChild(this.titleElement);
+
 		this.contentArea = make("div");
 		this.contentArea.className = "tkDialogContentArea";
 		this.element.appendChild(this.contentArea);
@@ -1730,6 +1737,17 @@ class tkDialog extends tkControl
 		this.contentArea.removeChild(_content);
 	}
 
+	get title()
+	{
+		return this.titleNode.nodeValue;
+	}
+
+	set title(_title)
+	{
+		this.titleElement.style.display = (_title) ? "block" : "none";
+		this.titleNode.nodeValue = _title;
+	}
+
 	/*	Returns a tkDialogResult that 
 		corresponds to the button clicked */
 	show(_on_dialog_result)
@@ -1738,7 +1756,8 @@ class tkDialog extends tkControl
 		$(tkDialogLightsOutDiv).fadeIn();
 		this.element.style.display = "none";
 		this.addToElement(document.body);
-		this.slide();
+		this.fadeIn();
+		this.element.style.display = "table";
 
 		if(!_on_dialog_result) _on_dialog_result = function() {};
 		
@@ -1842,7 +1861,7 @@ class tkDialog extends tkControl
 		this.isOpen = false;
 		$(tkDialogLightsOutDiv).fadeOut();
 		this.removeFromElement(document.body);
-		this.slide();
+		this.fadeOut();
 	}
 }
 
@@ -1854,6 +1873,7 @@ class tkAboutTamarackDialog extends tkDialog
 
 		var lines = [sayP("Tamarack " + getTamarackVersion()), sayP("By Ian Martinez")];
 		this.choices = [tkDialogResult.OK];
+		this.title = "About";
 		lines.forEach((e) => this.addContent(e));
 	}
 }
@@ -1873,6 +1893,7 @@ class tkColorDialog extends tkDialog
 
 		this.colorPicker = new tkColorPicker();
 		this.addContent(this.colorPicker.element);
+		this.title = "Color";
 	}
 
 	get color()
@@ -1932,13 +1953,10 @@ class tkColorPicker extends tkControl
 
 	refreshColor()
 	{
-		console.log(this.intColor.getHslaCss());
-		console.log(this.intColor.getRgbaCss());
-		console.log(this.intColor.getHexCss());
-		this.hueRange.setPosition(this.intColor.h,360);
-		this.saturationRange.setPosition(this.intColor.s,100);
-		this.lightnessRange.setPosition(this.intColor.l,100);
-		this.alphaRange.setPosition(this.intColor.a,1);
+		this.hueRange.setValue(this.intColor.h,360);
+		this.saturationRange.setValue(this.intColor.s,100);
+		this.lightnessRange.setValue(this.intColor.l,100);
+		this.alphaRange.setValue(this.intColor.a,1);
 	}
 }
 
@@ -1958,8 +1976,9 @@ class tkSlider extends tkControl
 		this.thumb = make("div");
 		this.thumb.className = "tkSliderThumb";
 		this.track.appendChild(this.thumb);
+		this.onDrag = function() {};
 		
-		this.setPosition(0,100);
+		this.setValue(0,100);
 
 		// Internal values - do not use
 		this.x = 0;
@@ -1996,6 +2015,8 @@ class tkSlider extends tkControl
 		slider.xPercentage = Math.min(slider.xPercentage,100); 
 		
 		slider.setPercent(slider.xPercentage);
+
+		slider.onDrag();
 	}
 
 	getMax()
@@ -2008,7 +2029,7 @@ class tkSlider extends tkControl
 		return this.valueValue;
 	}
 
-	setPosition(_value,_max)
+	setValue(_value,_max)
 	{
 		var percent = toPercentNum(_value,_max);
 		this.maxValue = _max;
@@ -2019,7 +2040,7 @@ class tkSlider extends tkControl
 	setPercent(_percent)
 	{
 		var new_value = fromPercent(_percent,this.getMax());
-		this.setPosition(new_value,this.getMax());
+		this.setValue(new_value,this.getMax());
 	}
 }
 
@@ -2112,6 +2133,17 @@ class tkColorSlider extends tkSlider
 	{
 		this.alphaValue = _alpha_value;
 		this.refreshColors();
+	}
+
+	thumbPositionListener(e,slider)
+	{
+		super.thumbPositionListener(e,slider);
+		slider.updateThumb();
+	}
+
+	updateThumb()
+	{
+		this.thumb.style.backgroundColor = this.colors[Math.floor(fromPercent(this.getValue(),this.colors.length))];
 	}
 }
 
