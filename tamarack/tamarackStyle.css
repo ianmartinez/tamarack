@@ -848,20 +848,20 @@ h5 {
 }
 
 .tkSlider {
-  cursor: pointer;
-  height: 25px;
-  padding-left: 10px;
-  width: 100%;
-  position: relative;
-  background-color: black;
+    cursor: pointer;
+    height: 25px;
+    padding-left: 10px;
+    width: 100%;
+    position: relative;
+    background-color: black;
 }
 
 .tkSliderTrack {
-  height: 100%;
-  width: calc(100% - 5px);
-  position: absolute;
-  top: 0;
-  cursor: pointer;
+    height: 100%;
+    width: calc(100% - 5px);
+    position: absolute;
+    top: 0;
+    cursor: pointer;
 }
 
 .tkSliderThumb {

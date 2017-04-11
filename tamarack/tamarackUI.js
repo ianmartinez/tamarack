@@ -2039,13 +2039,16 @@ class tkSlider extends tkControl
 
 		this.element = make("div");
 		this.element.className = "tkSlider";
+		this.setAttribute("draggable","false");
 
 		this.track = make("div");
 		this.track.className = "tkSliderTrack";
+		this.track.setAttribute("draggable","false");	
 		this.element.appendChild(this.track);
 
 		this.thumb = make("div");
 		this.thumb.className = "tkSliderThumb";
+		this.thumb.setAttribute("draggable","false");	
 		this.track.appendChild(this.thumb);
 		this.onDrag = function() {};
 		
