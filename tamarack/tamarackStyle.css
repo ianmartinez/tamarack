@@ -812,12 +812,39 @@ h5 {
     height: 25px;
     max-height: 25px;
     border-radius: 3px;
-    box-shadow: inset 0px 8px 12px 0px rgba(255,255,255,.3), inset 0px 0px 0px 1px rgba(0,0,0,0.3);;
+    box-shadow: inset 0px 8px 12px 0px rgba(255,255,255,.3), inset 0px 0px 0px 1px rgba(0,0,0,0.3);
     background-image: url("transparency.png");
 }
 
 .tkColorPicker {
+    display: flex;
+    flex-flow: row;
+}
 
+.tkColorPickerLeft {
+    flex: 1;
+}
+
+.tkColorPickerRight {
+    margin-left: 10px;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    flex-flow: column;
+}
+
+.tkColorPickerPreview {
+    width: 100px;
+    height: 100px;
+    flex: 1;
+    background-color: black;
+    cursor: pointer;
+    padding-left: 5px;
+    position: relative;
+    margin: 5px auto;
+    border-radius: 3px;
+    box-shadow: inset 0px 15px 32px 0px rgba(255,255,255,.2), inset 0px 0px 0px 1px rgba(0,0,0,0.3);
+    background-image: url("transparency.png");
 }
 
 .tkSlider {

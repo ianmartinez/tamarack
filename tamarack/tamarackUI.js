@@ -1924,6 +1924,7 @@ class tkColorDialog extends tkDialog
 
 		this.colorPicker = new tkColorPicker();
 		this.addContent(this.colorPicker.element);
+		this.element.style.minWidth = "35%";
 		this.title = "Color";
 	}
 
@@ -1947,6 +1948,18 @@ class tkColorPicker extends tkControl
 		this.element = make("div");
 		this.element.className = "tkColorPicker";
 
+		this.leftPane = make("div");
+		this.leftPane.className = "tkColorPickerLeft";
+		this.element.appendChild(this.leftPane);
+
+		this.rightPane = make("div");
+		this.rightPane.className = "tkColorPickerRight";
+		this.element.appendChild(this.rightPane);
+
+		this.colorPreview = make("div");
+		this.colorPreview.className = "tkColorPickerPreview";
+		this.rightPane.appendChild(this.colorPreview);
+
 		this.choices = [tkDialogResult.OK,tkDialogResult.CANCEL];
 
 		this.palette = [];
@@ -1961,7 +1974,7 @@ class tkColorPicker extends tkControl
 			colorPicker.intColor.h = colorPicker.hueRange.getValue();
 			colorPicker.refreshColor();
 		};
-		this.hueRange.addTo(this);
+		this.hueRange.addToElement(this.leftPane);
 
 		this.saturationRange = new tkSaturationSlider();
 		this.saturationRange.onChangeValue = function()
@@ -1969,7 +1982,7 @@ class tkColorPicker extends tkControl
 			colorPicker.intColor.s = colorPicker.saturationRange.getValue();
 			colorPicker.refreshColor();
 		};
-		this.saturationRange.addTo(this);
+		this.saturationRange.addToElement(this.leftPane);
 
 		this.lightnessRange = new tkLightnessSlider()
 		this.lightnessRange.onChangeValue = function()
@@ -1977,7 +1990,7 @@ class tkColorPicker extends tkControl
 			colorPicker.intColor.l = colorPicker.lightnessRange.getValue();
 			colorPicker.refreshColor();
 		};
-		this.lightnessRange.addTo(this);
+		this.lightnessRange.addToElement(this.leftPane);
 
 		this.alphaRange = new tkAlphaSlider();
 		this.alphaRange.onChangeValue = function()
@@ -1985,7 +1998,7 @@ class tkColorPicker extends tkControl
 			colorPicker.intColor.a = colorPicker.alphaRange.getValue();
 			colorPicker.refreshColor();
 		};
-		this.alphaRange.addTo(this);
+		this.alphaRange.addToElement(this.leftPane);
 
 		this.intColor = new tkColor();
 		this.intColor.fromRgba(0,0,0,1);
@@ -2005,6 +2018,7 @@ class tkColorPicker extends tkControl
 
 	refreshColor()
 	{
+		this.colorPreview.style.background = createLinearGradient(90,[this.intColor.getHslaCss(),this.intColor.getHslaCss()]) + ", url(\"transparency.png\")";
 		this.hueRange.associatedColor = this.intColor;
 		this.saturationRange.associatedColor = this.intColor;
 		this.lightnessRange.associatedColor = this.intColor;
