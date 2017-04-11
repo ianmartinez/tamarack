@@ -51,14 +51,14 @@ dlgMessage.show((dialogResult) => {
 });
 ```
 
-**Set the background from a color dialog: (Coming Soon)**
+**Set the background from a color dialog:**
 ```javascript
 var doc = new tkDocument();
 var dlgColor = new tkColorDialog();
 
 dlgColor.show((dialogResult) => {
     if (dialogResult == tkDialogResult.OK)
-        doc.setBackgroundColor(dlgColor.color);
+        doc.setBackgroundColor(dlgColor.color.getHslaCss());
 });
 ```
 

@@ -87,7 +87,7 @@ body {
 }
 
 .nav {
-    background-color: rgba(0,0,0,.06);
+    background-color: transparent;
 }
 
 .screen_display {
@@ -410,8 +410,10 @@ pre {
 }
 
 .tab-content {    
-    padding-top: 2px;
-    background-color: transparent;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     min-height: 50px;
     width: 100%;
     height: 100%;
@@ -419,6 +421,23 @@ pre {
 }
 
 .tab-content > .active {
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 auto;
+}
+
+
+.slide-content {    
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: transparent;
+    min-height: 50px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.slide-content > .active {
     display: flex;
     flex-flow: column;
     flex: 1 1 auto;
@@ -752,7 +771,7 @@ h5 {
     transform: translate(-50%, 0) translateY(-50%);
     z-index: 8888;
     padding:0px;
-    border-radius: 3px;
+    border-radius: 5px;
     border: 1px solid rgba(255,255,255,0.7);
 }
 
@@ -760,8 +779,10 @@ h5 {
     margin: 0px;
     padding: 5px;
     text-align: center;
-    background: linear-gradient(to bottom, rgba(0,0,0,.2) 0%, rgba(0,0,0,.1) 100%);
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-weight: bold;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,.2) 100%);
 }
 
 @media (max-width: 600px) {
@@ -803,7 +824,7 @@ h5 {
 .tkSlider {
   cursor: pointer;
   height: 25px;
-  padding-left: 5px;
+  padding-left: 10px;
   width: 100%;
   position: relative;
   background-color: black;
@@ -818,15 +839,19 @@ h5 {
 }
 
 .tkSliderThumb {
-  position: absolute;
-  left: 0;
-  margin: 0px;
-  margin-left: -5px;
-  width: 5px;
-  height: 100%;
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    left: 0;
+    margin: 0px;
+    margin-left: -10px;
+    width: 10px;
+    height: 100%;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: inset 0px 8px 12px 0px rgba(255,255,255,.3), 0px 0px 4px rgba(0, 0, 0, 0.6);
+    border-radius: 3px;
 }
+
 /* Widget Styles */
 .dsWidgetContainer {  
     display: block;

@@ -24,7 +24,9 @@
 				{
 					var doc = new tkDocument();
 					doc.title = "Color Dialog Demo";
-					var backgroundColor = randomRGB();
+					var backgroundColor = new tkColor();
+					backgroundColor.randomize();
+					doc.setBackgroundColor(backgroundColor.getHslaCss());
 					
 					var colorDialog = new tkColorDialog();
 					var dialogButton = new tkButton();
@@ -32,11 +34,12 @@
 					dialogButton.text = "New Color";
 					dialogButton.e.onclick = () => 
 					{
+						colorDialog.color = backgroundColor;
 						colorDialog.show((dialogResult) => {
 							if(dialogResult == tkDialogResult.OK) 
 							{
-								backgroundColor = colorDialog.color.getHslaCss();
-								doc.setBackgroundColor(backgroundColor);
+								backColor = colorDialog.color.getHslaCss();
+								doc.setBackgroundColor(backColor);
 							}
 						});
 					};
