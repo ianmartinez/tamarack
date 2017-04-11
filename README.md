@@ -42,6 +42,7 @@ notebook.addToElement(document.body);
 var dlgMessage = new tkDialog();
 
 dlgMessage.choices = [tkDialogResult.YES, tkDialogResult.NO];
+dlgMessage.title = "I was just wondering...";
 dlgMessage.addContent(say("Do you like this demo?"));
 
 dlgMessage.show((dialogResult) => {

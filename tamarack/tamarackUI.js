@@ -1492,7 +1492,6 @@ class tkNotebook extends tkControl
 	{
 		super();
 		this.element = make("div"); 
-		this.element.className = "container";
 		
 		this.tabBar = make("ul");
 		this.tabBar.className = "nav nav-tabs";
@@ -1872,9 +1871,24 @@ class tkAboutTamarackDialog extends tkDialog
 		super();
 
 		var lines = [sayP("Tamarack " + getTamarackVersion()), sayP("By Ian Martinez")];
+		var credits = [];
+
+		var notebook = new tkNotebook();
+
+		var aboutTab = new tkNotebookPage("Tamarack", "aboutTab");
+		lines.forEach((e) => aboutTab.addContent(e));
+
+		var creditsTab = new tkNotebookPage("Credits", "creditsTab");
+		credits.forEach((e) => creditsTab.addContent(e));
+
+		notebook.addPages(aboutTab,creditsTab);
+		this.contentArea.style.paddingTop = "0px";
+		this.contentArea.style.paddingLeft = "0px";
+		this.contentArea.style.paddingRight = "0px";
+		this.addContent(notebook.element);
+
 		this.choices = [tkDialogResult.OK];
 		this.title = "About";
-		lines.forEach((e) => this.addContent(e));
 	}
 }
 
