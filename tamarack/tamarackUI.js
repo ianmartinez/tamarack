@@ -52,6 +52,11 @@ class tkColor
 		this.fromRgba(random(0,255),random(0,255),random(0,255),Math.random());
 	}
 
+	randomizeOpaque()
+	{
+		this.fromRgba(random(0,255),random(0,255),random(0,255),1);
+	}
+
 	clone()
 	{
 		var new_color = new tkColor();

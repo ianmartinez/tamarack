@@ -25,7 +25,7 @@
 					var doc = new tkDocument();
 					doc.title = "Color Dialog Demo";
 					var backgroundColor = new tkColor();
-					backgroundColor.randomize();
+					backgroundColor.randomizeOpaque();
 					doc.setBackgroundColor(backgroundColor.getHslaCss());
 					
 					var colorDialog = new tkColorDialog();
