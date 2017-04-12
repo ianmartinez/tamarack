@@ -47,6 +47,24 @@ class tkColor
 		return false;
 	}
 
+	isColor(_color)
+	{
+		if (_color === "" || _color === "inherit" || _color === "transparent") 
+			return false;
+		
+		var image = make("img");
+		image.style.color = "rgb(0, 0, 0)";
+		image.style.color = _color;
+
+		if (image.style.color !== "rgb(0, 0, 0)") 
+			return true; 
+
+		image.style.color = "rgb(255, 255, 255)";
+		image.style.color = _color;
+		return (image.style.color !== "rgb(255, 255, 255)");
+
+	}
+	
 	randomize()
 	{
 		this.fromRgba(random(0,255),random(0,255),random(0,255),Math.random());
@@ -98,14 +116,43 @@ class tkColor
 		this.fromRgba(rgb[0],rgb[1],rgb[2],this.a);
 	}
 
+	parseColor(_input)
+	{
+		if(_input.startsWith("#"))
+			return this.fromHex(_input);
+		else if (_input.startsWith("hsl")) {
+			var trimmed = _input.replace("hsla(","");
+			trimmed = trimmed.replace("hsl(","");
+			trimmed = trimmed.replace(")","");
+			var chunks = trimmed.split(",");
+
+			if (chunks.length == 3) // hsl
+				return this.fromHsla(parseInt(chunks[0]),parseInt(chunks[1]),parseInt(chunks[2]),1);
+			else if (chunks.length == 4) //hsla 
+				return this.fromHsla(parseInt(chunks[0]),parseInt(chunks[1]),parseInt(chunks[2]),parseFloat(chunks[3]),1);
+		}
+		else if (_input.startsWith("rgb")) {
+			var trimmed = _input.replace("rgba(","");
+			trimmed = trimmed.replace("rgb(","");
+			trimmed = trimmed.replace(")","");
+			var chunks = trimmed.split(",");
+			console.log(chunks);
+
+			if (chunks.length == 3) // rgb
+				return this.fromRgba(parseInt(chunks[0]),parseInt(chunks[1]),parseInt(chunks[2]),1);
+			else if (chunks.length == 4) //rgba
+				return this.fromRgba(parseInt(chunks[0]),parseInt(chunks[1]),parseInt(chunks[2]),parseFloat(chunks[3]),1);
+		}
+	}
+
 	getHslaCss()
 	{
-		return "hsla(" + this.h + "," + this.s + "%," + this.l + "%," + this.a + ")";
+		return "hsla(" + this.h.toFixed(2) + ", " + this.s.toFixed(2) + "%, " + this.l.toFixed(2) + "%, " + this.a.toFixed(2) + ")";
 	}
 
 	getRgbaCss()
 	{
-		return "rgba(" + this.r + "," + this.g + "," + this.b + "," + this.a + ")";
+		return "rgba(" + this.r.toFixed(2) + ", " + this.g.toFixed(2) + ", " + this.b.toFixed(2) + ", " + this.a.toFixed(2) + ")";
 	}
 
 	getHexCss()
@@ -1963,6 +2010,9 @@ class tkColorPicker extends tkControl
 
 		this.colorPreview = make("div");
 		this.colorPreview.className = "tkColorPickerPreview";
+		this.previewTitle = sayP("Preview:");
+		this.previewTitle.className = "tkColorSliderTitle";
+		this.rightPane.appendChild(this.previewTitle);
 		this.rightPane.appendChild(this.colorPreview);
 
 		this.choices = [tkDialogResult.OK,tkDialogResult.CANCEL];
@@ -1979,6 +2029,9 @@ class tkColorPicker extends tkControl
 			colorPicker.intColor.h = colorPicker.hueRange.getValue();
 			colorPicker.refreshColor();
 		};
+		this.hueTitle = sayP("Hue:");
+		this.hueTitle.className = "tkColorSliderTitle";
+		this.leftPane.appendChild(this.hueTitle);
 		this.hueRange.addToElement(this.leftPane);
 
 		this.saturationRange = new tkSaturationSlider();
@@ -1987,6 +2040,9 @@ class tkColorPicker extends tkControl
 			colorPicker.intColor.s = colorPicker.saturationRange.getValue();
 			colorPicker.refreshColor();
 		};
+		this.saturationTitle = sayP("Saturation:");
+		this.saturationTitle.className = "tkColorSliderTitle";
+		this.leftPane.appendChild(this.saturationTitle);
 		this.saturationRange.addToElement(this.leftPane);
 
 		this.lightnessRange = new tkLightnessSlider()
@@ -1995,6 +2051,9 @@ class tkColorPicker extends tkControl
 			colorPicker.intColor.l = colorPicker.lightnessRange.getValue();
 			colorPicker.refreshColor();
 		};
+		this.lightnessTitle = sayP("Lightness:");
+		this.lightnessTitle.className = "tkColorSliderTitle";
+		this.leftPane.appendChild(this.lightnessTitle);
 		this.lightnessRange.addToElement(this.leftPane);
 
 		this.alphaRange = new tkAlphaSlider();
@@ -2003,7 +2062,30 @@ class tkColorPicker extends tkControl
 			colorPicker.intColor.a = colorPicker.alphaRange.getValue();
 			colorPicker.refreshColor();
 		};
+		this.alphaTitle = sayP("Alpha:");
+		this.alphaTitle.className = "tkColorSliderTitle";
+		this.leftPane.appendChild(this.alphaTitle);
 		this.alphaRange.addToElement(this.leftPane);
+
+		this.textInput = new tkColorTextInput();
+		this.textInput.onInput = function()
+		{
+			if(colorPicker.textInput.isValidColor())
+			{
+				var new_color = new tkColor();
+				new_color.parseColor(colorPicker.textInput.element.value);
+				colorPicker.color = new_color;
+
+				colorPicker.hueRange.updateThumb();
+				colorPicker.saturationRange.updateThumb();
+				colorPicker.lightnessRange.updateThumb();
+				colorPicker.alphaRange.updateThumb();
+			}
+		};
+		this.textInputTitle = sayP("Color:");
+		this.textInputTitle.className = "tkColorSliderTitle";
+		this.leftPane.appendChild(this.textInputTitle);
+		this.textInput.addToElement(this.leftPane);
 
 		this.intColor = new tkColor();
 		this.intColor.fromRgba(0,0,0,1);
@@ -2028,6 +2110,9 @@ class tkColorPicker extends tkControl
 		this.saturationRange.associatedColor = this.intColor;
 		this.lightnessRange.associatedColor = this.intColor;
 		this.alphaRange.associatedColor = this.intColor;
+		this.textInput.isUserInput = false;
+		this.textInput.element.value = this.intColor.getHslaCss();
+		this.textInput.isUserInput = true;
 	}
 }
 
@@ -2084,7 +2169,7 @@ class tkSlider extends tkControl
 	thumbPositionListener(e,slider)
 	{ 
 		slider.sliderEnd = slider.rightScroll - slider.leftScroll;
-		slider.x = e.clientX - slider.leftScroll;
+		slider.x = e.pageX - slider.leftScroll;
 		slider.xPercentage = toPercentNum(slider.x,slider.sliderEnd);
 		
 		// make sure it's between 0% and 100%
@@ -2184,7 +2269,7 @@ class tkColorSlider extends tkSlider
 
 	set associatedColor(_color)
 	{
-		if (!this.intColor.equals(_color)) 
+		if (!(this.intColor.equals(_color))) 
 		{
 			this.intColor = _color;
 			this.grabValues();
@@ -2195,7 +2280,7 @@ class tkColorSlider extends tkSlider
 
 	setValue(_value,_max)
 	{
-		if (_value == this.valueValue && _max == this.maxValue)
+		if ((_value == this.valueValue && _max == this.maxValue))
 			return;
 		super.setValue(_value,_max);
 		if(this.onChangeValue) 
@@ -2211,10 +2296,8 @@ class tkColorSlider extends tkSlider
 
 	updateThumb()
 	{
-		if (this.backColors) 
-		{
-			this.thumb.style.backgroundColor = this.backColors[(fromPercent(this.getPercent(),this.backColors.length).toFixed(0))];
-		}
+		if (this.backColors)
+			this.thumb.style.backgroundColor = this.backColors[(fromPercent(this.getPercent(),this.backColors.length-1).toFixed(0))];
 	}
 }
 
@@ -2324,6 +2407,26 @@ class tkInput extends tkControl
 	{
 		this.setAttribute("type",_type);
 	}
+
+	get name()
+	{
+		this.getAttribute("name");
+	}
+
+	set name(_name)
+	{
+		this.setAttribute("name",_name);
+	}
+}
+
+class tkTextInput extends tkInput
+{
+	constructor()
+	{
+		super();
+		this.type = "text";
+		this.element.className = "tkTextInput";
+	}
 }
 
 class tkRange extends tkInput 
@@ -2332,5 +2435,27 @@ class tkRange extends tkInput
 	{
 		super();
 		this.type = "range";
+	}
+}
+
+class tkColorTextInput extends tkTextInput
+{
+	constructor()
+	{
+		super();
+
+		this.onInput = function() {};
+		this.isUserInput = true;
+		var textInput = this;
+		this.element.addEventListener("input", function() {
+			if(textInput.isUserInput)
+				textInput.onInput();
+		});
+	}
+
+	isValidColor()
+	{
+		var new_color = new tkColor();
+		return new_color.isColor(this.element.value);
 	}
 }

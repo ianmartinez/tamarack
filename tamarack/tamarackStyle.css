@@ -9,8 +9,18 @@
 }
 
 @font-face {
-    font-family: 'Droid Sans Mono';
-    src: url('../fonts/droid_sans_mono/DroidSansMono.ttf');
+    font-family: 'Roboto';
+    src: url('../fonts/roboto/Roboto-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Roboto Semibold';
+    src: url('../fonts/roboto/Roboto-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Roboto Light';
+    src: url('../fonts/roboto/Roboto-Light.ttf');
 }
 
 * {
@@ -33,6 +43,7 @@ body {
     position: absolute;
     padding: 3px;
     background-color: white;
+    font-family: 'Roboto', sans-serif;
 }
 
 .container {
@@ -351,10 +362,6 @@ iframe {
         width: 33.333333%;
         float: left;
     }
-}
-
-.scCodeEditor * {
-    font-family: 'Droid Sans Mono', sans-serif !important;
 }
 
 pre {
@@ -779,10 +786,10 @@ h5 {
     margin: 0px;
     padding: 5px;
     text-align: center;
-    font-weight: bold;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,.2) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,.1) 0%, rgba(0,0,0,.1) 100%);
+    font-family: 'Roboto Semibold', sans-serif;
 }
 
 @media (max-width: 600px) {
@@ -809,10 +816,10 @@ h5 {
     position: relative;
     width: 100%;
     margin: 5px auto;
-    height: 25px;
-    max-height: 25px;
+    height: 35px;
+    max-height: 35px;
     border-radius: 3px;
-    box-shadow: inset 0px 8px 12px 0px rgba(255,255,255,.3), inset 0px 0px 0px 1px rgba(0,0,0,0.3);
+    box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.3), inset 0px 0px 0px 1px rgba(0,0,0,0.3);
     background-image: url("transparency.png");
 }
 
@@ -825,6 +832,13 @@ h5 {
     flex: 1;
 }
 
+.tkColorSliderTitle {
+    text-align: left;
+    font-size: smaller;
+    font-weight: lighter;
+    color: rgba(0, 0, 0, 0.8);
+}
+
 .tkColorPickerRight {
     margin-left: 10px;
     align-items: center;
@@ -834,9 +848,8 @@ h5 {
 }
 
 .tkColorPickerPreview {
-    width: 100px;
-    height: 100px;
-    flex: 1;
+    width: 120px;
+    height: 120px;
     background-color: black;
     cursor: pointer;
     padding-left: 5px;
@@ -874,7 +887,18 @@ h5 {
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: inset 0px 8px 12px 0px rgba(255,255,255,.3), 0px 0px 4px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.6), 0px 0px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+}
+
+.tkTextInput {
+    width: 100%;
+    height: 35px;
+    box-shadow: inset 1px 1px 4px 0px rgba(0,0,0,0.1);
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    border: 1px solid rgba(0,0,0,.2);
     border-radius: 3px;
 }
 
