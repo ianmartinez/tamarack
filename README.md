@@ -3,7 +3,7 @@ An easy to use JavaScript library that can create, modify, and style HTML throug
 
 Architecture 
 -------
-Most of Tamarack is a collection of controls that provide a wrapper around html elements, such as tkButton, which wraps around &lt;button&gt; or tkImage which wraps around &lt;img&gt;. All of these controls inherit from tkControl, which provides them with basic functionality such as making the element full-screen or adding the control to another control. In addition, there are also composite controls, such as tkNotebook and tkDialog, that represent multiple html elements in one single class, cutting down the need for massive amounts of boilerplate code for simple tasks.
+Most of Tamarack is a collection of controls that provide a wrapper around html elements, such as tkButton, which wraps around &lt;button&gt; or tkImage, which wraps around &lt;img&gt;. All of these controls inherit from tkControl, which provides them with basic functionality such as making the element full-screen or adding the control to another control. In addition, there are also composite controls, such as tkNotebook and tkDialog, that represent multiple html elements in one single class, cutting down the need for massive amounts of boilerplate code for simple tasks.
 
 Examples
 -------
@@ -19,10 +19,9 @@ video.addToElement(document.body);
 ```javascript
 var btnFullscreen = new tkButton();
 btnFullscreen.text = "Go Fullscreen";				
-btnFullscreen.element.onclick = () => vid.makeFullScreen();
+btnFullscreen.element.onclick = () => video.makeFullScreen();
 btnFullscreen.addToElement(document.body);
 ```
-
 
 **Create a two page notebook:**
 ```javascript
@@ -37,6 +36,7 @@ page2.addContent(say("World!"));
 notebook.addPages(page1,page2);
 notebook.addToElement(document.body);
 ```
+![Notebook](examples/Tabs_Screenshot.jpg)
 
 **Show a yes/no dialog:**
 ```javascript
@@ -51,6 +51,7 @@ dlgMessage.show((dialogResult) => {
         alert("Thanks!");
 });
 ```
+![Dialog](examples/Dialog_Screenshot.jpg)
 
 **Set the background from a color dialog:**
 ```javascript
@@ -62,6 +63,7 @@ dlgColor.show((dialogResult) => {
         doc.setBackgroundColor(dlgColor.color.getHslaCss());
 });
 ```
+![Color Dialog](examples/ColorDialog_Screenshot.jpg)
 
 **Initialize a property panel to modify an object: (Coming in a later version)**
 ```javascript
