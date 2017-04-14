@@ -147,12 +147,12 @@ class tkColor
 
 	getHslaCss()
 	{
-		return "hsla(" + this.h.toFixed(2) + ", " + this.s.toFixed(2) + "%, " + this.l.toFixed(2) + "%, " + this.a.toFixed(2) + ")";
+		return "hsla(" + this.h.toFixed(0) + ", " + this.s.toFixed(0) + "%, " + this.l.toFixed(0) + "%, " + this.a.toFixed(0) + ")";
 	}
 
 	getRgbaCss()
 	{
-		return "rgba(" + this.r.toFixed(2) + ", " + this.g.toFixed(2) + ", " + this.b.toFixed(2) + ", " + this.a.toFixed(2) + ")";
+		return "rgba(" + this.r.toFixed(0) + ", " + this.g.toFixed(0) + ", " + this.b.toFixed(0) + ", " + this.a.toFixed(0) + ")";
 	}
 
 	getHexCss()
@@ -1814,6 +1814,11 @@ class tkDialog extends tkControl
 
 	set title(_title)
 	{
+		if (_title == "")
+			this.titleElement.style.display = "none";
+		else
+			this.titleElement.style.display = "block";
+
 		this.titleNode.nodeValue = _title;
 	}
 
@@ -2113,6 +2118,14 @@ class tkColorPicker extends tkControl
 		this.textInput.isUserInput = false;
 		this.textInput.element.value = this.intColor.getHslaCss();
 		this.textInput.isUserInput = true;
+	}
+}
+
+class tkColorPalette extends tkControl
+{
+	constructor()
+	{
+
 	}
 }
 

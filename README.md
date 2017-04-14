@@ -12,6 +12,7 @@ Examples
 var video = new tkVideo();
 video.source = "video_source.mp4";
 video.addToElement(document.body);
+![Video](examples/MediaPlayer_Screenshot.jpg)
 ```
 
 **Create a button that makes the video fullscreen when clicked:**
