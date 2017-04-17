@@ -1659,6 +1659,114 @@ class tkNotebook extends tkControl
 	}
 }
 
+class tkRibbon extends tkNotebook
+{
+	constructor()
+	{
+		super();
+		this.tabBar.className = "nav nav-tabs ribbon ribbon-tabs";
+		this.contentPanel.className = "ribbon-content";
+	}
+}
+
+class tkRibbonPage
+{
+	constructor(_title,_id)
+	{
+		// A <li> that holds the tab button
+		this.tabContainer = make("li");
+		
+		// A <a> that makes up the tab button
+		this.tab = make("a");
+		this.tab.setAttribute("data-toggle","tab");
+		this.tabContainer.appendChild(this.tab);
+		this.tab.setAttribute("href","#"+_id);
+		
+		// Text node to hold title text
+		this.titleTextNode = document.createTextNode(_title);
+		this.tab.appendChild(this.titleTextNode);
+		
+		/*	A <div> that contains the content that
+			is brought up when the tab is clicked	*/
+		this.contentArea = make("div");
+		this.contentArea.id = _id;
+		this.contentArea.className = "tab-pane fade";
+	}
+	
+	get title()
+	{
+		return this.titleTextNode.nodeValue;
+	}
+	
+	set title(_string)
+	{
+		this.titleTextNode.nodeValue = _string;
+	}
+	
+	addContent(_content)
+	{
+		this.contentArea.appendChild(_content);
+	}
+	
+	removeContent(_content)
+	{
+		this.contentArea.removeChild(_content);
+	}
+}
+
+class tkRibbonGroup extends tkControl
+{
+	constructor()
+	{
+		super();
+		this.element = make("div");
+		this.element.className = "tkRibbonGroup";
+
+		this.contentArea = make("div");
+		this.contentArea.className = "fill";
+		this.element.appendChild(this.contentArea);
+
+		this.groupTitle = make("span");
+		this.groupTitle.className = "tkRibbonGroupTitle";
+		this.element.appendChild(this.groupTitle);
+
+		this.groupTitleTextNode = document.createTextNode("");
+		this.groupTitle.appendChild(this.groupTitleTextNode);
+	}
+
+	get title()
+	{
+		return this.groupTitleTextNode.nodeValue;
+	}
+	
+	set title(_string)
+	{
+		this.groupTitleTextNode.nodeValue = _string;
+	}
+
+	addButton(_button)
+	{
+		_button.className = "tkRibbonButton";
+		this.contentArea.appendChild(_button);
+	}
+
+	removeButton(_button)
+	{
+		this.contentArea.removeChild(_button);
+	}
+
+	// buttons at the end of the section that form columns of 3
+	addBigButton(_button)
+	{
+
+	}
+
+	removeBigButton(_button)
+	{
+
+	}
+}
+
 class tkSlideshow extends tkControl
 {
 	constructor()

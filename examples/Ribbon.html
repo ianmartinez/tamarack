@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Bootstrap core CSS -->
+		<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<link href="../bootstrap/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+		<!-- Tamarack CSS -->
+		<link href="../tamarack/tamarackStyle.css" rel="stylesheet">
+	</head>
+	<body>
+		<!-- Bootstrap core JavaScript -->
+		<script src="../jquery/jquery.min.js"></script>
+		<script src="../bootstrap/js/bootstrap.min.js"></script>
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<script src="../bootstrap/js/ie10-viewport-bug-workaround.js"></script>  
+
+		<!-- Tamarack -->
+		<script src="../tamarack/tamarackUI.js"></script>
+		
+		<script>
+			(
+				function main()
+				{
+					var doc = new tkDocument();
+					var ribbon = new tkRibbon();
+					
+					doc.title = "Ribbon Demo";
+					
+					var homePage = new tkRibbonPage("Home", "homePage");
+					ribbon.addPage(homePage);
+
+					var clipboardGroup = new tkRibbonGroup();
+					clipboardGroup.title = "Clipboard";
+					homePage.addContent(clipboardGroup.element);
+
+					var copyButton = new tkButton();
+					copyButton.text = "Copy";
+					clipboardGroup.addButton(copyButton.element);
+
+					var cutButton = new tkButton();
+					cutButton.text = "Cut";
+					clipboardGroup.addButton(cutButton.element);
+
+					var viewPage = new tkRibbonPage("View", "viewPage");
+					ribbon.addPage(viewPage);
+
+					ribbon.goToIndex(0);
+					
+					ribbon.addToElement(document.body);
+				}
+			)();
+		</script>
+	</body>
+</html>
