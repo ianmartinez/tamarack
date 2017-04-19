@@ -698,12 +698,46 @@ class tkLink extends tkText
 	}
 }
 
-class tkButton extends tkText 
+class tkButton
 {
 	constructor() 
 	{
-		super("button");
+		this.element = make("button");
 		this.element.className = "tkButton";
+
+		this.textControl = new tkText("p");
+		this.textControl.element.className = "tkButtonText";
+		//this.element.appendChild(this.textControl.element);
+
+		this.imageControl = new tkImage();
+		this.imageControl.element.className = "tkButtonImage";
+	}	
+
+	get image()
+	{
+		return this.image.source;
+	}
+
+	set image(_image)
+	{
+		if(_image)
+			this.element.appendChild(this.imageControl.element);
+		else {
+			this.element.removeChild(this.imageControl.element);
+			return;
+		}
+
+		this.imageControl.source = _image;
+	}
+
+	get text()
+	{
+		return this.textControl.text;
+	}
+
+	set text(_text)
+	{
+		this.textControl.text = _text;
 	}
 }
 
@@ -1724,6 +1758,7 @@ class tkRibbonGroup extends tkControl
 
 		this.contentArea = make("div");
 		this.contentArea.className = "fill";
+		this.contentArea.style.display = "inline-flex";
 		this.element.appendChild(this.contentArea);
 
 		this.groupTitle = make("span");
@@ -1753,17 +1788,6 @@ class tkRibbonGroup extends tkControl
 	removeButton(_button)
 	{
 		this.contentArea.removeChild(_button);
-	}
-
-	// buttons at the end of the section that form columns of 3
-	addBigButton(_button)
-	{
-
-	}
-
-	removeBigButton(_button)
-	{
-
 	}
 }
 

@@ -36,11 +36,27 @@
 
 					var copyButton = new tkButton();
 					copyButton.text = "Copy";
+					copyButton.image = "../icons/actions/22/edit-copy.svg";
 					clipboardGroup.addButton(copyButton.element);
+
+					var pasteButton = new tkButton();
+					pasteButton.text = "Paste";
+					pasteButton.image = "../icons/actions/22/edit-paste.svg";
+					clipboardGroup.addButton(pasteButton.element);
 
 					var cutButton = new tkButton();
 					cutButton.text = "Cut";
+					cutButton.image = "../icons/actions/22/edit-cut.svg";
 					clipboardGroup.addButton(cutButton.element);
+
+					var helpGroup = new tkRibbonGroup();
+					helpGroup.title = "Help";
+					homePage.addContent(helpGroup.element);
+
+					var aboutButton = new tkButton();
+					aboutButton.text = "Help";
+					aboutButton.image = "../icons/actions/22/help-about.svg";
+					helpGroup.addButton(aboutButton.element);
 
 					var viewPage = new tkRibbonPage("View", "viewPage");
 					ribbon.addPage(viewPage);

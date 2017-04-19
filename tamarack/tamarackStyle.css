@@ -276,7 +276,7 @@ iframe {
     border: 1px solid rgba(200,200,200,1);
     cursor: pointer;
     color: black;
-    padding: 6px 12px;
+    padding: 4px 8px;
 	margin: 1px;    
 	display: inline-block;
     text-decoration: none;
@@ -309,19 +309,29 @@ iframe {
     text-decoration: none;
 }
 
+.tkButtonImage {
+    width: 26px;
+    height: 26px;
+}
+
+.tkButtonText {
+    display: block;
+    padding-bottom: 5px;
+    margin: 0px;
+}
 
 .tkRibbonButton { 
     width: 100%; 
+    text-align: center;
     font-size: small;
     transition: all 0.3s ease-in-out;
 	position: relative;
-    box-shadow: inset 0px 0px 1px 0px rgba(255,255,255,0.8);
     background: transparent;
     border-radius: 3px;
     border: 1px solid transparent;
     cursor: pointer;
     color: black;
-    padding: 6px 12px;
+    padding: 8px;
 	margin: 1px;    
 	display: inline-block;
     text-decoration: none;
@@ -430,8 +440,10 @@ pre {
 
 .tkRibbonGroup {
     display: inline-block;
-    min-width: 100px;
+    min-width: 50px;
     position: relative;
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 0px 5px;
 }
 
 .nav-tabs {
