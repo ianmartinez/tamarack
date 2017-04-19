@@ -698,16 +698,18 @@ class tkLink extends tkText
 	}
 }
 
-class tkButton
+class tkButton extends tkControl
 {
 	constructor() 
 	{
+		super();
+
 		this.element = make("button");
 		this.element.className = "tkButton";
 
 		this.textControl = new tkText("p");
 		this.textControl.element.className = "tkButtonText";
-		//this.element.appendChild(this.textControl.element);
+		this.element.appendChild(this.textControl.element);
 
 		this.imageControl = new tkImage();
 		this.imageControl.element.className = "tkButtonImage";

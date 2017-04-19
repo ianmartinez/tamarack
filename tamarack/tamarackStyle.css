@@ -276,7 +276,7 @@ iframe {
     border: 1px solid rgba(200,200,200,1);
     cursor: pointer;
     color: black;
-    padding: 4px 8px;
+    padding: 6px 12px;
 	margin: 1px;    
 	display: inline-block;
     text-decoration: none;
@@ -310,13 +310,14 @@ iframe {
 }
 
 .tkButtonImage {
-    width: 26px;
-    height: 26px;
+    width: 30px;
+    padding: 2px;
+    height: 30px;
 }
 
 .tkButtonText {
     display: block;
-    padding-bottom: 5px;
+    padding: 0px;
     margin: 0px;
 }
 
