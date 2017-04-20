@@ -638,6 +638,17 @@ class tkControl
 	{
 		return this.bottom +  $(window).scrollTop();		
 	}
+
+	// element to display on mouse hover
+	get tooltip()
+	{
+
+	}
+
+	set tooltip(_tooltip)
+	{
+
+	}
 }
 
 class tkElement extends tkControl 
@@ -2533,6 +2544,84 @@ class tkAlphaSlider extends tkColorSlider
 		for(var i=0;i<=1;i+=0.001) 
 			alphaColors.push("hsla(" + this.intColor.h + "," + this.intColor.s + "%," + this.intColor.l + "%," + i + ")");	
 		this.colors = alphaColors;
+	}
+}
+
+class tkTextEdit extends tkText
+{
+	constructor()
+	{
+		super("textarea");
+	}
+
+	get width()
+	{
+
+	}
+
+	set width(_width)
+	{
+
+	}
+
+	get height()
+	{
+
+	}
+
+	set height(_height)
+	{
+
+	}
+
+	get autofocus()
+	{
+
+	}
+
+	set autofocus(_autofocus)
+	{
+
+	}
+
+	get disabled()
+	{
+
+	}
+
+	set disabled(_disabled)
+	{
+
+	}
+
+	get maxLength()
+	{
+
+	}
+
+	set maxLength()
+	{
+
+	}
+
+	get placeholder()
+	{
+
+	}
+
+	set placeholder(_text)
+	{
+
+	}
+
+	get readOnly()
+	{
+
+	}
+
+	set readOnly(_read_only)
+	{
+
 	}
 }
 
