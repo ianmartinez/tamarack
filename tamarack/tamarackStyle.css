@@ -41,7 +41,7 @@ body {
     height: 100%;
     width: 100%;
     position: absolute;
-    padding: 3px;
+    padding: 0px;
     background-color: white;
     font-family: 'Roboto', sans-serif;
 }
@@ -456,6 +456,14 @@ pre {
     margin-bottom: -1px;
 }
 
+.tab-pane {
+    display: none;
+}
+
+.tab-pane .active {
+    display: block;
+}
+
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
     color: #555;
     cursor: default;
@@ -575,6 +583,7 @@ pre {
 }
 
 .ribbon-content > .active {
+    display: block;
 }
 
 .slide-content {    
