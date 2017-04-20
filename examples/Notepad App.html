@@ -26,82 +26,87 @@
 					doc.setBackgroundColor("rgba(0,0,0,0.04)");
 					doc.title = "Notepad";
 
-					// Ribbon
-					var ribbon = new tkRibbon();
-					
-					// Home Page
-					var homePage = new tkRibbonPage("Home", "homePage");
-					ribbon.addPage(homePage);var 
-					
-					// History Group
-					historyGroup = new tkRibbonGroup();
-					historyGroup.title = "History";
-					homePage.addContent(historyGroup.element);
-
-					var undoButton = new tkButton();
-					undoButton.text = "Undo";
-					undoButton.image = "../icons/actions/22/edit-undo.svg";
-					historyGroup.addButton(undoButton.element);
-
-					var redoButton = new tkButton();
-					redoButton.text = "Redo";
-					redoButton.image = "../icons/actions/22/edit-redo.svg";
-					historyGroup.addButton(redoButton.element);
-
-					// Clipboard Group
-					var clipboardGroup = new tkRibbonGroup();
-					clipboardGroup.title = "Clipboard";
-					homePage.addContent(clipboardGroup.element);
-
-					var copyButton = new tkButton();
-					copyButton.text = "Copy";
-					copyButton.image = "../icons/actions/22/edit-copy.svg";
-					clipboardGroup.addButton(copyButton.element);
-
-					var pasteButton = new tkButton();
-					pasteButton.text = "Paste";
-					pasteButton.image = "../icons/actions/22/edit-paste.svg";
-					clipboardGroup.addButton(pasteButton.element);
-
-					var cutButton = new tkButton();
-					cutButton.text = "Cut";
-					cutButton.image = "../icons/actions/22/edit-cut.svg";
-					clipboardGroup.addButton(cutButton.element);
-
-					// Help Group
-					var helpGroup = new tkRibbonGroup();
-					helpGroup.title = "Help";
-					homePage.addContent(helpGroup.element);
-
-					var aboutButton = new tkButton();
-					aboutButton.text = "About";
-					aboutButton.image = "../icons/actions/22/help-about.svg";
-					helpGroup.addButton(aboutButton.element);
-
-					// Format Page
-					var formatPage = new tkRibbonPage("Format", "formatPage");
-					ribbon.addPage(formatPage);
-					
-					// Style Group
-					var styleGroup = new tkRibbonGroup();
-					styleGroup.title = "Text Style";
-					formatPage.addContent(styleGroup.element);
-
-					var colorButton = new tkButton();
-					colorButton.text = "Color";
-					colorButton.image = "../icons/actions/22/adjustlevels.svg";
-					styleGroup.addButton(colorButton.element);
-
-					var fontButton = new tkButton();
-					fontButton.text = "Font";
-					fontButton.image = "../icons/actions/22/gtk-select-font.svg";
-					styleGroup.addButton(fontButton.element);
-
-					// Select Home Page
-					ribbon.goToIndex(0);	
-					ribbon.addToElement(document.body);
+					buildRibbon();
 				}
 			)();
+
+			function buildRibbon()
+			{
+				// Ribbon
+				var ribbon = new tkRibbon();
+				
+				// Home Page
+				var homePage = new tkRibbonPage("Home", "homePage");
+				ribbon.addPage(homePage);var 
+				
+				// History Group
+				historyGroup = new tkRibbonGroup();
+				historyGroup.title = "History";
+				homePage.addContent(historyGroup.element);
+
+				var undoButton = new tkButton();
+				undoButton.text = "Undo";
+				undoButton.image = "../icons/actions/22/edit-undo.svg";
+				historyGroup.addButton(undoButton.element);
+
+				var redoButton = new tkButton();
+				redoButton.text = "Redo";
+				redoButton.image = "../icons/actions/22/edit-redo.svg";
+				historyGroup.addButton(redoButton.element);
+
+				// Clipboard Group
+				var clipboardGroup = new tkRibbonGroup();
+				clipboardGroup.title = "Clipboard";
+				homePage.addContent(clipboardGroup.element);
+
+				var copyButton = new tkButton();
+				copyButton.text = "Copy";
+				copyButton.image = "../icons/actions/22/edit-copy.svg";
+				clipboardGroup.addButton(copyButton.element);
+
+				var pasteButton = new tkButton();
+				pasteButton.text = "Paste";
+				pasteButton.image = "../icons/actions/22/edit-paste.svg";
+				clipboardGroup.addButton(pasteButton.element);
+
+				var cutButton = new tkButton();
+				cutButton.text = "Cut";
+				cutButton.image = "../icons/actions/22/edit-cut.svg";
+				clipboardGroup.addButton(cutButton.element);
+
+				// Help Group
+				var helpGroup = new tkRibbonGroup();
+				helpGroup.title = "Help";
+				homePage.addContent(helpGroup.element);
+
+				var aboutButton = new tkButton();
+				aboutButton.text = "About";
+				aboutButton.image = "../icons/actions/22/help-about.svg";
+				helpGroup.addButton(aboutButton.element);
+
+				// Format Page
+				var formatPage = new tkRibbonPage("Format", "formatPage");
+				ribbon.addPage(formatPage);
+				
+				// Style Group
+				var styleGroup = new tkRibbonGroup();
+				styleGroup.title = "Text Style";
+				formatPage.addContent(styleGroup.element);
+
+				var colorButton = new tkButton();
+				colorButton.text = "Color";
+				colorButton.image = "../icons/actions/22/adjustlevels.svg";
+				styleGroup.addButton(colorButton.element);
+
+				var fontButton = new tkButton();
+				fontButton.text = "Font";
+				fontButton.image = "../icons/actions/22/gtk-select-font.svg";
+				styleGroup.addButton(fontButton.element);
+
+				// Select Home Page
+				ribbon.goToIndex(0);	
+				ribbon.addToElement(document.body);
+			}
 		</script>
 	</body>
 </html>

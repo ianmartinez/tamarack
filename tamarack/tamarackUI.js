@@ -2599,7 +2599,7 @@ class tkTextEdit extends tkText
 
 	}
 
-	set maxLength()
+	set maxLength(_max_length)
 	{
 
 	}
