@@ -452,11 +452,6 @@ class tkControl
 	{
 		return this.element;
 	}
-	
-	getClassList()
-	{
-		return this.element.classList;
-	}
 
 	addToElement(_destination) 
 	{
@@ -478,6 +473,7 @@ class tkControl
 		_destination.getElement().removeChild(this.getElement());
 	}
 
+	// fullscreen
 	makeFullscreen()
 	{
 		if (this.element.requestFullscreen)
@@ -518,7 +514,8 @@ class tkControl
 		else
 			this.makeFullscreen();
 	}
-	
+
+	// attributes	
 	hasAttribute(_attribute)
 	{
 		return this.element.hasAttribute(_attribute);
@@ -639,6 +636,44 @@ class tkControl
 		return this.bottom +  $(window).scrollTop();		
 	}
 
+	// class
+	addClass()
+	{
+		for (var i=0;i<arguments.length;i++)
+			this.element.classList.add(arguments[i]);
+	}
+
+	removeClass()
+	{
+		for (var i=0;i<arguments.length;i++)
+			this.element.classList.remove(arguments[i]);
+	}
+
+	toggleClass(_class)
+	{
+		this.element.classList.toggle(_class);
+	}
+
+	classAt(_index)
+	{
+		this.element.classList.item(_index);
+	}
+
+	hasClass(_class)
+	{
+		this.element.classList.contains(_class);
+	}
+
+	get className()
+	{
+		return this.element.className;
+	}
+
+	set className(_class_name)
+	{
+		this.element.className = _class_name;
+	}
+
 	// element to display on mouse hover
 	get tooltip()
 	{
@@ -716,14 +751,14 @@ class tkButton extends tkControl
 		super();
 
 		this.element = make("button");
-		this.element.className = "tkButton";
+		this.className = "tkButton";
 
 		this.textControl = new tkText("p");
-		this.textControl.element.className = "tkButtonText";
+		this.textControl.className = "tkButtonText";
 		this.element.appendChild(this.textControl.element);
 
 		this.imageControl = new tkImage();
-		this.imageControl.element.className = "tkButtonImage";
+		this.imageControl.className = "tkButtonImage";
 	}	
 
 	get image()
@@ -1055,7 +1090,7 @@ class tkVideoPlayer extends tkControl
 		super();
 		this.element = make("div");
 		this.id = randomVideoId();
-		this.element.className = "tkVideoPlayer";
+		this.className = "tkVideoPlayer";
 		regVideo.push(this);
 
 		this.innerPanel = make("div");
@@ -1113,7 +1148,7 @@ class tkVideoPlayer extends tkControl
 		};
 
 		this.video = new tkNativeVideoPlayer();
-		this.video.element.className = "tkVideoPlayer shadow";
+		this.video.className = "tkVideoPlayer shadow";
 		this.video.showControls = false;
 		this.video.id =  "video_element_" + this.id;
 		this.video.addToElement(this.innerPanel);
@@ -1767,7 +1802,7 @@ class tkRibbonGroup extends tkControl
 	{
 		super();
 		this.element = make("div");
-		this.element.className = "tkRibbonGroup";
+		this.className = "tkRibbonGroup";
 
 		this.contentArea = make("div");
 		this.contentArea.className = "fill";
@@ -1810,7 +1845,7 @@ class tkSlideshow extends tkControl
 	{
 		super();
 		this.element = make("div"); 
-		this.element.className = "container";
+		this.className = "container";
 		
 		this.contentPanel = make("div");
 		this.contentPanel.className = "slide-content";
@@ -1904,7 +1939,7 @@ class tkDialog extends tkControl
 	{
 		super();
 		this.element = make("div"); 
-		this.element.className = "tkDialog shadow";
+		this.className = "tkDialog shadow";
 
 		this.titleElement =  make("p");
 		this.titleNode = say("");
@@ -2148,7 +2183,7 @@ class tkColorPicker extends tkControl
 		super();
 
 		this.element = make("div");
-		this.element.className = "tkColorPicker";
+		this.className = "tkColorPicker";
 
 		this.leftPane = make("div");
 		this.leftPane.className = "tkColorPickerLeft";
@@ -2281,7 +2316,7 @@ class tkSlider extends tkControl
 		super();
 
 		this.element = make("div");
-		this.element.className = "tkSlider";
+		this.className = "tkSlider";
 		this.setAttribute("draggable","false");
 
 		this.track = make("div");
@@ -2399,7 +2434,7 @@ class tkColorSlider extends tkSlider
 	constructor()
 	{
 		super();
-		this.element.className = "tkColorSlider";
+		this.className = "tkColorSlider";
 
 		// a gradient with an array of colors
 		this.backColors = ["black","white"];
@@ -2554,22 +2589,39 @@ class tkTextEdit extends tkText
 		super("textarea");
 	}
 
+	// Characters, not pixels
 	get width()
 	{
-
+		return this.getAttribute("cols");
 	}
-
+	
 	set width(_width)
 	{
-
+		this.setAttribute("cols",_width);
 	}
-
+		
 	get height()
 	{
-
+		return this.getAttribute("rows");
 	}
 
 	set height(_height)
+	{
+		this.setAttribute("rows",_height);
+	}
+	
+	setDimensions(_width,_height) 
+	{
+		this.width = _width;
+		this.height = _height;
+	}
+
+	get resizable()
+	{
+	
+	}
+
+	set resizable(_resizable)
 	{
 
 	}
@@ -2661,7 +2713,7 @@ class tkTextInput extends tkInput
 	{
 		super();
 		this.type = "text";
-		this.element.className = "tkTextInput";
+		this.className = "tkTextInput";
 	}
 }
 
