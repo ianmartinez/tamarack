@@ -19,16 +19,17 @@
 		<script src="../tamarack/tamarackUI.js"></script>
 		
 		<script>
-			(
-				function main()
-				{
-					var doc = new tkDocument();
-					doc.setBackgroundColor("rgba(0,0,0,0.04)");
-					doc.title = "Notepad";
+			var textEditor = new tkTextEdit();
+			var doc = new tkDocument();
+			doc.setBackgroundColor("rgba(0,0,0,0.04)");
+			doc.title = "Notepad";
+			document.body.className = "flexColumns";
 
-					buildRibbon();
-				}
-			)();
+			buildRibbon();
+			
+			textEditor.addClass("fill");
+			textEditor.placeholder = "Type here..."
+			textEditor.addToElement(document.body);
 
 			function buildRibbon()
 			{

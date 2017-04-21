@@ -569,7 +569,7 @@ class tkControl
 		this.element.style.height = _height + "px";
 	}
 	
-	setDimensions(_width,_height) 
+	setSize(_width,_height) 
 	{
 		this.width = _width;
 		this.height = _height;
@@ -661,7 +661,7 @@ class tkControl
 
 	hasClass(_class)
 	{
-		this.element.classList.contains(_class);
+		return this.element.classList.contains(_class);
 	}
 
 	get className()
@@ -2301,14 +2301,6 @@ class tkColorPicker extends tkControl
 	}
 }
 
-class tkColorPalette extends tkControl
-{
-	constructor()
-	{
-
-	}
-}
-
 class tkSlider extends tkControl
 {
 	constructor()
@@ -2587,6 +2579,7 @@ class tkTextEdit extends tkText
 	constructor()
 	{
 		super("textarea");
+		this.className = "tkTextEdit";
 	}
 
 	// Characters, not pixels
@@ -2610,7 +2603,7 @@ class tkTextEdit extends tkText
 		this.setAttribute("rows",_height);
 	}
 	
-	setDimensions(_width,_height) 
+	setSize(_width,_height) 
 	{
 		this.width = _width;
 		this.height = _height;
@@ -2618,62 +2611,65 @@ class tkTextEdit extends tkText
 
 	get resizable()
 	{
-	
+		return !this.hasClass("noResize");
 	}
 
 	set resizable(_resizable)
 	{
-
+		if (_resizable)
+			this.removeClass("noResize")
+		else
+			this.addClass("noResize")
 	}
 
 	get autofocus()
 	{
-
+		return this.getAttribute("autofocus");
 	}
 
 	set autofocus(_autofocus)
 	{
-
+		this.setAttribute("autofocus",_autofocus);
 	}
 
 	get disabled()
 	{
-
+		return this.getAttribute("disabled");
 	}
 
 	set disabled(_disabled)
 	{
-
+		this.setAttribute("disabled",_disabled);
 	}
 
 	get maxLength()
 	{
-
+		return this.getAttribute("maxLength");
 	}
 
 	set maxLength(_max_length)
 	{
-
+		this.setAttribute("maxLength",_max_length);
 	}
 
 	get placeholder()
 	{
-
+		return this.getAttribute("placeholder");
 	}
 
 	set placeholder(_text)
 	{
-
+		this.setAttribute("placeholder",_text);
 	}
 
 	get readOnly()
 	{
-
+		return this.getAttribute("readonly");
 	}
 
 	set readOnly(_read_only)
 	{
-
+		this.setAttribute("readonly",_read_only);
 	}
 }
 
