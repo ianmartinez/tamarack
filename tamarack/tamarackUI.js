@@ -2624,22 +2624,36 @@ class tkTextEdit extends tkText
 
 	get autofocus()
 	{
-		return this.getAttribute("autofocus");
+		return this.hasAttribute("autofocus");
 	}
 
 	set autofocus(_autofocus)
 	{
-		this.setAttribute("autofocus",_autofocus);
+		if (this.autofocus == true)
+			this.removeAttribute("autofocus");
+		
+		if (_autofocus)
+		{
+			var attr = document.createAttribute("autofocus"); 
+			this.setAttributeNode(attr);
+		}
 	}
 
 	get disabled()
 	{
-		return this.getAttribute("disabled");
+		return this.hasAttribute("disabled");
 	}
 
 	set disabled(_disabled)
 	{
-		this.setAttribute("disabled",_disabled);
+		if (this.disabled == true)
+			this.removeAttribute("disabled");
+		
+		if (_disabled)
+		{
+			var attr = document.createAttribute("disabled"); 
+			this.setAttributeNode(attr);
+		}
 	}
 
 	get maxLength()
@@ -2664,11 +2678,19 @@ class tkTextEdit extends tkText
 
 	get readOnly()
 	{
-		return this.getAttribute("readonly");
+		return this.hasAttribute("readonly");
 	}
 
 	set readOnly(_read_only)
 	{
+		if (this.readOnly == true)
+			this.removeAttribute("readonly");
+		
+		if (_read_only)
+		{
+			var attr = document.createAttribute("readonly"); 
+			this.setAttributeNode(attr);
+		}
 		this.setAttribute("readonly",_read_only);
 	}
 }

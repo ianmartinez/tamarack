@@ -23,13 +23,17 @@
 			var doc = new tkDocument();
 			doc.setBackgroundColor("rgba(0,0,0,0.04)");
 			doc.title = "Notepad";
-			document.body.className = "flexColumns";
+
+			var clientArea = new tkDiv();
+			clientArea.className = "fill flexColumns";
+			clientArea.addToElement(document.body);
 
 			buildRibbon();
-			
+
 			textEditor.addClass("fill");
+			textEditor.autofocus = true;
 			textEditor.placeholder = "Type here..."
-			textEditor.addToElement(document.body);
+			textEditor.addTo(clientArea);
 
 			function buildRibbon()
 			{
@@ -74,6 +78,19 @@
 				cutButton.image = "../icons/actions/22/edit-cut.svg";
 				clipboardGroup.addButton(cutButton.element);
 
+				// Window Group
+				var windowGroup = new tkRibbonGroup();
+				windowGroup.title = "Window";
+				homePage.addContent(windowGroup.element);
+
+				var toggleFullscreenButton = new tkButton();
+				toggleFullscreenButton.text = "Toggle Fullscreen";
+				toggleFullscreenButton.image = "../icons/actions/22/zoom-fullscreen.svg";
+				windowGroup.addButton(toggleFullscreenButton.element);
+				toggleFullscreenButton.e.onclick = function() {
+					clientArea.toggleFullscreen();
+				};
+
 				// Help Group
 				var helpGroup = new tkRibbonGroup();
 				helpGroup.title = "Help";
@@ -83,6 +100,11 @@
 				aboutButton.text = "About";
 				aboutButton.image = "../icons/actions/22/help-about.svg";
 				helpGroup.addButton(aboutButton.element);
+				aboutButton.e.onclick = function() {
+					var aboutDialog = new tkDialog();
+					aboutDialog.addContent(sayP("Notepad App 1.0 - A Tamarack Demo"));
+					aboutDialog.show();
+				};
 
 				// Format Page
 				var formatPage = new tkRibbonPage("Format", "formatPage");
@@ -105,7 +127,7 @@
 
 				// Select Home Page
 				ribbon.goToIndex(0);	
-				ribbon.addToElement(document.body);
+				ribbon.addTo(clientArea);
 			}
 		</script>
 	</body>
