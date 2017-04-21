@@ -950,7 +950,7 @@ h5 {
     color: rgba(0,0,0,0.9);
     background: linear-gradient(to bottom, #f8f8f8 70%, #f0f0f0 100%);
     background-color: rgba(255,255,255,0.9);
-    position: relative;
+    position: fixed;
     display: table;
     left: 50%;
     top: 50%;
