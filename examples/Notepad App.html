@@ -21,11 +21,11 @@
 		<script>
 			var textEditor = new tkTextEdit();
 			var doc = new tkDocument();
-			doc.setBackgroundColor("rgba(0,0,0,0.04)");
 			doc.title = "Notepad";
 
 			var clientArea = new tkDiv();
-			clientArea.className = "fill flexColumns";
+			clientArea.element.style.backgroundColor = "rgb(240,240,240)";
+			clientArea.addClass("fill", "flexColumns");
 			clientArea.addToElement(document.body);
 
 			buildRibbon();
@@ -88,7 +88,8 @@
 				toggleFullscreenButton.image = "../icons/actions/22/zoom-fullscreen.svg";
 				windowGroup.addButton(toggleFullscreenButton.element);
 				toggleFullscreenButton.e.onclick = function() {
-					clientArea.toggleFullscreen();
+					var bodyElement = makeElement(document.body);
+					bodyElement.toggleFullscreen();
 				};
 
 				// Help Group
