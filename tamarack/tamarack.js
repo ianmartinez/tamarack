@@ -198,12 +198,11 @@ class tkColor
 
 	getHslaCss()
 	{
-		return "hsla(" + this.h.toFixed(0) + ", " + this.s.toFixed(0) + "%, " + this.l.toFixed(0) + "%, " + this.a.toFixed(0) + ")";
+		return "hsla(" + this.h.toFixed(0) + ", " + this.s.toFixed(0) + "%, " + this.l.toFixed(0) + "%, " + this.a.toFixed(2) + ")";
 	}
 
 	getRgbaCss()
 	{
-		return "rgba(" + this.r.toFixed(0) + ", " + this.g.toFixed(0) + ", " + this.b.toFixed(0) + ", " + this.a.toFixed(0) + ")";
 	}
 
 	getHexCss()
