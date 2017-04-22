@@ -1,77 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<!-- Bootstrap core CSS -->
+		<!-- Bootstrap CSS -->
 		<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<link href="../bootstrap/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 		<!-- Tamarack CSS -->
-		<link href="../tamarack/tamarackStyle.css" rel="stylesheet">
+		<link href="../tamarack/tamarack.css" rel="stylesheet">
 	</head>
 	<body>
-		<!-- Tamarack -->
-		<script src="../tamarack/tamarackUI.js"></script>
-		<!-- Bootstrap core JavaScript -->
+		<!-- jQuery -->
 		<script src="../jquery/jquery.min.js"></script>
+		<!-- Clipboard -->
+		<script src="../clipboard/clipboard.min.js"></script>
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack.js"></script>
+		<!-- Bootstrap JS -->
 		<script src="../bootstrap/js/bootstrap.min.js"></script>
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<script src="../bootstrap/js/ie10-viewport-bug-workaround.js"></script>  
 		
 		<script>
-			(
-				function main()
-				{
-					var doc = new tkDocument();
-					var slideshow = new tkSlideshow();
-					var photos = ["1.jpg","2.jpg","3.jpg"];
-					
-					doc.title = "Slides Demo";
-					
-					for (var i=0; i<photos.length; i++)
-					{
-						var slide = new tkSlide();
-						var photo = new tkImage();
-						photo.element.className = "shadow";
-						var caption = new tkText("p");
-						
-						photo.source = photos[i];
-						caption.text = "Beach Photo " + (parseInt(i,10)+1).toString() + "/" + photos.length;
-						caption.e.className = "caption";
-						
-						slide.addContent(photo.e);
-						slide.addContent(caption.e);
-						slideshow.addPage(slide);
-					};	
-					
-					var backButton = new tkButton();
-					backButton.e.className = "tkRedButton";
-					backButton.text = "<";
-					backButton.e.onclick = () => 
-					{
-						slideshow.back();
-					};
-					
-					var nextButton = new tkButton();
-					nextButton.e.className = "tkRedButton";
-					nextButton.text = ">";
-					nextButton.e.onclick = () => 
-					{
-						slideshow.next();
-					};
-					
-					var fullScreenButton = new tkButton();
-					fullScreenButton.text = "Make Fullscreen";
-					fullScreenButton.e.onclick = () => 
-					{
-						makeElement(slideshow.getActive().contentArea.childNodes[0]).makeFullscreen();
-					};
-					
-					backButton.addToElement(document.body);
-					nextButton.addToElement(document.body);
-					fullScreenButton.addToElement(document.body);
-					slideshow.addToElement(document.body);
-				}
-			)();
+			var doc = new tkDocument();
+			var slideshow = new tkSlideshow();
+			var photos = ["resources/1.jpg","resources/2.jpg","resources/3.jpg"];
+			
+			doc.title = "Slides Demo";
+			
+			for (var i=0; i<photos.length; i++)
+			{
+				var slide = new tkSlide();
+				var photo = new tkImage();
+				photo.element.className = "shadow";
+				var caption = new tkText("p");
+				
+				photo.source = photos[i];
+				caption.text = "Beach Photo " + (parseInt(i,10)+1).toString() + "/" + photos.length;
+				caption.e.className = "caption";
+				
+				slide.addContent(photo.e);
+				slide.addContent(caption.e);
+				slideshow.addPage(slide);
+			};	
+			
+			var backButton = new tkButton();
+			backButton.e.className = "tkRedButton";
+			backButton.text = "<";
+			backButton.e.onclick = () => 
+			{
+				slideshow.back();
+			};
+			
+			var nextButton = new tkButton();
+			nextButton.e.className = "tkRedButton";
+			nextButton.text = ">";
+			nextButton.e.onclick = () => 
+			{
+				slideshow.next();
+			};
+			
+			var fullScreenButton = new tkButton();
+			fullScreenButton.text = "Make Fullscreen";
+			fullScreenButton.e.onclick = () => 
+			{
+				makeElement(slideshow.getActive().contentArea.childNodes[0]).makeFullscreen();
+			};
+
+			doc.add(backButton, nextButton, fullScreenButton, slideshow);
 		</script>
 	</body>
 </html>

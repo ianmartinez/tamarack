@@ -1,67 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<!-- Bootstrap core CSS -->
+		<!-- Bootstrap CSS -->
 		<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<link href="../bootstrap/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 		<!-- Tamarack CSS -->
-		<link href="../tamarack/tamarackStyle.css" rel="stylesheet">
+		<link href="../tamarack/tamarack.css" rel="stylesheet">
 	</head>
 	<body>
-		<!-- Bootstrap core JavaScript -->
+		<!-- jQuery -->
 		<script src="../jquery/jquery.min.js"></script>
+		<!-- Clipboard -->
+		<script src="../clipboard/clipboard.min.js"></script>
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack.js"></script>
+		<!-- Bootstrap JS -->
 		<script src="../bootstrap/js/bootstrap.min.js"></script>
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<script src="../bootstrap/js/ie10-viewport-bug-workaround.js"></script>  
-
-		<!-- Tamarack -->
-		<script src="../tamarack/tamarackUI.js"></script>
 		
 		<script>
-			(
-				function main()
-				{
-					var doc = new tkDocument();
-					var btnTab = new tkButton();
-					var notebook = new tkNotebook();
-					var backButton = new tkButton();
-					backButton.e.className = "tkRedButton";
-					var nextButton = new tkButton();
-					nextButton.e.className = "tkRedButton";
-					
-					doc.title = "Tabs Demo";
-										
-					var pageCount = 1;
-					btnTab.e.onclick = () => 
-					{
-						var page = new tkNotebookPage("Page " + pageCount,"page" + pageCount);
-						page.addContent(say("Page " + pageCount));
-						notebook.addPage(page);
-						notebook.goToIndex(pageCount-1);
-						pageCount++;
-					};	
-					
-					
-					btnTab.text = "Add Tab";
-					backButton.text = "<";
-					backButton.e.onclick = () => 
-					{
-						notebook.back();
-					};
-					
-					nextButton.text = ">";
-					nextButton.e.onclick = () => 
-					{
-						notebook.next();
-					};
-					
-					btnTab.addToElement(document.body);
-					backButton.addToElement(document.body);
-					nextButton.addToElement(document.body);
-					notebook.addToElement(document.body);
-				}
-			)();
+			var doc = new tkDocument();
+			doc.title = "Tabs Demo";
+			
+			var notebook = new tkNotebook();
+
+			var btnTab = new tkButton();
+			btnTab.text = "Add Tab";
+			backButton.text = "<";
+
+			var backButton = new tkButton();
+			backButton.e.className = "tkRedButton";
+			backButton.e.onclick = () => 
+			{
+				notebook.back();
+			};
+
+			var nextButton = new tkButton();
+			nextButton.e.className = "tkRedButton";
+			nextButton.text = ">";
+			nextButton.e.onclick = () => 
+			{
+				notebook.next();
+			};
+								
+			var pageCount = 1;
+			btnTab.e.onclick = () => 
+			{
+				var page = new tkNotebookPage("Page " + pageCount,"page" + pageCount);
+				page.addContent(say("Page " + pageCount));
+				notebook.addPage(page);
+				notebook.goToIndex(pageCount-1);
+				pageCount++;
+			};				
+			
+			doc.add(btnTab, backButton, nextButton, notebook);
 		</script>
 	</body>
 </html>

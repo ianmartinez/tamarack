@@ -13,7 +13,7 @@ var video = new tkVideo();
 video.source = "video_source.mp4";
 video.addToElement(document.body);
 ```
-![Video](examples/MediaPlayer_Screenshot.jpg)
+![Video](examples/resources/MediaPlayer_Screenshot.jpg)
 
 **Create a button that makes the video fullscreen when clicked:**
 ```javascript
@@ -36,7 +36,7 @@ page2.addContent(say("World!"));
 notebook.addPages(page1,page2);
 notebook.addToElement(document.body);
 ```
-![Notebook](examples/Tabs_Screenshot.jpg)
+![Notebook](examples/resources/Tabs_Screenshot.jpg)
 
 **Show a yes/no dialog:**
 ```javascript
@@ -51,7 +51,7 @@ dlgMessage.show((dialogResult) => {
         alert("Thanks!");
 });
 ```
-![Dialog](examples/Dialog_Screenshot.jpg)
+![Dialog](examples/resources/Dialog_Screenshot.jpg)
 
 **Set the background from a color dialog:**
 ```javascript
@@ -63,7 +63,7 @@ dlgColor.show((dialogResult) => {
         doc.setBackgroundColor(dlgColor.color.getHslaCss());
 });
 ```
-![Color Dialog](examples/ColorDialog_Screenshot.jpg)
+![Color Dialog](examples/resources/ColorDialog_Screenshot.jpg)
 
 **Initialize a property panel to modify an object: (Coming in a later version)**
 ```javascript

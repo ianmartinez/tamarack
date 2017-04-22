@@ -470,14 +470,16 @@ class tkControl
 		this.element.className = _class_name;
 	}
 
-	add(_tk_control)
+	add()
 	{
-		this.element.appendChild(_tk_control.element);
+		for (var i=0;i<arguments.length;i++)
+			this.element.appendChild(arguments[i].element);
 	}
 
 	addElement(_element)
 	{
-		this.element.appendChild(_element);
+		for (var i=0;i<arguments.length;i++)
+			this.element.appendChild(arguments[i]);
 	}
 }
 

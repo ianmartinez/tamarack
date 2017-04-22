@@ -1,53 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<!-- Bootstrap core CSS -->
+		<!-- Bootstrap CSS -->
 		<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<link href="../bootstrap/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 		<!-- Tamarack CSS -->
-		<link href="../tamarack/tamarackStyle.css" rel="stylesheet">
+		<link href="../tamarack/tamarack.css" rel="stylesheet">
 	</head>
 	<body>
-		<!-- Bootstrap core JavaScript -->
+		<!-- jQuery -->
 		<script src="../jquery/jquery.min.js"></script>
+		<!-- Clipboard -->
+		<script src="../clipboard/clipboard.min.js"></script>
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack.js"></script>
+		<!-- Bootstrap JS -->
 		<script src="../bootstrap/js/bootstrap.min.js"></script>
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<script src="../bootstrap/js/ie10-viewport-bug-workaround.js"></script>  
-
-		<!-- Tamarack -->
-		<script src="../tamarack/tamarackUI.js"></script>
 		
 		<script>
-			(
-				function main()
-				{
-					var doc = new tkDocument();
-					doc.title = "Color Dialog Demo";
-					var backgroundColor = new tkColor();
-					backgroundColor.randomizeOpaque();
-					doc.setBackgroundColor(backgroundColor.getHslaCss());
-					
-					var colorDialog = new tkColorDialog();
-					var dialogButton = new tkButton();
-					
-					dialogButton.text = "New Color";
-					dialogButton.e.onclick = () => 
-					{
-						colorDialog.color = backgroundColor.clone();
-						colorDialog.show((dialogResult) => {
-							if(dialogResult == tkDialogResult.OK) 
-							{
-								backgroundColor = colorDialog.color;
-								backColor = colorDialog.color.getHslaCss();
-								doc.setBackgroundColor(backColor);
-							}
-						});
-					};
+			var doc = new tkDocument();
+			doc.title = "Color Dialog Demo";
 
-					dialogButton.addToElement(document.body);
-				}
-			)();
+			var backgroundColor = new tkColor();
+			backgroundColor.randomizeOpaque();
+			doc.setBackgroundColor(backgroundColor.getHslaCss());
+			
+			var colorDialog = new tkColorDialog();
+			var dialogButton = new tkButton();
+			
+			dialogButton.text = "New Color";
+			dialogButton.e.onclick = () => 
+			{
+				colorDialog.color = backgroundColor.clone();
+				colorDialog.show((dialogResult) => {
+					if(dialogResult == tkDialogResult.OK) 
+					{
+						backgroundColor = colorDialog.color;
+						backColor = colorDialog.color.getHslaCss();
+						doc.setBackgroundColor(backColor);
+					}
+				});
+			};
+
+			doc.add(dialogButton);
 		</script>
 	</body>
 </html>

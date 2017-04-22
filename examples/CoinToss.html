@@ -1,51 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<!-- Bootstrap core CSS -->
+		<!-- Bootstrap CSS -->
 		<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<link href="../bootstrap/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 		<!-- Tamarack CSS -->
-		<link href="../tamarack/tamarackStyle.css" rel="stylesheet">
+		<link href="../tamarack/tamarack.css" rel="stylesheet">
 	</head>
 	<body>
-		<!-- Bootstrap core JavaScript -->
+		<!-- jQuery -->
 		<script src="../jquery/jquery.min.js"></script>
+		<!-- Clipboard -->
+		<script src="../clipboard/clipboard.min.js"></script>
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack.js"></script>
+		<!-- Bootstrap JS -->
 		<script src="../bootstrap/js/bootstrap.min.js"></script>
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<script src="../bootstrap/js/ie10-viewport-bug-workaround.js"></script>  
-
-		<!-- Tamarack -->
-		<script src="../tamarack/tamarackUI.js"></script>
 		
 		<script>
-			(
-				function main()
-				{
-					var doc = new tkDocument();
-					var btn = new tkButton();
+			var doc = new tkDocument();
+			var btn = new tkButton();
+			
+			doc.title = "Coin Toss Demo";
+			doc.addElement(sayLine("Coin Toss","h1"));
+			
+			btn.text = "Toss Coin!";
+			doc.add(btn);
+			
+			btn.element.onclick = () => 
+			{
+				var new_line = new tkText("p");
+				var flip_coin = (random(0,1) == 0) ? "Heads" : "Tails";
+				
+				new_line.text = flip_coin;						
+				new_line.element.style.color = (flip_coin == "Heads") ? "maroon" : "midnightblue";
+				new_line.element.style.fontWeight = "bold";
+				new_line.element.style.display = "none";
 					
-					doc.title = "Coin Toss Demo";
-					doc.addElement(sayText("Coin Toss","h1"));
-					
-					btn.text = "Toss Coin!";
-					btn.addToElement(document.body);
-					
-					btn.element.onclick = () => 
-					{
-						var new_line = new tkText("p");
-						var flip_coin = (random(0,1) == 0) ? "Heads" : "Tails";
-						
-						new_line.text = flip_coin;						
-						new_line.element.style.color = (flip_coin == "Heads") ? "maroon" : "midnightblue";
-						new_line.element.style.fontWeight = "bold";
-						new_line.element.style.display = "none";
-							
-						new_line.addToElement(document.body);
-						new_line.fadeIn();
-					};
-				}
-			)();
+				doc.add(new_line);
+				new_line.fadeIn();
+			};
 		</script>
 	</body>
 </html>

@@ -1,63 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-			<!-- Bootstrap core CSS -->
-			<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
-			<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-			<link href="../bootstrap/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-			<!-- Tamarack CSS -->
-			<link href="../tamarack/tamarackStyle.css" rel="stylesheet">
+		<!-- Bootstrap CSS -->
+		<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+		<!-- Tamarack CSS -->
+		<link href="../tamarack/tamarack.css" rel="stylesheet">
 	</head>
 	<body>
-		<!-- Bootstrap core JavaScript -->
+		<!-- jQuery -->
 		<script src="../jquery/jquery.min.js"></script>
+		<!-- Clipboard -->
+		<script src="../clipboard/clipboard.min.js"></script>
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack.js"></script>
+		<!-- Bootstrap JS -->
 		<script src="../bootstrap/js/bootstrap.min.js"></script>
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<script src="../bootstrap/js/ie10-viewport-bug-workaround.js"></script>  
-
-		<!-- Tamarack -->
-		<script src="../tamarack/tamarackUI.js"></script>
+		
 		<script>
-			(
-				function main()
-				{
-					var doc = new tkDocument();						
-					doc.title = "Media Players Demo";
-					var p = make("p");
-					doc.addElement(p);
-					
-					var video = new tkVideoPlayer();
-					video.source = "1.mp4";
-					video.loop = true;
-					video.addToElement(document.body);
+			var doc = new tkDocument();						
+			doc.title = "Media Players Demo";
+			var p = make("p");
+			doc.addElement(p);
+			
+			var video = new tkVideoPlayer();
+			video.source = "resources/1.mp4";
+			video.loop = true;
+			doc.add(video);
 
-					video.loaded = function() {
-						var vi = extractVideoInfo(video.video.element, "Jellyfish");
+			video.loaded = function() {
+				var vi = extractVideoInfo(video.video.element, "Jellyfish");
 
-						var title = new tkText("h1");
-						title.text = vi.title;	
-						title.addToElement(p);
-						
-						var source = new tkText("p");
-						source.text = "Video Source: " + vi.source;	
-						source.addToElement(p);
-						
-						var duration = new tkText("p");
-						duration.text = "Video Duration: " + vi.getFormattedDuration();	
-						duration.addToElement(p);
-						
-						var resolutionBracket = new tkText("p");
-						resolutionBracket.text = "Video Resolution Bracket: " + vi.resolution.getResolutionBracket();	
-						resolutionBracket.addToElement(p);
-						
-						var resolution = new tkText("p");
-						resolution.text = "Video Resolution: " + vi.resolution.getResolution();	
-						resolution.addToElement(p);
-						
-						video.setSize(vi.resolution.getWidth()/2, vi.resolution.getHeight()/2);
-					};
-				}
-			)();
+				var title = new tkText("h1");
+				title.text = vi.title;	
+				title.addToElement(p);
+				
+				var source = new tkText("p");
+				source.text = "Video Source: " + vi.source;	
+				source.addToElement(p);
+				
+				var duration = new tkText("p");
+				duration.text = "Video Duration: " + vi.getFormattedDuration();	
+				duration.addToElement(p);
+				
+				var resolutionBracket = new tkText("p");
+				resolutionBracket.text = "Video Resolution Bracket: " + vi.resolution.getResolutionBracket();	
+				resolutionBracket.addToElement(p);
+				
+				var resolution = new tkText("p");
+				resolution.text = "Video Resolution: " + vi.resolution.getResolution();	
+				resolution.addToElement(p);
+				
+				video.setSize(vi.resolution.getWidth()/2, vi.resolution.getHeight()/2);
+			};
 		</script>
 	</body>
 </html>
