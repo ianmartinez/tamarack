@@ -2,14 +2,61 @@
 if(typeof require == 'function')
 	window.$ = window.jQuery = require('./../jquery/jquery.min.js');
 
+// Tamarack
 function getTamarackVersion() 
 {
-	return 0.3;
+	return 0.42;
 }
 
 function isTamarackBeta()
 {
 	return true;
+}
+
+// enums
+var tkDialogResult = {
+  NOTHING: 0,
+  OK: 1,
+  CANCEL: 2,
+  ABORT: 3,
+  IGNORE: 4,
+  YES: 5,
+  NO: 6,
+  RETRY: 7
+};
+
+function say(_text)
+{
+	return document.createTextNode(_text);
+}
+
+function sayP(_text)
+{
+	var textNode = document.createTextNode(_text);
+	var p = make("p");
+	p.appendChild(textNode);
+	return p;
+}
+
+function sayLine(_text,_tag)
+{
+	var textNode = document.createTextNode(_text);
+	var element = make(_tag);
+	element.appendChild(textNode);
+	return element;
+}
+
+// global functions
+function make(_tag)
+{
+	return document.createElement(_tag);
+}
+
+function isFullscreenRunning()
+{
+	if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) 
+ 			return true;
+		return false;
 }
 
 function random(min,max)
@@ -234,210 +281,12 @@ class tkColor
 	}
 }
 
-function addParameters(_url,_args,_vals) 
-{
-	let url = _url + "?";
-	let max = Math.min(_args.length,_vals.length);
-	for(var i=0; i<max; i++) {
-		url += _args[i] + "=" + _vals[i];
-		if (i < max-1) url += "&";
-	}
-
-	return url;
-}
-
-function getParameterFromURL(_name, _url) 
-{
-	if (!url) 
-	{
-		_url = window.location.href;
-	}
-	_name = _name.replace(/[\[\]]/g, "\\$&");
-	var regex = new RegExp("[?&]" + _name + "(=([^&#]*)|&|#|$)"),
-		results = regex.exec(_url);
-	if (!results) return null;
-	if (!results[2]) return '';
-	return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-
-function getParameter(_name) 
-{
-	return getParameterFromURL(_name,getUrl());
-}
-			
-function getUrl()
-{
-	return window.location.href;
-}
-
-function say(_text)
-{
-	return document.createTextNode(_text);
-}
-
-function sayP(_text)
-{
-	var textNode = document.createTextNode(_text);
-	var p = make("p");
-	p.appendChild(textNode);
-	return p;
-}
-
-class tkDocument 
+// A control can be any html element
+class tkControl
 {	
 	constructor() 
 	{
-		this.output = document.body;
-	}
-		
-	// Document
-	get title()
-	{
-		return document.title;
-	}
-
-
-	set title(_title)
-	{
-		return document.title = _title;
-	}
-
-	put(_str)
-	{
-		var t = document.createTextNode(_str);
-		this.output.appendChild(t);
-		
-		return t;
-	}
-
-	putLine(_string)
-	{
-		if (_string == "undefined" || _string == null)
-			_string = "";
-		
-		var t = document.createTextNode(_string);
-		var p = document.createElement("p"); 
-		p.appendChild(t);
-		this.output.appendChild(p);
-			
-		return p;
-	}
-
-	putLines(_strings)
-	{
-		for (let str of _strings)
-			this.putLine(str);
-	}
-
-	putHeader(_string, _header)
-	{
-		if(["h1","h2","h3","h4","h5","h6"].indexOf(_header.toLowerCase()) != -1)
-		{
-			var h = document.createElement(_header);
-			var t = document.createTextNode(_string);
-			h.appendChild(t);
-			this.output.appendChild(h);
-			
-			return h;
-		}
-	}
-
-	setBackground(_background)
-	{
-		document.body.style.backgroundColor = _background;
-	}
-
-	setBackgroundColor(_background)
-	{
-		document.body.style.background = _background;
-	}
-
-	setBackgroundGradient(_angle_deg,_start,_end)
-	{
-		document.body.style.background = "linear-gradient(" + _angle_deg + "deg," + _start  + "," + _end + ") fixed";
-	}
-
-	setBackgroundImage(_background)
-	{
-		document.body.style.backgroundImage = _background;
-	}
-
-	setBackgroundImageCover(_image)
-	{
-		document.body.style.background = "url(" + _image + ") no-repeat center center fixed";
-	}
-
-	clearBackground()
-	{
-		document.body.style.background = null;
-	}
-	
-	// Commands
-	command(_cmd)
-	{
-		try {
-			var status = document.execCommand(_cmd);
-			if(!status)
-				console.error("Command '" + _cmd + "' could not be executed");
-		} catch (err) {
-			console.error("Command '" + _cmd + "' could not be executed");
-		}
-	}
-
-	// Only reliably works in electron	
-	copy()
-	{
-		this.command('copy');
-	}
-
-	paste()
-	{
-		this.command('paste');
-	}
-
-	cut()
-	{
-		this.command('cut');
-	}
-}
-
-// enums
-var tkDialogResult = {
-  NOTHING: 0,
-  OK: 1,
-  CANCEL: 2,
-  ABORT: 3,
-  IGNORE: 4,
-  YES: 5,
-  NO: 6,
-  RETRY: 7
-};
-
-// global functions
-function make(_tag)
-{
-	return document.createElement(_tag);
-}
-
-function findInReg(_reg,_id) {
-	for(var i=0;i<_reg.length;i++) 
-		if (_id == _reg[i].id) 
-			return _reg[i];
-	return null;
-}
-
-function isFullscreenRunning()
-{
-	if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) 
- 			return true;
-		return false;
-}
-
-class tkControl 
-{
-	constructor() 
-	{
-		this.element = make("div");
+		this.element = document.body;
 		this.element.id = "";
 	}
 	
@@ -474,37 +323,7 @@ class tkControl
 	set innerHtml(_html) {
 		this.element.innerHTML = _html;
 	}
-
-	getId() 
-	{
-		return this.element.id;
-	}
-
-	getElement() 
-	{
-		return this.element;
-	}
-
-	addToElement(_destination) 
-	{
-		_destination.appendChild(this.getElement());
-	}
-
-	addTo(_destination) 
-	{
-		_destination.getElement().appendChild(this.getElement());
-	}
 	
-	removeFromElement(_destination) 
-	{
-		_destination.removeChild(this.getElement());
-	}
-
-	removeFrom(_destination) 
-	{
-		_destination.getElement().removeChild(this.getElement());
-	}
-
 	// fullscreen
 	makeFullscreen()
 	{
@@ -613,6 +432,86 @@ class tkControl
 			this.element.removeChild(this.element.firstChild);
 	}
 
+	// class
+	addClass()
+	{
+		for (var i=0;i<arguments.length;i++)
+			this.element.classList.add(arguments[i]);
+	}
+
+	removeClass()
+	{
+		for (var i=0;i<arguments.length;i++)
+			this.element.classList.remove(arguments[i]);
+	}
+
+	toggleClass(_class)
+	{
+		this.element.classList.toggle(_class);
+	}
+
+	classAt(_index)
+	{
+		this.element.classList.item(_index);
+	}
+
+	hasClass(_class)
+	{
+		return this.element.classList.contains(_class);
+	}
+
+	get className()
+	{
+		return this.element.className;
+	}
+
+	set className(_class_name)
+	{
+		this.element.className = _class_name;
+	}
+
+	add(_tk_control)
+	{
+		this.element.appendChild(_tk_control.element);
+	}
+
+	addElement(_element)
+	{
+		this.element.appendChild(_element);
+	}
+}
+
+
+// A widget is a control that is associated with an element besides document.*
+class tkWidget extends tkControl
+{
+	constructor()
+	{
+		super();
+		this.element = make("div");
+	}
+
+	addToElement(_destination) 
+	{
+		_destination.appendChild(this.element);
+	}
+
+	addTo(_destination) 
+	{
+		_destination.element.appendChild(this.element);
+	}
+	
+	removeFromElement(_destination) 
+	{
+		_destination.removeChild(this.element);
+	}
+
+	removeFrom(_destination) 
+	{
+		_destination.element.removeChild(this.element);
+	}
+
+	// animations
 	fadeIn()
 	{
 		$(this.element).fadeIn(150);
@@ -628,6 +527,7 @@ class tkControl
 		$(this.element).slideToggle(250);
 	}
 
+	// dimensions and position
 	get left()
 	{
 		return this.element.getBoundingClientRect().left;
@@ -668,44 +568,6 @@ class tkControl
 		return this.bottom +  $(window).scrollTop();		
 	}
 
-	// class
-	addClass()
-	{
-		for (var i=0;i<arguments.length;i++)
-			this.element.classList.add(arguments[i]);
-	}
-
-	removeClass()
-	{
-		for (var i=0;i<arguments.length;i++)
-			this.element.classList.remove(arguments[i]);
-	}
-
-	toggleClass(_class)
-	{
-		this.element.classList.toggle(_class);
-	}
-
-	classAt(_index)
-	{
-		this.element.classList.item(_index);
-	}
-
-	hasClass(_class)
-	{
-		return this.element.classList.contains(_class);
-	}
-
-	get className()
-	{
-		return this.element.className;
-	}
-
-	set className(_class_name)
-	{
-		this.element.className = _class_name;
-	}
-
 	// element to display on mouse hover
 	get tooltip()
 	{
@@ -718,7 +580,103 @@ class tkControl
 	}
 }
 
-class tkElement extends tkControl 
+class tkDocument extends tkControl
+{	
+	constructor() 
+	{
+		super();
+		this.element = document.body;
+	}
+
+	get title()
+	{
+		return document.title;
+	}
+	set title(_title)
+	{
+		return document.title = _title;
+	}
+
+	setBackground(_background)
+	{
+		this.style.backgroundColor = _background;
+	}
+
+	setBackgroundColor(_background)
+	{
+		this.style.background = _background;
+	}
+
+	setBackgroundGradient(_angle_deg,_start,_end)
+	{
+		this.style.background = "linear-gradient(" + _angle_deg + "deg," + _start  + "," + _end + ") fixed";
+	}
+
+	setBackgroundImage(_background)
+	{
+		this.style.backgroundImage = _background;
+	}
+
+	setBackgroundImageCover(_image)
+	{
+		this.style.background = "url(" + _image + ") no-repeat center center fixed";
+	}
+
+	clearBackground()
+	{
+		this.style.background = null;
+	}
+
+	copy()
+	{
+	}
+
+	paste()
+	{
+	}
+
+	cut()
+	{
+	}
+
+	buildUrl(_url,_args,_vals) 
+	{
+		let url = _url + "?";
+		let max = Math.min(_args.length,_vals.length);
+		for(var i=0; i<max; i++) {
+			url += _args[i] + "=" + _vals[i];
+			if (i < max-1) url += "&";
+		}
+
+		return url;
+	}
+
+	parseUrl(_name, _url) 
+	{
+		if (!url) 
+		{
+			_url = window.location.href;
+		}
+		_name = _name.replace(/[\[\]]/g, "\\$&");
+		var regex = new RegExp("[?&]" + _name + "(=([^&#]*)|&|#|$)"),
+			results = regex.exec(_url);
+		if (!results) return null;
+		if (!results[2]) return '';
+		return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+
+	getParameter(_name) 
+	{
+		return this.parseUrl(_name,this.getUrl());
+	}
+				
+	getUrl()
+	{
+		return window.location.href;
+	}
+}
+
+class tkElement extends tkWidget 
 {
 	constructor(_element) 
 	{
@@ -735,7 +693,7 @@ function makeElementId(_id) {
 	return new tkElement(document.getElementById(_id));
 }
 
-class tkText extends tkControl 
+class tkText extends tkWidget 
 {
 	constructor(_tag) 
 	{
@@ -776,7 +734,7 @@ class tkLink extends tkText
 	}
 }
 
-class tkButton extends tkControl
+class tkButton extends tkWidget
 {
 	constructor() 
 	{
@@ -821,7 +779,7 @@ class tkButton extends tkControl
 	}
 }
 
-class tkDiv extends tkControl 
+class tkDiv extends tkWidget 
 {
 	constructor() 
 	{
@@ -830,7 +788,7 @@ class tkDiv extends tkControl
 	}
 }
 
-class tkMediaPlayer extends tkControl 
+class tkMediaPlayer extends tkWidget 
 {
 	constructor() 
 	{
@@ -1104,38 +1062,26 @@ class tkResolution
 	}
 }
 
-var videoIds = [];
-var regVideo = [];
 var tkLightsOutDiv;
-function randomVideoId()
-{
-	var id = "video_" + random(0,100000000);
-	while(videoIds.includes(id))
-		id = "video_" + random(0,100000000);
-	return id;
-}
-
-class tkVideoPlayer extends tkControl
+class tkVideoPlayer extends tkWidget
 {
 	constructor()
 	{
 		super();
 		this.element = make("div");
-		this.id = randomVideoId();
 		this.className = "tkVideoPlayer";
-		regVideo.push(this);
 
 		this.innerPanel = make("div");
 		this.innerPanel.className = "tkVideoInnerPanel";
 		this.element.appendChild(this.innerPanel);
 
 		this.controlsPanel = make("div");
-		this.controlsPanel.id = "controls_" + this.id;
 		this.controlsPanel.className = "tkVideoPlayerControls";
 		this.innerPanel.appendChild(this.controlsPanel);
 
+		var videoControl = this;
+
 	  	this.playPauseButton = make("button");
-		this.playPauseButton.id = "play_pause_" + this.id;
 		this.playPauseButton.className = "tkVideoButton";
 		this.playPauseButton.setAttribute("role","button");
 		this.controlsPanel.appendChild(this.playPauseButton);
@@ -1146,11 +1092,10 @@ class tkVideoPlayer extends tkControl
 		this.playPauseButtonIcon.src = this.playIconFile;
 		this.playPauseButton.appendChild(this.playPauseButtonIcon);
 		this.playPauseButton.onclick = function() {
-			findInReg(regVideo,this.id.replace("play_pause_","")).togglePlay();
+			videoControl.togglePlay();
 		};
 
 		this.fullscreenButton = make("button");
-		this.fullscreenButton.id = "fullscreen_" + this.id;
 		this.fullscreenButton.className = "tkVideoButton";
 		this.fullscreenButton.setAttribute("role","button");
 		this.controlsPanel.appendChild(this.fullscreenButton);
@@ -1161,11 +1106,10 @@ class tkVideoPlayer extends tkControl
 		this.fullscreenButton.style.float = "right";
 		this.fullscreenButton.appendChild(this.fullscreenButtonIcon);
 		this.fullscreenButton.onclick = function() {
-			findInReg(regVideo,this.id.replace("fullscreen_","")).toggleFullscreen();
+			videoControl.toggleFullscreen();
 		};
 
 		this.lightsOutButton = make("button");
-		this.lightsOutButton.id = "lightsOut_" + this.id;
 		this.lightsOutButton.className = "tkVideoButton";
 		this.lightsOutButton.setAttribute("role","button");
 		this.controlsPanel.appendChild(this.lightsOutButton);
@@ -1176,38 +1120,36 @@ class tkVideoPlayer extends tkControl
 		this.lightsOutButton.style.float = "right";
 		this.lightsOutButton.appendChild(this.lightsOutButtonIcon);
 		this.lightsOutButton.onclick = function() {
-			findInReg(regVideo,this.id.replace("lightsOut_","")).toggleLightsOut();
+			videoControl.toggleLightsOut();
 		};
 
 		this.video = new tkNativeVideoPlayer();
 		this.video.className = "tkVideoPlayer shadow";
 		this.video.showControls = false;
-		this.video.id =  "video_element_" + this.id;
 		this.video.addToElement(this.innerPanel);
 		this.video.loop = true;
 		
 		this.video.element.addEventListener ("dblclick", function(e) {
-			findInReg(regVideo,this.id.replace("video_element_","")).togglePlay();
+			videoControl.togglePlay();
 		}, false);
 
 		this.element.onmouseenter = function() {
-			findInReg(regVideo,this.id).showControls = true;
+			videoControl.showControls = true;
 		};
 
 		this.element.onmouseleave = function() {
-			findInReg(regVideo,this.id).showControls = false;
+			videoControl.showControls = false;
 		};
 		
 		if (!tkLightsOutDiv) 
 		{
 			tkLightsOutDiv = make("div");
 			tkLightsOutDiv.className = "tkLightsOutDiv";
-			tkLightsOutDiv.id = "lights_out_" + this.id;
 			tkLightsOutDiv.style.display = "none";
 			tkLightsOutDiv.style.zIndex = 99999;
 
 			tkLightsOutDiv.addEventListener ("click", function(e) {
-				findInReg(regVideo,this.id.replace("lights_out_","")).lightsOut = false;
+				videoControl.lightsOut = false;
 			}, false);
 
 			document.body.appendChild(tkLightsOutDiv);
@@ -1222,7 +1164,7 @@ class tkVideoPlayer extends tkControl
 
 	set loaded(_on_load) 
 	{
-		var vid = document.getElementById(this.video.id);
+		var vid = this.video.element;
 		$(document).ready(function() {
 			$(vid).on('loadedmetadata', function() {
 				_on_load();
@@ -1461,7 +1403,7 @@ class tkAudioPlayer extends tkMediaPlayer
 	}
 }
 
-class tkImage extends tkControl
+class tkImage extends tkWidget
 {
 	constructor()
 	{
@@ -1492,7 +1434,7 @@ class tkImage extends tkControl
 	}
 }
 
-class tkProgress extends tkControl
+class tkProgress extends tkWidget
 {
 	constructor()
 	{
@@ -1521,7 +1463,7 @@ class tkProgress extends tkControl
 	}
 }
 
-class tkMeter extends tkControl
+class tkMeter extends tkWidget
 {
 	constructor()
 	{
@@ -1671,7 +1613,7 @@ class tkSlide
 	}
 }
 
-class tkNotebook extends tkControl
+class tkNotebook extends tkWidget
 {
 	constructor() 
 	{
@@ -1828,7 +1770,7 @@ class tkRibbonPage
 	}
 }
 
-class tkRibbonGroup extends tkControl
+class tkRibbonGroup extends tkWidget
 {
 	constructor()
 	{
@@ -1871,7 +1813,7 @@ class tkRibbonGroup extends tkControl
 	}
 }
 
-class tkSlideshow extends tkControl
+class tkSlideshow extends tkWidget
 {
 	constructor()
 	{
@@ -1965,7 +1907,7 @@ class tkSlideshow extends tkControl
 }
 
 var tkDialogLightsOutDiv;
-class tkDialog extends tkControl
+class tkDialog extends tkWidget
 {
 	constructor()
 	{
@@ -1998,7 +1940,6 @@ class tkDialog extends tkControl
 			var dialog = this;
 			tkDialogLightsOutDiv = make("div");
 			tkDialogLightsOutDiv.className = "tkLightsOutDiv";
-			tkDialogLightsOutDiv.id = "dialog_lights_out";
 			tkDialogLightsOutDiv.style.display = "none";
 			tkDialogLightsOutDiv.style.zIndex = 99999;
 
@@ -2210,7 +2151,7 @@ class tkColorDialog extends tkDialog
 	}
 }
 
-class tkColorPicker extends tkControl
+class tkColorPicker extends tkWidget
 {
 	constructor()
 	{
@@ -2335,7 +2276,7 @@ class tkColorPicker extends tkControl
 	}
 }
 
-class tkSlider extends tkControl
+class tkSlider extends tkWidget
 {
 	constructor()
 	{
@@ -2740,7 +2681,7 @@ class tkTextEdit extends tkText
 }
 
 // Forms
-class tkInput extends tkControl
+class tkInput extends tkWidget
 {
 	constructor()
 	{

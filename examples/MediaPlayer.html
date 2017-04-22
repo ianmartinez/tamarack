@@ -23,7 +23,8 @@
 				{
 					var doc = new tkDocument();						
 					doc.title = "Media Players Demo";
-					var p = doc.putLine();
+					var p = make("p");
+					doc.addElement(p);
 					
 					var video = new tkVideoPlayer();
 					video.source = "1.mp4";
