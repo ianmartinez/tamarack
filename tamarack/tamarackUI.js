@@ -1,3 +1,7 @@
+// To make jQuery work in Electron
+if(typeof require == 'function')
+	window.$ = window.jQuery = require('./../jquery/jquery.min.js');
+
 function getTamarackVersion() 
 {
 	return 0.3;
@@ -366,6 +370,34 @@ class tkDocument
 	clearBackground()
 	{
 		document.body.style.background = null;
+	}
+	
+	// Commands
+	command(_cmd)
+	{
+		try {
+			var status = document.execCommand(_cmd);
+			if(!status)
+				console.error("Command '" + _cmd + "' could not be executed");
+		} catch (err) {
+			console.error("Command '" + _cmd + "' could not be executed");
+		}
+	}
+
+	// Only reliably works in electron	
+	copy()
+	{
+		this.command('copy');
+	}
+
+	paste()
+	{
+		this.command('paste');
+	}
+
+	cut()
+	{
+		this.command('cut');
 	}
 }
 
@@ -2125,7 +2157,9 @@ class tkAboutTamarackDialog extends tkDialog
 	{
 		super();
 
-		var lines = [sayP("Tamarack " + getTamarackVersion()), sayP("By Ian Martinez")];
+		var logo = sayP("Tamarack " + getTamarackVersion());
+		logo.className = "tkAboutDialogLogo";
+		var lines = [logo,sayP("By Ian Martinez")];
 		var credits = [];
 
 		var notebook = new tkNotebook();
@@ -2580,6 +2614,11 @@ class tkTextEdit extends tkText
 	{
 		super("textarea");
 		this.className = "tkTextEdit";
+
+		var textEdit = this;
+		this.element.addEventListener('mouseup', function () {
+			textEdit.selected_text = this.value.substring(this.selectionStart, this.selectionEnd)
+		});
 	}
 
 	// Characters, not pixels
@@ -2692,6 +2731,11 @@ class tkTextEdit extends tkText
 			this.setAttributeNode(attr);
 		}
 		this.setAttribute("readonly",_read_only);
+	}
+
+	getSelectedText()
+	{
+		return this.selected_text;
 	}
 }
 

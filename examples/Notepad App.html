@@ -9,14 +9,13 @@
 		<link href="../tamarack/tamarackStyle.css" rel="stylesheet">
 	</head>
 	<body>
+		<!-- Tamarack -->
+		<script src="../tamarack/tamarackUI.js"></script>
 		<!-- Bootstrap core JavaScript -->
 		<script src="../jquery/jquery.min.js"></script>
 		<script src="../bootstrap/js/bootstrap.min.js"></script>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../bootstrap/js/ie10-viewport-bug-workaround.js"></script>  
-
-		<!-- Tamarack -->
-		<script src="../tamarack/tamarackUI.js"></script>
 		
 		<script>
 			var textEditor = new tkTextEdit();
@@ -67,16 +66,25 @@
 				copyButton.text = "Copy";
 				copyButton.image = "../icons/actions/22/edit-copy.svg";
 				clipboardGroup.addButton(copyButton.element);
+				copyButton.e.onclick = function() {
+					doc.copy();
+				};
 
 				var pasteButton = new tkButton();
 				pasteButton.text = "Paste";
 				pasteButton.image = "../icons/actions/22/edit-paste.svg";
 				clipboardGroup.addButton(pasteButton.element);
+				pasteButton.e.onclick = function() {
+					doc.paste();
+				};
 
 				var cutButton = new tkButton();
 				cutButton.text = "Cut";
 				cutButton.image = "../icons/actions/22/edit-cut.svg";
 				clipboardGroup.addButton(cutButton.element);
+				cutButton.e.onclick = function() {
+					doc.cut();
+				};
 
 				// Window Group
 				var windowGroup = new tkRibbonGroup();

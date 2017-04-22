@@ -23,6 +23,11 @@
     src: url('../fonts/roboto/Roboto-Light.ttf');
 }
 
+@font-face {
+    font-family: 'Homenaje';
+    src: url('../fonts/homenaje/Homenaje-Regular.ttf');
+}
+
 * {
     font-family: 'Source Sans Pro', sans-serif;
 }
@@ -959,6 +964,13 @@ h5 {
     padding:0px;
     border-radius: 5px;
     border: 1px solid rgba(255,255,255,0.7);
+}
+
+.tkAboutDialogLogo {
+    font-family: 'Homenaje', sans-serif;
+    font-weight: bold;
+    color: #27363b;
+    font-size: 32px;
 }
 
 .tkDialogTitle {
