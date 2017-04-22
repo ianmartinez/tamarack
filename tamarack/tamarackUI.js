@@ -2324,7 +2324,7 @@ class tkColorPicker extends tkControl
 
 	refreshColor()
 	{
-		this.colorPreview.style.background = createLinearGradient(90,[this.intColor.getHslaCss(),this.intColor.getHslaCss()]) + ", url(\"transparency.png\")";
+		this.colorPreview.style.background = createLinearGradient(90,[this.intColor.getHslaCss(),this.intColor.getHslaCss()]) + ", url(\"../tamarack/transparency.png\")";
 		this.hueRange.associatedColor = this.intColor;
 		this.saturationRange.associatedColor = this.intColor;
 		this.lightnessRange.associatedColor = this.intColor;
@@ -2478,7 +2478,7 @@ class tkColorSlider extends tkSlider
 	set colors(_colors)
 	{
 		this.backColors = _colors;
-		this.element.style.background = createLinearGradient(90,_colors) + ",url(\"transparency.png\")";
+		this.element.style.background = createLinearGradient(90,_colors) + ",url(\"../tamarack/transparency.png\")";
 	}
 
 	get associatedColor()
