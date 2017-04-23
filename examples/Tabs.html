@@ -20,12 +20,9 @@
 			
 			var notebook = new tkNotebook();
 
-			var btnTab = new tkButton();
-			btnTab.text = "Add Tab";
-			backButton.text = "<";
-
 			var backButton = new tkButton();
 			backButton.e.className = "tkRedButton";
+			backButton.text = "<";
 			backButton.e.onclick = () => 
 			{
 				notebook.back();
@@ -39,6 +36,8 @@
 				notebook.next();
 			};
 								
+			var btnTab = new tkButton();
+			btnTab.text = "Add Tab";
 			var pageCount = 1;
 			btnTab.e.onclick = () => 
 			{

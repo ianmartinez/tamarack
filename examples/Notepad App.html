@@ -30,7 +30,7 @@
 			textEditor.autofocus = true;
 			textEditor.placeholder = "Type here..."
 			textEditor.addTo(clientArea);
-			setColor(new tkColor("hsla(183, 72%, 44%, 1.00)"));
+			setColor(new tkColor("hsla(184, 51%, 87%, 1.00)"));
 
 			function buildRibbon()
 			{
@@ -60,12 +60,21 @@
 				homePage.addContent(helpGroup.element);
 
 				var aboutButton = new tkButton();
-				aboutButton.text = "About";
+				aboutButton.text = "About App";
 				aboutButton.image = "../icons/actions/22/help-about.svg";
 				helpGroup.addButton(aboutButton.element);
 				aboutButton.e.onclick = function() {
 					var aboutDialog = new tkDialog();
 					aboutDialog.addContent(sayP("Notepad App 1.0 - A Tamarack Demo"));
+					aboutDialog.show();
+				};
+				
+				var aboutTkButton = new tkButton();
+				aboutTkButton.text = "About Tamarack";
+				aboutTkButton.image = "../icons/actions/22/help-about.svg";
+				helpGroup.addButton(aboutTkButton.element);
+				aboutTkButton.e.onclick = function() {
+					var aboutDialog = new tkAboutTamarackDialog();
 					aboutDialog.show();
 				};
 

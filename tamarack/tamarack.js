@@ -2137,6 +2137,7 @@ class tkColorDialog extends tkDialog
 		this.addContent(this.colorPicker.element);
 		this.element.style.minWidth = "35%";
 		this.title = "Color";
+		this.addClass("tkColorDialog");
 	}
 
 	get color()
@@ -2232,7 +2233,7 @@ class tkColorPicker extends tkWidget
 			if(colorPicker.textInput.isValidColor())
 			{
 				var new_color = new tkColor();
-				new_color.parseColor(colorPicker.textInput.element.value);
+				new_color.parse(colorPicker.textInput.element.value);
 				colorPicker.color = new_color;
 
 				colorPicker.hueRange.updateThumb();
@@ -2455,7 +2456,7 @@ class tkColorSlider extends tkSlider
 
 	updateThumb()
 	{
-		if (this.backColors)
+		if (this.backColors) 
 			this.thumb.style.backgroundColor = this.backColors[(fromPercent(this.getPercent(),this.backColors.length-1).toFixed(0))];
 	}
 }
