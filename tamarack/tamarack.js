@@ -78,7 +78,7 @@ function randomRGBA()
 
 class tkColor
 {
-	constructor()
+	constructor(_css)
 	{
 		this.r = 0;
 		this.g = 0;
@@ -89,6 +89,9 @@ class tkColor
 		this.l = 0;
 
 		this.a = 1;
+
+		if(_css)
+			this.parse(_css);
 	}
 
 	equals(_other)
@@ -167,10 +170,10 @@ class tkColor
 		this.fromRgba(rgb[0],rgb[1],rgb[2],this.a);
 	}
 
-	parseColor(_input)
+	parse(_input)
 	{
 		if(_input.startsWith("#"))
-			return this.fromHex(_input);
+			this.fromHex(_input);
 		else if (_input.startsWith("hsl")) {
 			var trimmed = _input.replace("hsla(","");
 			trimmed = trimmed.replace("hsl(","");
@@ -178,11 +181,10 @@ class tkColor
 			var chunks = trimmed.split(",");
 
 			if (chunks.length == 3) // hsl
-				return this.fromHsla(parseInt(chunks[0]),parseInt(chunks[1]),parseInt(chunks[2]),1);
+				this.fromHsla(parseInt(chunks[0]),parseInt(chunks[1]),parseInt(chunks[2]),1);
 			else if (chunks.length == 4) //hsla 
-				return this.fromHsla(parseInt(chunks[0]),parseInt(chunks[1]),parseInt(chunks[2]),parseFloat(chunks[3]),1);
-		}
-		else if (_input.startsWith("rgb")) {
+				this.fromHsla(parseInt(chunks[0]),parseInt(chunks[1]),parseInt(chunks[2]),parseFloat(chunks[3]),1);
+		} else if (_input.startsWith("rgb")) {
 			var trimmed = _input.replace("rgba(","");
 			trimmed = trimmed.replace("rgb(","");
 			trimmed = trimmed.replace(")","");
@@ -190,9 +192,11 @@ class tkColor
 			console.log(chunks);
 
 			if (chunks.length == 3) // rgb
-				return this.fromRgba(parseInt(chunks[0]),parseInt(chunks[1]),parseInt(chunks[2]),1);
+				this.fromRgba(parseInt(chunks[0]),parseInt(chunks[1]),parseInt(chunks[2]),1);
 			else if (chunks.length == 4) //rgba
-				return this.fromRgba(parseInt(chunks[0]),parseInt(chunks[1]),parseInt(chunks[2]),parseFloat(chunks[3]),1);
+				this.fromRgba(parseInt(chunks[0]),parseInt(chunks[1]),parseInt(chunks[2]),parseFloat(chunks[3]),1);
+		} else {
+			this.fromRgba(0,0,0,0);
 		}
 	}
 
@@ -278,6 +282,11 @@ class tkColor
 	rgbToHex(_r,_g,_b)
 	{
 		return "#" + ((1 << 24) + (_r << 16) + (_g << 8) + _b).toString(16).slice(1);
+	}
+
+	isDark()
+	{
+		return (this.l <= 55 && this.a > 0.4);
 	}
 }
 

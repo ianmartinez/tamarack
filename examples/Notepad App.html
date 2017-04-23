@@ -30,6 +30,7 @@
 			textEditor.autofocus = true;
 			textEditor.placeholder = "Type here..."
 			textEditor.addTo(clientArea);
+			setColor(new tkColor("hsla(183, 72%, 44%, 1.00)"));
 
 			function buildRibbon()
 			{
@@ -37,7 +38,21 @@
 				
 				// Home Page
 				var homePage = new tkRibbonPage("Home", "homePage");
-				ribbon.addPage(homePage);var 
+				ribbon.addPage(homePage);
+
+				// Window Group
+				var windowGroup = new tkRibbonGroup();
+				windowGroup.title = "Window";
+				homePage.addContent(windowGroup.element);
+
+				var toggleFullscreenButton = new tkButton();
+				toggleFullscreenButton.text = "Toggle Fullscreen";
+				toggleFullscreenButton.image = "../icons/actions/22/zoom-fullscreen.svg";
+				windowGroup.addButton(toggleFullscreenButton.element);
+				toggleFullscreenButton.e.onclick = function() {
+					var bodyElement = makeElement(document.body);
+					bodyElement.toggleFullscreen();
+				};
 
 				// Help Group
 				var helpGroup = new tkRibbonGroup();
@@ -67,6 +82,18 @@
 				colorButton.text = "Color";
 				colorButton.image = "../icons/actions/22/adjustlevels.svg";
 				styleGroup.addButton(colorButton.element);
+				colorButton.e.onclick = () => 
+				{
+					var colorDialog = new tkColorDialog();
+					var oldColor = new tkColor();
+					oldColor.parse(textEditor.style.backgroundColor);
+
+					colorDialog.color = oldColor.clone();
+					colorDialog.show((dialogResult) => {
+						if(dialogResult == tkDialogResult.OK) 
+							setColor(colorDialog.color);
+					});
+				};
 
 				var fontButton = new tkButton();
 				fontButton.text = "Font";
@@ -76,6 +103,12 @@
 				// Select Home Page
 				ribbon.goToIndex(0);	
 				ribbon.addTo(clientArea);
+			}
+
+			function setColor(_color)
+			{
+				textEditor.style.backgroundColor = _color.getHslaCss();
+				textEditor.style.color = (_color.isDark()) ? "rgb(255,255,255)" : "rgb(0,0,0)"; 
 			}
 		</script>
 	</body>
