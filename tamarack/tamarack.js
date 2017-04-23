@@ -629,18 +629,6 @@ class tkDocument extends tkControl
 		this.style.background = null;
 	}
 
-	copy()
-	{
-	}
-
-	paste()
-	{
-	}
-
-	cut()
-	{
-	}
-
 	buildUrl(_url,_args,_vals) 
 	{
 		let url = _url + "?";
