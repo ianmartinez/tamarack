@@ -14,7 +14,7 @@ var video = new tkVideo();
 video.source = "video_source.mp4";
 doc.add(video);
 ```
-![Video](examples/resources/MediaPlayer_Screenshot.jpg)
+![Video](examples/screenshots/MediaPlayer.jpg)
 
 **Create a button that makes the video fullscreen when clicked:**
 ```javascript
@@ -39,7 +39,7 @@ page2.addContent(say("World!"));
 notebook.addPages(page1,page2);
 doc.add(notebook);
 ```
-![Notebook](examples/resources/Tabs_Screenshot.jpg)
+![Notebook](examples/screenshots/Tabs.jpg)
 
 **Show a yes/no dialog:**
 ```javascript
@@ -54,7 +54,7 @@ dlgMessage.show((dialogResult) => {
         alert("Thanks!");
 });
 ```
-![Dialog](examples/resources/Dialog_Screenshot.jpg)
+![Dialog](examples/screenshots/Dialog.jpg)
 
 **Set the background from a color dialog:**
 ```javascript
@@ -66,4 +66,4 @@ dlgColor.show((dialogResult) => {
         doc.setBackgroundColor(dlgColor.color.getHslaCss());
 });
 ```
-![Color Dialog](examples/resources/ColorDialog_Screenshot.jpg)
+![Color Dialog](examples/screenshots/ColorDialog.jpg)
