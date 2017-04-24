@@ -26,10 +26,10 @@
 
 			buildRibbon();
 
-			textEditor.addClass("fill");
 			textEditor.autofocus = true;
 			textEditor.placeholder = "Type here..."
 			textEditor.addTo(clientArea);
+			textEditor.addClass("fill","borderless");
 			setColor(new tkColor("hsla(184, 51%, 87%, 1.00)"));
 
 			function buildRibbon()
@@ -46,7 +46,7 @@
 				homePage.addContent(windowGroup.element);
 
 				var toggleFullscreenButton = new tkButton();
-				toggleFullscreenButton.text = "Toggle Fullscreen";
+				toggleFullscreenButton.tooltip = say("Toggle Fullscreen");
 				toggleFullscreenButton.image = "../icons/actions/22/zoom-fullscreen.svg";
 				windowGroup.addButton(toggleFullscreenButton.element);
 				toggleFullscreenButton.e.onclick = function() {
@@ -60,7 +60,7 @@
 				homePage.addContent(helpGroup.element);
 
 				var aboutButton = new tkButton();
-				aboutButton.text = "About App";
+				aboutButton.tooltip = say("About App");
 				aboutButton.image = "../icons/actions/22/help-about.svg";
 				helpGroup.addButton(aboutButton.element);
 				aboutButton.e.onclick = function() {
@@ -69,8 +69,9 @@
 					aboutDialog.show();
 				};
 				
+				
 				var aboutTkButton = new tkButton();
-				aboutTkButton.text = "About Tamarack";
+				aboutTkButton.tooltip = say("About Tamarack");
 				aboutTkButton.image = "../icons/actions/22/help-about.svg";
 				helpGroup.addButton(aboutTkButton.element);
 				aboutTkButton.e.onclick = function() {

@@ -524,6 +524,18 @@ class tkControl
 		for (var i=0;i<arguments.length;i++)
 			this.element.appendChild(arguments[i]);
 	}
+
+	remove()
+	{
+		for (var i=0;i<arguments.length;i++)
+			this.element.removeChild(arguments[i].element);
+	}
+
+	removeElement()
+	{
+		for (var i=0;i<arguments.length;i++)
+			this.element.removeChild(arguments[i]);
+	}
 }
 
 
@@ -534,6 +546,7 @@ class tkWidget extends tkControl
 	{
 		super();
 		this.element = make("div");
+		this.tooltipElement = null;
 	}
 
 	addToElement(_destination) 
@@ -616,12 +629,32 @@ class tkWidget extends tkControl
 	// element to display on mouse hover
 	get tooltip()
 	{
-
+		return this.tooltipData;
 	}
 
 	set tooltip(_tooltip)
 	{
-
+		if (_tooltip)
+		{
+			this.tooltipElement = make("span");
+			this.tooltipData = _tooltip;
+			this.tooltipElement.appendChild(this.tooltipData);
+			this.addElement(this.tooltipElement);
+			
+			this.tooltipElement.classList.add("tkTooltip");
+			var tooltipElement = this.tooltipElement;
+			this.element.addEventListener ("mouseover", function(e) {
+				tooltipElement.classList.add("visible");
+			}, false);
+			
+			this.element.addEventListener ("mouseout", function(e) {
+				tooltipElement.classList.remove("visible");
+			}, false);
+		} else {
+			this.removeElement(this.tooltipElement);
+			this.tooltipData = null;
+			this.tooltipElement = null;
+		}
 	}
 }
 
@@ -632,7 +665,7 @@ class tkDocument extends tkControl
 		super();
 		this.element = document.body;
 	}
-
+	
 	get title()
 	{
 		return document.title;
@@ -776,12 +809,12 @@ class tkButton extends tkWidget
 		this.element = make("button");
 		this.className = "tkButton";
 
-		this.textControl = new tkText("p");
-		this.textControl.className = "tkButtonText";
-		this.element.appendChild(this.textControl.element);
+		this.textWidget = new tkText("p");
+		this.textWidget.className = "tkButtonText";
+		this.element.appendChild(this.textWidget.element);
 
-		this.imageControl = new tkImage();
-		this.imageControl.className = "tkButtonImage";
+		this.imageWidget = new tkImage();
+		this.imageWidget.className = "tkButtonImage";
 	}	
 
 	get image()
@@ -792,23 +825,23 @@ class tkButton extends tkWidget
 	set image(_image)
 	{
 		if(_image)
-			this.element.appendChild(this.imageControl.element);
+			this.element.appendChild(this.imageWidget.element);
 		else {
-			this.element.removeChild(this.imageControl.element);
+			this.element.removeChild(this.imageWidget.element);
 			return;
 		}
 
-		this.imageControl.source = _image;
+		this.imageWidget.source = _image;
 	}
 
 	get text()
 	{
-		return this.textControl.text;
+		return this.textWidget.text;
 	}
 
 	set text(_text)
 	{
-		this.textControl.text = _text;
+		this.textWidget.text = _text;
 	}
 }
 
