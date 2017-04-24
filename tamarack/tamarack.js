@@ -85,6 +85,34 @@ function compareArray(_arr)
 	return true;
 }
 
+class tkFont
+{
+	constructor(_family,_size,_weight,_style)
+	{
+
+	}
+
+	getFamilyCss()
+	{
+
+	}
+
+	getSizeCss()
+	{
+
+	}
+
+	getWeightCss()
+	{
+
+	}
+
+	getStyleCss()
+	{
+
+	}
+}
+
 class tkColor
 {
 	constructor(_css)
@@ -1717,6 +1745,87 @@ class tkNotebook extends tkWidget
 			this.goToIndex(0);
 		else
 			this.goToIndex(Math.min(this.tabs.length-1, this.getActiveIndex()+1));		
+	}
+}
+
+class tkListItem extends tkWidget
+{
+	constructor()
+	{
+		super();
+		this.element = make("li");
+		this.element.className = "list-group-item";
+	}
+
+	get active()
+	{
+		return this.hasClass("active");
+	}
+
+	set active(_active)
+	{
+		if(_active)
+			this.addClass("active");
+		else
+			this.removeClass("active");
+	}
+
+}
+
+class tkList extends tkWidget
+{
+	constructor()
+	{
+		super();
+		this.element = make("ul");
+		this.element.className = "list-group";
+
+		this.items = [];
+	}
+	
+	addItem(_item)
+	{
+		
+	}
+	
+	removeItem(_item)
+	{
+		
+	}
+	
+	set active(_item)
+	{
+
+	}
+	
+	getActiveIndex()
+	{
+
+	}
+	
+	getActive()
+	{
+
+	}
+	
+	getIndex(_item)
+	{
+
+	}
+	
+	goToIndex(_index)
+	{
+		
+	}
+	
+	back()
+	{
+
+	}
+	
+	next()
+	{
+	
 	}
 }
 
