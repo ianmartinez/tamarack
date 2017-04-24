@@ -320,7 +320,12 @@ class tkColor
 
 	isDark()
 	{
-		return (this.l <= 55 && this.a > 0.4);
+		return (this.l <= 50 && this.a > 0.4);
+	}
+
+	isGray()
+	{
+		return (compareArray([this.r,this.g,this.b]));
 	}
 }
 
