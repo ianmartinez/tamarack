@@ -2244,10 +2244,12 @@ class tkAboutTamarackDialog extends tkDialog
 	{
 		super();
 
-		var logo = sayP("Tamarack " + getTamarackVersion());
+		var logo = sayP("tamarack ");
 		logo.className = "tkAboutDialogLogo";
-		var lines = [logo,sayP("By Ian Martinez")];
-		var credits = [];
+		var lines = [logo, sayP("Version " + getTamarackVersion()), sayP("By Ian Martinez")];
+		var credits = [	sayLine("Bootstrap","h3"),sayP("Copyright (c) 2011-2016 Twitter, Inc"),
+						sayLine("jQuery","h3"),sayP("Copyright (c) JS Foundation"),
+						sayLine("Breeze Icons","h3"),sayP("Copyright (c) 2014 Uri Herrera and others"),];
 
 		var notebook = new tkNotebook();
 
@@ -2255,6 +2257,7 @@ class tkAboutTamarackDialog extends tkDialog
 		lines.forEach((e) => aboutTab.addContent(e));
 
 		var creditsTab = new tkNotebookPage("Credits", "creditsTab");
+		creditsTab.contentArea.classList.add("tkAboutDialogCredits");
 		credits.forEach((e) => creditsTab.addContent(e));
 
 		notebook.addPages(aboutTab,creditsTab);

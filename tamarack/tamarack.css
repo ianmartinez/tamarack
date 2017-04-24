@@ -919,7 +919,7 @@ h5 {
 .tkLightsOutDiv {
     width: 100%;
     height: 100%;
-    background-color: rgba(64,64,64,0.85);
+    background-color: rgba(30,30,30,0.8);
     top: 0px;
     left: 0px;
     position: fixed;
@@ -950,8 +950,17 @@ h5 {
 .tkAboutDialogLogo {
     font-family: 'Homenaje', sans-serif;
     font-weight: bold;
-    color: #27363b;
-    font-size: 32px;
+    background: linear-gradient(to top, hsla(20, 77%, 60%, 1.00) 0%, hsla(20, 77%, 42%, 1.00) 100%); 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: hsla(20, 77%, 40%, 1.00);
+    padding: 0px;
+    margin: 0px;
+    font-size: 64px;
+}
+
+.tkAboutDialogCredits {
+    padding: 3px;
 }
 
 .tkColorDialog {
