@@ -76,6 +76,15 @@ function randomRGBA()
 	return "rgba(" + random(0,255) + "," + random(0,255) + "," + random(0,255) + "," + Math.random() + ")";
 }
 
+function compareArray(_arr)
+{
+	for(var i=0;i<_arr.length;i++)
+		for(var j=0;j<_arr.length;j++)
+			if (_arr[i]!=_arr[j])
+				return false;
+	return true;
+}
+
 class tkColor
 {
 	constructor(_css)
@@ -105,7 +114,7 @@ class tkColor
 	{
 		if (_color === "" || _color === "inherit" || _color === "transparent") 
 			return false;
-		
+
 		var image = make("img");
 		image.style.color = "rgb(0, 0, 0)";
 		image.style.color = _color;
@@ -172,14 +181,13 @@ class tkColor
 
 	parse(_input)
 	{
-		if(_input.startsWith("#"))
+		if(_input.startsWith("#")) {
 			this.fromHex(_input);
-		else if (_input.startsWith("hsl")) {
+		} else if (_input.startsWith("hsl")) {
 			var trimmed = _input.replace("hsla(","");
 			trimmed = trimmed.replace("hsl(","");
 			trimmed = trimmed.replace(")","");
 			var chunks = trimmed.split(",");
-
 			if (chunks.length == 3) // hsl
 				this.fromHsla(parseInt(chunks[0]),parseInt(chunks[1]),parseInt(chunks[2]),1);
 			else if (chunks.length == 4) //hsla 
@@ -189,8 +197,6 @@ class tkColor
 			trimmed = trimmed.replace("rgb(","");
 			trimmed = trimmed.replace(")","");
 			var chunks = trimmed.split(",");
-			console.log(chunks);
-
 			if (chunks.length == 3) // rgb
 				this.fromRgba(parseInt(chunks[0]),parseInt(chunks[1]),parseInt(chunks[2]),1);
 			else if (chunks.length == 4) //rgba

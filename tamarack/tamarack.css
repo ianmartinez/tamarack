@@ -28,6 +28,11 @@
     src: url('../fonts/homenaje/Homenaje-Regular.ttf');
 }
 
+::selection {
+  background: #1f495a; 
+  color: rgba(255,255,255,0.9);
+} 
+
 p {
     margin: 10px 0px 5px 0px;
 }
@@ -430,15 +435,6 @@ iframe {
         width: 33.333333%;
         float: left;
     }
-}
-
-.tkTextEdit {
-    background: white;
-    font-style: italic;
-    color: rgba(0, 0, 0, 0.8);
-    display: block;
-    border: 1px solid rgba(0,0,0,.2);
-    border-radius: 1px;
 }
 
 .noResize {
@@ -1080,11 +1076,31 @@ h5 {
 }
 
 .tkTextInput {
+    transition: all 0.3s ease-in-out;
     width: 100%;
     height: 35px;
-    font-style: italic;
-    color: rgba(0, 0, 0, 0.8);
+    color: rgba(0, 0, 0, 0.6);
     text-align: center;
     border: 1px solid rgba(0,0,0,.2);
     border-radius: 1px;
+    outline: solid 1px transparent;
+}
+
+.tkTextInput:focus {
+    outline: solid 1px #568699;
+}
+
+.tkTextEdit {
+    transition: all 0.3s ease-in-out;
+    background: white;
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.8);
+    display: block;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 1px;
+    outline: solid 1px transparent;
+}
+
+.tkTextEdit:focus {
+    outline: solid 1px #568699;
 }

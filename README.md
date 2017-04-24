@@ -54,7 +54,7 @@ dlgMessage.show((dialogResult) => {
         alert("Thanks!");
 });
 ```
-![Dialog](examples/screenshots/Dialog.jpg)
+![Dialog](examples/screenshots/Dialog.jpg) 
 
 **Set the background from a color dialog:**
 ```javascript
