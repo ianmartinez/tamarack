@@ -30,7 +30,7 @@
 			textEditor.placeholder = "Type here..."
 			textEditor.addTo(clientArea);
 			textEditor.addClass("fill","borderless");
-			setColor(new tkColor("hsla(184, 51%, 87%, 1.00)"));
+			setColor(new tkColor("hsla(199, 33%, 20%, 1.00)"));
 
 			function buildRibbon()
 			{
@@ -61,7 +61,7 @@
 
 				var aboutButton = new tkButton();
 				aboutButton.tooltip = say("About App");
-				aboutButton.image = "../icons/actions/22/help-about.svg";
+				aboutButton.image = "../icons/actions/22/project-development.svg";
 				helpGroup.addButton(aboutButton.element);
 				aboutButton.e.onclick = function() {
 					var aboutDialog = new tkDialog();
@@ -85,11 +85,11 @@
 				
 				// Style Group
 				var styleGroup = new tkRibbonGroup();
-				styleGroup.title = "Text Style";
+				styleGroup.title = "Style";
 				formatPage.addContent(styleGroup.element);
 
 				var colorButton = new tkButton();
-				colorButton.text = "Color";
+				colorButton.tooltip = say("Background Color");
 				colorButton.image = "../icons/actions/22/adjustlevels.svg";
 				styleGroup.addButton(colorButton.element);
 				colorButton.e.onclick = () => 
@@ -106,7 +106,7 @@
 				};
 
 				var fontButton = new tkButton();
-				fontButton.text = "Font";
+				fontButton.tooltip = say("Font");
 				fontButton.image = "../icons/actions/22/gtk-select-font.svg";
 				styleGroup.addButton(fontButton.element);
 

@@ -382,15 +382,14 @@ class tkControl
 
 	exitFullscreen()
 	{
-		if (document.exitFullscreen) {
+		if (document.exitFullscreen) 
 			document.exitFullscreen();
-		} else if (document.webkitExitFullscreen) {
+		else if (document.webkitExitFullscreen)
 			document.webkitExitFullscreen();
-		} else if (document.mozCancelFullScreen) {
+		else if (document.mozCancelFullScreen)
 			document.mozCancelFullScreen();
-		} else if (document.msExitFullscreen) {
+		else if (document.msExitFullscreen) 
 			document.msExitFullscreen();
-		}
 	}
 
 	isFullscreen()

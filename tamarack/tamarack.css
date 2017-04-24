@@ -37,12 +37,6 @@ p {
     margin: 10px 0px 5px 0px;
 }
 
-@media (max-width: 600px) {
-    body {    
-        font-size: large;
-    }
-}
-
 body {
     height: 100%;
     width: 100%;
@@ -1086,13 +1080,12 @@ h5 {
 }
 
 .tkTextInput:focus {
-    outline: solid 1px #568699;
+    outline: solid 1px hsla(192, 85%, 42%, 1.00);
 }
 
 .tkTextEdit {
     transition: all 0.3s ease-in-out;
     background: white;
-    font-style: italic;
     color: rgba(0, 0, 0, 0.8);
     display: block;
     border: 1px solid rgba(0,0,0,.2);
@@ -1101,7 +1094,7 @@ h5 {
 }
 
 .tkTextEdit:focus {
-    outline: solid 1px #568699;
+    outline: solid 1px hsla(192, 85%, 42%, 1.00);
 }
 
 .tkTooltip {
@@ -1114,16 +1107,15 @@ h5 {
     border-radius: 6px;
     padding: 5px 10px;
     float: right;
-    right: -100%;
-    bottom: 0px;
+    bottom: -20px;
 
     /* Position the tooltip */
     position: absolute;
     z-index: 9999999999;
 
     visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s .3s, opacity .3s linear;
+    opacity: 0; 
+    transition: visibility 0s .3s, opacity .3s linear;white-space: nowrap;
 }
 
 .visible {
