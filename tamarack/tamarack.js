@@ -85,9 +85,25 @@ function compareArray(_arr)
 	return true;
 }
 
+function isArray(_arr)
+{
+	return (_arr.constructor === Array);
+}
+
 class tkFont
 {
 	constructor(_family,_size,_weight,_style)
+	{
+		// Can be an array like "Times New Roman", Georgia, Serif
+		if (! isArray(_family)) 
+			_family = [_family];
+		this.family = _family;
+		this.size = _size;
+		this.weight = _weight;
+		this.style = _style;
+	}
+
+	getCss()
 	{
 
 	}
@@ -108,6 +124,11 @@ class tkFont
 	}
 
 	getStyleCss()
+	{
+
+	}
+
+	getVariantCss()
 	{
 
 	}
