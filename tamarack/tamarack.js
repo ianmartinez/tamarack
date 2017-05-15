@@ -1810,14 +1810,19 @@ class tkListItem extends tkText
 {
 	constructor()
 	{
-		super();
-		this.element = make("li");
+		super("li");
 		this.element.className = "list-group-item";
 
 		var item = this;
+		this.clickEvent = item.toggleActive;
 		this.element.addEventListener('mouseup', function () {
-			item.active = true;
+			item.clickEvent();
 		});
+	}
+	
+	toggleActive() 
+	{
+		this.active = !(this.active);
 	}
 
 	get active()
@@ -1845,49 +1850,60 @@ class tkList extends tkWidget
 		this.items = [];
 	}
 	
+	get multipleSelection() 
+	{
+
+	}
+
+	set multipleSelection(_multiple_selection)
+	{
+		if (_multiple_selection)
+		{
+			
+		} else {
+			
+		}
+	}
+
 	addItem(_item)
 	{
-		
+		this.element.appendChild(_item.element);
 	}
 	
 	removeItem(_item)
 	{
 		
 	}
-	
-	set active(_item)
+
+	// returns array of selected items
+	get selected()
 	{
 
 	}
-	
-	getActiveIndex()
+
+	set selected(_selected)
 	{
 
 	}
-	
-	getActive()
+
+	isSelected(_items)
 	{
 
 	}
-	
-	getIndex(_item)
+
+	get selectedIndex()
 	{
 
 	}
-	
-	goToIndex(_index)
-	{
-		
-	}
-	
-	back()
+
+	set selectedIndex(_selected)
 	{
 
 	}
-	
-	next()
+
+	isSelectedIndex(_index)
 	{
-	
+
 	}
 }
 
@@ -2330,13 +2346,12 @@ class tkFontPicker extends tkWidget
 		this.fontFamily = sayP("Font Family:");
 		this.fontFamily.className = "tkFontPickerTitle";
 		this.fontFamilyList = new tkList();
-		this.fontFamilyArray = ["Arial"];
+		this.fontFamilyArray = ["Arial","Georgia"];
 		this.fontFamilyArray.forEach((value) => {
 			var item = new tkListItem();
 			item.text = value;
 			this.fontFamilyList.addItem(item);
 		});
-		this.fontFamilyList.addItem();
 
 		this.fontDemoTitle = sayP("Font Preview:");
 		this.fontDemoTitle.className = "tkFontPickerTitle";

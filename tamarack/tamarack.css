@@ -793,6 +793,12 @@ h5 {
     color: rgba(0,0,0,0.6);
 }
 
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    background: linear-gradient(to bottom, #51b8eb 0%, #429de8 100%);
+    border: 1px solid #3194dc;
+    color: white;
+}
+
 .tkListItem {
 	position: relative;
     box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.1);
