@@ -34,7 +34,7 @@
 } 
 
 p {
-    margin: 10px 0px 5px 0px;
+    margin: 5px 0px 5px 0px;
 }
 
 body {
@@ -967,6 +967,10 @@ h5 {
     width: 60%;
 }
 
+.tkFontDialog {
+    width: 60%;
+}
+
 .tkDialogTitle {
     margin: 0px;
     padding: 5px;
@@ -993,6 +997,26 @@ h5 {
 .tkDialogContentArea {
     padding: 5px;
     text-align: center;
+}
+
+/* Font */
+.tkFontPicker {
+    display: flex;
+    flex-flow: column;
+}
+
+.tkFontPickerPreview {
+    height: 6em;
+    background-color: white;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.tkFontPickerTitle {
+    text-align: left;
+    font-size: smaller;
+    font-weight: lighter;
+    color: rgba(0, 0, 0, 0.8);
 }
 
 /* Color */

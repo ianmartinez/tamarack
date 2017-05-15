@@ -1806,13 +1806,18 @@ class tkNotebook extends tkWidget
 	}
 }
 
-class tkListItem extends tkWidget
+class tkListItem extends tkText
 {
 	constructor()
 	{
 		super();
 		this.element = make("li");
 		this.element.className = "list-group-item";
+
+		var item = this;
+		this.element.addEventListener('mouseup', function () {
+			item.active = true;
+		});
 	}
 
 	get active()
@@ -1827,7 +1832,6 @@ class tkListItem extends tkWidget
 		else
 			this.removeClass("active");
 	}
-
 }
 
 class tkList extends tkWidget
@@ -2296,7 +2300,7 @@ class tkAboutTamarackDialog extends tkDialog
 	}
 }
 
-class tkColorDialog extends tkDialog
+class tkFontDialog extends tkDialog
 {
 	constructor()
 	{
@@ -2304,10 +2308,71 @@ class tkColorDialog extends tkDialog
 
 		this.choices = [tkDialogResult.OK,tkDialogResult.CANCEL];
 
-		this.palette = [];
-		this.showPalette = true;
-		this.customPalette = [];
-		this.showCustomPalette = false;
+		this.fontPicker = new tkFontPicker();
+		this.addContent(this.fontPicker.element);
+		this.element.style.minWidth = "35%";
+		this.title = "Font";
+		this.addClass("tkFontDialog");
+	}
+}
+
+class tkFontPicker extends tkWidget
+{
+	constructor()
+	{
+		super();
+
+		this.element = make("div");
+		this.className = "tkFontPicker";
+
+		this.choices = [tkDialogResult.OK,tkDialogResult.CANCEL];
+		
+		this.fontFamily = sayP("Font Family:");
+		this.fontFamily.className = "tkFontPickerTitle";
+		this.fontFamilyList = new tkList();
+		this.fontFamilyArray = ["Arial"];
+		this.fontFamilyArray.forEach((value) => {
+			var item = new tkListItem();
+			item.text = value;
+			this.fontFamilyList.addItem(item);
+		});
+		this.fontFamilyList.addItem();
+
+		this.fontDemoTitle = sayP("Font Preview:");
+		this.fontDemoTitle.className = "tkFontPickerTitle";
+		this.fontDemo = new tkText("pre");
+		this.fontDemo.className = "tkFontPickerPreview";
+		this.fontDemo.text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcdefghijklmnopqrstuvwxyz\n1234567890 ?!.";
+
+		this.addElement(this.fontFamily,this.fontFamilyList.element,this.fontDemoTitle, this.fontDemo.element);
+
+		this.intFont = new tkFont("Arial","24px","normal","normal");
+		this.refreshFont();
+	}
+
+	get font()
+	{
+		return this.intFont;
+	}
+
+	set font(_font)
+	{		
+		
+	}
+
+	refreshFont()
+	{
+		
+	}
+}
+
+class tkColorDialog extends tkDialog
+{
+	constructor()
+	{
+		super();
+
+		this.choices = [tkDialogResult.OK,tkDialogResult.CANCEL];
 
 		this.colorPicker = new tkColorPicker();
 		this.addContent(this.colorPicker.element);
@@ -2352,11 +2417,6 @@ class tkColorPicker extends tkWidget
 		this.rightPane.appendChild(this.colorPreview);
 
 		this.choices = [tkDialogResult.OK,tkDialogResult.CANCEL];
-
-		this.palette = [];
-		this.showPalette = true;
-		this.customPalette = [];
-		this.showCustomPalette = false;
 
 		var colorPicker = this;
 		this.hueRange = new tkHueSlider();

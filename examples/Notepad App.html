@@ -109,6 +109,13 @@
 				fontButton.tooltip = say("Font");
 				fontButton.image = "../icons/actions/22/gtk-select-font.svg";
 				styleGroup.addButton(fontButton.element);
+				fontButton.e.onclick = () => 
+				{
+					var fontDialog = new tkFontDialog();
+					fontDialog.show((dialogResult) => {
+
+					});
+				};
 
 				// Select Home Page
 				ribbon.goToIndex(0);	
