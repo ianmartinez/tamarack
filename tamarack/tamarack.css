@@ -794,48 +794,22 @@ h5 {
 }
 
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    transition: all 0.3s ease-in-out;
     background: linear-gradient(to bottom, #51b8eb 0%, #429de8 100%);
-    border: 1px solid #3194dc;
+    background-color: #429de8;
+    border: 1px solid #2571a8;
+    box-shadow: inset 0px 0px 100px 0px rgba(0,0,0,0.25);
     color: white;
 }
 
-.tkListItem {
-	position: relative;
-    box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.1);
-    background: linear-gradient(to bottom, #3daee9 0%, #1d99f3 100%);
-    border-radius: 3px;
-    border: 0px solid transparent;
-    cursor: pointer;
-    color: #ffffff;
-    padding: 6px 12px;
-	margin: 1px;    
-	display: inline-block;
-    text-decoration: none;
-}
-
-.tkListItem:hover {
-    background: linear-gradient(to bottom, #3498db 0%, #2980b9 100%);
+ .list-group-item:hover {
+    transition: all 0.3s ease-in-out;
     background-color: #74c2eb;
-    border: 0px solid transparent;
-    color: #ffffff;
-    text-decoration: none;
-}
+    border: 1px solid #3194dc;
+    box-shadow: inset 0px 0px 0px 0px rgba(0,0,0,0);
+    color: white;
+ }
 
-.tkListItem:active {
-    color: #ffffff;
-    background: linear-gradient(to bottom, #2b7fb7 0%, #246fa0 100%);
-    text-decoration: none;
-}
-
-.tkListItem:focus {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.tkListItem:visited {
-    color: #ffffff;
-    text-decoration: none;
-}
 .tkToolbarIconSmall {
     display: block;
     margin: auto;    

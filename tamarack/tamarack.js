@@ -1814,25 +1814,25 @@ class tkListItem extends tkText
 		this.element.className = "list-group-item";
 
 		var item = this;
-		this.clickEvent = item.toggleActive;
+		this.clickEvent = item.toggleSelected;
 		this.element.addEventListener('mouseup', function () {
 			item.clickEvent();
 		});
 	}
 	
-	toggleActive() 
+	toggleSelected() 
 	{
-		this.active = !(this.active);
+		this.selected = !(this.selected);
 	}
 
-	get active()
+	get selected()
 	{
 		return this.hasClass("active");
 	}
 
-	set active(_active)
+	set selected(_selected)
 	{
-		if(_active)
+		if(_selected)
 			this.addClass("active");
 		else
 			this.removeClass("active");
@@ -1848,62 +1848,89 @@ class tkList extends tkWidget
 		this.element.className = "list-group";
 
 		this.items = [];
+		this.allowMultipleSelection = false;
 	}
 	
-	get multipleSelection() 
+	get allowMultipleSelection()
 	{
-
+		return this.allow_multiple_selection;
 	}
 
-	set multipleSelection(_multiple_selection)
+	set allowMultipleSelection(_allow_multiple_selection)
 	{
-		if (_multiple_selection)
-		{
-			
-		} else {
-			
-		}
+		if (!_allow_multiple_selection && this.selected.length > 1)
+			this.selected = this.selected[0];
+		this.allow_multiple_selection = _allow_multiple_selection;
 	}
 
 	addItem(_item)
 	{
 		this.element.appendChild(_item.element);
+		this.items.push(_item);
+
+		// select only this item & deselect all others when clicked if allowMultipleSelection is false
+		var list = this;
+		_item.element.addEventListener('mouseup', function () {
+			if(!list.allowMultipleSelection) 
+				list.selected = [_item];
+		});
 	}
 	
 	removeItem(_item)
 	{
-		
+		this.items.splice(_item,1);
+		this.element.removeChild(_item.element);
 	}
 
 	// returns array of selected items
 	get selected()
 	{
-
+		var selectedItems = [];
+		for(var i=0;i<this.items.length;i++)
+			if (this.items[i].selected)
+				selectedItems.push(this.items[i]);
+		return selectedItems;
 	}
 
 	set selected(_selected)
 	{
-
+		this.deselectAll();
+		
+		for(var i=0;i<_selected.length;i++)
+		 {
+			 var currentItem = this.items.find((item) => item == _selected[i])
+			 if (currentItem) 
+			 {
+				 currentItem.selected = true;
+				 if (!this.allowMultipleSelection) break;
+			 }
+		 }
 	}
 
+	// return true if all items are selected
 	isSelected(_items)
 	{
+		for(var i=0;i<_items.length;i++)
+		 {
+			 if (this.items.indexOf(_items[i]) == -1) return false;
 
+			
+			 var currentItem = this.items.find((item) => item == _items[i])
+			 if (!currentItem.selected) return false;
+		 }
+
+		 return true;
 	}
 
-	get selectedIndex()
+	deselectAll()
 	{
-
+		for(var i=0;i<this.items.length;i++)
+			this.items[i].selected = false;
 	}
 
-	set selectedIndex(_selected)
+	selectAll()
 	{
-
-	}
-
-	isSelectedIndex(_index)
-	{
-
+		this.selected = this.items;
 	}
 }
 
@@ -2346,7 +2373,8 @@ class tkFontPicker extends tkWidget
 		this.fontFamily = sayP("Font Family:");
 		this.fontFamily.className = "tkFontPickerTitle";
 		this.fontFamilyList = new tkList();
-		this.fontFamilyArray = ["Arial","Georgia"];
+		this.fontFamilyList.allowMultipleSelection = false;
+		this.fontFamilyArray = ["Arial","Georgia","Times New Roman"];
 		this.fontFamilyArray.forEach((value) => {
 			var item = new tkListItem();
 			item.text = value;
