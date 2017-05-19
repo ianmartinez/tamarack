@@ -807,7 +807,7 @@ h5 {
     background-color: #74c2eb;
     border: 1px solid #3194dc;
     box-shadow: inset 0px 0px 0px 0px rgba(0,0,0,0);
-    color: white;
+    color: rgba(0, 0, 0, 0.9);
  }
 
 .tkToolbarIconSmall {
@@ -912,8 +912,7 @@ h5 {
     max-width: 80%;
     font-size: medium;
     color: rgba(0,0,0,0.9);
-    background: linear-gradient(to bottom, #f8f8f8 70%, #f0f0f0 100%);
-    background-color: rgba(255,255,255,0.9);
+    background-color: #f0f0f0;
     position: fixed;
     display: table;
     left: 50%;
@@ -926,6 +925,38 @@ h5 {
     border-bottom-right-radius: 0px;
     border: 1px solid rgba(0,0,0,1);
 }
+
+.tkDialogTitle {
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    background: linear-gradient(to bottom, rgba(0,0,0,.02) 0%, rgba(0,0,0,.1) 100%);
+    box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    font-family: 'Roboto Semibold', sans-serif;
+    color: rgba(0,0,0,0.9);
+    border-radius: 3px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+@media (max-width: 600px) {
+    .tkDialog {    
+        width: 90%;
+        font-size: large;
+    }
+}
+
+.tkDialogButtonArea {
+    text-align: center;    
+    padding: 5px;
+}
+
+.tkDialogContentArea {
+    padding: 5px;
+    text-align: center;
+}
+
 
 .tkAboutDialogLogo {
     font-family: 'Homenaje', sans-serif;
@@ -949,34 +980,6 @@ h5 {
 
 .tkFontDialog {
     width: 60%;
-}
-
-.tkDialogTitle {
-    margin: 0px;
-    padding: 5px;
-    text-align: center;
-    background: linear-gradient(to bottom, rgba(0,0,0,.78) 0%, rgba(0,0,0,.8) 100%);
-    box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.05);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.9);
-    font-family: 'Roboto Semibold', sans-serif;
-    color: rgba(255,255,255,0.9);
-}
-
-@media (max-width: 600px) {
-    .tkDialog {    
-        width: 90%;
-        font-size: large;
-    }
-}
-
-.tkDialogButtonArea {
-    text-align: center;    
-    padding: 5px;
-}
-
-.tkDialogContentArea {
-    padding: 5px;
-    text-align: center;
 }
 
 /* Font */
