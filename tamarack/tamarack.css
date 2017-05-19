@@ -29,7 +29,7 @@
 }
 
 ::selection {
-  background: #1f495a; 
+  background: hsla(195, 94%, 41%, 0.70); 
   color: rgba(255,255,255,0.9);
 } 
 
