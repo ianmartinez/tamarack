@@ -780,7 +780,7 @@ function makeElement(_elem) {
 	return new tkElement(_elem);
 }
 
-function makeElementId(_id) {
+function makeElementFromId(_id) {
 	return new tkElement(document.getElementById(_id));
 }
 

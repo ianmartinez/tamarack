@@ -1011,9 +1011,14 @@ h5 {
     margin: 5px auto;
     height: 35px;
     max-height: 35px;
-    border-radius: 1px;
+    border-radius: 3px;
     box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.3), inset 0px 0px 0px 1px rgba(0,0,0,0.3);
-    background-image: url("transparency.png");
+}
+			
+.tkColorSliderContainer {
+	background-image: url("transparency.png");
+    border-radius: 3px;
+	margin-bottom: 10px;
 }
 
 .tkColorPicker {

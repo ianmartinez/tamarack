@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Bootstrap CSS -->
+		<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+		<!-- Tamarack CSS -->
+		<link href="../tamarack/tamarack.css" rel="stylesheet">
+		<style>
+			body {
+				padding: 10px;
+			}
+			
+			.tkColorSlider {
+			  -webkit-appearance: none !important;
+			  width: 100%;
+			  height: 25px;
+			  background-color: transparent;
+			  margin: auto; 
+			  margin-bottom: 10px;
+			  box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.3), inset 0px 0px 0px 1px rgba(0,0,0,0.3);
+			  outline: none;
+			}
+			
+			.tkColorSlider:hover {
+			  background-color: white;
+			  outline: none;
+			}
+
+			.tkColorSlider::-webkit-slider-thumb {
+			  -webkit-appearance: none !important;
+			  width: 10px;
+			  height: 25px;
+			  background-color: transparent;
+			  border: 1px solid rgba(0,0,0,0.5);
+			  box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.6), inset 0px 0px 0px 1px rgba(255,255,255,0.8);
+			  border-radius: 3px;
+			}
+			
+			.tkColorSlider::-webkit-slider-thumb:hover {
+			  background-color: rgba(255,255,255,0.1);
+			  border: 1px solid rgba(0,0,0,0.4);
+			  box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.8), inset 0px 0px 0px 1px rgba(255,255,255,0.9);
+			 
+			}
+			
+			.tkColorSlider::-webkit-slider-thumb:active {
+			  background-color: rgba(255,255,255,0.1);
+			  border: 1px solid rgba(0,0,0,0.6);
+			  box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.8), 0px 0px 3px rgba(0,0,0,0.8);
+			}
+		</style>
+	</head>
+	<body>
+		 <div class="tkColorSliderContainer">
+			<input id="hue" class="tkColorSlider" type = "range" min="0" max="360" value="180"/>
+		</div>		
+		 <div class="tkColorSliderContainer">
+			<input id="saturation" class="tkColorSlider" type = "range" min="0" max="100" value="50"/>
+		</div>
+		 <div class="tkColorSliderContainer">		
+			<input id="lightness" class="tkColorSlider" type = "range" min="0" max="100"value="50"/>
+		</div>	
+		 <div class="tkColorSliderContainer">
+			<input id="alpha" class="tkColorSlider" type = "range" step="0.01" min="0" max="1" value="1"/>
+		</div>
+		
+		<!-- jQuery -->
+		<script src="../jquery/jquery.min.js"></script>
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack.js"></script>
+		<!-- Bootstrap JS -->
+		<script src="../bootstrap/js/bootstrap.min.js"></script>
+		
+		<script>
+			var hue_slider = makeElementFromId("hue");
+			hue_slider.e.onchange = updateColors;
+			
+			var saturation_slider = makeElementFromId("saturation");
+			saturation_slider.e.onchange = updateColors;
+			
+			var lightness_slider = makeElementFromId("lightness");
+			lightness_slider.e.onchange = updateColors;			
+			
+			var alpha_slider = makeElementFromId("alpha");
+			alpha_slider.e.onchange = updateColors;
+			
+			updateColors();
+			
+			function updateColors() 
+			{
+				var hue = [];
+				for(var i=0;i<=360;i++)
+					hue.push("hsla(" + i + "," + saturation_slider.e.valueAsNumber + "%," + lightness_slider.e.valueAsNumber + "%," + alpha_slider.e.valueAsNumber + ")");	
+				hue_slider.e.style.background = createLinearGradient(90,hue);
+				
+				var saturation = [];
+				for(var i=0;i<=100;i++)
+					saturation.push("hsla(" + hue_slider.e.valueAsNumber + "," + i + "%," + lightness_slider.e.valueAsNumber + "%," + alpha_slider.e.valueAsNumber + ")");	
+				saturation_slider.e.style.background = createLinearGradient(90,saturation);
+			
+				var lightness = [];
+				for(var i=0;i<=100;i++)
+					lightness.push("hsla(" + hue_slider.e.valueAsNumber + "," + saturation_slider.e.valueAsNumber + "%," + i + "%," + alpha_slider.e.valueAsNumber + ")");	
+				lightness_slider.e.style.background = createLinearGradient(90,lightness);
+ 
+				var alpha = [];
+				for(var i=0;i<=1;i+=0.01)
+					alpha.push("hsla(" + hue_slider.e.valueAsNumber + "," + saturation_slider.e.valueAsNumber + "%," + lightness_slider.e.valueAsNumber + "%," + i + ")");	
+				alpha_slider.e.style.background = createLinearGradient(90,alpha);
+				console.log(alpha_slider.e.valueAsNumber);
+			}
+		</script>
+	</body>
+</html>
