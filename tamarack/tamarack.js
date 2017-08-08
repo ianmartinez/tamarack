@@ -1,16 +1,10 @@
 // To make jQuery work in Electron
-if(typeof require == 'function')
-	window.$ = window.jQuery = require('./../jquery/jquery.min.js');
+if(typeof require == 'function') window.$ = window.jQuery = require('./../jquery/jquery.min.js');
 
 // Tamarack
 function getTamarackVersion() 
 {
-	return 0.42;
-}
-
-function isTamarackBeta()
-{
-	return true;
+	return 0.5;
 }
 
 // enums
@@ -25,12 +19,12 @@ var tkDialogResult = {
   RETRY: 7
 };
 
-function say(_text)
+function say(_text) 
 {
 	return document.createTextNode(_text);
 }
 
-function sayP(_text)
+function sayP(_text) 
 {
 	var textNode = document.createTextNode(_text);
 	var p = make("p");
@@ -38,7 +32,7 @@ function sayP(_text)
 	return p;
 }
 
-function sayLine(_text,_tag)
+function sayLine(_text,_tag) 
 {
 	var textNode = document.createTextNode(_text);
 	var element = make(_tag);
@@ -47,36 +41,29 @@ function sayLine(_text,_tag)
 }
 
 // global functions
-function make(_tag)
+function make(_tag) 
 {
 	return document.createElement(_tag);
 }
 
-function isFullscreenRunning()
+function random(_min,_max) 
 {
-	if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) 
- 			return true;
-		return false;
+    _min = Math.ceil(_min);
+	_max = Math.floor(_max);
+	return Math.floor(Math.random() * (_max - _min + 1)) + _min;
 }
 
-function random(min,max)
-{
-    min = Math.ceil(min);
-	max = Math.floor(max);
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function randomRGB()
+function randomRgb() 
 {
 	return "rgb(" + random(0,255) + "," + random(0,255) + "," + random(0,255) + ")";
 }
 
-function randomRGBA()
+function randomRgba() 
 {
 	return "rgba(" + random(0,255) + "," + random(0,255) + "," + random(0,255) + "," + Math.random() + ")";
 }
 
-function compareArray(_arr)
+function compareArray(_arr) 
 {
 	for(var i=0;i<_arr.length;i++)
 		for(var j=0;j<_arr.length;j++)
@@ -85,58 +72,55 @@ function compareArray(_arr)
 	return true;
 }
 
-function isArray(_arr)
+function isArray(_arr) 
 {
 	return (_arr.constructor === Array);
 }
 
-class tkFont
+class tkFont 
 {
-	constructor(_family,_size,_weight,_style)
+	constructor(_family,_size,_weight,_style) 
 	{
-		// Can be an array like "Times New Roman", Georgia, Serif
-		if (! isArray(_family)) 
-			_family = [_family];
 		this.family = _family;
 		this.size = _size;
 		this.weight = _weight;
 		this.style = _style;
 	}
 
-	getCss()
+	getCss() 
 	{
 
 	}
 
-	getFamilyCss()
+	getFamilyCss() 
 	{
 
 	}
 
-	getSizeCss()
+	getSizeCss() 
 	{
 
 	}
 
-	getWeightCss()
+	getWeightCss() 
 	{
 
 	}
 
-	getStyleCss()
+	getStyleCss() 
 	{
 
 	}
 
-	getVariantCss()
+	getVariantCss() 
 	{
 
 	}
 }
 
-class tkColor
+class tkColor 
 {
-	constructor(_css)
+	constructor(_css) 
 	{
 		this.r = 0;
 		this.g = 0;
@@ -152,7 +136,7 @@ class tkColor
 			this.parse(_css);
 	}
 
-	equals(_other)
+	equals(_other) 
 	{
 		if(	_other.h == this.h && _other.s == this.s && _other.l == this.a && _other.a == this.a)
 			return true;
@@ -174,27 +158,26 @@ class tkColor
 		image.style.color = "rgb(255, 255, 255)";
 		image.style.color = _color;
 		return (image.style.color !== "rgb(255, 255, 255)");
-
 	}
 	
-	randomize()
+	randomize()	
 	{
 		this.fromRgba(random(0,255),random(0,255),random(0,255),Math.random());
 	}
 
-	randomizeOpaque()
+	randomizeOpaque() 
 	{
 		this.fromRgba(random(0,255),random(0,255),random(0,255),1);
 	}
 
-	clone()
+	clone()	
 	{
 		var new_color = new tkColor();
 		new_color.fromHsla(this.h,this.s,this.l,this.a);
 		return new_color;
 	}
 
-	fromRgba(_r,_g,_b,_a)
+	fromRgba(_r,_g,_b,_a) 
 	{
 		var hsl = this.rgbToHsl(_r,_g,_b);
 		this.r = _r;
@@ -208,7 +191,7 @@ class tkColor
 		this.a = _a;
 	}
 
-	fromHsla(_h,_s,_l,_a)
+	fromHsla(_h,_s,_l,_a) 
 	{
 		var rgb = this.hslToRgb(_h,_s,_l);
 		this.r = rgb[0];
@@ -222,7 +205,7 @@ class tkColor
 		this.a = _a;
 	}
 
-	fromHex(_hex)
+	fromHex(_hex) 
 	{
 		var rgb = this.hexToRgb(_hex);
 		this.fromRgba(rgb[0],rgb[1],rgb[2],this.a);
@@ -343,6 +326,11 @@ class tkColor
 	{
 		return (this.l <= 50 && this.a > 0.4);
 	}
+	
+	isLight()
+	{
+		return (!this.isDark());
+	}
 
 	isGray()
 	{
@@ -385,11 +373,13 @@ class tkControl
 		this.element = _e;
 	}
 
-	get innerHtml() {
+	get innerHtml() 
+	{
 		return this.element.innerHTML;
 	}
 
-	set innerHtml(_html) {
+	set innerHtml(_html) 
+	{
 		this.element.innerHTML = _html;
 	}
 	
@@ -695,6 +685,7 @@ class tkDocument extends tkControl
 	{
 		return document.title;
 	}
+	
 	set title(_title)
 	{
 		return document.title = _title;
@@ -744,10 +735,9 @@ class tkDocument extends tkControl
 
 	parseUrl(_name, _url) 
 	{
-		if (!url) 
-		{
+		if (!_url)
 			_url = window.location.href;
-		}
+		
 		_name = _name.replace(/[\[\]]/g, "\\$&");
 		var regex = new RegExp("[?&]" + _name + "(=([^&#]*)|&|#|$)"),
 			results = regex.exec(_url);
@@ -765,6 +755,13 @@ class tkDocument extends tkControl
 	{
 		return window.location.href;
 	}
+	
+	isFullscreen() 
+	{
+		if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) 
+				return true;
+			return false;
+	}
 }
 
 class tkElement extends tkWidget 
@@ -776,11 +773,13 @@ class tkElement extends tkWidget
 	}
 }
 
-function makeElement(_elem) {
+function makeElement(_elem) 
+{
 	return new tkElement(_elem);
 }
 
-function makeElementFromId(_id) {
+function makeElementFromId(_id) 
+{
 	return new tkElement(document.getElementById(_id));
 }
 
@@ -1079,7 +1078,7 @@ class tkVideoInfo
 
 // must be called in the tkVideo.load event has fired
 function extractVideoInfo(_video,_title)
- {
+{
 	return new tkVideoInfo(_video.src, new tkResolution(_video.videoWidth, _video.videoHeight), _video.duration, _title);
 }
 
@@ -1270,7 +1269,8 @@ class tkVideoPlayer extends tkWidget
 	
 	set lightsOut(_lightsOut)
 	{
-		if (_lightsOut) {
+		if (_lightsOut) 
+		{
 			this.oldZIndex = this.element.style.zIndex;
 			this.element.style.zIndex = tkLightsOutDiv.style.zIndex + 1;
 			$(tkLightsOutDiv).fadeIn();
@@ -1345,7 +1345,7 @@ class tkVideoPlayer extends tkWidget
 		else
 			this.makeFullscreen();	
 
-		this.showLightsOut = (!isFullscreenRunning());
+		this.showLightsOut = (!(new tkDocument).isFullscreen());
 	}
 
 	// direct calls to video control
@@ -2463,8 +2463,7 @@ class tkColorPicker extends tkWidget
 
 		var colorPicker = this;
 		this.hueRange = new tkHueSlider();
-		this.hueRange.onChangeValue = function()
-		{
+		this.hueRange.onChangeValue = function() {
 			colorPicker.intColor.h = colorPicker.hueRange.getValue();
 			colorPicker.refreshColor();
 		};
@@ -2474,8 +2473,7 @@ class tkColorPicker extends tkWidget
 		this.hueRange.addToElement(this.leftPane);
 
 		this.saturationRange = new tkSaturationSlider();
-		this.saturationRange.onChangeValue = function()
-		{
+		this.saturationRange.onChangeValue = function() {
 			colorPicker.intColor.s = colorPicker.saturationRange.getValue();
 			colorPicker.refreshColor();
 		};
@@ -2485,8 +2483,7 @@ class tkColorPicker extends tkWidget
 		this.saturationRange.addToElement(this.leftPane);
 
 		this.lightnessRange = new tkLightnessSlider()
-		this.lightnessRange.onChangeValue = function()
-		{
+		this.lightnessRange.onChangeValue = function() {
 			colorPicker.intColor.l = colorPicker.lightnessRange.getValue();
 			colorPicker.refreshColor();
 		};
@@ -2496,8 +2493,7 @@ class tkColorPicker extends tkWidget
 		this.lightnessRange.addToElement(this.leftPane);
 
 		this.alphaRange = new tkAlphaSlider();
-		this.alphaRange.onChangeValue = function()
-		{
+		this.alphaRange.onChangeValue = function() {
 			colorPicker.intColor.a = colorPicker.alphaRange.getValue();
 			colorPicker.refreshColor();
 		};

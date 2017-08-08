@@ -9,8 +9,6 @@
 	<body>
 		<!-- jQuery -->
 		<script src="../jquery/jquery.min.js"></script>
-		<!-- Clipboard -->
-		<script src="../clipboard/clipboard.min.js"></script>
 		<!-- Tamarack JS -->
 		<script src="../tamarack/tamarack.js"></script>
 		<!-- Bootstrap JS -->
@@ -52,23 +50,20 @@
 			var backButton = new tkButton();
 			backButton.e.className = "tkRedButton";
 			backButton.text = "<";
-			backButton.e.onclick = () => 
-			{
+			backButton.e.onclick = () => {
 				slideshow.back();
 			};
 			
 			var nextButton = new tkButton();
 			nextButton.e.className = "tkRedButton";
 			nextButton.text = ">";
-			nextButton.e.onclick = () => 
-			{
+			nextButton.e.onclick = () => {
 				slideshow.next();
 			};
 			
 			var fullScreenButton = new tkButton();
 			fullScreenButton.text = "Make Fullscreen";
-			fullScreenButton.e.onclick = () => 
-			{
+			fullScreenButton.e.onclick = () => {
 				videoControls[slideshow.getActiveIndex()].makeFullscreen();
 			};
 			

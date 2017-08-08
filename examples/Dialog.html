@@ -17,7 +17,7 @@
 		<script>
 			var doc = new tkDocument();
 			doc.title = "Dialogs Demo";
-			doc.setBackgroundGradient(random(0,360), randomRGB(), randomRGB());
+			doc.setBackgroundGradient(random(0,360), randomRgb(), randomRgb());
 			
 			var messageDialog = new tkDialog();
 			messageDialog.choices = [tkDialogResult.YES, tkDialogResult.NO];
@@ -25,11 +25,10 @@
 
 			var dialogButton = new tkButton();
 			dialogButton.text = "New Gradient";
-			dialogButton.e.onclick = () => 
-			{
+			dialogButton.e.onclick = () => {
 				messageDialog.show((dialogResult) => {
 					if(dialogResult == tkDialogResult.YES) 
-						doc.setBackgroundGradient(random(0,360), randomRGB(), randomRGB());
+						doc.setBackgroundGradient(random(0,360), randomRgb(), randomRgb());
 					else if (dialogResult == tkDialogResult.NOTHING) // if user exits without clicking a button
 						console.log("User exited without making a choice.");
 				});
