@@ -1003,18 +1003,45 @@ h5 {
 }
 
 /* Color */
-.tkColorSlider {
-    cursor: pointer;
-    padding-left: 5px;
-    position: relative;
-    width: 100%;
-    margin: 5px auto;
-    height: 35px;
-    max-height: 35px;
-    border-radius: 3px;
-    box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.3), inset 0px 0px 0px 1px rgba(0,0,0,0.3);
-}
 			
+.tkColorSlider {
+  -webkit-appearance: none !important;
+  width: 100%;
+  height: 25px;
+  background-color: transparent;
+  margin: auto; 
+  margin-bottom: 10px;
+  box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.3), inset 0px 0px 0px 1px rgba(0,0,0,0.3);
+  outline: none;
+}
+
+.tkColorSlider:hover {
+  background-color: white;
+  outline: none;
+}
+
+.tkColorSlider::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  width: 10px;
+  height: 25px;
+  background-color: transparent;
+  border: 1px solid rgba(0,0,0,0.5);
+  box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.6), inset 0px 0px 0px 1px rgba(255,255,255,0.8);
+  border-radius: 3px;
+}
+
+.tkColorSlider::-webkit-slider-thumb:hover {
+  background-color: rgba(255,255,255,0.1);
+  border: 1px solid rgba(0,0,0,0.4);
+  box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.8), inset 0px 0px 0px 1px rgba(255,255,255,0.9);
+ 
+}
+
+.tkColorSlider::-webkit-slider-thumb:active {
+  background-color: rgba(255,255,255,0.1);
+  border: 1px solid rgba(0,0,0,0.6);
+  box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.8), 0px 0px 3px rgba(0,0,0,0.8);
+}
 .tkColorSliderContainer {
 	background-image: url("transparency.png");
     border-radius: 3px;
@@ -1061,32 +1088,6 @@ h5 {
 .tkSlider {
     cursor: pointer;
     height: 25px;
-    padding-left: 10px;
-    width: 100%;
-    position: relative;
-    background-color: black;
-}
-
-.tkSliderTrack {
-    height: 100%;
-    width: calc(100% - 12px);
-    position: absolute;
-    top: 0;
-    cursor: pointer;
-}
-
-.tkSliderThumb {
-    position: absolute;
-    left: 0;
-    margin: 0px;
-    margin-left: -7px;
-    width: 14px;
-    height: 100%;
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.7);
-    border: 1px solid rgba(0,0,0,0.3);
-    box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.6), inset 0px 0px 0px 1px rgba(255,255,255,0.8);
-    border-radius: 1px;
 }
 
 .tkTextInput {
