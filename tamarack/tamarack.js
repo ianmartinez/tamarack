@@ -623,47 +623,6 @@ class tkWidget extends tkControl
 		$(this.element).slideToggle(250);
 	}
 
-	// dimensions and position
-	get left()
-	{
-		return this.element.getBoundingClientRect().left;
-	}
-
-	get right()
-	{
-		return this.element.getBoundingClientRect().right;
-	}
-
-	get top()
-	{
-		return this.element.getBoundingClientRect().top;
-	}
-
-	get bottom()
-	{
-		return this.element.getBoundingClientRect().bottom;		
-	}
-
-	get leftScroll()
-	{
-		return this.left + $(window).scrollLeft();
-	}
-
-	get rightScroll()
-	{
-		return this.right + $(window).scrollLeft();
-	}
-
-	get topScroll()
-	{
-		return this.top + $(window).scrollTop();
-	}
-
-	get bottomScroll()
-	{
-		return this.bottom +  $(window).scrollTop();		
-	}
-
 	// element to display on mouse hover
 	get tooltip()
 	{
