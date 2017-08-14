@@ -2477,95 +2477,82 @@ class tkColorPicker extends tkWidget
 
 		this.colorPreview = make("div");
 		this.colorPreview.className = "tkColorPickerPreview";
+		this.colorPreviewContainer = make("div");
+		this.colorPreviewContainer.className = "tkColorPickerPreviewContainer";
 		this.previewTitle = sayP("Preview:");
-		this.previewTitle.className = "tkColorSliderTitle";
+		this.previewTitle.className = "tkSliderTitle";
 		this.rightPane.appendChild(this.previewTitle);
-		this.rightPane.appendChild(this.colorPreview);
+		this.colorPreviewContainer.appendChild(this.colorPreview);
+		this.rightPane.appendChild(this.colorPreviewContainer);
 
 		this.choices = [tkDialogResult.OK,tkDialogResult.CANCEL];
 
 		var colorPicker = this;
 		
-		this.hueRange = new tkColorSlider();
-		this.hueRange.min = 0;
-		this.hueRange.max = 360;
-		this.hueRange.value = 0;
-		this.hueRange.onRefreshColor = function() {
-			var hue = [];
-			for(var i=0;i<=360;i++)
-				hue.push("hsla(" + i + "," + colorPicker.saturationRange.valueAsNumber + "%," + colorPicker.lightnessRange.valueAsNumber + "%," + colorPicker.alphaRange.valueAsNumber + ")");	
-			colorPicker.hueRange.colors = hue;
-			colorPicker.hueRange.value = colorPicker.internalColor.h;
-		};
-		this.hueRange.onChangeValue = function() {
-			colorPicker.internalColor.h = colorPicker.hueRange.valueAsNumber;
-			colorPicker.refreshColor();
+		this.hueSlider = new tkSlider();
+		this.hueSlider.className= "tkColorSlider"; 
+		this.hueSlider.min = 0;
+		this.hueSlider.max = 360;
+		this.hueSlider.value = 0;
+		this.hueSlider.e.onchange = function() {
+			colorPicker.grabColor();
 		};
 		this.hueTitle = sayP("Hue:");
-		this.hueTitle.className = "tkColorSliderTitle";
+		this.hueTitle.className = "tkSliderTitle";
+		this.hueSliderContainer = make("div");
+		this.hueSliderContainer.className = "tkColorSliderContainer";
+		this.hueSlider.addToElement(this.hueSliderContainer);
 		this.leftPane.appendChild(this.hueTitle);
-		this.hueRange.addToElement(this.leftPane);
+		this.leftPane.appendChild(this.hueSliderContainer);
 
-		this.saturationRange = new tkColorSlider();		
-		this.saturationRange.min = 0;
-		this.saturationRange.max = 100;
-		this.saturationRange.value = 50;
-		this.saturationRange.onRefreshColor = function() {
-			var saturation = [];
-			for(var i=0;i<=100;i++)
-				saturation.push("hsla(" + colorPicker.hueRange.valueAsNumber + "," + i + "%," + colorPicker.lightnessRange.valueAsNumber + "%," + colorPicker.alphaRange.valueAsNumber + ")");	
-			colorPicker.saturationRange.colors = saturation;
-			colorPicker.saturationRange.value = colorPicker.internalColor.s;
-		};
-		this.saturationRange.onChangeValue = function() {
-			colorPicker.internalColor.s = colorPicker.saturationRange.valueAsNumber;
-			colorPicker.refreshColor();
+		this.saturationSlider = new tkSlider();		
+		this.saturationSlider.className= "tkColorSlider"; 
+		this.saturationSlider.min = 0;
+		this.saturationSlider.max = 100;
+		this.saturationSlider.value = 50;
+		this.saturationSlider.e.onchange = function() {
+			colorPicker.grabColor();
 		};
 		this.saturationTitle = sayP("Saturation:");
-		this.saturationTitle.className = "tkColorSliderTitle";
+		this.saturationTitle.className = "tkSliderTitle";
+		this.saturationSliderContainer = make("div");
+		this.saturationSliderContainer.className = "tkColorSliderContainer";
+		this.saturationSlider.addToElement(this.saturationSliderContainer);
 		this.leftPane.appendChild(this.saturationTitle);
-		this.saturationRange.addToElement(this.leftPane);
+		this.leftPane.appendChild(this.saturationSliderContainer);
 
-		this.lightnessRange = new tkColorSlider();	
-		this.lightnessRange.min = 0;
-		this.lightnessRange.max = 100;
-		this.lightnessRange.value = 50;
-		this.lightnessRange.onRefreshColor = function() {
-			var lightness = [];
-			for(var i=0;i<=100;i++)
-				lightness.push("hsla(" + colorPicker.hueRange.valueAsNumber + "," + colorPicker.saturationRange.valueAsNumber + "%," + i + "%," + colorPicker.alphaRange.valueAsNumber + ")");	
-			colorPicker.lightnessRange.colors = lightness;
-			colorPicker.lightnessRange.value = colorPicker.internalColor.l;
-		};
-		this.lightnessRange.onChangeValue = function() {
-			colorPicker.internalColor.l = colorPicker.lightnessRange.valueAsNumber;
-			colorPicker.refreshColor();
+		this.lightnessSlider = new tkSlider();	
+		this.lightnessSlider.className= "tkColorSlider"; 
+		this.lightnessSlider.min = 0;
+		this.lightnessSlider.max = 100;
+		this.lightnessSlider.value = 50;
+		this.lightnessSlider.e.onchange = function() {
+			colorPicker.grabColor();			
 		};
 		this.lightnessTitle = sayP("Lightness:");
-		this.lightnessTitle.className = "tkColorSliderTitle";
+		this.lightnessTitle.className = "tkSliderTitle";
+		this.lightnessSliderContainer = make("div");
+		this.lightnessSliderContainer.className = "tkColorSliderContainer";
+		this.lightnessSlider.addToElement(this.lightnessSliderContainer);
 		this.leftPane.appendChild(this.lightnessTitle);
-		this.lightnessRange.addToElement(this.leftPane);
+		this.leftPane.appendChild(this.lightnessSliderContainer);
 
-		this.alphaRange = new tkColorSlider();
-		this.alphaRange.min = 0;
-		this.alphaRange.max = 1;
-		this.alphaRange.value = 1;
-		this.alphaRange.step = 0.01;
-		this.alphaRange.onRefreshColor = function() {
-			var alpha = [];
-			for(var i=0;i<=1;i+=0.01)
-				alpha.push("hsla(" + colorPicker.hueRange.valueAsNumber + "," + colorPicker.saturationRange.valueAsNumber + "%," + colorPicker.lightnessRange.valueAsNumber + "%," + i + ")");	
-			colorPicker.alphaRange.colors = alpha;
-			colorPicker.alphaRange.value = colorPicker.internalColor.a;
-		};
-		this.alphaRange.onChangeValue = function() {
-			colorPicker.internalColor.a = colorPicker.alphaRange.valueAsNumber;
-			colorPicker.refreshColor();
+		this.alphaSlider = new tkSlider();
+		this.alphaSlider.className= "tkColorSlider"; 
+		this.alphaSlider.min = 0;
+		this.alphaSlider.max = 1;
+		this.alphaSlider.value = 1;
+		this.alphaSlider.step = 0.01;
+		this.alphaSlider.e.onchange = function() {
+			colorPicker.grabColor();
 		};
 		this.alphaTitle = sayP("Alpha:");
-		this.alphaTitle.className = "tkColorSliderTitle";
+		this.alphaTitle.className = "tkSliderTitle";
+		this.alphaSliderContainer = make("div");
+		this.alphaSliderContainer.className = "tkColorSliderContainer";
+		this.alphaSlider.addToElement(this.alphaSliderContainer);
 		this.leftPane.appendChild(this.alphaTitle);
-		this.alphaRange.addToElement(this.leftPane);
+		this.leftPane.appendChild(this.alphaSliderContainer);
 
 		this.textInput = new tkColorTextInput();
 		this.textInput.onInput = function()	{
@@ -2573,22 +2560,18 @@ class tkColorPicker extends tkWidget
 			{
 				var new_color = new tkColor();
 				new_color.parse(colorPicker.textInput.element.value);
-				colorPicker.color = new_color;
-
-				colorPicker.hueRange.value = colorPicker.color.h;
-				colorPicker.saturationRange.value = colorPicker.color.s;
-				colorPicker.lightnessRange.value = colorPicker.color.l;
-				colorPicker.alphaRange.value = colorPicker.color.a;
+				colorPicker.color = new_color;				
 			}
 		};
 		this.textInputTitle = sayP("Color:");
-		this.textInputTitle.className = "tkColorSliderTitle";
+		this.textInputTitle.className = "tkSliderTitle";
 		this.leftPane.appendChild(this.textInputTitle);
 		this.textInput.addToElement(this.leftPane);
 
 		this.internalColor = new tkColor();
 		this.internalColor.fromRgba(0,0,0,1);
-		this.refreshColor();
+		this.color = this.internalColor;
+		this.updateColor();
 	}
 
 	get color()
@@ -2599,25 +2582,51 @@ class tkColorPicker extends tkWidget
 	set color(_color)
 	{		
 		this.internalColor = _color;
-		this.refreshColor();
+		this.updateColor();
 	}
 
-	refreshColor()
+	// Set color to the sliders' values
+	grabColor()
 	{
-		this.colorPreview.style.background = createLinearGradient(90,[this.internalColor.getHslaCss(),this.internalColor.getHslaCss()]) + ", url(\"../tamarack/transparency.png\")";
-	
-		this.hueRange.value = this.internalColor.h;
-		this.hueRange.refreshColor();
-		this.saturationRange.value = this.internalColor.s;
-		this.saturationRange.refreshColor();
-		this.lightnessRange.value = this.internalColor.l;
-		this.lightnessRange.refreshColor();
-		this.alphaRange.value = this.internalColor.a;
-		this.alphaRange.refreshColor();
+		var new_color = new tkColor();
+		new_color.h = this.hueSlider.valueAsNumber;
+		new_color.s = this.saturationSlider.valueAsNumber;
+		new_color.l = this.lightnessSlider.valueAsNumber;		
+		new_color.a = this.alphaSlider.valueAsNumber;
 		
-		this.textInput.isUserInput = false;
-		this.textInput.e.value = this.internalColor.getHslaCss();
-		this.textInput.isUserInput = true;
+		this.color = new_color;
+	}
+	
+	// Update the sliders to reflect the current color
+	updateColor()
+	{		
+		this.hueSlider.value = this.color.h;
+		this.saturationSlider.value = this.color.s;		
+		this.lightnessSlider.value = this.color.l;
+		this.alphaSlider.value = this.color.a;		
+				
+		var hue = [];
+		for(var i=0;i<=360;i++)
+			hue.push("hsla(" + i + "," + this.saturationSlider.valueAsNumber + "%," + this.lightnessSlider.valueAsNumber + "%," + this.alphaSlider.valueAsNumber + ")");	
+		this.hueSlider.e.style.background =  createLinearGradient(90,hue);
+		
+		var saturation = [];
+		for(var i=0;i<=100;i++)
+			saturation.push("hsla(" + this.hueSlider.valueAsNumber + "," + i + "%," + this.lightnessSlider.valueAsNumber + "%," + this.alphaSlider.valueAsNumber + ")");	
+		this.saturationSlider.e.style.background =  createLinearGradient(90,saturation);	
+		
+		var lightness = [];
+		for(var i=0;i<=100;i++)
+			lightness.push("hsla(" + this.hueSlider.valueAsNumber + "," + this.saturationSlider.valueAsNumber + "%," + i + "%," + this.alphaSlider.valueAsNumber + ")");	
+		this.lightnessSlider.e.style.background =  createLinearGradient(90,lightness);
+		
+		var alpha = [];
+		for(var i=0;i<=1;i+=0.01)
+			alpha.push("hsla(" + this.hueSlider.valueAsNumber + "," + this.saturationSlider.valueAsNumber + "%," + this.lightnessSlider.valueAsNumber + "%," + i + ")");	
+		this.alphaSlider.e.style.background =  createLinearGradient(90,alpha);
+		
+		this.colorPreview.style.backgroundColor = this.color.getHslaCss();
+		this.textInput.e.value = this.color.getHslaCss();
 	}
 }
 
@@ -2634,83 +2643,47 @@ class tkSlider extends tkWidget
 	
 	get min()
 	{
-		return this.getAttribute("min");
+		return this.e.min;
 	}
 	
 	set min(_min)
 	{		
-		this.setAttribute("min",_min);
+		this.e.min = _min;
 	}
 	
 	get max() 
 	{
-		return this.getAttribute("max");
+		return this.e.max;
 	}
 	
 	set max(_max)
 	{
-		this.setAttribute("max",_max);		
+		this.e.max = _max;
 	}
 	
 	get value()
 	{
-		return this.getAttribute("value");
+		return this.e.value;
 	}
 	
 	set value(_value)
 	{
-		this.setAttribute("value",_value);		
+		this.e.value = _value;	
 	}
 	
 	get step()
 	{
-		return this.getAttribute("step");
+		return this.e.step;
 	}
 	
 	set step(_step)
 	{
-		this.setAttribute("step",_step);		
+		this.e.step = _step;		
 	}
 	
 	get valueAsNumber()
 	{
 		return this.e.valueAsNumber;
-	}
-}
-
-class tkColorSlider extends tkSlider
-{
-	constructor()
-	{
-		super();
-		this.className = "tkColorSlider";
-
-		// a gradient with an array of colors
-		this.backColors = ["black","white"];
-
-		this.init = true;
-
-		this.onChangeValue = function() {};
-		var slider = this;
-		this.e.onchange = function() {slider.onChangeValue()};
-		this.onRefreshColor = function() {};
-	}
-	
-	get colors()
-	{
-		return this.backColors;
-	}
-
-	set colors(_colors)
-	{
-		alert(_colors);
-		this.backColors = _colors;
-		this.e.style.background = createLinearGradient(90,_colors) + ",url(\"../tamarack/transparency.png\")";
-	}
-	
-	refreshColor()
-	{
-		this.onRefreshColor();
 	}
 }
 

@@ -1010,6 +1010,7 @@ h5 {
   height: 25px;
   background-color: transparent;
   margin: auto; 
+  border-radius: 2px;
   margin-bottom: 10px;
   box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.3), inset 0px 0px 0px 1px rgba(0,0,0,0.3);
   outline: none;
@@ -1027,7 +1028,7 @@ h5 {
   background-color: transparent;
   border: 1px solid rgba(0,0,0,0.5);
   box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.6), inset 0px 0px 0px 1px rgba(255,255,255,0.8);
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
 .tkColorSlider::-webkit-slider-thumb:hover {
@@ -1042,9 +1043,10 @@ h5 {
   border: 1px solid rgba(0,0,0,0.6);
   box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.8), 0px 0px 3px rgba(0,0,0,0.8);
 }
+
 .tkColorSliderContainer {
 	background-image: url("transparency.png");
-    border-radius: 3px;
+    border-radius: 2px;
 	margin-bottom: 10px;
 }
 
@@ -1072,17 +1074,21 @@ h5 {
     flex-flow: column;
 }
 
+.tkColorPickerPreviewContainer {	
+    background-image: url("transparency.png");
+    border-radius: 2px;
+    margin: 5px auto;
+}
+
 .tkColorPickerPreview {
     width: 120px;
     height: 120px;
-    background-color: black;
     cursor: pointer;
     padding-left: 5px;
     position: relative;
-    margin: 5px auto;
-    border-radius: 1px;
+    border-radius: 2px;
     border: 1px solid rgba(0, 0, 0, 0.3);
-    background-image: url("transparency.png");
+    background-color: black;
 }
 
 .tkSlider {
@@ -1097,7 +1103,7 @@ h5 {
     color: rgba(0, 0, 0, 0.6);
     text-align: center;
     border: 1px solid rgba(0,0,0,.2);
-    border-radius: 1px;
+    border-radius: 2px;
     outline: solid 1px transparent;
 }
 
@@ -1111,7 +1117,7 @@ h5 {
     color: rgba(0, 0, 0, 0.8);
     display: block;
     border: 1px solid rgba(0,0,0,.2);
-    border-radius: 1px;
+    border-radius: 2px;
     outline: solid 1px transparent;
 }
 
