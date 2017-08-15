@@ -44,6 +44,7 @@ body {
     padding: 0px;
     background-color: white;
     font-family: 'Roboto', sans-serif;
+    font-size: 14px;
 }
 
 .flexColumns {
@@ -325,6 +326,7 @@ iframe {
 .tkButtonText {
     display: block;
     padding: 0px;
+    font-size: 14px;
     margin: 0px;
 }
 
@@ -912,7 +914,7 @@ h5 {
     max-width: 80%;
     font-size: medium;
     color: rgba(0,0,0,0.9);
-    background-color: #f0f0f0;
+    background-color: white;
     position: fixed;
     display: table;
     left: 50%;
@@ -920,40 +922,55 @@ h5 {
     transform: translate(-50%, 0) translateY(-50%);
     z-index: 8888;
     padding:0px;
-    border-radius: 3px;
+    border-radius: 4px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     border: 1px solid rgba(0,0,0,1);
 }
 
 .tkDialogTitle {
-    margin: 0px;
+	margin: 0px;
     padding: 5px;
     text-align: center;
-    background: linear-gradient(to bottom, rgba(0,0,0,.02) 0%, rgba(0,0,0,.1) 100%);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgba(217, 217, 217, 0.78) 100%);
     box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.05);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
     font-family: 'Roboto Semibold', sans-serif;
-    color: rgba(0,0,0,0.9);
     border-radius: 3px;
+    color: rgba(0, 0, 0, 0.78);
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
 }
 
 @media (max-width: 600px) {
     .tkDialog {    
-        width: 90%;
-        font-size: large;
+        min-width: 90%;
     }
+	.tkColorDialog {		
+        min-width: 90%;
+	}
 }
 
 .tkDialogButtonArea {
     text-align: center;    
     padding: 5px;
+    text-align: center;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%);
+    box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto Semibold', sans-serif;
+    color: rgba(0,0,0,0.9);
+    border-radius: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.tkDialogButtonArea .tkButton, .tkDialogButtonArea .tkRedButton, .tkDialogButtonArea .tkBlueButton {	
+    min-width: 80px;
 }
 
 .tkDialogContentArea {
-    padding: 5px;
+    padding: 10px;
     text-align: center;
 }
 
@@ -1059,19 +1076,8 @@ h5 {
     flex: 1;
 }
 
-.tkColorSliderTitle {
-    text-align: left;
-    font-size: smaller;
-    font-weight: lighter;
-    color: rgba(0, 0, 0, 0.8);
-}
-
 .tkColorPickerRight {
     margin-left: 10px;
-    align-items: center;
-    align-content: center;
-    display: flex;
-    flex-flow: column;
 }
 
 .tkColorPickerPreviewContainer {	
@@ -1094,6 +1100,11 @@ h5 {
 .tkSlider {
     cursor: pointer;
     height: 25px;
+}
+
+.tkSliderTitle {
+    text-align: center;
+    font-size: 14px;
 }
 
 .tkTextInput {

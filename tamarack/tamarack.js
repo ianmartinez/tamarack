@@ -2401,7 +2401,6 @@ class tkColorDialog extends tkDialog
 
 		this.colorPicker = new tkColorPicker();
 		this.addContent(this.colorPicker.element);
-		this.element.style.minWidth = "35%";
 		this.title = "Color";
 		this.addClass("tkColorDialog");
 	}
@@ -2438,7 +2437,7 @@ class tkColorPicker extends tkWidget
 		this.colorPreview.className = "tkColorPickerPreview";
 		this.colorPreviewContainer = make("div");
 		this.colorPreviewContainer.className = "tkColorPickerPreviewContainer";
-		this.previewTitle = sayP("Preview:");
+		this.previewTitle = sayP("Preview");
 		this.previewTitle.className = "tkSliderTitle";
 		this.rightPane.appendChild(this.previewTitle);
 		this.colorPreviewContainer.appendChild(this.colorPreview);
@@ -2456,12 +2455,9 @@ class tkColorPicker extends tkWidget
 		this.hueSlider.e.onchange = function() {
 			colorPicker.grabColor();
 		};
-		this.hueTitle = sayP("Hue:");
-		this.hueTitle.className = "tkSliderTitle";
 		this.hueSliderContainer = make("div");
 		this.hueSliderContainer.className = "tkColorSliderContainer";
 		this.hueSlider.addToElement(this.hueSliderContainer);
-		this.leftPane.appendChild(this.hueTitle);
 		this.leftPane.appendChild(this.hueSliderContainer);
 
 		this.saturationSlider = new tkSlider();		
@@ -2472,12 +2468,9 @@ class tkColorPicker extends tkWidget
 		this.saturationSlider.e.onchange = function() {
 			colorPicker.grabColor();
 		};
-		this.saturationTitle = sayP("Saturation:");
-		this.saturationTitle.className = "tkSliderTitle";
 		this.saturationSliderContainer = make("div");
 		this.saturationSliderContainer.className = "tkColorSliderContainer";
 		this.saturationSlider.addToElement(this.saturationSliderContainer);
-		this.leftPane.appendChild(this.saturationTitle);
 		this.leftPane.appendChild(this.saturationSliderContainer);
 
 		this.lightnessSlider = new tkSlider();	
@@ -2488,12 +2481,9 @@ class tkColorPicker extends tkWidget
 		this.lightnessSlider.e.onchange = function() {
 			colorPicker.grabColor();			
 		};
-		this.lightnessTitle = sayP("Lightness:");
-		this.lightnessTitle.className = "tkSliderTitle";
 		this.lightnessSliderContainer = make("div");
 		this.lightnessSliderContainer.className = "tkColorSliderContainer";
 		this.lightnessSlider.addToElement(this.lightnessSliderContainer);
-		this.leftPane.appendChild(this.lightnessTitle);
 		this.leftPane.appendChild(this.lightnessSliderContainer);
 
 		this.alphaSlider = new tkSlider();
@@ -2505,12 +2495,9 @@ class tkColorPicker extends tkWidget
 		this.alphaSlider.e.onchange = function() {
 			colorPicker.grabColor();
 		};
-		this.alphaTitle = sayP("Alpha:");
-		this.alphaTitle.className = "tkSliderTitle";
 		this.alphaSliderContainer = make("div");
 		this.alphaSliderContainer.className = "tkColorSliderContainer";
 		this.alphaSlider.addToElement(this.alphaSliderContainer);
-		this.leftPane.appendChild(this.alphaTitle);
 		this.leftPane.appendChild(this.alphaSliderContainer);
 
 		this.textInput = new tkColorTextInput();
@@ -2522,9 +2509,6 @@ class tkColorPicker extends tkWidget
 				colorPicker.color = new_color;				
 			}
 		};
-		this.textInputTitle = sayP("Color:");
-		this.textInputTitle.className = "tkSliderTitle";
-		this.leftPane.appendChild(this.textInputTitle);
 		this.textInput.addToElement(this.leftPane);
 
 		this.internalColor = new tkColor();
