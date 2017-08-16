@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Bootstrap CSS -->
+		<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+		<!-- Tamarack CSS -->
+		<link href="../tamarack/tamarack.css" rel="stylesheet">
+	</head>
+	<body>
+		<!-- jQuery -->
+		<script src="../jquery/jquery.min.js"></script>
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack.js"></script>
+		<!-- Bootstrap JS -->
+		<script src="../bootstrap/js/bootstrap.min.js"></script>
+		
+		<script>
+			var doc = new tkDocument();
+			doc.title = "Workspace";
+
+			var clientArea = new tkDiv();
+			clientArea.element.style.backgroundColor = "rgb(240,240,240)";
+			clientArea.addClass("fill", "flexColumns");
+			doc.add(clientArea);
+			
+			buildRibbon();
+			
+			var workspace = new tkWorkspace();
+			clientArea.add(workspace);
+
+			function buildRibbon()
+			{
+				var ribbon = new tkRibbon();
+				
+				// Home Page
+				var homePage = new tkRibbonPage("Home", "homePage");
+				ribbon.addPage(homePage);
+
+				// Window Group
+				var windowGroup = new tkRibbonGroup();
+				windowGroup.title = "Window";
+				homePage.addContent(windowGroup.element);
+
+				var toggleFullscreenButton = new tkButton();
+				toggleFullscreenButton.tooltip = say("Toggle Fullscreen");
+				toggleFullscreenButton.image = "../icons/actions/22/zoom-fullscreen.svg";
+				windowGroup.addButton(toggleFullscreenButton.element);
+				toggleFullscreenButton.e.onclick = function() {
+					var bodyElement = makeElement(document.body);
+					bodyElement.toggleFullscreen();
+				};
+
+				// Help Group
+				var helpGroup = new tkRibbonGroup();
+				helpGroup.title = "Help";
+				homePage.addContent(helpGroup.element);
+
+				var aboutButton = new tkButton();
+				aboutButton.tooltip = say("About App");
+				aboutButton.image = "../icons/actions/22/project-development.svg";
+				helpGroup.addButton(aboutButton.element);
+				aboutButton.e.onclick = function() {
+					var aboutDialog = new tkDialog();
+					aboutDialog.addContent(sayP("Workspace App 1.0 - A Tamarack Demo"));
+					aboutDialog.show();
+				};
+				
+				
+				var aboutTkButton = new tkButton();
+				aboutTkButton.tooltip = say("About Tamarack");
+				aboutTkButton.image = "../icons/actions/22/help-about.svg";
+				helpGroup.addButton(aboutTkButton.element);
+				aboutTkButton.e.onclick = function() {
+					var aboutDialog = new tkAboutTamarackDialog();
+					aboutDialog.show();
+				};
+
+			
+				// Select Home Page
+				ribbon.goToIndex(0);	
+				ribbon.addTo(clientArea);
+			}
+		</script>
+	</body>
+</html>

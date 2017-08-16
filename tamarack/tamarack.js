@@ -653,6 +653,17 @@ class tkWidget extends tkControl
 			this.tooltipElement = null;
 		}
 	}
+	
+	// For tkWorkspace controls
+	openState(_state_ini)
+	{
+		
+	}
+	
+	saveState()
+	{
+		
+	}
 }
 
 class tkDocument extends tkControl
@@ -2830,4 +2841,117 @@ class tkColorTextInput extends tkTextInput
 		var new_color = new tkColor();
 		return new_color.isColor(this.element.value);
 	}
+}
+
+class tkIni
+{
+	constructor()
+	{
+		
+	}
+	
+	parse(_input)
+	{
+		
+	}
+	
+	write()
+	{
+		
+	}
+	
+	// Add a comment at the start of the file
+	setHeaderComment(_comment)
+	{
+		
+	}
+	
+	// Add a comment at the start of a section
+	setSectionComment(_section, _comment)
+	{
+		
+	}
+	
+	// Add a comment before a Key=Value line
+	setKeyComment(_section, _key, _comment)
+	{
+		
+	}
+	
+	// remove all comments
+	stripComments()
+	{
+		
+	}
+	
+	remove(_section, _key)
+	{
+		
+	}
+	
+	get(_section, _key)
+	{
+		
+	}
+	
+	set(_section, _key, _value)
+	{
+		
+	}
+}
+
+class tkWorkspace extends tkWidget 
+{
+	constructor()
+	{
+		super();
+		this.element = make("div"); 
+		this.className = "tkWorkspace";
+	}
+	
+	// load the state of the workspace(all of the dimensions of the child controls + their states) from an tkIni File
+	openState(_state_ini)
+	{
+		
+	}
+	
+	saveState()
+	{
+		
+	}
+	
+	insertWidget(_widget)
+	{
+		
+	}
+	
+	removeWidget(_widget)
+	{
+		
+	}
+	
+	replaceWidget(_old_widget, _new_widget)
+	{
+		
+	}
+	
+	getWidgetWidth(_widget)
+	{
+		
+	}
+	
+	getWidgetHeight(_widget)
+	{
+		
+	}	
+	
+	getWidgetXPosition(_widget)
+	{
+		
+	}
+	
+	getWidgetYPosition(_widget)
+	{
+		
+	}	
 }
