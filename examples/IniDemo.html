@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Bootstrap CSS -->
+		<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+		<!-- Tamarack CSS -->
+		<link href="../tamarack/tamarack.css" rel="stylesheet">
+	</head>
+	<body>
+		<!-- jQuery -->
+		<script src="../jquery/jquery.min.js"></script>
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack.js"></script>
+		<!-- Bootstrap JS -->
+		<script src="../bootstrap/js/bootstrap.min.js"></script>
+		
+		<script>
+			var doc = new tkDocument();
+			doc.title = "Ini Demo";
+			
+			var ini = new tkIni();
+			
+			var output = new tkTextEdit();
+			output.width = 60;
+			output.height = 20;
+			output.placeholder = "This is the output.";
+			
+			var parseButton = new tkButton();			
+			parseButton.text = "Parse Ini";
+			parseButton.e.onclick = function() {
+			};
+			
+			var writeButton = new tkButton();			
+			writeButton.text = "Write Ini";
+			writeButton.e.onclick = function() {
+				ini.setHeaderComment("This is the header comment\nWith 2 lines");
+				ini.set("Section 1", "Key 1", "Value 1");
+				ini.setSectionComment("Section 1","This is Section 1's comment");
+				ini.set("Section 1", "Key 1", "Value 1N");
+				ini.setPairComment("Section 1", "Key 1", "Key 1 now been written twice");
+				ini.set("Section 1", "Key 2", "Value 2");
+				ini.set("Section 2", "Key 3", "Value 3");
+				ini.setSectionComment("Section 2","This is Section 2's comment");
+				output.text = ini.write();
+			};
+
+			doc.add(parseButton,writeButton,output);
+		</script>
+	</body>
+</html>

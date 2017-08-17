@@ -2843,10 +2843,32 @@ class tkColorTextInput extends tkTextInput
 	}
 }
 
+class tkIniSection 
+{
+	constructor(_title)
+	{
+		this.comment = "";
+		this.title = _title;
+		this.pairs = [];
+	}
+}
+
+class tkIniPair
+{
+	constructor(_key, _value, _comment)
+	{
+		this.comment = _comment;
+		this.key = _key;
+		this.value = _value;
+	}
+}
+
 class tkIni
 {
 	constructor()
 	{
+		this.headerComment = "";
+		this.sections = [];
 		
 	}
 	
@@ -2857,31 +2879,74 @@ class tkIni
 	
 	write()
 	{
+		var iniText = "";
+		if(this.headerComment != "") iniText += this.formatComment(this.headerComment) + "\n\n";
 		
+		for(var section_number=0; section_number<this.sections.length; section_number++)
+		{
+			var section =  this.sections[section_number];
+			
+			if(section.comment != "") iniText += this.formatComment(section.comment) + "\n";
+			iniText += "[" + section.title + "]\n";
+			
+			for(var pair_number=0; pair_number<section.pairs.length; pair_number++) 
+			{
+				var pair = section.pairs[pair_number];
+				
+				if(pair.comment != "") iniText += this.formatComment(pair.comment) + "\n";
+				iniText +=  pair.key + "=" + pair.value +"\n";				
+			}
+			
+			if(section_number != this.sections.length-1) iniText += "\n";
+		}
+		
+		return iniText;
+	}
+	
+	formatComment(_comment)
+	{
+		var lines = _comment.split("\n");
+		
+		for(var i=0;i<lines.length;i++)
+			lines[i] = ";" + lines[i];
+		
+		return lines.join("\n");
 	}
 	
 	// Add a comment at the start of the file
 	setHeaderComment(_comment)
 	{
-		
+		this.headerComment = _comment;
 	}
 	
 	// Add a comment at the start of a section
 	setSectionComment(_section, _comment)
 	{
-		
+		var sectionIndex = this.sections.findIndex((section) => {return section.title == _section});
+		if (sectionIndex != -1) 
+			this.sections[sectionIndex].comment = _comment;
 	}
 	
 	// Add a comment before a Key=Value line
-	setKeyComment(_section, _key, _comment)
+	setPairComment(_section, _key, _comment)
 	{
-		
+		var sectionIndex = this.sections.findIndex((section) => {return section.title == _section});
+		if (sectionIndex != -1) {			
+			var keyIndex = this.sections[sectionIndex].pairs.findIndex((pair) => {return pair.key == _key});
+			if (keyIndex != -1) 
+				this.sections[sectionIndex].pairs[keyIndex].comment = _comment;
+		}
 	}
 	
 	// remove all comments
 	stripComments()
 	{
-		
+		for(var i=0;i<this.sections.length;i++)
+		{
+			this.sections[i].comment = "";
+			for(var j=0;j<this.sections[i].pairs.length;j++)
+				this.sections[i].pairs[j].comment = "";
+		}
 	}
 	
 	remove(_section, _key)
@@ -2896,7 +2961,18 @@ class tkIni
 	
 	set(_section, _key, _value)
 	{
-		
+		var sectionIndex = this.sections.findIndex((section) => {return section.title == _section});
+		if (sectionIndex != -1) {			
+			var keyIndex = this.sections[sectionIndex].pairs.findIndex((pair) => {return pair.key == _key});
+			if (keyIndex != -1) // Section and key exist
+				this.sections[sectionIndex].pairs[keyIndex] = new tkIniPair(_key,_value,this.sections[sectionIndex].pairs[keyIndex].comment);
+			else  // Section exists, but key does not
+				this.sections[sectionIndex].pairs.push(new tkIniPair(_key,_value,""));
+		} else { // Neither exist
+			var newSection = new tkIniSection(_section);
+			newSection.pairs.push(new tkIniPair(_key,_value,""));
+			this.sections.push(newSection);
+		}		
 	}
 }
 
