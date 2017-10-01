@@ -27,13 +27,6 @@
 			{
 				var slide = new tkSlide();
 				var video = new tkVideoPlayer();
-				video.loaded = function() {
-					var vi = extractVideoInfo(video.video.e);
-					var resolution_caption = new tkText("p");
-					resolution_caption.e.className = "caption";
-					resolution_caption.text = "Resolution Bracket:" + vi.resolution.getResolutionBracket();		
-					slide.addContent(resolution_caption.e);					
-				};
 				video.source = videos[i];
 				video.setSize(700,500);
 

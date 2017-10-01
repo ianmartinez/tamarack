@@ -26,29 +26,11 @@
 			doc.add(video);
 
 			video.loaded = function() {
-				var vi = extractVideoInfo(video.video.element, "Jellyfish");
-
 				var title = new tkText("h1");
-				title.text = vi.title;	
+				title.text = "Jellyfish";	
 				title.addToElement(p);
 				
-				var source = new tkText("p");
-				source.text = "Video Source: " + vi.source;	
-				source.addToElement(p);
-				
-				var duration = new tkText("p");
-				duration.text = "Video Duration: " + vi.getFormattedDuration();	
-				duration.addToElement(p);
-				
-				var resolutionBracket = new tkText("p");
-				resolutionBracket.text = "Video Resolution Bracket: " + vi.resolution.getResolutionBracket();	
-				resolutionBracket.addToElement(p);
-				
-				var resolution = new tkText("p");
-				resolution.text = "Video Resolution: " + vi.resolution.getResolution();	
-				resolution.addToElement(p);
-				
-				video.setSize(vi.resolution.getWidth()/2, vi.resolution.getHeight()/2);
+				video.setSize(720, 380);
 			};
 		</script>
 	</body>
