@@ -54,9 +54,11 @@
                 flex: auto;
                 height: 100%;
                 background: transparent;
+                overflow-y: scroll;
             }
 
-            .messageBubble {
+            .messageBubble {                
+                word-wrap: break-word;
                 padding: .5em;
                 margin: .5em;
                 width: calc(50% - .5em);
@@ -69,7 +71,8 @@
                 border: 1px solid rgba(0,0,0,1);            
             }
 
-            .messageBubbleOther {
+            .messageBubbleOther {                
+                word-wrap: break-word;
                 padding: .5em;
                 margin: .5em;
                 width: calc(50% - .5em);
