@@ -881,6 +881,10 @@ h5 {
 	input {
 		font-size: 20px;
 	}
+	
+	body {
+		font-size: 20px;
+	}
 }
 
 .tkVideoButton:hover {
