@@ -118,36 +118,16 @@ class tkFont
 		this.size = _size;
 		this.weight = _weight;
 		this.style = _style;
+		this.variant = "";
 	}
 
 	getCss() 
 	{
-
-	}
-
-	getFamilyCss() 
-	{
-
-	}
-
-	getSizeCss() 
-	{
-
-	}
-
-	getWeightCss() 
-	{
-
-	}
-
-	getStyleCss() 
-	{
-
-	}
-
-	getVariantCss() 
-	{
-
+		return this.style + " " + 
+		this.variant + " " +
+		this.weight + " " +
+		this.size + " " +
+		this.family;
 	}
 }
 
@@ -1763,7 +1743,13 @@ class tkList extends tkWidget
 			this.selected = this.selected[0];
 		this.allow_multiple_selection = _allow_multiple_selection;
 	}
-
+	
+	selectFirstAvailable()
+	{
+		if(this.selectionExists && this.items.length > 0)
+			this.selected = [this.items[0]];
+	}
+	
 	addItem(_item)
 	{
 		this.element.appendChild(_item.element);
@@ -1775,12 +1761,16 @@ class tkList extends tkWidget
 			if(!list.allowMultipleSelection) 
 				list.selected = [_item];
 		});
+		
+		this.selectFirstAvailable();
 	}
 	
 	removeItem(_item)
 	{
 		this.items.splice(_item,1);
 		this.element.removeChild(_item.element);
+		
+		this.selectFirstAvailable();
 	}
 
 	// returns array of selected items
@@ -1808,17 +1798,26 @@ class tkList extends tkWidget
 		 }
 	}
 
+	get selectionExists()
+	{
+		for(var i=0;i<this.items.length;i++)
+			if (this.isSelected(this.items[i])) 
+				return true;			
+				
+		return false;		
+	}
+	
 	// return true if all items are selected
 	isSelected(_items)
 	{
 		for(var i=0;i<_items.length;i++)
-		 {
-			 if (this.items.indexOf(_items[i]) == -1) return false;
+		{
+		 if (this.items.indexOf(_items[i]) == -1) return false;
 
-			
-			 var currentItem = this.items.find((item) => item == _items[i])
-			 if (!currentItem.selected) return false;
-		 }
+
+		 var currentItem = this.items.find((item) => item == _items[i])
+		 if (!currentItem.selected) return false;
+		}
 
 		 return true;
 	}
