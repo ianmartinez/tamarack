@@ -19,6 +19,18 @@ var tkDialogResult= {
   RETRY: 7
 };
 
+function makeParagraphs(_input) 
+{
+	var html_string = "";
+	var lines = _input.split("\n");
+	for(var i=0;i<lines.length;i++)
+	{
+		html_string += "<p>" + lines[i] + "</p>";
+	}
+	
+	return html_string;
+}
+
 function createLinearGradient(_angle_deg,_colors)
 {
 	var gradient = "linear-gradient(" + _angle_deg + "deg";

@@ -126,16 +126,16 @@
 			{
                 if (messageText.text != "") 
                 {                    
-                    var messageBubble = new tkText("p");
+                    var messageBubble = new tkDiv();
                     messageBubble.className = "messageBubble";
-                    messageBubble.text = messageText.text;
+                    messageBubble.e.innerHTML = makeParagraphs(messageText.text);
                     messageText.text = "";
                     messageArea.add(messageBubble);
 
                     if(random(0,1) == 1) {
-                        var messageBubbleOther = new tkText("p");
+                        var messageBubbleOther = new tkDiv();
                         messageBubbleOther.className = "messageBubbleOther";
-                        messageBubbleOther.text = "Hello World!";
+                        messageBubbleOther.e.innerHTML = makeParagraphs("Hello World!");
                         messageArea.add(messageBubbleOther);
                     }
                 }
