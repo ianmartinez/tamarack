@@ -2708,6 +2708,16 @@ class tkTextInput extends tkInput
 		this.type = "text";
 		this.className = "tkTextInput";
 	}
+	
+	get text()
+	{
+		return this.e.value;
+	}
+	
+	set text(_text)
+	{
+		this.e.value = _text;
+	}
 }
 
 class tkRange extends tkInput 

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Bootstrap CSS -->
+		<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+		<!-- Tamarack CSS -->
+		<link href="../tamarack/tamarack.css" rel="stylesheet">
+	</head>
+	<body>
+        <style>
+            body {
+                background-color: rgb(243,243,243);
+                display: flex;
+                flex-direction: column;
+            }
+
+            .styleBar {  
+                flex: none;              
+                width: 100%;
+                background-color: rgba(255,255,255,0.8);
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+                margin: 0;
+                padding: .5em;
+            }
+
+            .titleBar {
+                flex: none;
+                width: 100%;
+                font-size: 36px;
+                font-weight: bolder;
+                background-color: rgba(255,255,255,0.9);
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+                margin: 0;
+                padding: 1em;
+                padding-left: .5em;
+            }
+            
+            .bottomBar {
+                flex: none;
+                display: flex;
+                bottom: 0px;
+                width: 100%;
+                padding: .5em;
+                margin: 0;
+                background-color: rgba(255,255,255,0.8);
+                border-top: 1px solid rgba(0,0,0,0.1);
+            }
+
+            .messageText {
+                margin-right: .5em;
+            }
+
+            .messageArea {
+                flex: auto;
+                height: 100%;
+                background: transparent;
+            }
+
+            .messageBubble {
+                padding: .5em;
+                margin: .5em;
+                width: calc(50% - .5em);
+                background-color: rgba(0, 0, 0, 0.75);
+                color: white;
+                float: right;
+                border-radius: 5px;
+            }
+        </style>
+		<!-- jQuery -->
+		<script src="../jquery/jquery.min.js"></script>
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack.js"></script>
+		<!-- Bootstrap JS -->
+		<script src="../bootstrap/js/bootstrap.min.js"></script>
+		
+		<script>
+			var doc = new tkDocument();						
+            doc.title = "Messenger";
+            
+            var titleBar = new tkText("h1");
+            titleBar.text = doc.title;
+            titleBar.className = "titleBar";
+            doc.add(titleBar);
+            
+            var styleBar = new tkDiv();
+            styleBar.className = "styleBar";
+            doc.add(styleBar);
+
+            var messageArea = new tkDiv();
+            messageArea.className = "messageArea";
+            doc.add(messageArea);
+
+            var bottomBar = new tkDiv();
+            bottomBar.className = "bottomBar";
+            doc.add(bottomBar);
+
+            var messageText = new tkTextInput();
+            messageText.addClass("messageText");
+            bottomBar.add(messageText);
+            
+            var sendMessageButton = new tkButton();		
+            sendMessageButton.text = "Send";
+            bottomBar.add(sendMessageButton);
+			sendMessageButton.e.onclick = () => 
+			{
+                if (messageText.text != "") 
+                {                    
+                    var messageBubble = new tkText("p");
+                    messageBubble.className = "messageBubble";
+                    messageBubble.text = messageText.text;
+                    messageText.text = "";
+                    messageArea.add(messageBubble);
+                }
+            };
+
+            var colorDialog = new tkColorDialog();
+			var backgroundColorButton = new tkButton();			
+            backgroundColorButton.text = "Background";            
+            var backgroundColor = new tkColor();
+			backgroundColor.fromRgba(243,243,243,1);
+			doc.setBackgroundColor(backgroundColor.getHslaCss());
+			backgroundColorButton.e.onclick = () => 
+			{
+				colorDialog.color = backgroundColor.clone();
+				colorDialog.show((dialogResult) => {
+					if(dialogResult == tkDialogResult.OK) 
+					{
+						backgroundColor = colorDialog.color;
+						doc.setBackgroundColor(colorDialog.color.getHslaCss());
+					}
+				});
+            };
+            
+            styleBar.add(backgroundColorButton);            
+		</script>
+	</body>
+</html>
