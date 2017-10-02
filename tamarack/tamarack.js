@@ -2257,6 +2257,16 @@ class tkFontDialog extends tkDialog
 		this.title = "Font";
 		this.addClass("tkFontDialog");
 	}
+	
+	get font()
+	{
+		return this.fontPicker.font;
+	}
+	
+	set font(_font)
+	{
+		this.fontPicker.font = _font;
+	}
 }
 
 class tkFontPicker extends tkWidget

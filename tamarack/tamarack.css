@@ -194,6 +194,7 @@ iframe {
 }
 
 .tkRedButton { 
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease-in-out;
 	position: relative;
     box-shadow: inset 0px 0px 1px 0px rgba(255,255,255,0.3);
@@ -235,6 +236,7 @@ iframe {
 }
 
 .tkBlueButton { 
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease-in-out;
 	position: relative;
     box-shadow: inset 0px 0px 1px 0px rgba(255,255,255,0.3);
@@ -276,6 +278,7 @@ iframe {
 }
 
 .tkButton { 
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease-in-out;
 	position: relative;
     box-shadow: inset 0px 0px 1px 0px rgba(255,255,255,0.8);
@@ -884,7 +887,16 @@ h5 {
 	
 	body {
 		font-size: 20px;
-	}
+    }
+    
+    .tkDialog {
+        min-width: 90% !important;
+    }
+
+    .tkDialogTitle {
+        font-size: 24px;
+        font-weight: bolder;
+    }
 }
 
 .tkVideoButton:hover {
@@ -940,6 +952,7 @@ h5 {
 }
 
 .tkDialogTitle {
+    font-size: 20px;
 	margin: 0px;
     padding: 5px;
     text-align: center;
