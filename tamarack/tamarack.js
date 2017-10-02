@@ -2698,6 +2698,16 @@ class tkInput extends tkWidget
 	{
 		this.setAttribute("name",_name);
 	}
+	
+	get readOnly()
+	{
+		return this.e.readonly;
+	}
+	
+	set readOnly(_read_only)
+	{
+		this.e.readonly = _read_only;
+	}
 }
 
 class tkTextInput extends tkInput
@@ -2717,6 +2727,36 @@ class tkTextInput extends tkInput
 	set text(_text)
 	{
 		this.e.value = _text;
+	}
+			
+	get defaultText()
+	{
+		return this.e.defaultValue;
+	}
+	
+	set defaultText(_default_value)
+	{
+		this.e.defaultValue = _default_value;
+	}
+	
+	get placeholder()
+	{
+		return this.e.placeholder;
+	}
+	
+	set placeholder(_placeholder)
+	{
+		this.e.placeholder = _placeholder;
+	}
+	
+	get maxLength()
+	{
+		return this.e.maxLength;
+	}
+	
+	set maxLength(_max_length)
+	{
+		this.e.maxLength = _read_only;
 	}
 }
 

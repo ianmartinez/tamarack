@@ -60,10 +60,26 @@
                 padding: .5em;
                 margin: .5em;
                 width: calc(50% - .5em);
-                background-color: rgba(0, 0, 0, 0.75);
+                background-color: rgba(0, 0, 0, 0.9);
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9));
                 color: white;
                 float: right;
                 border-radius: 5px;
+                box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
+                border: 1px solid rgba(0,0,0,1);            
+            }
+
+            .messageBubbleOther {
+                padding: .5em;
+                margin: .5em;
+                width: calc(50% - .5em);
+                background-color: rgba(255, 255, 255, 0.9);
+                background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+                color: black;
+                float: left;
+                border-radius: 5px;
+                box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
+                border: 1px solid rgba(255,255,255,1);            
             }
         </style>
 		<!-- jQuery -->
@@ -110,6 +126,13 @@
                     messageBubble.text = messageText.text;
                     messageText.text = "";
                     messageArea.add(messageBubble);
+
+                    if(random(0,1) == 1) {
+                        var messageBubbleOther = new tkText("p");
+                        messageBubbleOther.className = "messageBubbleOther";
+                        messageBubbleOther.text = "Hello World!";
+                        messageArea.add(messageBubbleOther);
+                    }
                 }
             };
 
