@@ -2668,6 +2668,16 @@ class tkTextEdit extends tkText
 	{
 		return this.selected_text;
 	}
+	
+	get text() 
+	{
+		return this.e.value;
+	}
+	
+	set text(_string) 
+	{
+		this.e.value = _string;
+	}
 }
 
 // Forms

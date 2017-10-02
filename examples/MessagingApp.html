@@ -48,6 +48,7 @@
 
             .messageText {
                 margin-right: .5em;
+                width: 100%;
             }
 
             .messageArea {
@@ -113,8 +114,9 @@
             bottomBar.className = "bottomBar";
             doc.add(bottomBar);
 
-            var messageText = new tkTextInput();
+            var messageText = new tkTextEdit();
             messageText.addClass("messageText");
+            messageText.resizable = false;
             bottomBar.add(messageText);
             
             var sendMessageButton = new tkButton();		
