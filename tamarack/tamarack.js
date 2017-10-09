@@ -815,13 +815,15 @@ class tkButton extends tkWidget
 
 		this.element = make("button");
 		this.className = "tkButton";
+		
+		this.imageWidget = new tkImage();
+		this.imageWidget.className = "tkButtonImage";
+		this.element.appendChild(this.imageWidget.element);
+		this.imageWidget.e.style.display = "none";
 
 		this.textWidget = new tkText("p");
 		this.textWidget.className = "tkButtonText";
 		this.element.appendChild(this.textWidget.element);
-
-		this.imageWidget = new tkImage();
-		this.imageWidget.className = "tkButtonImage";
 	}	
 
 	get image()
@@ -832,9 +834,9 @@ class tkButton extends tkWidget
 	set image(_image)
 	{
 		if(_image)
-			this.element.appendChild(this.imageWidget.element);
-		else {
-			this.element.removeChild(this.imageWidget.element);
+			this.imageWidget.e.style.display = "inline";
+		else {			
+			this.imageWidget.e.style.display = "none";
 			return;
 		}
 
@@ -2119,6 +2121,11 @@ class tkDialog extends tkWidget
 		};
 
 		this.choicesButtons = [];
+		if (this.choices.length < 1)
+			this.buttonArea.style.display = "none";
+		else
+			this.buttonArea.style.display = "block";
+
 		for(var i=0;i<this.choices.length;i++) 
 		{
 			var button = new tkButton();

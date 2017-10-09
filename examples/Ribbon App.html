@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Bootstrap CSS -->
+		<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+		<!-- Tamarack CSS -->
+		<link href="../tamarack/tamarack.css" rel="stylesheet">
+	</head>
+	<body>
+		<style>
+			.topPanel {
+				background: url(resources/background.jpg) no-repeat center center fixed;
+				height: 128px;
+				vertical-align: middle;
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;	
+				margin-left: -1em;
+				margin-right: -1em;
+			}
+
+			.startUpContent {
+				padding: 0px;
+				padding-left: 1em;
+				padding-right: 1em;
+				height: 600px;
+			}
+
+			.startUpContent .tkButton {
+				width: 95px;
+				height: 95px;
+				margin-top: 1em;
+				margin-bottom: 1em;
+				margin-left: .25em;
+				margin-right: .25em;
+			}
+
+			.topPanel p {
+				font-weight: bolder;
+				font-size: 28px;
+				text-align: left;
+   				padding-top: 1.5em;
+				margin: 0;
+				display: inline-block;
+				vertical-align: middle;
+				color: white;
+			}
+		</style>
+		<!-- jQuery -->
+		<script src="../jquery/jquery.min.js"></script>
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack.js"></script>
+		<!-- Bootstrap JS -->
+		<script src="../bootstrap/js/bootstrap.min.js"></script>
+		
+		<script>
+			var textEditor = new tkTextEdit();
+			var doc = new tkDocument();
+			doc.title = "Notepad";
+
+			var clientArea = new tkDiv();
+			clientArea.element.style.backgroundColor = "rgb(240,240,240)";
+			clientArea.addClass("fill", "flexColumns");
+			doc.add(clientArea);
+
+			buildRibbon();
+
+			textEditor.autofocus = true;
+			textEditor.placeholder = "Type here..."
+			textEditor.addTo(clientArea);
+			textEditor.addClass("fill","borderless");
+			setColor(new tkColor("hsla(199, 33%, 20%, 1.00)"));
+			showStartupPane();
+
+			function showStartupPane()
+			{				
+				var startDialog = new tkDialog();
+				startDialog.choices = [];
+				startDialog.contentArea.className = "tkDialogContentArea startUpContent";
+
+				var topPanel = new tkDiv();
+				topPanel.className = "topPanel";
+				topPanel.addElement(sayP("Demo Ribbon App"));
+				startDialog.addContent(topPanel.e);			
+
+				var startOpenButton = new tkButton();
+				startOpenButton.image = "../icons/actions/22/document-open.svg";
+				startOpenButton.text = "Open...";
+				startOpenButton.e.onclick = () => 
+				{
+					
+				};
+				startDialog.addContent(startOpenButton.e);
+
+				var startSaveButton = new tkButton();
+				startSaveButton.image = "../icons/actions/22/document-save.svg";
+				startSaveButton.text = "Save...";
+				startSaveButton.e.onclick = () => 
+				{
+					
+				};
+				startDialog.addContent(startSaveButton.e);
+
+				startDialog.show();
+			}
+
+			function buildRibbon()
+			{
+				var ribbon = new tkRibbon();
+				
+				// Home Page
+				var homePage = new tkRibbonPage("Home", "homePage");
+				ribbon.addPage(homePage);
+
+				// Window Group
+				var windowGroup = new tkRibbonGroup();
+				windowGroup.title = "Window";
+				homePage.addContent(windowGroup.element);
+
+				var toggleFullscreenButton = new tkButton();
+				toggleFullscreenButton.tooltip = say("Toggle Fullscreen");
+				toggleFullscreenButton.image = "../icons/actions/22/zoom-fullscreen.svg";
+				windowGroup.addButton(toggleFullscreenButton.element);
+				toggleFullscreenButton.e.onclick = function() {
+					var bodyElement = makeElement(document.body);
+					bodyElement.toggleFullscreen();
+				};
+
+				// Help Group
+				var helpGroup = new tkRibbonGroup();
+				helpGroup.title = "Help";
+				homePage.addContent(helpGroup.element);
+
+				var aboutButton = new tkButton();
+				aboutButton.tooltip = say("About App");
+				aboutButton.image = "../icons/actions/22/project-development.svg";
+				helpGroup.addButton(aboutButton.element);
+				aboutButton.e.onclick = function() {
+					var aboutDialog = new tkDialog();
+					aboutDialog.addContent(sayP("Notepad App 1.0 - A Tamarack Demo"));
+					aboutDialog.show();
+				};
+				
+				
+				var aboutTkButton = new tkButton();
+				aboutTkButton.tooltip = say("About Tamarack");
+				aboutTkButton.image = "../icons/actions/22/help-about.svg";
+				helpGroup.addButton(aboutTkButton.element);
+				aboutTkButton.e.onclick = function() {
+					var aboutDialog = new tkAboutTamarackDialog();
+					aboutDialog.show();
+				};
+
+				// Format Page
+				var formatPage = new tkRibbonPage("Format", "formatPage");
+				ribbon.addPage(formatPage);
+				
+				// Style Group
+				var styleGroup = new tkRibbonGroup();
+				styleGroup.title = "Style";
+				formatPage.addContent(styleGroup.element);
+
+				var colorButton = new tkButton();
+				colorButton.tooltip = say("Background Color");
+				colorButton.image = "../icons/actions/22/adjustlevels.svg";
+				styleGroup.addButton(colorButton.element);
+				colorButton.e.onclick = () => 
+				{
+					var colorDialog = new tkColorDialog();
+					var oldColor = new tkColor();
+					oldColor.parse(textEditor.style.backgroundColor);
+
+					colorDialog.color = oldColor.clone();
+					colorDialog.show((dialogResult) => {
+						if(dialogResult == tkDialogResult.OK) 
+							setColor(colorDialog.color);
+					});
+				};
+
+				var fontButton = new tkButton();
+				fontButton.tooltip = say("Font");
+				fontButton.image = "../icons/actions/22/gtk-select-font.svg";
+				styleGroup.addButton(fontButton.element);
+				fontButton.e.onclick = () => 
+				{
+					var fontDialog = new tkFontDialog();
+					fontDialog.show((dialogResult) => {
+
+					});
+				};
+
+				// Select Home Page
+				ribbon.goToIndex(0);	
+				ribbon.addTo(clientArea);
+			}
+
+			function setColor(_color)
+			{
+				textEditor.style.backgroundColor = _color.getHslaCss();
+				textEditor.style.color = (_color.isDark()) ? "rgb(255,255,255)" : "rgb(0,0,0)"; 
+			}
+		</script>
+	</body>
+</html>
