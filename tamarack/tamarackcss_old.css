@@ -1,0 +1,1189 @@
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../fonts/source/SourceSansPro-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Source Sans Pro Light';
+    src: url('../fonts/source/SourceSansPro-ExtraLight.ttf');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/roboto/Roboto-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Roboto Semibold';
+    src: url('../fonts/roboto/Roboto-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Roboto Light';
+    src: url('../fonts/roboto/Roboto-Light.ttf');
+}
+
+@font-face {
+    font-family: 'Homenaje';
+    src: url('../fonts/homenaje/Homenaje-Regular.ttf');
+}
+
+::selection {
+  background: hsla(195, 94%, 41%, 0.70); 
+  color: rgba(255,255,255,0.9);
+} 
+
+p {
+    margin: 5px 0px 5px 0px;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    padding: 0px;
+    background-color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+}
+
+.flexColumns {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexRows {
+    display: flex;
+    flex-direction: row;
+}
+
+.container {
+    padding: 0px;
+	margin: 0px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,.6);
+    border: 0px solid rgba(0,0,0,0);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0,0,0,.8);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: rgba(0,0,0,1);
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    border: 0px solid rgba(0,0,0,0);
+}
+
+::-webkit-scrollbar-track:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-track:active {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+    width: 0px;
+    height: 0px;
+    border: 0px solid rgba(0,0,0,0);
+}
+
+.nav {
+    background-color: transparent;
+}
+
+.ribbon {
+    background-color: transparent;
+}
+
+
+.screen_display {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    flex: 1 1 auto;
+}
+
+.fill {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    height: 100%;
+}
+
+.transparent_panel {
+    background-color: rgba(0,0,0,0);
+}
+
+.sp_container {
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
+    margin: auto;
+    border: 0px transparent;
+}
+
+iframe {
+    border: 0 none;
+}
+
+.navbar-inverse {
+    background-color: rgba(0, 0, 0, 0.5);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 1) 100%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.imgLogo {
+    width: 120px;
+    margin-right: 2em;
+    display: block;
+}
+
+.imgTemplate {
+    width: 60px;
+    height: 60px;
+    display: block;
+    margin: auto;
+}
+
+.front_header {
+    margin-bottom: 4px;
+    color: rgba(0,0,0,0.9);
+}
+
+.front_subheader {
+    font-style: italic;
+    margin-bottom: 1em;
+    color: rgba(0,0,0,0.9);
+}
+
+.col-md-4 {
+    text-align: center;
+    margin-bottom: 1em;
+    height: 200px;
+}
+
+.button_holder {
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tkRedButton { 
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;
+	position: relative;
+    box-shadow: inset 0px 0px 1px 0px rgba(255,255,255,0.3);
+    background: linear-gradient(to bottom, #e0584c 0%, #cb2f34 100%);
+    border-radius: 2px;
+    border: 1px solid #a92228;
+    cursor: pointer;
+    color: white;
+    padding: 6px 12px;
+	margin: 1px;    
+	display: inline-block;
+    text-decoration: none;
+}
+
+.tkRedButton:hover {
+    border: 1px solid #962025;
+    box-shadow:  inset 10px 10px 140px 0px rgba(0,0,0,0.1);
+    color: white;
+    text-decoration: none;
+}
+
+.tkRedButton:active {
+    border: 1px solid #962025;
+    color: white;
+    outline: none;
+    box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.2), inset 0px 0px 1px 0px rgba(0,0,0,0.4);
+    text-decoration: none;
+}
+
+.tkRedButton:focus {
+    color: white;
+    outline: none;
+    text-decoration: none;
+}
+
+.tkRedButton:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.tkBlueButton { 
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;
+	position: relative;
+    box-shadow: inset 0px 0px 1px 0px rgba(255,255,255,0.3);
+    background: linear-gradient(to bottom, #51b8eb 0%, #429de8 100%);
+    border-radius: 2px;
+    border: 1px solid #3194dc;
+    cursor: pointer;
+    color: white;
+    padding: 6px 12px;
+	margin: 1px;    
+	display: inline-block;
+    text-decoration: none;
+}
+
+.tkBlueButton:hover {
+    border: 1px solid #2a84c6;
+    box-shadow:  inset 10px 10px 140px 0px rgba(0,0,0,0.1);
+    color: white;
+    text-decoration: none;
+}
+
+.tkBlueButton:active {
+    border: 1px solid #2a84c6;
+    color: white;
+    outline: none;
+    box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.2), inset 0px 0px 1px 0px rgba(0,0,0,0.4);
+    text-decoration: none;
+}
+
+.tkBlueButton:focus {
+    color: white;
+    outline: none;
+    text-decoration: none;
+}
+
+.tkBlueButton:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.tkButton { 
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;
+	position: relative;
+    box-shadow: inset 0px 0px 1px 0px rgba(255,255,255,0.8);
+    background: linear-gradient(to bottom, #f5f5f5 0%, #ececec 100%);
+    border-radius: 2px;
+    border: 1px solid rgba(200,200,200,1);
+    cursor: pointer;
+    color: black;
+    padding: 6px 12px;
+	margin: 1px;    
+	display: inline-block;
+    text-decoration: none;
+}
+
+.tkButton:hover {
+    border: 1px solid rgba(180,180,180,1);  
+    box-shadow:  inset 10px 10px 140px 0px rgba(0,0,0,0.1);
+    color: black;
+    text-decoration: none;
+}
+
+.tkButton:active {
+    border: 1px solid rgba(180,180,180,1);
+    background: linear-gradient(to top, #f5f5f5 0%, #ececec 100%);
+    color: black;
+    outline: none;
+    box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.2), inset 0px 0px 1px 0px rgba(0,0,0,0.4);
+    text-decoration: none;
+}
+
+.tkButton:focus {
+    color: black;
+    outline: none;
+    text-decoration: none;
+}
+
+.tkButton:visited {
+    color: black;
+    text-decoration: none;
+}
+
+.tkButtonImage {
+    width: 30px;
+    padding: 2px;
+    height: 30px;
+}
+
+.tkButtonText {
+    display: block;
+    padding: 0px;
+    font-size: 14px;
+    margin: 0px;
+}
+
+.tkRibbonButton { 
+    text-align: center;
+    font-size: small;
+    transition: all 0.3s ease-in-out;
+	position: relative;
+    background: transparent;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    color: black;
+    padding: 8px;
+	margin: 1px;    
+	display: inline-block;
+    text-decoration: none;
+}
+
+.tkRibbonButton:hover {
+    border: 1px solid rgba(180,180,180,1);  
+    box-shadow:  inset 10px 10px 140px 0px rgba(0,0,0,0.1);
+    color: black;
+    text-decoration: none;
+}
+
+.tkRibbonButton:active {
+    border: 1px solid rgba(180,180,180,1);
+    background: linear-gradient(to top, #f5f5f5 0%, #ececec 100%);
+    color: black;
+    outline: none;
+    box-shadow: inset 10px 10px 140px 0px rgba(0,0,0,0.2), inset 0px 0px 1px 0px rgba(0,0,0,0.4);
+    text-decoration: none;
+}
+
+.tkRibbonButton:focus {
+    color: black;
+    outline: none;
+    text-decoration: none;
+}
+
+.tkRibbonButton:visited {
+    color: black;
+    text-decoration: none;
+}
+
+.toolbarButton {
+    min-width: 105px;
+    height: 100%;
+    vertical-align: middle;
+    display: inline-block;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(0,0,0,0);
+    border-radius: 0px;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 6px 12px;
+    text-decoration: none;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.9);
+}
+
+.toolbarButton:hover {
+    background-color: rgba(255,255,255,0.2);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.toolbarButton:active {
+    background-color: rgba(255,255,255,0.4);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.toolbarButton:focus {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.toolbarButton:visited {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.imgToolbar {
+    width: 32px;
+    height: 32px;
+    display: block;
+    margin: 3px auto;
+}
+
+.toolbar {
+    text-align: center;
+    margin: auto;
+    float: left;
+}
+
+@media (min-width: 600px) {
+    .template {
+        width: 33.333333%;
+        float: left;
+    }
+}
+
+.noResize {
+    resize: none;
+}
+
+.resize {
+    resize:  both;
+}
+
+pre {
+    border-radius: 0px;
+}
+
+.tkRibbonGroupTitle {
+    color: rgba(0,0,0,0.5);
+    text-align: center;
+    clear: left;
+    display: block;
+    bottom: 0px;
+    padding-top: 5px;
+    width: 100%;
+}
+
+.tkRibbonGroup {
+    display: inline-block;
+    min-width: 50px;
+    position: relative;
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 0px 5px;
+}
+
+.nav-tabs {
+    padding-top: 3px;
+}
+
+.nav-tabs > li {
+    float: left;
+    margin-bottom: -1px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane .active {
+    display: block;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #555;
+    cursor: default;
+    background: transparent;
+    background-color: rgb(255,255,255);
+    border: 1px solid rgba(200,200,200,1);
+    border-bottom: 0px solid transparent;
+    box-shadow: none;
+    border-top-left-radius: 2px;  
+    border-top-right-radius: 2px;
+}
+
+.nav-tabs > li > a {
+    border-radius: 2px;
+    border: 0px solid transparent;
+}
+
+.nav > li > a {
+    transition: all 0.3s ease-in-out;
+    background-color: #ececec;
+    border: 1px solid rgba(200,200,200,1);
+    box-shadow: inset 0px -1px 0px 0px rgba(200,200,200,1);
+    border-bottom: 0px solid transparent;
+    color: #555;
+    padding: 4px 8px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 2px;  
+    border-top-right-radius: 2px;    
+}
+
+.nav-tabs > li > a:hover {
+    background-color: #d8d8d8;
+    border: 1px solid #a8a8a8;
+    border-bottom: 0px solid transparent;
+    box-shadow:  inset 10px 10px 140px 0px rgba(0,0,0,0.1), inset 0px -1px 0px 0px rgba(200,200,200,1);
+    padding: 4px 8px;    
+}
+
+
+.ribbon-tabs {
+    padding-top: 3px;
+}
+
+.ribbon-tabs > li {
+    float: left;
+    margin-bottom: -1px;
+}
+
+.ribbon-tabs > li.active > a, .ribbon-tabs > li.active > a:hover, .ribbon-tabs > li.active > a:focus {
+    color: #555;
+    cursor: default;
+    background: transparent;
+    background-color: #f8f8f8;
+    border: 1px solid rgba(200,200,200,1);
+    border-bottom: 0px solid transparent;
+    box-shadow: none;
+    border-top-left-radius: 2px;  
+    border-top-right-radius: 2px;
+}
+
+.ribbon-tabs > li > a {
+    border-radius: 2px;
+    border: 0px solid transparent;
+}
+
+.ribbon > li > a {
+    transition: all 0.3s ease-in-out;
+    background-color: #ececec;
+    border: 1px solid rgba(200,200,200,1);
+    box-shadow: inset 0px -1px 0px 0px rgba(200,200,200,1);
+    border-bottom: 0px solid transparent;
+    color: #555;
+    padding: 4px 8px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 2px;  
+    border-top-right-radius: 2px;    
+}
+
+.ribbon-tabs > li > a:hover {
+    background-color: #d8d8d8;
+    border: 1px solid #a8a8a8;
+    border-bottom: 0px solid transparent;
+    box-shadow:  inset 10px 10px 140px 0px rgba(0,0,0,0.1), inset 0px -1px 0px 0px rgba(200,200,200,1);
+    padding: 4px 8px;    
+}
+
+.tab-content {    
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: 0px solid transparent;
+    min-height: 50px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.tab-content > .active {
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 auto;
+}
+
+.ribbon-content {    
+    background: linear-gradient(to bottom, #f8f8f8 70%, #f0f0f0 100%);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 0px solid transparent;
+    min-height: 50px;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.ribbon-content > .active {
+    display: block;
+}
+
+.slide-content {    
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: transparent;
+    min-height: 50px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.slide-content > .active {
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 auto;
+}
+
+.borderless {
+    border-radius: 0px;
+    border: 0px solid transparent;
+}
+
+.heavy-pad {
+    padding: 0px 15px;
+}
+
+.tkToolbarButton {
+    min-width: 24px;
+    min-height: 24px;
+    box-sizing: content-box;
+    display: inline-block;
+    margin: auto 0px;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(0,0,0,0);
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px;
+    text-decoration: none;
+    border: 0px solid transparent;
+}
+
+.tkToolbarButton:hover {
+    background-color: rgba(9,128,184,0.4);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tkToolbarButton:active {
+    background-color: rgba(9,128,184,0.2);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tkToolbarButton:focus {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tkToolbarButton:visited {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    cursor: pointer;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+}
+
+.dropdown_content {
+    flex-flow: row;
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
+    display: none;
+    position: absolute;
+    top: 40px;
+    background-color: rgba(0,0,0,.95);
+    min-width: 400px;
+    box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.show {
+    display: block;
+}
+
+.flex_show {
+    display: flex;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.shadow
+{
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Design Tab */
+.designer_content {
+    flex-flow: row;
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
+    display: flex;
+    position: absolute;
+    background-color: transparent;
+    z-index: 1;
+}
+
+.left_pane {
+    overflow: auto;
+    padding: 5px;
+    flex: 0 1 200px;
+    width: 200px;
+}
+
+.right_pane {
+    flex: 1 1 200px;
+    padding: 10px;
+    border-left: 1px solid rgba(0,0,0,.025);
+    background-color: rgba(0,0,0,.1);
+    overflow: auto;
+}
+
+.palette_button {    
+    text-align: left;
+    background-color: transparent;
+    border: 0px solid #5193b3;
+    box-sizing: content-box;
+    display: inline-block;
+    width: calc(100% - 10px);
+    cursor: pointer;
+    color: black;
+    font-size: 12px;
+    padding: 4px;
+    text-decoration: none;
+}
+
+.palette_button:hover {
+    background-color: rgba(9,128,184,0.2);
+    color: black;
+    text-decoration: none;
+}
+
+.palette_button:active {
+    color: black;
+    background-color: rgba(9,128,184,0.4);
+    text-decoration: none;
+}
+
+.palette_button:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.palette_button:visited {
+    color: black;
+    text-decoration: none;
+}
+
+.img_palette_button {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 4px 10px;
+}
+
+h5 {
+    color: rgba(0,0,0,0.8);
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.caption {
+    display: block;
+    font-style: italic;
+    margin: 4px;
+    color: rgba(0,0,0,0.6);
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    transition: all 0.3s ease-in-out;
+    background: linear-gradient(to bottom, #51b8eb 0%, #429de8 100%);
+    background-color: #429de8;
+    border: 1px solid #2571a8;
+    box-shadow: inset 0px 0px 100px 0px rgba(0,0,0,0.25);
+    color: white;
+}
+
+ .list-group-item:hover {
+    transition: all 0.3s ease-in-out;
+    background-color: #74c2eb;
+    border: 1px solid #3194dc;
+    box-shadow: inset 0px 0px 0px 0px rgba(0,0,0,0);
+    color: rgba(0, 0, 0, 0.9);
+ }
+
+.tkToolbarIconSmall {
+    display: block;
+    margin: auto;    
+    width: 100%;
+    height: 100%;
+}
+/* tkVideoPlayer */
+.tkVideoPlayer {
+    position: relative;
+    width: 100%;
+    background-color: black;
+    height: 100%;
+}
+
+.tkVideoInnerPanel {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: transparent;
+}
+
+.tkVideoPlayerControls {
+    position: absolute;
+    bottom: 0px;
+    margin: 0px;
+    padding: 2px;
+    height: 32px;
+    width: 100%;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(10px);
+    webkit-backdrop-filter: blur(10px);
+    z-index: 100;
+}
+
+.tkVideoButton {
+    transition: all 0.3s ease-in-out;
+    width: 24px;
+    height: 24px;
+    box-sizing: content-box;
+    display: inline-block;
+    margin: auto 0px;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(0,0,0,0);
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px;
+    text-decoration: none;
+    border: 0px solid transparent;
+}
+
+@media (max-width: 600px) {
+    .tkVideoPlayerControls {    
+        height: 52px;
+    }
+    .tkVideoButton {
+        width: 45px;
+        height: 45px;
+    }
+	.tkButtonText {
+		font-size: 20px;
+	}
+	
+	input {
+		font-size: 20px;
+	}
+	
+	body {
+		font-size: 20px;
+    }
+    
+    .tkDialog {
+        min-width: 90% !important;
+    }
+
+    .tkDialogTitle {
+        font-size: 24px;
+        font-weight: bolder;
+    }
+}
+
+.tkVideoButton:hover {
+    background-color: rgba(9,128,184,0.6);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tkVideoButton:active {
+    background-color: rgba(9,128,184,0.4);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tkVideoButton:focus {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tkVideoButton:visited {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.tkLightsOutDiv {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    top: 0px;
+    left: 0px;
+    position: fixed;
+    display: block;
+}
+
+/* Dialog */
+.tkDialog {   
+    min-width: 35%;
+    max-width: 80%;
+    font-size: medium;
+    color: rgba(0,0,0,0.9);
+    background-color: white;
+    position: fixed;
+    display: table;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0) translateY(-50%);
+    z-index: 8888;
+    padding:0px;
+    border-radius: 0px;
+    border: 1px solid rgba(0,0,0,1);
+}
+
+.tkDialogTitle {
+    font-size: 20px;
+	margin: 0px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgba(217, 217, 217, 0.78) 100%);
+    box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.05);
+    font-family: 'Roboto Semibold', sans-serif;
+    border-radius: 0px;
+    color: rgba(0, 0, 0, 0.78);
+}
+
+@media (max-width: 600px) {
+    .tkDialog {    
+        min-width: 90%;
+    }
+	.tkColorDialog {		
+        min-width: 90%;
+	}
+}
+
+.tkDialogButtonArea {
+    text-align: center;    
+    padding: 5px;
+    text-align: center;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%);
+    box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto Semibold', sans-serif;
+    color: rgba(0,0,0,0.9);
+    border-radius: 0px;
+}
+
+.tkDialogButtonArea .tkButton, .tkDialogButtonArea .tkRedButton, .tkDialogButtonArea .tkBlueButton {	
+    min-width: 80px;
+}
+
+.tkDialogContentArea {
+    padding: 10px;
+    text-align: center;
+}
+
+
+.tkAboutDialogLogo {
+    font-family: 'Homenaje', sans-serif;
+    font-weight: bold;
+    background: linear-gradient(to top, hsla(20, 77%, 60%, 1.00) 0%, hsla(20, 77%, 42%, 1.00) 100%); 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: hsla(20, 77%, 40%, 1.00);
+    padding: 0px;
+    margin: 0px;
+    font-size: 64px;
+}
+
+.tkAboutDialogCredits {
+    padding: 3px;
+}
+
+.tkColorDialog {
+    width: 60%;
+}
+
+.tkFontDialog {
+    width: 60%;
+}
+
+/* Font */
+.tkFontPicker {
+    display: flex;
+    flex-flow: column;
+}
+
+.tkFontPickerPreview {
+    height: 6em;
+    background-color: white;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.tkFontPickerTitle {
+    text-align: left;
+    font-size: smaller;
+    font-weight: lighter;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+/* Color */
+			
+.tkColorSlider {
+  -webkit-appearance: none !important;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  margin: auto; 
+  border-radius: 2px;
+  margin-bottom: 10px;
+  box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.3), inset 0px 0px 0px 1px rgba(0,0,0,0.3);
+  outline: none;
+}
+
+.tkColorSlider:hover {
+  background-color: white;
+  outline: none;
+}
+
+.tkColorSlider::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  width: 13px;
+  height: 35px;
+  background-color: transparent;
+  border: 1px solid rgba(0,0,0,0.5);
+  box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.6), inset 0px 0px 0px 1px rgba(255,255,255,0.8);
+  border-radius: 2px;
+}
+
+.tkColorSlider::-webkit-slider-thumb:hover {
+  background-color: rgba(255,255,255,0.1);
+  border: 1px solid rgba(0,0,0,0.4);
+  box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.8), inset 0px 0px 0px 1px rgba(255,255,255,0.9);
+ 
+}
+
+.tkColorSlider::-webkit-slider-thumb:active {
+  background-color: rgba(255,255,255,0.1);
+  border: 1px solid rgba(0,0,0,0.6);
+  box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.8), 0px 0px 3px rgba(0,0,0,0.8);
+}
+
+.tkColorSliderContainer {
+	background-image: url("transparency.png");
+    border-radius: 2px;
+	margin-bottom: 10px;
+	height: 35px;
+}
+
+.tkColorPicker {
+    display: flex;
+    flex-flow: row;
+}
+
+.tkColorPickerLeft {
+    flex: 1;
+}
+
+.tkColorPickerRight {
+    margin-left: 10px;
+}
+
+.tkColorPickerPreviewContainer {	
+    background-image: url("transparency.png");
+    border-radius: 2px;
+    margin: 5px auto;
+}
+
+.tkColorPickerPreview {
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+    padding-left: 5px;
+    position: relative;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: black;
+}
+
+.tkSlider {
+    cursor: pointer;
+    height: 25px;
+}
+
+.tkSliderTitle {
+    text-align: center;
+    font-size: 14px;
+}
+
+.tkTextInput {
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    color: rgba(0, 0, 0, 0.6);
+    text-align: left;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 2px;
+	padding: 2px;
+    outline: solid 1px transparent;
+}
+
+.tkTextInput:focus {
+    outline: solid 1px hsla(192, 85%, 42%, 1.00);
+}
+
+.tkTextEdit {
+    transition: all 0.3s ease-in-out;
+    background: white;
+    color: rgba(0, 0, 0, 0.8);
+    display: block;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 2px;
+    outline: solid 1px transparent;
+}
+
+.tkTextEdit:focus {
+    outline: solid 1px hsla(192, 85%, 42%, 1.00);
+}
+
+.tkTooltip {
+    background: linear-gradient(to bottom, rgba(0,0,0,.8) 0%, rgba(0,0,0,1) 100%);
+    box-shadow: inset 0px 0px 0px 1px rgba(255,255,255,0.05);
+    border: 1px solid rgba(0, 0, 0, 1);
+    font-family: 'Roboto Semibold', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.9);
+    border-radius: 6px;
+    padding: 5px 10px;
+    float: right;
+    bottom: -20px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 9999999999;
+
+    visibility: hidden;
+    opacity: 0; 
+    transition: visibility 0s .3s, opacity .3s linear;white-space: nowrap;
+}
+
+.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .3s linear;
+}
+
+.tkWorkspace {
+	background: rgba(0,0,0,0.1);
+	width: 100%;
+	height: 100%;
+}

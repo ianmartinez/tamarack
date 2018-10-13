@@ -2,17 +2,20 @@
 <html lang="en">
 	<head>
 		<!-- Bootstrap CSS -->
-		<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+		<link href="../bootstrap/bootstrap.min.css" rel="stylesheet">
+
 		<!-- Tamarack CSS -->
 		<link href="../tamarack/tamarack.css" rel="stylesheet">
 	</head>
 	<body>
 		<!-- jQuery -->
 		<script src="../jquery/jquery.min.js"></script>
-		<!-- Tamarack JS -->
-		<script src="../tamarack/tamarack.js"></script>
+		<!-- Popper JS -->
+		<script src="../popper/popper.min.js"></script>
 		<!-- Bootstrap JS -->
-		<script src="../bootstrap/js/bootstrap.min.js"></script>
+		<script src="../bootstrap/bootstrap.min.js"></script>
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack-core.js"></script>
 		
 		<script>
 			var doc = new tkDocument();
@@ -24,8 +27,7 @@
 			btn.text = "Toss Coin!";
 			doc.add(btn);
 			
-			btn.element.onclick = () => 
-			{
+			btn.element.onclick = () => {
 				var new_line = new tkText("p");
 				var flip_coin = (random(0,1) == 0) ? "Heads" : "Tails";
 				
