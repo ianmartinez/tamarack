@@ -121,14 +121,25 @@ class tkDialog extends tkWidget
 					break;
 				case tkDialogResult.CANCEL:
 					button.text = "Cancel";
+					button.className = "btn btn-secondary";
 					button.element.onclick = function() {
 						result = tkDialogResult.CANCEL;
 						_on_dialog_result(result);
 						dialog.close();
 					};
 					break;
+				case tkDialogResult.CLOSE:
+						button.text = "Close";
+						button.className = "btn btn-secondary";
+						button.element.onclick = function() {
+							result = tkDialogResult.CLOSE;
+							_on_dialog_result(result);
+							dialog.close();
+						};
+						break;
 				case tkDialogResult.ABORT:
 					button.text = "Abort";
+					button.className = "btn btn-danger";
 					button.element.onclick = function() {
 						result = tkDialogResult.ABORT;
 						_on_dialog_result(result);
@@ -137,6 +148,7 @@ class tkDialog extends tkWidget
 					break;
 				case tkDialogResult.IGNORE:
 					button.text = "Ignore";
+					button.className = "btn btn-secondary";
 					button.element.onclick = function() {
 						result = tkDialogResult.IGNORE;
 						_on_dialog_result(result);
@@ -153,6 +165,7 @@ class tkDialog extends tkWidget
 					break;
 				case tkDialogResult.NO:
 					button.text = "No";
+					button.className = "btn btn-secondary";
 					button.element.onclick = function() {
 						result = tkDialogResult.NO;
 						_on_dialog_result(result);
@@ -161,6 +174,7 @@ class tkDialog extends tkWidget
 					break;
 				case tkDialogResult.RETRY:
 					button.text = "Retry";
+					button.className = "btn btn-secondary";
 					button.element.onclick = function() {
 						result = tkDialogResult.RETRY;
 						_on_dialog_result(result);
@@ -172,20 +186,12 @@ class tkDialog extends tkWidget
 			this.modalFooter.appendChild(button.element);
 			this.choicesButtons.push(button);
 		}
-
-		document.onkeyup = function(e) {
-			if (e.keyCode == 27) { // esc
-				$(this.element).modal('hide')
-			}
-		};
 	}
 
 	close()
 	{
 		this.isOpen = false;
-		$(tkDialogLightsOutDiv).fadeOut();
-		this.removeFromElement(document.body);
-		this.fadeOut();
+		$(this.element).modal('hide');
 	}
 }
 
