@@ -484,7 +484,27 @@ class tkControl
 		this.width = _width;
 		this.height = _height;
 	}
+
+	get padding() 
+	{
+		return this.element.style.padding;
+	}
+
+	set padding(_padding) 
+	{
+		this.element.style.padding = _padding;
+	}
 	
+	get margin() 
+	{
+		return this.element.style.margin;
+	}
+
+	set margin(_margin) 
+	{
+		this.element.style.margin = _margin;
+	}
+		
 	clear()
 	{
 		while (this.element.firstChild) 
@@ -792,7 +812,7 @@ class tkButton extends tkWidget
 
 		this.element = make("button");
 		this.element.type = "button";
-		this.className = ((_button_type) ? _button_type : "btn btn-primary ") + "tkButton";
+		this.className = ((_button_type) ? _button_type : "btn btn-primary");
 		
 		this.imageWidget = new tkImage();
 		this.imageWidget.className = "tkButtonImage";
@@ -1172,10 +1192,13 @@ class tkNotebookPage
 	{
 		// A <li> that holds the tab button
 		this.tabContainer = make("li");
+		this.tabContainer.className = "nav-item";
 		
 		// A <a> that makes up the tab button
 		this.tab = make("a");
+		this.tab.className = "nav-link";
 		this.tab.setAttribute("data-toggle","tab");
+		this.tab.role = "tab";
 		this.tabContainer.appendChild(this.tab);
 		this.tab.setAttribute("href","#"+_id);
 		
@@ -1187,6 +1210,7 @@ class tkNotebookPage
 			is brought up when the tab is clicked	*/
 		this.contentArea = make("div");
 		this.contentArea.id = _id;
+		this.contentArea.role = "tabpanel";
 		this.contentArea.className = "tab-pane fade";
 	}
 	
@@ -1241,18 +1265,22 @@ class tkNotebook extends tkWidget
 		
 		this.tabBar = make("ul");
 		this.tabBar.className = "nav nav-tabs";
+		this.tabBar.role = "tablist";
 		this.element.appendChild(this.tabBar);
 		
 		this.contentPanel = make("div");
 		this.contentPanel.className = "tab-content";
 		this.element.appendChild(this.contentPanel);
-		this.activeIndex = 0;
 		
 		/*	Whether or not to wrap around when the
 			end of index is reached*/
 		this.wrap = true;
+
+		/* Whether to jump to a newly added tab */
+		this.newestTabActive = false;
 		
 		this.tabs = [];
+		this.activeIndex = 0;
 	}
 	
 	addPage(_page)
@@ -1261,8 +1289,10 @@ class tkNotebook extends tkWidget
 		this.contentPanel.appendChild(_page.contentArea);
 		this.tabs.push(_page);
 		
-		if (this.getIndex(_page) == this.activeIndex)
+		if (this.newestTabActive)
 			this.active = _page;
+		else if (this.active == undefined)
+			this.activeIndex = 0;
 	}
 	
 	addPages()
@@ -1284,53 +1314,54 @@ class tkNotebook extends tkWidget
 	{
 		if(!_page) return;
 		// Make all tabs inactive
-		for(var i=0;i<this.tabBar.childNodes.length;i++)
-			this.tabBar.childNodes[i].className = " ";
+		for(var i=0;i<this.tabBar.childNodes.length;i++) {
+			this.tabBar.childNodes[i].className = "nav-item";
+			this.tabBar.childNodes[i].firstChild.className = "nav-link";
+		}
 		for(var i=0;i<this.contentPanel.childNodes.length;i++)
 			this.contentPanel.childNodes[i].className = "tab-pane fade";
 		
-		_page.tabContainer.className = "active";
-		_page.contentArea.className = "tab-pane fade in active";
-
-		this.activeIndex = this.getIndex(_page);
+		_page.tabContainer.className = "nav-item active";
+		_page.tab.className = "nav-link active show";
+		_page.contentArea.className = "tab-pane fade show active";
 	}
 	
-	getActiveIndex()
+	get activeIndex()
 	{
 		for(var i=0;i<this.tabBar.childNodes.length;i++)
-			if (this.tabBar.childNodes[i].classList.contains("active"))
+			if (this.tabBar.childNodes[i].firstChild.classList.contains("active"))
 				return i;
+	}
+	
+	set activeIndex(_index)
+	{
+		this.active = this.tabs[_index];
 	}
 	
 	getActive()
 	{
-		return this.tabs[this.getActiveIndex()];
+		return this.tabs[this.activeIndex];
 	}
 	
 	getIndex(_page)
 	{
 		return this.tabs.indexOf(_page);
 	}
-	
-	goToIndex(_index)
-	{
-		this.active = this.tabs[_index];
-	}
-	
+		
 	back()
 	{
-		if (this.getActiveIndex()-1 < 0 && this.wrap)
-			this.goToIndex(this.tabs.length-1);
+		if (this.activeIndex-1 < 0 && this.wrap)
+			this.activeIndex = this.tabs.length-1;
 		else
-			this.goToIndex(Math.max(0, this.getActiveIndex()-1));		
+			this.activeIndex = Math.max(0, this.activeIndex-1);		
 	}
 	
 	next()
 	{
-		if (this.getActiveIndex()+1 >= this.tabs.length && this.wrap)
-			this.goToIndex(0);
+		if (this.activeIndex+1 >= this.tabs.length && this.wrap)
+			this.activeIndex = 0;
 		else
-			this.goToIndex(Math.min(this.tabs.length-1, this.getActiveIndex()+1));		
+			this.activeIndex = Math.min(this.tabs.length-1, this.activeIndex+1);		
 	}
 }
 

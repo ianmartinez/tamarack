@@ -3,78 +3,79 @@ var tkDialogResult= {
   NOTHING: 0,
   OK: 1,
   CANCEL: 2,
-  ABORT: 3,
-  IGNORE: 4,
-  YES: 5,
-  NO: 6,
-  RETRY: 7
+  CLOSE: 3,
+  ABORT: 4,
+  IGNORE: 5,
+  YES: 6,
+  NO: 7,
+  RETRY: 8
 };
 
-var tkDialogLightsOutDiv;
 class tkDialog extends tkWidget
 {
 	constructor()
 	{
 		super();
 		this.element = make("div"); 
-		this.className = "tkDialog shadow";
+		this.className = "modal fade";
 
-		this.titleElement =  make("p");
+		this.modal = make("div");
+		this.modal.className = "modal-dialog modal-dialog-centered";
+		this.modal.role = "document";
+		this.element.appendChild(this.modal);
+
+		this.modalContent = make("div");
+		this.modalContent.className = "modal-content";
+		this.modal.appendChild(this.modalContent);
+				
+		this.modalHeader = make("div");
+		this.modalHeader.className = "modal-header";
+		this.modalContent.appendChild(this.modalHeader);
+
+		this.modalTitle =  make("h5");
 		this.titleNode = say("");
 		this.title = "";
-		this.titleElement.appendChild(this.titleNode);
-		this.titleElement.className = "tkDialogTitle";
-		this.element.appendChild(this.titleElement);
+		this.modalTitle.appendChild(this.titleNode);
+		this.modalTitle.className = "modal-title";
+		this.modalHeader.appendChild(this.modalTitle);
 
-		this.contentArea = make("div");
-		this.contentArea.className = "tkDialogContentArea";
-		this.element.appendChild(this.contentArea);
+		this.modalBody = make("div");
+		this.modalBody.className = "modal-body";
+		this.modalContent.appendChild(this.modalBody);
 
-		this.buttonArea = make("div");
-		this.buttonArea.className = "tkDialogButtonArea";
-		this.element.appendChild(this.buttonArea);
+		this.modalFooter = make("div");
+		this.modalFooter.className = "modal-footer";
+		this.modalContent.appendChild(this.modalFooter);
 		
 		/* 	An array of tkDialogResult listing 
 			the buttons that are shown */
 		this.choices = [tkDialogResult.OK];
 		this.choicesButtons = [];
 
-		if (!tkDialogLightsOutDiv) 
-		{
-			var dialog = this;
-			tkDialogLightsOutDiv = make("div");
-			tkDialogLightsOutDiv.className = "tkLightsOutDiv";
-			tkDialogLightsOutDiv.style.display = "none";
-			tkDialogLightsOutDiv.style.zIndex = 99999;
-
-			document.body.appendChild(tkDialogLightsOutDiv);
-		}
-
-		this.element.style.zIndex = tkDialogLightsOutDiv.style.zIndex + 1;
 		this.isOpen = false;
 	}
 	
 	addContent(_content)
 	{
-		this.contentArea.appendChild(_content);
+		this.modalBody.appendChild(_content);
 	}
 	
 	removeContent(_content)
 	{
-		this.contentArea.removeChild(_content);
+		this.modalBody.removeChild(_content);
 	}
 
 	get title()
 	{
-		return this.titleNode.nodeValue;
+		return this.modalTitle.nodeValue;
 	}
 
 	set title(_title)
 	{
 		if (_title == "")
-			this.titleElement.style.display = "none";
+			this.modalTitle.style.display = "none";
 		else
-			this.titleElement.style.display = "block";
+			this.modalTitle.style.display = "block";
 
 		this.titleNode.nodeValue = _title;
 	}
@@ -84,30 +85,21 @@ class tkDialog extends tkWidget
 	show(_on_dialog_result)
 	{
 		this.isOpen = true;
-		$(tkDialogLightsOutDiv).fadeIn();
-		this.element.style.display = "none";
-		this.addToElement(document.body);
-		this.fadeIn();
-		this.element.style.display = "table";
+		$(this.element).modal('show')
 
 		if(!_on_dialog_result) _on_dialog_result = function() {};
 		
 		// Make sure to clear buttons from previous opening
-		var buttonArea = makeElement(this.buttonArea);
+		var buttonArea = makeElement(this.modalFooter);
 		buttonArea.clear();
 		
 		var dialog = this;
 
-		tkDialogLightsOutDiv.onclick = function() {
-			dialog.close();
-			_on_dialog_result(tkDialogResult.NOTHING);
-		};
-
 		this.choicesButtons = [];
 		if (this.choices.length < 1)
-			this.buttonArea.style.display = "none";
+			this.modalFooter.style.display = "none";
 		else
-			this.buttonArea.style.display = "block";
+			this.modalFooter.style.display = "block";
 
 		for(var i=0;i<this.choices.length;i++) 
 		{
@@ -121,7 +113,6 @@ class tkDialog extends tkWidget
 					break;
 				case tkDialogResult.OK:
 					button.text = "OK";
-					button.element.className = "tkBlueButton";
 					button.element.onclick = function() {
 						result = tkDialogResult.OK;
 						_on_dialog_result(result);
@@ -154,7 +145,6 @@ class tkDialog extends tkWidget
 					break;
 				case tkDialogResult.YES:
 					button.text = "Yes";
-					button.element.className = "tkBlueButton";
 					button.element.onclick = function() {
 						result = tkDialogResult.YES;
 						_on_dialog_result(result);
@@ -171,7 +161,6 @@ class tkDialog extends tkWidget
 					break;
 				case tkDialogResult.RETRY:
 					button.text = "Retry";
-					button.element.className = "tkBlueButton";
 					button.element.onclick = function() {
 						result = tkDialogResult.RETRY;
 						_on_dialog_result(result);
@@ -180,14 +169,13 @@ class tkDialog extends tkWidget
 					break;
 			}
 
-			this.buttonArea.appendChild(button.element);
+			this.modalFooter.appendChild(button.element);
 			this.choicesButtons.push(button);
 		}
 
 		document.onkeyup = function(e) {
 			if (e.keyCode == 27) { // esc
-				if(tkDialogLightsOutDiv.style.display != "none")
-					dialog.close();
+				$(this.element).modal('hide')
 			}
 		};
 	}
@@ -210,11 +198,11 @@ class tkAboutTamarackDialog extends tkDialog
 		var logo = sayP("tamarack ");
 		logo.className = "tkAboutDialogLogo";
 		var lines = [logo, sayP("Version " + getTamarackVersion()), sayP("By Ian Martinez")];
-		var credits = [	sayLine("Bootstrap","h3"),sayP("Copyright (c) 2011-2016 Twitter, Inc"),
+		var credits = [	sayLine("Bootstrap","h3"),sayP("Copyright (c) 2011-2018 Twitter, Inc"),
 						sayLine("jQuery","h3"),sayP("Copyright (c) JS Foundation"),
 						sayLine("Breeze Icons","h3"),sayP("Copyright (c) 2014 Uri Herrera and others"),];
 
-		var notebook = new tkNotebook();
+		this.notebook = new tkNotebook();
 
 		var aboutTab = new tkNotebookPage("Tamarack", "aboutTab");
 		lines.forEach((e) => aboutTab.addContent(e));
@@ -223,10 +211,8 @@ class tkAboutTamarackDialog extends tkDialog
 		creditsTab.contentArea.classList.add("tkAboutDialogCredits");
 		credits.forEach((e) => creditsTab.addContent(e));
 
-		notebook.addPages(aboutTab,creditsTab);
-		this.contentArea.style.padding = "0px";
-		this.contentArea.style.margin = "0px";
-		this.addContent(notebook.element);
+		this.notebook.addPages(aboutTab,creditsTab);
+		this.addContent(this.notebook.element);
 
 		this.choices = [tkDialogResult.OK];
 		this.title = "About";

@@ -3,11 +3,8 @@
 	<head>
 		<!-- Bootstrap CSS -->
 		<link href="../bootstrap/bootstrap.min.css" rel="stylesheet">
-
 		<!-- Tamarack CSS -->
-		<link href="../tamarack/tamarack.css" rel="stylesheet">
-	</head>
-	<body>
+		<link href="../tamarack/tamarack.css" rel="stylesheet">		
 		<!-- jQuery -->
 		<script src="../jquery/jquery.min.js"></script>
 		<!-- Popper JS -->
@@ -16,12 +13,14 @@
 		<script src="../bootstrap/bootstrap.min.js"></script>
 		<!-- Tamarack JS -->
 		<script src="../tamarack/tamarack-core.js"></script>
-		
+	</head>
+	<body>		
 		<script>
 			var doc = new tkDocument();
 			var btn = new tkButton();
 			
 			doc.title = "Coin Toss Demo";
+			doc.padding = "1rem";
 			doc.addElement(sayLine("Coin Toss","h1"));
 			
 			btn.text = "Toss Coin!";

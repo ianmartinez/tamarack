@@ -34,15 +34,8 @@ body {
     position: absolute;
     padding: 0px;
     background-color: white;
-    font-family: 'Roboto', sans-serif;
     font-size: 14px;
 }
-
-
-::selection {
-  background: hsla(195, 94%, 41%, 0.70); 
-  color: rgba(255,255,255,0.9);
-} 
 
 p {
     margin: 5px 0px 5px 0px;
@@ -50,4 +43,13 @@ p {
 
 button p {
     margin: 0px;
+}
+
+video {
+    position: relative;
+    background-color: black;
+    width: 700px;
+    height: 400px;
+    max-width: 100%;
+    max-height: 100%;
 }
