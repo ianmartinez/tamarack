@@ -67,9 +67,9 @@ class tkDialog extends tkWidget {
 
 	set title(_title) {
 		if (_title == "")
-			this.modalTitle.style.display = "none";
+			this.modalHeader.style.display = "none";
 		else
-			this.modalTitle.style.display = "block";
+			this.modalHeader.style.display = "block";
 
 		this.titleNode.nodeValue = _title;
 	}
