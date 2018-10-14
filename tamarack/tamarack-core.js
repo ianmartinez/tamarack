@@ -1,12 +1,15 @@
 // To make jQuery work in Electron
 if(typeof require == 'function') window.$ = window.jQuery = require('./../jquery/jquery.min.js');
 
-// Tamarack
-function getTamarackVersion() 
+class tamarack 
 {
-	return 0.6;
+	static get version()
+	{
+		return 0.6;
+	}
 }
 
+// global functions
 function makeParagraphs(_input) 
 {
 	var html_string = "";
@@ -15,29 +18,6 @@ function makeParagraphs(_input)
 		html_string += "<p>" + lines[i] + "</p>";
 	
 	return html_string;
-}
-
-function createLinearGradient(_angle_deg,_colors)
-{
-	var gradient = "linear-gradient(" + _angle_deg + "deg";
-	for(var i=0;i<_colors.length;i++)
-		gradient += ("," + _colors[i] + " " + toPercent(i,_colors.length));
-	return gradient + " )";
-}
-
-function toPercent(_value,_max)
-{
-	return ((_value*100)/_max) + "%";
-}
-
-function toPercentNum(_value,_max)
-{
-	return ((_value*100)/_max);
-}
-
-function fromPercent(_value,_max)
-{
-	return ((_value*_max)/100);
 }
 
 function say(_text) 
@@ -61,43 +41,63 @@ function sayLine(_text,_tag)
 	return element;
 }
 
-// global functions
 function make(_tag) 
 {
 	return document.createElement(_tag);
 }
 
-function random(_min,_max) 
+function createLinearGradient(_angle_deg, _colors)
 {
-    _min = Math.ceil(_min);
-	_max = Math.floor(_max);
-	return Math.floor(Math.random() * (_max - _min + 1)) + _min;
+	var gradient = "linear-gradient(" + _angle_deg + "deg";
+	for(var i=0;i<_colors.length;i++)
+		gradient += ("," + _colors[i] + " " + tkNumber.toPercentF(i,_colors.length));
+	return gradient + " )";
 }
 
-function randomRgb() 
+// Static classes
+class tkNumber
 {
-	return "rgb(" + random(0,255) + "," + random(0,255) + "," + random(0,255) + ")";
+	static random(_min,_max) 
+	{
+		_min = Math.ceil(_min);
+		_max = Math.floor(_max);
+		return Math.floor(Math.random() * (_max - _min + 1)) + _min;
+	}
+
+	static toPercent(_value,_max)
+	{
+		return ((_value*100)/_max);
+	}
+
+	static toPercentF(_value,_max)
+	{
+		return this.toPercent(_value, _max) + "%";
+	}
+
+	static fromPercent(_value,_max)
+	{
+		return ((_value*_max)/100);
+	}
 }
 
-function randomRgba() 
+class tkArray
 {
-	return "rgba(" + random(0,255) + "," + random(0,255) + "," + random(0,255) + "," + Math.random() + ")";
+	static compare(_arr) 
+	{
+		for(var i=0;i<_arr.length;i++)
+			for(var j=0;j<_arr.length;j++)
+				if (_arr[i]!=_arr[j])
+					return false;
+		return true;
+	}
+	
+	static isArray(_arr) 
+	{
+		return (_arr.constructor === Array);
+	}
 }
 
-function compareArray(_arr) 
-{
-	for(var i=0;i<_arr.length;i++)
-		for(var j=0;j<_arr.length;j++)
-			if (_arr[i]!=_arr[j])
-				return false;
-	return true;
-}
-
-function isArray(_arr) 
-{
-	return (_arr.constructor === Array);
-}
-
+// Regular classes
 class tkFont 
 {
 	constructor(_family,_size,_weight,_style) 
@@ -137,18 +137,24 @@ class tkColor
 			this.parse(_css);
 	}
 
-	equals(_other) 
+	static randomRgbCss() 
 	{
-		if(	_other.h == this.h && _other.s == this.s && _other.l == this.a && _other.a == this.a)
-			return true;
-		return false;
+		return "rgb(" + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + ")";
 	}
 
-	isColor(_color)
+	static randomRgbaCss() 
+	{
+		return "rgba(" + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + Math.tkNumber.random() + ")";
+	}
+
+	/* As of now tamarack does not accept colors formatted in names,
+	   such as "black" or "transparent", instead use #000000 or rgba(0,0,0,0). */ 
+	static isColor(_color)
 	{
 		if (_color === "" || _color === "inherit" || _color === "transparent") 
 			return false;
 
+		// Test if color changes from the test color
 		var image = make("img");
 		image.style.color = "rgb(0, 0, 0)";
 		image.style.color = _color;
@@ -156,19 +162,28 @@ class tkColor
 		if (image.style.color !== "rgb(0, 0, 0)") 
 			return true; 
 
+		// Test again to account for the previously used test color
 		image.style.color = "rgb(255, 255, 255)";
 		image.style.color = _color;
+
 		return (image.style.color !== "rgb(255, 255, 255)");
+	}	
+
+	equals(_other) 
+	{
+		if(	_other.h == this.h && _other.s == this.s && _other.l == this.a && _other.a == this.a)
+			return true;
+		return false;
 	}
 	
 	randomize()	
 	{
-		this.fromRgba(random(0,255),random(0,255),random(0,255),Math.random());
+		this.fromRgba(tkNumber.random(0,255),tkNumber.random(0,255),tkNumber.random(0,255),Math.tkNumber.random());
 	}
 
 	randomizeOpaque() 
 	{
-		this.fromRgba(random(0,255),random(0,255),random(0,255),1);
+		this.fromRgba(tkNumber.random(0,255),tkNumber.random(0,255),tkNumber.random(0,255),1);
 	}
 
 	clone()	
@@ -335,7 +350,7 @@ class tkColor
 
 	isGray()
 	{
-		return (compareArray([this.r,this.g,this.b]));
+		return (tkArray.compare([this.r,this.g,this.b]));
 	}
 }
 

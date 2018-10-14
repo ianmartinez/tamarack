@@ -201,7 +201,7 @@ class tkAboutTamarackDialog extends tkDialog
 	{
 		super();
 
-		var logo = sayP("tamarack " + getTamarackVersion());
+		var logo = sayP("tamarack " + tamarack.version);
 		logo.className = "h5 tkAboutDialogLogo";
 		var lines = [logo, sayP("By Ian Martinez")];
 		var credits = [	sayLine("Bootstrap","h5"), sayP("Copyright (c) 2011-2018 Twitter, Inc"),
@@ -500,7 +500,6 @@ class tkColorTextInput extends tkTextInput
 
 	isValidColor()
 	{
-		var new_color = new tkColor();
-		return new_color.isColor(this.element.value);
+		return tkColor.isColor(this.element.value);
 	}
 }
