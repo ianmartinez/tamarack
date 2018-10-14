@@ -26,9 +26,9 @@
 			var videoControls = [];
 			
 			doc.title = "Playlist Demo";
+			doc.padding = "1rem";
 			
-			for (var i=0; i<videos.length; i++)
-			{
+			for (var i=0; i<videos.length; i++)	{
 				var slide = new tkNotebookPage();
 				var video = new tkVideoPlayer();
 				video.source = videos[i];
@@ -61,7 +61,7 @@
 			var fullScreenButton = new tkButton();
 			fullScreenButton.text = "Make Fullscreen";
 			fullScreenButton.e.onclick = () => {
-				videoControls[slideshow.getActiveIndex()].makeFullscreen();
+				videoControls[slideshow.activeIndex].makeFullscreen();
 			};
 			
 			doc.add(backButton, nextButton, fullScreenButton, slideshow);

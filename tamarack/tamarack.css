@@ -94,6 +94,10 @@ video {
     border-top: 0px solid transparent;
 }
 
+.tkSlideshow .tab-content {
+    border: 0px solid transparent;
+}
+
 .tkColorSlider {
     -webkit-appearance: none !important;
     width: 100%;

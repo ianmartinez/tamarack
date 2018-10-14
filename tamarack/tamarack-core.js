@@ -1317,7 +1317,17 @@ class tkNotebook extends tkWidget
 	{
 		this.active = this.tabs[_index];
 	}
+
+	get tabsVisible() 
+	{
+		return (this.tabBar.style.display != "none");
+	}
 	
+	set tabsVisible(_visible) 
+	{
+		this.tabBar.style.display = ((_visible) ? "block" : "none");
+	}
+
 	getActive()
 	{
 		return this.tabs[this.activeIndex];
@@ -1342,6 +1352,16 @@ class tkNotebook extends tkWidget
 			this.activeIndex = 0;
 		else
 			this.activeIndex = Math.min(this.tabs.length-1, this.activeIndex+1);		
+	}
+}
+
+class tkSlideshow extends tkNotebook
+{
+	constructor()
+	{
+		super();
+		this.element.className = this.element.className + " tkSlideshow";
+		this.tabsVisible = false;
 	}
 }
 
@@ -1587,15 +1607,6 @@ class tkRibbonGroup extends tkWidget
 	removeButton(_button)
 	{
 		this.contentArea.removeChild(_button);
-	}
-}
-
-class tkSlideshow extends tkNotebook
-{
-	constructor()
-	{
-		super();
-		this.element.className = this.element.className + " tkSlide";
 	}
 }
 
