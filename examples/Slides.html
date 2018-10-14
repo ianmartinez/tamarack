@@ -20,11 +20,12 @@
 	<body>	
 		<script>
 			var doc = new tkDocument("Slides Demo");
+			doc.padding = "1rem";
 			var slideshow = new tkSlideshow();
 			var photos = ["resources/1.jpg","resources/2.jpg","resources/3.jpg"];
 			
 			for (var i=0; i<photos.length; i++)	{
-				var slide = new tkNotebookPage();
+				var slide = new tkSlide("slide" + i);
 				var photo = new tkImage();
 				photo.element.className = "shadow";
 				var caption = new tkText("p");

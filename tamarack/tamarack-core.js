@@ -1243,6 +1243,12 @@ class tkRibbonGroup extends tkWidget {
 	}
 }
 
+class tkSlide extends tkNotebookPage {
+	constructor(_id) {
+		super("", _id);
+	}
+}
+
 class tkSlideshow extends tkNotebook {
 	constructor() {
 		super();
