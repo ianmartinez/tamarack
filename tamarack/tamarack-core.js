@@ -1,17 +1,14 @@
 // To make jQuery work in Electron
 if(typeof require == 'function') window.$ = window.jQuery = require('./../jquery/jquery.min.js');
 
-class tamarack 
-{
-	static get version()
-	{
+class tamarack {
+	static get version() {
 		return 0.6;
 	}
 }
 
 // global functions
-function makeParagraphs(_input) 
-{
+function makeParagraphs(_input) {
 	var html_string = "";
 	var lines = _input.split("\n");
 	for(var i=0;i<lines.length;i++)
@@ -20,34 +17,29 @@ function makeParagraphs(_input)
 	return html_string;
 }
 
-function say(_text) 
-{
+function say(_text) {
 	return document.createTextNode(_text);
 }
 
-function sayP(_text) 
-{
+function sayP(_text) {
 	var textNode = document.createTextNode(_text);
 	var p = make("p");
 	p.appendChild(textNode);
 	return p;
 }
 
-function sayLine(_text,_tag) 
-{
+function sayLine(_text,_tag) {
 	var textNode = document.createTextNode(_text);
 	var element = make(_tag);
 	element.appendChild(textNode);
 	return element;
 }
 
-function make(_tag) 
-{
+function make(_tag) {
 	return document.createElement(_tag);
 }
 
-function createLinearGradient(_angle_deg, _colors)
-{
+function createLinearGradient(_angle_deg, _colors) {
 	var gradient = "linear-gradient(" + _angle_deg + "deg";
 	for(var i=0;i<_colors.length;i++)
 		gradient += ("," + _colors[i] + " " + tkNumber.toPercentF(i,_colors.length));
@@ -55,35 +47,28 @@ function createLinearGradient(_angle_deg, _colors)
 }
 
 // Static classes
-class tkNumber
-{
-	static random(_min,_max) 
-	{
+class tkNumber {
+	static random(_min,_max) {
 		_min = Math.ceil(_min);
 		_max = Math.floor(_max);
 		return Math.floor(Math.random() * (_max - _min + 1)) + _min;
 	}
 
-	static toPercent(_value,_max)
-	{
+	static toPercent(_value,_max) {
 		return ((_value*100)/_max);
 	}
 
-	static toPercentF(_value,_max)
-	{
+	static toPercentF(_value,_max)	{
 		return this.toPercent(_value, _max) + "%";
 	}
 
-	static fromPercent(_value,_max)
-	{
+	static fromPercent(_value,_max)	{
 		return ((_value*_max)/100);
 	}
 }
 
-class tkArray
-{
-	static compare(_arr) 
-	{
+class tkArray {
+	static compare(_arr) {
 		for(var i=0;i<_arr.length;i++)
 			for(var j=0;j<_arr.length;j++)
 				if (_arr[i]!=_arr[j])
@@ -91,17 +76,14 @@ class tkArray
 		return true;
 	}
 	
-	static isArray(_arr) 
-	{
+	static isArray(_arr) {
 		return (_arr.constructor === Array);
 	}
 }
 
 // Regular classes
-class tkFont 
-{
-	constructor(_family,_size,_weight,_style) 
-	{
+class tkFont {
+	constructor(_family,_size,_weight,_style) {
 		this.family = _family;
 		this.size = _size;
 		this.weight = _weight;
@@ -109,8 +91,7 @@ class tkFont
 		this.variant = "";
 	}
 
-	getCss() 
-	{
+	getCss() {
 		return this.style + " " + 
 		this.variant + " " +
 		this.weight + " " +
@@ -119,10 +100,8 @@ class tkFont
 	}
 }
 
-class tkColor 
-{
-	constructor(_css) 
-	{
+class tkColor {
+	constructor(_css) {
 		this.r = 0;
 		this.g = 0;
 		this.b = 0;
@@ -137,20 +116,17 @@ class tkColor
 			this.parse(_css);
 	}
 
-	static randomRgbCss() 
-	{
+	static randomRgbCss() {
 		return "rgb(" + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + ")";
 	}
 
-	static randomRgbaCss() 
-	{
+	static randomRgbaCss() {
 		return "rgba(" + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + Math.tkNumber.random() + ")";
 	}
 
 	/* As of now tamarack does not accept colors formatted in names,
 	   such as "black" or "transparent", instead use #000000 or rgba(0,0,0,0). */ 
-	static isColor(_color)
-	{
+	static isColor(_color) {
 		if (_color === "" || _color === "inherit" || _color === "transparent") 
 			return false;
 
@@ -169,32 +145,27 @@ class tkColor
 		return (image.style.color !== "rgb(255, 255, 255)");
 	}	
 
-	equals(_other) 
-	{
+	equals(_other) 	{
 		if(	_other.h == this.h && _other.s == this.s && _other.l == this.a && _other.a == this.a)
 			return true;
 		return false;
 	}
 	
-	randomize()	
-	{
+	randomize()	{
 		this.fromRgba(tkNumber.random(0,255),tkNumber.random(0,255),tkNumber.random(0,255),Math.tkNumber.random());
 	}
 
-	randomizeOpaque() 
-	{
+	randomizeOpaque() {
 		this.fromRgba(tkNumber.random(0,255),tkNumber.random(0,255),tkNumber.random(0,255),1);
 	}
 
-	clone()	
-	{
+	clone()	{
 		var new_color = new tkColor();
 		new_color.fromHsla(this.h,this.s,this.l,this.a);
 		return new_color;
 	}
 
-	fromRgba(_r,_g,_b,_a) 
-	{
+	fromRgba(_r,_g,_b,_a) {
 		var hsl = this.rgbToHsl(_r,_g,_b);
 		this.r = _r;
 		this.g = _g;
@@ -207,8 +178,7 @@ class tkColor
 		this.a = _a;
 	}
 
-	fromHsla(_h,_s,_l,_a) 
-	{
+	fromHsla(_h,_s,_l,_a) {
 		var rgb = this.hslToRgb(_h,_s,_l);
 		this.r = rgb[0];
 		this.g = rgb[1];
@@ -221,14 +191,12 @@ class tkColor
 		this.a = _a;
 	}
 
-	fromHex(_hex) 
-	{
+	fromHex(_hex) {
 		var rgb = this.hexToRgb(_hex);
 		this.fromRgba(rgb[0],rgb[1],rgb[2],this.a);
 	}
 
-	parse(_input)
-	{
+	parse(_input) {
 		if(_input.startsWith("#")) {
 			this.fromHex(_input);
 		} else if (_input.startsWith("hsl")) {
@@ -254,55 +222,50 @@ class tkColor
 		}
 	}
 
-	getHslaCss()
-	{
+	getHslaCss() {
 		return "hsla(" + this.h.toFixed(0) + ", " + this.s.toFixed(0) + "%, " + this.l.toFixed(0) + "%, " + this.a.toFixed(2) + ")";
 	}
 
-	getRgbaCss()
-	{
+	getRgbaCss() {
 		return "rgba(" + this.r.toFixed(0) + ", " + this.g.toFixed(0) + ", " + this.b.toFixed(0) + ", " + this.a.toFixed(2) + ")";
 	}
 
-	getHexCss()
-	{
-		return this.rgbToHex(this.r,this.g,this.b);
+	getHexCss()	{
+		return this.rgbToHex(this.r, this.g, this.b);
 	}
 
-	hslToRgb(h, s, l)
-	{
+	hslToRgb(_h, _s, _l) {
 		var r, g, b;
 
-		if(h>0) h /= 360;
-		if(s>0) s /= 100;
-		if(l>0) l /= 100;
+		if(_h>0) _h /= 360;
+		if(_s>0) _s /= 100;
+		if(_l>0) _l /= 100;
 
-		if(s == 0) {
+		if(_s == 0) {
 			r = g = b = l; // achromatic
 		} else {
-			var hue2rgb = function hue2rgb(p, q, t) {
-				if(t < 0) t += 1;
-				if(t > 1) t -= 1;
-				if(t < 1/6) return p + (q - p) * 6 * t;
-				if(t < 1/2) return q;
-				if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
-				return p;
+			var hue2rgb = function hue2rgb(_p,_q,_t) {
+				if(_t < 0) _t += 1;
+				if(_t > 1) _t -= 1;
+				if(_t < 1/6) return _p + (_q - _p) * 6 * _t;
+				if(_t < 1/2) return _q;
+				if(_t < 2/3) return _p + (_q - _p) * (2/3 - _t) * 6;
+				return _p;
 			}
 
-			var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-			var p = 2 * l - q;
-			r = hue2rgb(p, q, h + 1/3);
-			g = hue2rgb(p, q, h);
-			b = hue2rgb(p, q, h - 1/3);
+			var q = _l < 0.5 ? _l * (1 + _s) : _l + _s - _l * _s;
+			var p = 2 * _l - q;
+			r = hue2rgb(p, q, _h + 1/3);
+			g = hue2rgb(p, q, _h);
+			b = hue2rgb(p, q, _h - 1/3);
 		}
 
 		return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 	}
 
-	rgbToHsl(r, g, b)
-	{
-		r /= 255, g /= 255, b /= 255;
-		var max = Math.max(r, g, b), min = Math.min(r, g, b);
+	rgbToHsl(_r,_g,_b) {
+		_r /= 255, _g /= 255, _b /= 255;
+		var max = Math.max(_r, _g, _b), min = Math.min(_r, _g, _b);
 		var h, s, l = (max + min) / 2;
 
 		if(max == min) {
@@ -311,9 +274,9 @@ class tkColor
 			var d = max - min;
 			s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
 			switch(max) {
-				case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-				case g: h = (b - r) / d + 2; break;
-				case b: h = (r - g) / d + 4; break;
+				case _r: h = (_g - _b) / d + (_g < _b ? 6 : 0); break;
+				case _g: h = (_b - _r) / d + 2; break;
+				case _b: h = (_r - _g) / d + 4; break;
 			}
 			h /= 6;
 		}
@@ -321,8 +284,7 @@ class tkColor
 		return [h*360, s*100, l*100];
 	}
 
-	hexToRgb(_hex)
-	{
+	hexToRgb(_hex)	{
 		// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
 		var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
 		_hex = _hex.replace(shorthandRegex, function(m, r, g, b) {
@@ -333,75 +295,61 @@ class tkColor
 		return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : null;
 	}
 
-	rgbToHex(_r,_g,_b)
-	{
+	rgbToHex(_r,_g,_b) {
 		return "#" + ((1 << 24) + (_r << 16) + (_g << 8) + _b).toString(16).slice(1);
 	}
 
-	isDark()
-	{
+	isDark() {
 		return (this.l <= 50 && this.a > 0.4);
 	}
 	
-	isLight()
-	{
+	isLight() {
 		return (!this.isDark());
 	}
 
-	isGray()
-	{
+	isGray() {
 		return (tkArray.compare([this.r,this.g,this.b]));
 	}
 }
 
 // A control can be any html element
-class tkControl
-{	
-	constructor() 
-	{
+class tkControl {	
+	constructor() {
 		this.element = document.body;
 		this.element.id = "";
 	}
 	
-	get id() 
-	{
+	get id() {
 		return this.element.id;
 	}
 	
-	set id(_id) 
-	{
+	set id(_id) {
 		this.element.id = _id;
 	}
 	
-	get style()
-	{
+	get style() {
 		return this.element.style;
 	}
 	
 	// shorthand for this.element
-	get e()
-	{
+	get e()	{
 		return this.element;
 	}
 	
-	set e(_e)
-	{
+	set e(_e) {
 		this.element = _e;
 	}
 
-	get innerHtml() 
-	{
+	get innerHtml() {
 		return this.element.innerHTML;
 	}
 
-	set innerHtml(_html) 
-	{
+	set innerHtml(_html) {
 		this.element.innerHTML = _html;
 	}
 	
 	// fullscreen
-	makeFullscreen()
-	{
+	makeFullscreen() {
 		if (this.element.requestFullscreen)
 			this.element.requestFullscreen();
 		else if (this.element.msRequestFullscreen) 
@@ -412,8 +360,7 @@ class tkControl
 		  this.element.webkitRequestFullscreen();
 	}	
 
-	exitFullscreen()
-	{
+	exitFullscreen() {
 		if (document.exitFullscreen) 
 			document.exitFullscreen();
 		else if (document.webkitExitFullscreen)
@@ -424,16 +371,14 @@ class tkControl
 			document.msExitFullscreen();
 	}
 
-	isFullscreen()
-	{
+	isFullscreen() {
 		return (document.fullscreenElement == this.element 
 				|| document.mozFullScreenElement == this.element 
 				|| document.webkitFullscreenElement == this.element 
 				|| document.msFullscreenElement == this.element);
 	}
 
-	toggleFullscreen()
-	{
+	toggleFullscreen()	{
 		if (this.isFullscreen())
 			this.exitFullscreen();
 		else
@@ -441,149 +386,122 @@ class tkControl
 	}
 
 	// attributes	
-	hasAttribute(_attribute)
-	{
+	hasAttribute(_attribute) {
 		return this.element.hasAttribute(_attribute);
 	}
 	
-	getAttribute(_attribute)
-	{
+	getAttribute(_attribute) {
 		return this.element.getAttribute(_attribute);
 	}
 	
-	setAttribute(_attribute,_value)
-	{
+	setAttribute(_attribute, _value)	{
 		this.element.setAttribute(_attribute,_value);		
 	}
 	
-	removeAttribute(_attribute)
-	{
+	removeAttribute(_attribute)	{
 		this.element.removeAttribute(_attribute);
 	}
 	
-	addAttribute(_attribute)
-	{
+	addAttribute(_attribute) {
 		var attribute = document.createAttribute(_attribute); 
 		this.element.setAttributeNode(attribute);
 	}
 
-	setAttributeNode(_attribute)
-	{
+	setAttributeNode(_attribute) {
 		this.element.setAttributeNode(_attribute);
 	}
 
-	get width()
-	{
+	get width()	{
 		return this.getAttribute("width");
 	}
 	
-	set width(_width)
-	{
+	set width(_width) {
 		this.setAttribute("width",_width);
 		this.element.style.width = _width + "px";
 	}
 		
-	get height()
-	{
+	get height() {
 		return this.getAttribute("height");
 	}
 
-	set height(_height)
-	{
+	set height(_height)	{
 		this.setAttribute("height",_height);
 		this.element.style.height = _height + "px";
 	}
 	
-	setSize(_width,_height) 
-	{
+	setSize(_width,_height) {
 		this.width = _width;
 		this.height = _height;
 	}
 
-	get padding() 
-	{
+	get padding() {
 		return this.element.style.padding;
 	}
 
-	set padding(_padding) 
-	{
+	set padding(_padding) {
 		this.element.style.padding = _padding;
 	}
 	
-	get margin() 
-	{
+	get margin() {
 		return this.element.style.margin;
 	}
 
-	set margin(_margin) 
-	{
+	set margin(_margin) {
 		this.element.style.margin = _margin;
 	}
 		
-	clear()
-	{
+	clear()	{
 		while (this.element.firstChild) 
 			this.element.removeChild(this.element.firstChild);
 	}
 
 	// class
-	addClass()
-	{
+	addClass()	{
 		for (var i=0;i<arguments.length;i++)
 			this.element.classList.add(arguments[i]);
 	}
 
-	removeClass()
-	{
+	removeClass() {
 		for (var i=0;i<arguments.length;i++)
 			this.element.classList.remove(arguments[i]);
 	}
 
-	toggleClass(_class)
-	{
+	toggleClass(_class)	{
 		this.element.classList.toggle(_class);
 	}
 
-	classAt(_index)
-	{
+	classAt(_index)	{
 		this.element.classList.item(_index);
 	}
 
-	hasClass(_class)
-	{
+	hasClass(_class) {
 		return this.element.classList.contains(_class);
 	}
 
-	get className()
-	{
+	get className()	{
 		return this.element.className;
 	}
 
-	set className(_class_name)
-	{
+	set className(_class_name) {
 		this.element.className = _class_name;
 	}
 
-	add()
-	{
+	add(/* array of tkControls to add */) {
 		for (var i=0;i<arguments.length;i++)
 			this.element.appendChild(arguments[i].element);
 	}
 
-	addElement(_element)
-	{
+	addElement(_element) {
 		for (var i=0;i<arguments.length;i++)
 			this.element.appendChild(arguments[i]);
 	}
 
-	remove()
-	{
+	remove(/* array of tkControls to remove */)	{
 		for (var i=0;i<arguments.length;i++)
 			this.element.removeChild(arguments[i].element);
 	}
 
-	removeElement()
-	{
+	removeElement()	{
 		for (var i=0;i<arguments.length;i++)
 			this.element.removeChild(arguments[i]);
 	}
@@ -591,61 +509,49 @@ class tkControl
 
 
 // A widget is a control that is associated with an element besides document.
-class tkWidget extends tkControl
-{
-	constructor()
-	{
+class tkWidget extends tkControl {
+	constructor() {
 		super();
 		this.element = make("div");
 		this.tooltipElement = null;
 	}
 
-	addToElement(_destination) 
-	{
+	addToElement(_destination) {
 		_destination.appendChild(this.element);
 	}
 
-	addTo(_destination) 
-	{
+	addTo(_destination) {
 		_destination.element.appendChild(this.element);
 	}
 	
-	removeFromElement(_destination) 
-	{
+	removeFromElement(_destination) {
 		_destination.removeChild(this.element);
 	}
 
-	removeFrom(_destination) 
-	{
+	removeFrom(_destination) {
 		_destination.element.removeChild(this.element);
 	}
 
 	// animations
-	fadeIn()
-	{
+	fadeIn() {
 		$(this.element).fadeIn(150);
 	}
 
-	fadeOut()
-	{
+	fadeOut() {
 		$(this.element).fadeOut(150);
 	}
 
-	slide()
-	{
+	slide()	{
 		$(this.element).slideToggle(250);
 	}
 
 	// element to display on mouse hover
-	get tooltip()
-	{
+	get tooltip() {
 		return this.tooltipData;
 	}
 
-	set tooltip(_tooltip)
-	{
-		if (_tooltip)
-		{
+	set tooltip(_tooltip) {
+		if (_tooltip)	{
 			this.tooltipElement = make("span");
 			this.tooltipData = _tooltip;
 			this.tooltipElement.appendChild(this.tooltipData);
@@ -668,56 +574,45 @@ class tkWidget extends tkControl
 	}
 }
 
-class tkDocument extends tkControl
-{	
-	constructor() 
-	{
+class tkDocument extends tkControl {	
+	constructor() {
 		super();
 		this.element = document.body;
 	}
 	
-	get title()
-	{
+	get title()	{
 		return document.title;
 	}
 	
-	set title(_title)
-	{
+	set title(_title) {
 		return document.title = _title;
 	}
 
-	setBackground(_background)
-	{
+	setBackground(_background) {
 		this.style.backgroundColor = _background;
 	}
 
-	setBackgroundColor(_background)
-	{
+	setBackgroundColor(_background)	{
 		this.style.background = _background;
 	}
 
-	setBackgroundGradient(_angle_deg,_start,_end)
-	{
+	setBackgroundLinearGradient(_angle_deg,_start,_end) {
 		this.style.background = "linear-gradient(" + _angle_deg + "deg," + _start  + "," + _end + ") fixed";
 	}
 
-	setBackgroundImage(_background)
-	{
+	setBackgroundImage(_background)	{
 		this.style.backgroundImage = _background;
 	}
 
-	setBackgroundImageCover(_image)
-	{
+	setBackgroundImageCover(_image)	{
 		this.style.background = "url(" + _image + ") no-repeat center center fixed";
 	}
 
-	clearBackground()
-	{
+	clearBackground() {
 		this.style.background = null;
 	}
 
-	buildUrl(_url,_args,_vals) 
-	{
+	buildUrl(_url,_args,_vals) {
 		let url = _url + "?";
 		let max = Math.min(_args.length,_vals.length);
 		for(var i=0; i<max; i++) {
@@ -728,8 +623,7 @@ class tkDocument extends tkControl
 		return url;
 	}
 
-	parseUrl(_name, _url) 
-	{
+	parseUrl(_name,_url) {
 		if (!_url)
 			_url = window.location.href;
 		
@@ -741,47 +635,38 @@ class tkDocument extends tkControl
 		return decodeURIComponent(results[2].replace(/\+/g, " "));
 	}
 
-	getParameter(_name) 
-	{
+	getParameter(_name)	{
 		return this.parseUrl(_name,this.getUrl());
 	}
 				
-	getUrl()
-	{
+	getUrl() {
 		return window.location.href;
 	}
 	
-	isFullscreen() 
-	{
+	isFullscreen() {
 		if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) 
 				return true;
 			return false;
 	}
 }
 
-class tkElement extends tkWidget 
-{
-	constructor(_element) 
-	{
+class tkElement extends tkWidget {
+	constructor(_element) {
 		super(_element.id);
 		this.element = _element;
 	}
 }
 
-function makeElement(_elem) 
-{
+function makeElement(_elem) {
 	return new tkElement(_elem);
 }
 
-function makeElementFromId(_id) 
-{
+function makeElementFromId(_id) {
 	return new tkElement(document.getElementById(_id));
 }
 
-class tkText extends tkWidget 
-{
-	constructor(_tag) 
-	{
+class tkText extends tkWidget {
+	constructor(_tag) {
 		super();
 		
 		this.element = make(_tag);
@@ -789,40 +674,32 @@ class tkText extends tkWidget
 		this.element.appendChild(this.textNode);
 	}
 
-	get text() 
-	{
+	get text() {
 		return this.textNode.nodeValue;
 	}
 	
-	set text(_string) 
-	{
+	set text(_string) {
 		this.textNode.nodeValue = _string;
 	}
 }
 
-class tkLink extends tkText
-{
-	constructor()
-	{
+class tkLink extends tkText {
+	constructor() {
 		super("a");
 	}
 		
 	// Link source
-	get source() 
-	{
+	get source() {
 		return this.getAttribute("href");
 	}
 
-	set source(_source) 
-	{
-		this.setAttribute("href",_source);
+	set source(_source) {
+		this.setAttribute("href", _source);
 	}
 }
 
-class tkButton extends tkWidget
-{
-	constructor(_button_type) 
-	{
+class tkButton extends tkWidget {
+	constructor(_button_type) {
 		super();
 
 		this.element = make("button");
@@ -839,13 +716,11 @@ class tkButton extends tkWidget
 		this.element.appendChild(this.textWidget.element);
 	}	
 
-	get image()
-	{
+	get image()	{
 		return this.image.source;
 	}
 
-	set image(_image)
-	{
+	set image(_image) {
 		if(_image)
 			this.imageWidget.e.style.display = "inline";
 		else {			
@@ -856,50 +731,40 @@ class tkButton extends tkWidget
 		this.imageWidget.source = _image;
 	}
 
-	get text()
-	{
+	get text()	{
 		return this.textWidget.text;
 	}
 
-	set text(_text)
-	{
+	set text(_text)	{
 		this.textWidget.text = _text;
 	}
 }
 
-class tkDiv extends tkWidget 
-{
-	constructor() 
-	{
+class tkDiv extends tkWidget {
+	constructor() {
 		super();
 		this.element = make("div");
 	}
 }
 
-class tkMediaPlayer extends tkWidget 
-{
-	constructor() 
-	{
+class tkMediaPlayer extends tkWidget {
+	constructor() {
 		super();
 	}
 
-	get source() 
-	{
+	get source() {
 		return this.element.src;
 	}
 
-	set source(_source) 
-	{
+	set source(_source) {
 		this.element.src = _source;
 	}
 	
-	get showControls()
-	{
+	get showControls() {
 		return (this.hasAttribute("controls"));
 	}
 	
-	set showControls(_visible)
-	{
+	set showControls(_visible)	{
 		if (this.showControls == true)
 			this.removeAttribute("controls");
 		
@@ -907,289 +772,232 @@ class tkMediaPlayer extends tkWidget
 			this.addAttribute("controls");
 	}
 	
-	get autoplay()
-	{
+	get autoplay()	{
 		return (this.hasAttribute("autoplay"));
 	}
 	
-	set autoplay(_enabled)
-	{
+	set autoplay(_enabled) {
 		if (this.autoplay == true)
 			this.removeAttribute("autoplay");
 		
-		if (_enabled)
-		{
+		if (_enabled) {
 			var auto = document.createAttribute("autoplay"); 
 			this.setAttributeNode(auto);
 		}
 	}
 	
-	isPaused()
-	{
+	isPaused()	{
 		return this.element.paused;
 	}
 	
-	play()
-	{
+	play()	{
 		this.element.play();
 	}
 	
-	pause()
-	{
+	pause()	{
 		this.element.pause();
 	}
 
-	togglePlay() 
-	{
+	togglePlay() {
 		if(this.isPaused()) 
 			this.play();
 		else
 			this.pause();
 	}
 	
-	get loop()
-	{
+	get loop()	{
 		return this.element.loop;
 	}
 	
-	set loop(_loop)
-	{
+	set loop(_loop)	{
 		this.element.loop = _loop;
 	}
 	
-	get mute()
-	{
+	get mute()	{
 		return this.element.muted;
 	}
 	
-	set mute(_mute)
-	{
+	set mute(_mute)	{
 		this.element.muted = _mute;
 	}
 	
-	get currentTime()
-	{
+	get currentTime() {
 		return this.element.currentTime;
 	}
 	
-	set currentTime(_time)
-	{
+	set currentTime(_time)	{
 		this.element.currentTime = _time;
 	}
 	
-	getDuration()
-	{
+	getDuration()	{
 		return this.element.duration;
 	}
 	
-	get playbackRate()
-	{
+	get playbackRate()	{
 		return this.element.playbackRate;
 	}
 	
-	set playbackRate(_rate)
-	{
+	set playbackRate(_rate)	{
 		this.element.playbackRate = _rate;
 	}
 	
-	getNetworkState()
-	{
+	getNetworkState()	{
 		return this.element.networkState;
 	}
 	
-	getReadyState()
-	{
+	getReadyState()	{
 		return this.element.readyState;
 	}
 	
-	getSeekable()
-	{
+	getSeekable()	{
 		return this.element.seekable;
 	}
 	
-	isSeeking()
-	{
+	isSeeking()	{
 		return this.element.seeking;
 	}
 	
-	get textTracks()
-	{
+	get textTracks()	{
 		return this.element.textTracks;
 	}
 	
-	set textTracks(_tracks)
-	{
+	set textTracks(_tracks)	{
 		this.element.textTracks = _Tracks;
 	}
 	
-	get volume()
-	{
+	get volume()	{
 		return this.element.volume;
 	}
 	
-	set volume(_volume)
-	{
+	set volume(_volume)	{
 		this.element.volume = _volume;
 	}
 	
-	canPlay(_type)
-	{
+	canPlay(_type)	{
 		return this.element.canPlayType(_type);
 	}
 }
 
-class tkVideoPlayer extends tkMediaPlayer
-{
-	constructor()
-	{
+class tkVideoPlayer extends tkMediaPlayer {
+	constructor()	{
 		super();
 		this.element = make("video"); 
 		this.showControls = true;
 	}	
 }
 
-class tkAudioPlayer extends tkMediaPlayer
-{
-	constructor()
-	{
+class tkAudioPlayer extends tkMediaPlayer {
+	constructor() {
 		super();
 		this.element = make("audio"); 
 	}
 }
 
-class tkImage extends tkWidget
-{
-	constructor()
-	{
+class tkImage extends tkWidget {
+	constructor() {
 		super();
 		this.element = make("img"); 
 	}
 	
 	// Image source
-	get source() 
-	{
+	get source() {
 		return this.element.src;
 	}
 
-	set source(_source) 
-	{
+	set source(_source) {
 		this.element.src = _source;
 	}
 	
 	// Image alternative text
-	get alt() 
-	{
+	get alt() {
 		return this.element.alt;
 	}
 
-	set alt(_alt) 
-	{
+	set alt(_alt) {
 		this.element.alt = _alt;
 	}
 }
 
-class tkProgress extends tkWidget
-{
-	constructor()
-	{
+class tkProgress extends tkWidget {
+	constructor() {
 		super();
 		this.element = make("progress"); 
 	}
 	
-	get max()
-	{
+	get max() {
 		return this.element.max;
 	}
 	
-	set max(_max)
-	{
+	set max(_max) {
 		this.element.max = _max;
 	}
 	
-	get value()
-	{
+	get value()	{
 		return this.element.value;
 	}
 	
-	set value(_value)
-	{
+	set value(_value) {
 		this.element.value = _value;
 	}
 }
 
-class tkMeter extends tkWidget
-{
-	constructor()
-	{
+class tkMeter extends tkWidget {
+	constructor() {
 		super();
 		this.element = make("meter"); 
 	}
 	
-	get value()
-	{
+	get value()	{
 		return this.element.value;
 	}
 	
-	set value(_value)
-	{
+	set value(_value) {
 		this.element.value = _value;
 	}
 	
-	get high()
-	{
+	get high()	{
 		return this.element.high;
 	}
 	
-	set high(_high)
-	{
+	set high(_high)	{
 		this.element.high = _high;
 	}
 	
-	get low()
-	{
+	get low() {
 		return this.element.low;
 	}
 	
-	set low(_low)
-	{
+	set low(_low) {
 		this.element.low = _low;
 	}
 	
-	get max()
-	{
+	get max() {
 		return this.element.max;
 	}
 	
-	set max(_max)
-	{
+	set max(_max) {
 		this.element.max = _max;
 	}
 	
-	get min()
-	{
+	get min() {
 		return this.element.min;
 	}
 	
-	set min(_min)
-	{
+	set min(_min) {
 		this.element.min = _min;
 	}
 	
-	get optimum()
-	{
+	get optimum() {
 		return this.element.optimum;
 	}
 	
-	set optimum(_optimum)
-	{
+	set optimum(_optimum) {
 		this.element.optimum = _optimum;
 	}
 }
 
-class tkReviewMeter extends tkMeter
-{
-	constructor(_rating)
-	{
+class tkReviewMeter extends tkMeter {
+	constructor(_rating) {
 		super();
 		
 		this.value = _rating;
@@ -1201,10 +1009,8 @@ class tkReviewMeter extends tkMeter
 	}
 }
 
-class tkNotebookPage
-{
-	constructor(_title,_id)
-	{
+class tkNotebookPage {
+	constructor(_title,_id) {
 		// A <li> that holds the tab button
 		this.tabContainer = make("li");
 		this.tabContainer.className = "nav-item";
@@ -1229,31 +1035,25 @@ class tkNotebookPage
 		this.contentArea.className = "tab-pane fade";
 	}
 	
-	get title()
-	{
+	get title() {
 		return this.titleTextNode.nodeValue;
 	}
 	
-	set title(_string)
-	{
+	set title(_string) {
 		this.titleTextNode.nodeValue = _string;
 	}
 	
-	addContent(_content)
-	{
+	addContent(_content) {
 		this.contentArea.appendChild(_content);
 	}
 	
-	removeContent(_content)
-	{
+	removeContent(_content) {
 		this.contentArea.removeChild(_content);
 	}
 }
 
-class tkNotebook extends tkWidget
-{
-	constructor() 
-	{
+class tkNotebook extends tkWidget {
+	constructor() {
 		super();
 		this.element = make("div"); 
 		this.element.className = "tkNotebook";
@@ -1278,8 +1078,7 @@ class tkNotebook extends tkWidget
 		this.activeIndex = 0;
 	}
 	
-	addPage(_page)
-	{
+	addPage(_page) {
 		this.tabBar.appendChild(_page.tabContainer);
 		this.contentPanel.appendChild(_page.contentArea);
 		this.tabs.push(_page);
@@ -1290,14 +1089,12 @@ class tkNotebook extends tkWidget
 			this.activeIndex = 0;
 	}
 	
-	addPages()
-	{
+	addPages() {
 		for(var i=0;i<arguments.length;i++)
 			this.addPage(arguments[i]);
 	}
 	
-	removePage(_page)
-	{
+	removePage(_page) {
 		this.tabBar.removeChild(_page.tabContainer);
 		this.contentPanel.removeChild(_page.contentArea);
 		this.tabs.splice(this.getIndex(_page),1);
@@ -1305,8 +1102,7 @@ class tkNotebook extends tkWidget
 		this.activeIndex = Math.max(0,activeIndex-1);
 	}
 	
-	set active(_page)
-	{
+	set active(_page) {
 		if(!_page) return;
 		// Make all tabs inactive
 		for(var i=0;i<this.tabBar.childNodes.length;i++) {
@@ -1321,48 +1117,40 @@ class tkNotebook extends tkWidget
 		_page.contentArea.className = "tab-pane fade show active";
 	}
 	
-	get activeIndex()
-	{
+	get activeIndex() {
 		for(var i=0;i<this.tabBar.childNodes.length;i++)
 			if (this.tabBar.childNodes[i].firstChild.classList.contains("active"))
 				return i;
 	}
 	
-	set activeIndex(_index)
-	{
+	set activeIndex(_index) {
 		this.active = this.tabs[_index];
 	}
 
-	get tabsVisible() 
-	{
+	get tabsVisible() {
 		return (this.tabBar.style.display != "none");
 	}
 	
-	set tabsVisible(_visible) 
-	{
+	set tabsVisible(_visible) {
 		this.tabBar.style.display = ((_visible) ? "block" : "none");
 	}
 
-	getActive()
-	{
+	getActive() {
 		return this.tabs[this.activeIndex];
 	}
 	
-	getIndex(_page)
-	{
+	getIndex(_page) {
 		return this.tabs.indexOf(_page);
 	}
 		
-	back()
-	{
+	back() {
 		if (this.activeIndex-1 < 0 && this.wrap)
 			this.activeIndex = this.tabs.length-1;
 		else
 			this.activeIndex = Math.max(0, this.activeIndex-1);		
 	}
 	
-	next()
-	{
+	next() {
 		if (this.activeIndex+1 >= this.tabs.length && this.wrap)
 			this.activeIndex = 0;
 		else
@@ -1370,20 +1158,16 @@ class tkNotebook extends tkWidget
 	}
 }
 
-class tkSlideshow extends tkNotebook
-{
-	constructor()
-	{
+class tkSlideshow extends tkNotebook {
+	constructor() {
 		super();
 		this.element.className = this.element.className + " tkSlideshow";
 		this.tabsVisible = false;
 	}
 }
 
-class tkListItem extends tkText
-{
-	constructor()
-	{
+class tkListItem extends tkText {
+	constructor() {
 		super("li");
 		this.element.className = "list-group-item";
 
@@ -1394,18 +1178,15 @@ class tkListItem extends tkText
 		});
 	}
 	
-	toggleSelected() 
-	{
+	toggleSelected() {
 		this.selected = !(this.selected);
 	}
 
-	get selected()
-	{
+	get selected() {
 		return this.hasClass("active");
 	}
 
-	set selected(_selected)
-	{
+	set selected(_selected) {
 		if(_selected)
 			this.addClass("active");
 		else
@@ -1413,10 +1194,8 @@ class tkListItem extends tkText
 	}
 }
 
-class tkList extends tkWidget
-{
-	constructor()
-	{
+class tkList extends tkWidget {
+	constructor() {
 		super();
 		this.element = make("ul");
 		this.element.className = "list-group";
@@ -1425,26 +1204,22 @@ class tkList extends tkWidget
 		this.allowMultipleSelection = false;
 	}
 	
-	get allowMultipleSelection()
-	{
-		return this.allow_multiple_selection;
+	get allowMultipleSelection() {
+		return this._allow_multiple_selection;
 	}
 
-	set allowMultipleSelection(_allow_multiple_selection)
-	{
+	set allowMultipleSelection(_allow_multiple_selection) {
 		if (!_allow_multiple_selection && this.selected.length > 1)
 			this.selected = this.selected[0];
-		this.allow_multiple_selection = _allow_multiple_selection;
+		this._allow_multiple_selection = _allow_multiple_selection;
 	}
 	
-	selectFirstAvailable()
-	{
+	selectFirstAvailable() {
 		if(this.selectionExists && this.items.length > 0)
 			this.selected = [this.items[0]];
 	}
 	
-	addItem(_item)
-	{
+	addItem(_item) {
 		this.element.appendChild(_item.element);
 		this.items.push(_item);
 
@@ -1458,8 +1233,7 @@ class tkList extends tkWidget
 		this.selectFirstAvailable();
 	}
 	
-	removeItem(_item)
-	{
+	removeItem(_item) {
 		this.items.splice(_item,1);
 		this.element.removeChild(_item.element);
 		
@@ -1467,8 +1241,7 @@ class tkList extends tkWidget
 	}
 
 	// returns array of selected items
-	get selected()
-	{
+	get selected() {
 		var selectedItems = [];
 		for(var i=0;i<this.items.length;i++)
 			if (this.items[i].selected)
@@ -1476,12 +1249,10 @@ class tkList extends tkWidget
 		return selectedItems;
 	}
 
-	set selected(_selected)
-	{
+	set selected(_selected) {
 		this.deselectAll();
 		
-		for(var i=0;i<_selected.length;i++)
-		 {
+		for(var i=0;i<_selected.length;i++) {
 			 var currentItem = this.items.find((item) => item == _selected[i])
 			 if (currentItem) 
 			 {
@@ -1491,8 +1262,7 @@ class tkList extends tkWidget
 		 }
 	}
 
-	get selectionExists()
-	{
+	get selectionExists() {
 		for(var i=0;i<this.items.length;i++)
 			if (this.isSelected(this.items[i])) 
 				return true;			
@@ -1501,46 +1271,40 @@ class tkList extends tkWidget
 	}
 	
 	// return true if all items are selected
-	isSelected(_items)
-	{
-		for(var i=0;i<_items.length;i++)
-		{
-		 if (this.items.indexOf(_items[i]) == -1) return false;
+	isSelected(_items) {
+		for(var i=0;i<_items.length;i++) {
+			if (this.items.indexOf(_items[i]) == -1) 
+				return false;
 
 
-		 var currentItem = this.items.find((item) => item == _items[i])
-		 if (!currentItem.selected) return false;
+			var currentItem = this.items.find((item) => item == _items[i])
+			if (!currentItem.selected) 
+			return false;
 		}
 
 		 return true;
 	}
 
-	deselectAll()
-	{
+	deselectAll() {
 		for(var i=0;i<this.items.length;i++)
 			this.items[i].selected = false;
 	}
 
-	selectAll()
-	{
+	selectAll()	{
 		this.selected = this.items;
 	}
 }
 
-class tkRibbon extends tkNotebook
-{
-	constructor()
-	{
+class tkRibbon extends tkNotebook {
+	constructor() {
 		super();
 		this.tabBar.className = "nav nav-tabs ribbon ribbon-tabs";
 		this.contentPanel.className = "ribbon-content";
 	}
 }
 
-class tkRibbonPage
-{
-	constructor(_title,_id)
-	{
+class tkRibbonPage {
+	constructor(_title,_id)	{
 		// A <li> that holds the tab button
 		this.tabContainer = make("li");
 		
@@ -1561,31 +1325,25 @@ class tkRibbonPage
 		this.contentArea.className = "tab-pane fade";
 	}
 	
-	get title()
-	{
+	get title()	{
 		return this.titleTextNode.nodeValue;
 	}
 	
-	set title(_string)
-	{
+	set title(_string) {
 		this.titleTextNode.nodeValue = _string;
 	}
 	
-	addContent(_content)
-	{
+	addContent(_content) {
 		this.contentArea.appendChild(_content);
 	}
 	
-	removeContent(_content)
-	{
+	removeContent(_content)	{
 		this.contentArea.removeChild(_content);
 	}
 }
 
-class tkRibbonGroup extends tkWidget
-{
-	constructor()
-	{
+class tkRibbonGroup extends tkWidget {
+	constructor() {
 		super();
 		this.element = make("div");
 		this.className = "tkRibbonGroup";
@@ -1603,32 +1361,26 @@ class tkRibbonGroup extends tkWidget
 		this.groupTitle.appendChild(this.groupTitleTextNode);
 	}
 
-	get title()
-	{
+	get title()	{
 		return this.groupTitleTextNode.nodeValue;
 	}
 	
-	set title(_string)
-	{
+	set title(_string) {
 		this.groupTitleTextNode.nodeValue = _string;
 	}
 
-	addButton(_button)
-	{
+	addButton(_button) {
 		_button.className = "tkRibbonButton";
 		this.contentArea.appendChild(_button);
 	}
 
-	removeButton(_button)
-	{
+	removeButton(_button) {
 		this.contentArea.removeChild(_button);
 	}
 }
 
-class tkSlider extends tkWidget
-{
-	constructor()
-	{
+class tkSlider extends tkWidget {
+	constructor() {
 		super();
 
 		this.element = make("input");
@@ -1636,56 +1388,45 @@ class tkSlider extends tkWidget
 		this.setAttribute("type","range");
 	}
 	
-	get min()
-	{
+	get min() {
 		return this.e.min;
 	}
 	
-	set min(_min)
-	{		
+	set min(_min) {		
 		this.e.min = _min;
 	}
 	
-	get max() 
-	{
+	get max() {
 		return this.e.max;
 	}
 	
-	set max(_max)
-	{
+	set max(_max) {
 		this.e.max = _max;
 	}
 	
-	get value()
-	{
+	get value() {
 		return this.e.value;
 	}
 	
-	set value(_value)
-	{
+	set value(_value) {
 		this.e.value = _value;	
 	}
 	
-	get step()
-	{
+	get step() {
 		return this.e.step;
 	}
 	
-	set step(_step)
-	{
+	set step(_step) {
 		this.e.step = _step;		
 	}
 	
-	get valueAsNumber()
-	{
+	get valueAsNumber() {
 		return this.e.valueAsNumber;
 	}
 }
 
-class tkTextEdit extends tkText
-{
-	constructor()
-	{
+class tkTextEdit extends tkText {
+	constructor() {
 		super("textarea");
 		this.className = "tkTextEdit";
 
@@ -1696,227 +1437,184 @@ class tkTextEdit extends tkText
 	}
 
 	// Characters, not pixels
-	get width()
-	{
+	get width() {
 		return this.getAttribute("cols");
 	}
 	
-	set width(_width)
-	{
+	set width(_width) {
 		this.setAttribute("cols",_width);
 	}
 		
-	get height()
-	{
+	get height() {
 		return this.getAttribute("rows");
 	}
 
-	set height(_height)
-	{
+	set height(_height) {
 		this.setAttribute("rows",_height);
 	}
 	
-	setSize(_width,_height) 
-	{
+	setSize(_width,_height) {
 		this.width = _width;
 		this.height = _height;
 	}
 
-	get resizable()
-	{
+	get resizable() {
 		return !this.hasClass("noResize");
 	}
 
-	set resizable(_resizable)
-	{
+	set resizable(_resizable) {
 		if (_resizable)
 			this.removeClass("noResize")
 		else
 			this.addClass("noResize")
 	}
 
-	get autofocus()
-	{
+	get autofocus() {
 		return this.hasAttribute("autofocus");
 	}
 
-	set autofocus(_autofocus)
-	{
+	set autofocus(_autofocus) {
 		if (this.autofocus == true)
 			this.removeAttribute("autofocus");
 		
-		if (_autofocus)
-		{
+		if (_autofocus) {
 			var attr = document.createAttribute("autofocus"); 
 			this.setAttributeNode(attr);
 		}
 	}
 
-	get disabled()
-	{
+	get disabled() {
 		return this.hasAttribute("disabled");
 	}
 
-	set disabled(_disabled)
-	{
+	set disabled(_disabled) {
 		if (this.disabled == true)
 			this.removeAttribute("disabled");
 		
-		if (_disabled)
-		{
+		if (_disabled) {
 			var attr = document.createAttribute("disabled"); 
 			this.setAttributeNode(attr);
 		}
 	}
 
-	get maxLength()
-	{
+	get maxLength() {
 		return this.getAttribute("maxLength");
 	}
 
-	set maxLength(_max_length)
-	{
+	set maxLength(_max_length) {
 		this.setAttribute("maxLength",_max_length);
 	}
 
-	get placeholder()
-	{
+	get placeholder() {
 		return this.getAttribute("placeholder");
 	}
 
-	set placeholder(_text)
-	{
+	set placeholder(_text) {
 		this.setAttribute("placeholder",_text);
 	}
 
-	get readOnly()
-	{
+	get readOnly() {
 		return this.hasAttribute("readonly");
 	}
 
-	set readOnly(_read_only)
-	{
+	set readOnly(_read_only) {
 		if (this.readOnly == true)
 			this.removeAttribute("readonly");
 		
-		if (_read_only)
-		{
+		if (_read_only) {
 			var attr = document.createAttribute("readonly"); 
 			this.setAttributeNode(attr);
 		}
 		this.setAttribute("readonly",_read_only);
 	}
 
-	getSelectedText()
-	{
+	getSelectedText() {
 		return this.selected_text;
 	}
 	
-	get text() 
-	{
+	get text() {
 		return this.e.value;
 	}
 	
-	set text(_string) 
-	{
+	set text(_string) {
 		this.e.value = _string;
 	}
 }
 
 // Forms
-class tkInput extends tkWidget
-{
-	constructor()
-	{
+class tkInput extends tkWidget {
+	constructor() {
 		super();
 		this.element = make("input"); 
 	}
 
-	get type()
-	{
+	get type() {
 		this.getAttribute("type");
 	}
 
-	set type(_type)
-	{
+	set type(_type) {
 		this.setAttribute("type",_type);
 	}
 
-	get name()
-	{
+	get name() {
 		this.getAttribute("name");
 	}
 
-	set name(_name)
-	{
+	set name(_name) {
 		this.setAttribute("name",_name);
 	}
 	
-	get readOnly()
-	{
+	get readOnly() {
 		return this.e.readonly;
 	}
 	
-	set readOnly(_read_only)
-	{
+	set readOnly(_read_only) {
 		this.e.readonly = _read_only;
 	}
 }
 
-class tkTextInput extends tkInput
-{
-	constructor()
-	{
+class tkTextInput extends tkInput {
+	constructor() {
 		super();
 		this.type = "text";
 		this.className = "tkTextInput";
 	}
 	
-	get text()
-	{
+	get text() {
 		return this.e.value;
 	}
 	
-	set text(_text)
-	{
+	set text(_text) {
 		this.e.value = _text;
 	}
 			
-	get defaultText()
-	{
+	get defaultText() {
 		return this.e.defaultValue;
 	}
 	
-	set defaultText(_default_value)
-	{
+	set defaultText(_default_value) {
 		this.e.defaultValue = _default_value;
 	}
 	
-	get placeholder()
-	{
+	get placeholder() {
 		return this.e.placeholder;
 	}
 	
-	set placeholder(_placeholder)
-	{
+	set placeholder(_placeholder) {
 		this.e.placeholder = _placeholder;
 	}
 	
-	get maxLength()
-	{
+	get maxLength() {
 		return this.e.maxLength;
 	}
 	
-	set maxLength(_max_length)
-	{
+	set maxLength(_max_length) {
 		this.e.maxLength = _read_only;
 	}
 }
 
-class tkRange extends tkInput 
-{
-	constructor()
-	{
+class tkRange extends tkInput {
+	constructor() {
 		super();
 		this.type = "range";
 	}

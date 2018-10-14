@@ -202,3 +202,11 @@ video {
 
   .btn {
 }
+
+.noResize {
+    resize: none;
+}
+
+.resize {
+    resize:  both;
+}
