@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Bootstrap CSS -->
 		<link href="../bootstrap/bootstrap.min.css" rel="stylesheet">
 		<!-- Tamarack CSS -->
-		<link href="../tamarack/tamarack.css" rel="stylesheet">
-	</head>
-	<body>
+		<link href="../tamarack/tamarack.css" rel="stylesheet">		
 		<!-- jQuery -->
 		<script src="../jquery/jquery.min.js"></script>
-		<!-- Tamarack JS -->
-		<script src="../tamarack/tamarack.js"></script>
+		<!-- Popper JS -->
+		<script src="../popper/popper.min.js"></script>
 		<!-- Bootstrap JS -->
 		<script src="../bootstrap/bootstrap.min.js"></script>
-		
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack-core.js"></script>
+		<!-- Tamarack Dialogs JS -->
+		<script src="../tamarack/tamarack-dialogs.js"></script>
+	</head>
+	<body>	
 		<script>
-			var doc = new tkDocument();
+			var doc = new tkDocument("Slides Demo");
 			var slideshow = new tkSlideshow();
 			var photos = ["resources/1.jpg","resources/2.jpg","resources/3.jpg"];
 			
-			doc.title = "Slides Demo";
-			
-			for (var i=0; i<photos.length; i++)
-			{
-				var slide = new tkSlide();
+			for (var i=0; i<photos.length; i++)	{
+				var slide = new tkNotebookPage();
 				var photo = new tkImage();
 				photo.element.className = "shadow";
 				var caption = new tkText("p");
@@ -35,28 +36,20 @@
 				slide.addContent(photo.e);
 				slide.addContent(caption.e);
 				slideshow.addPage(slide);
-			};	
+			}	
 			
-			var backButton = new tkButton();
-			backButton.e.className = "tkRedButton";
-			backButton.text = "<";
-			backButton.e.onclick = () => 
-			{
+			var backButton = new tkButton("<", tkButtonType.DANGER);
+			backButton.e.onclick = () => {
 				slideshow.back();
 			};
 			
-			var nextButton = new tkButton();
-			nextButton.e.className = "tkRedButton";
-			nextButton.text = ">";
-			nextButton.e.onclick = () => 
-			{
+			var nextButton = new tkButton(">", tkButtonType.DANGER);
+			nextButton.e.onclick = () => {
 				slideshow.next();
 			};
 			
-			var fullScreenButton = new tkButton();
-			fullScreenButton.text = "Make Fullscreen";
-			fullScreenButton.e.onclick = () => 
-			{
+			var fullScreenButton = new tkButton("Make Fullscreen");
+			fullScreenButton.e.onclick = () => {
 				makeElement(slideshow.getActive().contentArea.childNodes[0]).makeFullscreen();
 			};
 

@@ -23,9 +23,7 @@
 			doc.title = "About Tamarack Demo";
 			doc.padding = "1rem";
 
-			var dialogButton = new tkButton();
-
-			dialogButton.text = "Tamarack About Dialog";
+			var dialogButton = new tkButton("Tamarack About Dialog");
 			dialogButton.e.onclick = () => {
 				aboutTamarack.show();
 			};

@@ -557,9 +557,12 @@ class tkWidget extends tkControl {
 }
 
 class tkDocument extends tkControl {	
-	constructor() {
+	constructor(_title) {
 		super();
 		this.element = document.body;
+		
+		if(_title)
+		document.title = _title;
 	}
 	
 	get title()	{
@@ -567,7 +570,7 @@ class tkDocument extends tkControl {
 	}
 	
 	set title(_title) {
-		return document.title = _title;
+		document.title = _title;
 	}
 
 	setBackground(_background) {
@@ -680,13 +683,60 @@ class tkLink extends tkText {
 	}
 }
 
+
+var tkButtonType= {
+	PRIMARY: 0,
+	SECONDARY: 1,
+	SUCCESS: 2,
+	DANGER: 3,
+	WARNING: 4,
+	INFO: 5,
+	LIGHT: 6,
+	DARK: 7,
+	LINK: 8
+};
+
 class tkButton extends tkWidget {
-	constructor(_button_type) {
+	constructor(_text, _button_type, _class, _outline) {
 		super();
 
 		this.element = make("button");
 		this.element.type = "button";
-		this.className = ((_button_type) ? _button_type : "btn btn-primary");
+		var btnClass = "";
+
+		switch(_button_type) {
+			case tkButtonType.PRIMARY:
+				btnClass = "btn btn-primary";
+				break;
+			case tkButtonType.SECONDARY:
+				btnClass = "btn btn-secondary";
+				break;
+			case tkButtonType.SUCCESS:
+				btnClass = "btn btn-success";
+				break;				
+			case tkButtonType.DANGER:
+				btnClass = "btn btn-danger";
+				break;
+			case tkButtonType.WARNING:
+				btnClass = "btn btn-warning";
+				break;				
+			case tkButtonType.INFO:
+				btnClass = "btn btn-info";
+				break;
+			case tkButtonType.LIGHT:
+				btnClass = "btn btn-light";
+				break;
+			case tkButtonType.DARK:
+				btnClass = "btn btn-dark";
+				break;
+			default:
+				btnClass = "btn btn-primary";
+		}
+
+		if (_outline)
+			btnClass = btnClass.replace("btn-", "btn-outline-");
+
+		this.className = btnClass + ((_class) ? (" " + _class) : "");
 		
 		this.imageWidget = new tkImage();
 		this.imageWidget.className = "tkButtonImage";
@@ -696,6 +746,7 @@ class tkButton extends tkWidget {
 		this.textWidget = new tkText("p");
 		this.textWidget.className = "tkButtonText";
 		this.element.appendChild(this.textWidget.element);
+		this.text = _text;
 	}	
 
 	get image()	{

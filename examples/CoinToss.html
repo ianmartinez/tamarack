@@ -17,17 +17,15 @@
 	</head>
 	<body>		
 		<script>
-			var doc = new tkDocument();
-			var btn = new tkButton();
-			
-			doc.title = "Coin Toss Demo";
+			var doc = new tkDocument("Coin Toss Demo");		
 			doc.padding = "1rem";
 			doc.addElement(sayText("Coin Toss","h1"));
 			
-			btn.text = "Toss Coin!";
-			doc.add(btn);
+			var btnTossCoin = new tkButton("Toss Coin!");
+			btnTossCoin.text = "Toss Coin!";
+			doc.add(btnTossCoin);
 			
-			btn.element.onclick = () => {
+			btnTossCoin.element.onclick = () => {
 				var new_line = new tkText("p");
 				var flip_coin = (tkNumber.random(0,1) == 0) ? "Heads" : "Tails";
 				
