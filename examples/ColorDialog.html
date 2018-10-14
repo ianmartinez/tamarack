@@ -31,12 +31,10 @@
 			var dialogButton = new tkButton();
 			
 			dialogButton.text = "New Color";
-			dialogButton.e.onclick = () => 
-			{
+			dialogButton.e.onclick = () => {
 				colorDialog.color = backgroundColor.clone();
 				colorDialog.show((dialogResult) => {
-					if(dialogResult == tkDialogResult.OK) 
-					{
+					if(dialogResult == tkDialogResult.OK) {
 						backgroundColor = colorDialog.color;
 						backColor = colorDialog.color.getHslaCss();
 						doc.setBackgroundColor(backColor);
