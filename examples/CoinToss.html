@@ -29,7 +29,7 @@
 			
 			btn.element.onclick = () => {
 				var new_line = new tkText("p");
-				var flip_coin = (random(0,1) == 0) ? "Heads" : "Tails";
+				var flip_coin = (tkNumber.random(0,1) == 0) ? "Heads" : "Tails";
 				
 				new_line.text = flip_coin;						
 				new_line.element.style.color = (flip_coin == "Heads") ? "maroon" : "midnightblue";

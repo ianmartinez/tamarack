@@ -204,9 +204,9 @@ class tkAboutTamarackDialog extends tkDialog
 		var logo = sayP("tamarack " + tamarack.version);
 		logo.className = "h5 tkAboutDialogLogo";
 		var lines = [logo, sayP("By Ian Martinez")];
-		var credits = [	sayLine("Bootstrap","h5"), sayP("Copyright (c) 2011-2018 Twitter, Inc"),
-						sayLine("jQuery","h5"), sayP("Copyright (c) JS Foundation"),
-						sayLine("Breeze Icons","h5"), sayP("Copyright (c) 2014 Uri Herrera and others"),];
+		var credits = [	sayText("Bootstrap","h5"), sayP("Copyright (c) 2011-2018 Twitter, Inc"),
+						sayText("jQuery","h5"), sayP("Copyright (c) JS Foundation"),
+						sayText("Breeze Icons","h5"), sayP("Copyright (c) 2014 Uri Herrera and others"),];
 
 		this.notebook = new tkNotebook();
 

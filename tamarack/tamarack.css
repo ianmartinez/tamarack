@@ -118,7 +118,7 @@ video {
   .tkColorSlider::-webkit-slider-thumb {
     -webkit-appearance: none !important;
     width: 13px;
-    height: 35px;
+    height: 2rem;
     background-color: transparent;
     border: 1px solid rgba(0,0,0,0.5);
     box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.6), inset 0px 0px 0px 1px rgba(255,255,255,0.8);
@@ -142,7 +142,7 @@ video {
       background-image: url("transparency.png");
       border-radius: 2px;
       margin-bottom: 10px;
-      height: 35px;
+      height: 2rem;
   }
   
   .tkColorPicker {
@@ -182,7 +182,6 @@ video {
   
   .tkSliderTitle {
       text-align: center;
-      font-size: 14px;
   }
   
   .tkTextInput {    
@@ -199,9 +198,6 @@ video {
   .tkTextInput:focus {
       outline: solid 1px hsla(192, 85%, 42%, 1.00);
   }
-
-  .btn {
-}
 
 .noResize {
     resize: none;

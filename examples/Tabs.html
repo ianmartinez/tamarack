@@ -1,50 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Bootstrap CSS -->
 		<link href="../bootstrap/bootstrap.min.css" rel="stylesheet">
 		<!-- Tamarack CSS -->
-		<link href="../tamarack/tamarack.css" rel="stylesheet">
-	</head>
-	<body>
+		<link href="../tamarack/tamarack.css" rel="stylesheet">		
 		<!-- jQuery -->
 		<script src="../jquery/jquery.min.js"></script>
-		<!-- Tamarack JS -->
-		<script src="../tamarack/tamarack.js"></script>
+		<!-- Popper JS -->
+		<script src="../popper/popper.min.js"></script>
 		<!-- Bootstrap JS -->
 		<script src="../bootstrap/bootstrap.min.js"></script>
-		
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack-core.js"></script>
+		<!-- Tamarack Dialogs JS -->
+		<script src="../tamarack/tamarack-dialogs.js"></script>
+	</head>
+	<body>		
 		<script>
 			var doc = new tkDocument();
 			doc.title = "Tabs Demo";
+			doc.padding = "1rem";
 			
 			var notebook = new tkNotebook();
+			notebook.padding = "1rem";
 
 			var backButton = new tkButton();
-			backButton.e.className = "tkRedButton";
+			backButton.e.className = "btn btn-danger";
 			backButton.text = "<";
-			backButton.e.onclick = () => 
-			{
+			backButton.e.onclick = () => {
 				notebook.back();
 			};
 
 			var nextButton = new tkButton();
-			nextButton.e.className = "tkRedButton";
+			nextButton.e.className = "btn btn-danger";
 			nextButton.text = ">";
-			nextButton.e.onclick = () => 
-			{
+			nextButton.e.onclick = () => {
 				notebook.next();
 			};
 								
 			var btnTab = new tkButton();
 			btnTab.text = "Add Tab";
 			var pageCount = 1;
-			btnTab.e.onclick = () => 
-			{
+			btnTab.e.onclick = () => {
 				var page = new tkNotebookPage("Page " + pageCount,"page" + pageCount);
 				page.addContent(say("Page " + pageCount));
 				notebook.addPage(page);
-				notebook.goToIndex(pageCount-1);
+				notebook.activeIndex = pageCount-1;
 				pageCount++;
 			};				
 			

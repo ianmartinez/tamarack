@@ -28,7 +28,7 @@ function sayP(_text) {
 	return p;
 }
 
-function sayLine(_text,_tag) {
+function sayText(_text,_tag) {
 	var textNode = document.createTextNode(_text);
 	var element = make(_tag);
 	element.appendChild(textNode);
