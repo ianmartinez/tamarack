@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Bootstrap CSS -->
 		<link href="../bootstrap/bootstrap.min.css" rel="stylesheet">
 		<!-- Tamarack CSS -->
-		<link href="../tamarack/tamarack.css" rel="stylesheet">
-	</head>
-	<body>
+		<link href="../tamarack/tamarack.css" rel="stylesheet">		
 		<!-- jQuery -->
 		<script src="../jquery/jquery.min.js"></script>
-		<!-- Tamarack JS -->
-		<script src="../tamarack/tamarack.js"></script>
+		<!-- Popper JS -->
+		<script src="../popper/popper.min.js"></script>
 		<!-- Bootstrap JS -->
 		<script src="../bootstrap/bootstrap.min.js"></script>
-		
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack-core.js"></script>
+		<!-- Tamarack Dialogs JS -->
+		<script src="../tamarack/tamarack-dialogs.js"></script>
+	</head>
+	<body>	
 		<script>
 			var textEditor = new tkTextEdit();
 			var doc = new tkDocument();
@@ -74,9 +78,8 @@
 				aboutTkButton.tooltip = say("About Tamarack");
 				aboutTkButton.image = "../icons/actions/22/help-about.svg";
 				helpGroup.addButton(aboutTkButton.element);
-				aboutTkButton.e.onclick = function() {
-					var aboutDialog = new tkAboutTamarackDialog();
-					aboutDialog.show();
+				aboutTkButton.e.onclick = function() {					
+					aboutTamarack.show();
 				};
 
 				// Format Page
@@ -118,7 +121,7 @@
 				};
 
 				// Select Home Page
-				ribbon.goToIndex(0);	
+				ribbon.activeIndex = 0;	
 				ribbon.addTo(clientArea);
 			}
 

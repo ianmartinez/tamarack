@@ -17,7 +17,8 @@
 	</head>
 	<body>			
 		<script>
-			var doc = new tkDocument();						
+			var doc = new tkDocument();		
+			doc.padding = "1rem";				
 			doc.title = "Media Players Demo";
 
 			var p = make("p");
@@ -28,12 +29,10 @@
 			video.loop = true;
 			doc.add(video);
 
-			video.loaded = function() {
+			video.e.onloadeddata = function() {
 				var title = new tkText("h1");
 				title.text = "Jellyfish";	
 				title.addToElement(p);
-				
-				video.setSize(720, 380);
 			};
 		</script>
 	</body>
