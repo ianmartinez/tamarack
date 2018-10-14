@@ -185,18 +185,18 @@ class tkDialog extends tkWidget {
 	}
 }
 
-class tkAboutTamarackDialog extends tkDialog {
-	constructor() {
-		super();
+class aboutTamarack {
+	static show() {
+		var aboutDialog = new tkDialog();
 
 		var logo = sayP("tamarack " + tamarack.version);
 		logo.className = "h5 tkAboutDialogLogo";
 		var lines = [logo, sayP("By Ian Martinez")];
 		var credits = [	sayText("Bootstrap","h5"), sayP("Copyright (c) 2011-2018 Twitter, Inc"),
 						sayText("jQuery","h5"), sayP("Copyright (c) JS Foundation"),
-						sayText("Breeze Icons","h5"), sayP("Copyright (c) 2014 Uri Herrera and others"),];
+						sayText("Breeze Icons","h5"), sayP("Copyright (c) 2014 Uri Herrera and others") ];
 
-		this.notebook = new tkNotebook();
+		aboutDialog.notebook = new tkNotebook();
 
 		var aboutTab = new tkNotebookPage("Tamarack", "aboutTab");
 		lines.forEach((e) => aboutTab.addContent(e));
@@ -205,11 +205,13 @@ class tkAboutTamarackDialog extends tkDialog {
 		creditsTab.contentArea.classList.add("tkAboutDialogCredits");
 		credits.forEach((e) => creditsTab.addContent(e));
 
-		this.notebook.addPages(aboutTab,creditsTab);
-		this.addContent(this.notebook.element);
+		aboutDialog.notebook.addPages(aboutTab,creditsTab);
+		aboutDialog.addContent(aboutDialog.notebook.element);
 
-		this.choices = [tkDialogResult.OK];
-		this.title = "About";
+		aboutDialog.choices = [tkDialogResult.OK];
+		aboutDialog.title = "About";
+
+		aboutDialog.show();
 	}
 }
 

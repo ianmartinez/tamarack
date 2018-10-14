@@ -20,16 +20,17 @@
 	<body>		
 		<script>
 			var doc = new tkDocument();
-			var aboutDialog = new tkAboutTamarackDialog();
+			doc.title = "About Tamarack Demo";
+			doc.padding = "1rem";
+
 			var dialogButton = new tkButton();
 
 			dialogButton.text = "Tamarack About Dialog";
-			dialogButton.e.onclick = () => 
-			{
-				aboutDialog.show();
+			dialogButton.e.onclick = () => {
+				aboutTamarack.show();
 			};
 
-			dialogButton.addToElement(document.body);
+			doc.add(dialogButton);
 		</script>
 	</body>
 </html>
