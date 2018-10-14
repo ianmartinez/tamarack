@@ -34,7 +34,10 @@ body {
     position: absolute;
     padding: 0px;
     background-color: white;
-    font-size: 14px;
+}
+
+.tkAboutDialogLogo {
+    color: #b95b2d;
 }
 
 p {
@@ -53,3 +56,142 @@ video {
     max-width: 100%;
     max-height: 100%;
 }
+
+.modal-backdrop .fade {
+    transition: all .15s linear;
+}
+
+.modal-backdrop.show {    
+    backdrop-filter: blur(6px);
+    opacity: .85;
+}
+
+.modal-header {    
+    background-color: #f1f1f1;
+    background: linear-gradient(0deg, #e8e8e8, #f9f9f9);
+    border-bottom: 1px solid #d2d2d2;
+}
+
+.modal-body {    
+    background-color: #f7f7f7;
+}
+
+.tkButtonPanel {
+    padding: 0.5rem;
+    text-align: right;
+    background-color: #f1f1f1;
+    border-top: 1px solid #d2d2d2;
+}
+
+.nav-item .nav-link {    
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.tab-content {      
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #dee2e6;
+    border-top: 0px solid transparent;
+}
+
+.tkColorSlider {
+    -webkit-appearance: none !important;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    margin: auto; 
+    border-radius: 2px;
+    margin-bottom: 10px;
+    box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.3), inset 0px 0px 0px 1px rgba(0,0,0,0.3);
+    outline: none;
+  }
+  
+  .tkColorSlider:hover {
+    background-color: white;
+    outline: none;
+  }
+  
+  .tkColorSlider::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    width: 13px;
+    height: 35px;
+    background-color: transparent;
+    border: 1px solid rgba(0,0,0,0.5);
+    box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.6), inset 0px 0px 0px 1px rgba(255,255,255,0.8);
+    border-radius: 2px;
+  }
+  
+  .tkColorSlider::-webkit-slider-thumb:hover {
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(0,0,0,0.4);
+    box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.8), inset 0px 0px 0px 1px rgba(255,255,255,0.9);
+   
+  }
+  
+  .tkColorSlider::-webkit-slider-thumb:active {
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(0,0,0,0.6);
+    box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.8), 0px 0px 3px rgba(0,0,0,0.8);
+  }
+  
+  .tkColorSliderContainer {
+      background-image: url("transparency.png");
+      border-radius: 2px;
+      margin-bottom: 10px;
+      height: 35px;
+  }
+  
+  .tkColorPicker {
+      display: flex;
+      flex-flow: row;
+  }
+  
+  .tkColorPickerLeft {
+      flex: 1;
+  }
+  
+  .tkColorPickerRight {
+      margin-left: 10px;
+  }
+  
+  .tkColorPickerPreviewContainer {	
+      background-image: url("transparency.png");
+      border-radius: 2px;
+      margin: 5px auto;
+  }
+  
+  .tkColorPickerPreview {
+      width: 120px;
+      height: 120px;
+      cursor: pointer;
+      padding-left: 5px;
+      position: relative;
+      border-radius: 2px;
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      background-color: black;
+  }
+  
+  .tkSlider {
+      cursor: pointer;
+      height: 25px;
+  }
+  
+  .tkSliderTitle {
+      text-align: center;
+      font-size: 14px;
+  }
+  
+  .tkTextInput {    
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    color: rgba(0, 0, 0, 0.8);
+    text-align: left;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 2px;
+    padding: 0.5rem;
+    outline: solid 1px transparent;
+  }
+  
+  .tkTextInput:focus {
+      outline: solid 1px hsla(192, 85%, 42%, 1.00);
+  }

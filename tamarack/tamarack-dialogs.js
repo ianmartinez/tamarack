@@ -44,7 +44,7 @@ class tkDialog extends tkWidget
 		this.modalContent.appendChild(this.modalBody);
 
 		this.modalFooter = make("div");
-		this.modalFooter.className = "modal-footer";
+		this.modalFooter.className = "modal-footer tkButtonPanel";
 		this.modalContent.appendChild(this.modalFooter);
 		
 		/* 	An array of tkDialogResult listing 
@@ -87,7 +87,8 @@ class tkDialog extends tkWidget
 		this.isOpen = true;
 		$(this.element).modal('show')
 
-		if(!_on_dialog_result) _on_dialog_result = function() {};
+		if(!_on_dialog_result) 
+			_on_dialog_result = function() {};
 		
 		// Make sure to clear buttons from previous opening
 		var buttonArea = makeElement(this.modalFooter);
@@ -110,7 +111,6 @@ class tkDialog extends tkWidget
 			{
 				case tkDialogResult.NOTHING:
 					continue;
-					break;
 				case tkDialogResult.OK:
 					button.text = "OK";
 					button.element.onclick = function() {
@@ -201,12 +201,12 @@ class tkAboutTamarackDialog extends tkDialog
 	{
 		super();
 
-		var logo = sayP("tamarack ");
-		logo.className = "tkAboutDialogLogo";
-		var lines = [logo, sayP("Version " + getTamarackVersion()), sayP("By Ian Martinez")];
-		var credits = [	sayLine("Bootstrap","h3"),sayP("Copyright (c) 2011-2018 Twitter, Inc"),
-						sayLine("jQuery","h3"),sayP("Copyright (c) JS Foundation"),
-						sayLine("Breeze Icons","h3"),sayP("Copyright (c) 2014 Uri Herrera and others"),];
+		var logo = sayP("tamarack " + getTamarackVersion());
+		logo.className = "h5 tkAboutDialogLogo";
+		var lines = [logo, sayP("By Ian Martinez")];
+		var credits = [	sayLine("Bootstrap","h5"), sayP("Copyright (c) 2011-2018 Twitter, Inc"),
+						sayLine("jQuery","h5"), sayP("Copyright (c) JS Foundation"),
+						sayLine("Breeze Icons","h5"), sayP("Copyright (c) 2014 Uri Herrera and others"),];
 
 		this.notebook = new tkNotebook();
 

@@ -1262,6 +1262,7 @@ class tkNotebook extends tkWidget
 	{
 		super();
 		this.element = make("div"); 
+		this.element.className = "tkNotebook";
 		
 		this.tabBar = make("ul");
 		this.tabBar.className = "nav nav-tabs";
