@@ -195,3 +195,6 @@ video {
   .tkTextInput:focus {
       outline: solid 1px hsla(192, 85%, 42%, 1.00);
   }
+
+  .btn {
+}

@@ -1235,27 +1235,6 @@ class tkNotebookPage
 	}
 }
 
-class tkSlide
-{
-	constructor()
-	{
-		/*	A <div> that contains the content that
-		is brought up when the slide is shown	*/
-		this.contentArea = make("div");
-		this.contentArea.className = "slide fade";
-	}
-	
-	addContent(_content)
-	{
-		this.contentArea.appendChild(_content);
-	}
-	
-	removeContent(_content)
-	{
-		this.contentArea.removeChild(_content);
-	}
-}
-
 class tkNotebook extends tkWidget
 {
 	constructor() 
@@ -1611,96 +1590,12 @@ class tkRibbonGroup extends tkWidget
 	}
 }
 
-class tkSlideshow extends tkWidget
+class tkSlideshow extends tkNotebook
 {
 	constructor()
 	{
 		super();
-		this.element = make("div"); 
-		this.className = "container";
-		
-		this.contentPanel = make("div");
-		this.contentPanel.className = "slide-content";
-		this.element.appendChild(this.contentPanel);
-		this.activeIndex = 0;
-		
-		/*	Whether or not to wrap around when the
-			end of index is reached */
-		this.wrap = true;
-		this.slides = [];
-	}
-	
-	addPage(_page)
-	{
-		this.contentPanel.appendChild(_page.contentArea);
-		this.slides.push(_page);
-		
-		if (this.getIndex(_page) == this.activeIndex)
-			this.active = _page;
-	}
-	
-	addPages()
-	{
-		for(var i=0;i<arguments.length;i++)
-			this.addPage(arguments[i]);
-	}
-	
-	removePage(_page)
-	{
-		this.contentPanel.removeChild(_page.contentArea);
-		this.slides.splice(this.getIndex(_page),1);
-		
-		this.activeIndex = Math.max(0,activeIndex-1);
-	}
-	
-	set active(_page)
-	{
-		if(!_page) return;
-		// Make all pages inactive
-		for(var i=0;i<this.contentPanel.childNodes.length;i++) 
-			this.contentPanel.childNodes[i].className = "slide";
-		
-		_page.contentArea.className = "show slide";
-
-		this.activeIndex = this.getIndex(_page);
-	}
-	
-	getActiveIndex()
-	{
-		for(var i=0;i<this.contentPanel.childNodes.length;i++)
-			if (this.contentPanel.childNodes[i].classList.contains("show"))
-				return i;
-	}
-	
-	getActive()
-	{
-		return this.slides[this.getActiveIndex()];
-	}
-	
-	getIndex(_page)
-	{
-		return this.slides.indexOf(_page);
-	}
-	
-	goToIndex(_index)
-	{
-		this.active = this.slides[_index];
-	}
-	
-	back()
-	{
-		if (this.getActiveIndex()-1 < 0 && this.wrap)
-			this.goToIndex(this.slides.length-1);
-		else
-			this.goToIndex(Math.max(0, this.getActiveIndex()-1));		
-	}
-	
-	next()
-	{
-		if (this.getActiveIndex()+1 >= this.slides.length && this.wrap)
-			this.goToIndex(0);
-		else
-			this.goToIndex(Math.min(this.slides.length-1, this.getActiveIndex()+1));		
+		this.element.className = this.element.className + " tkSlide";
 	}
 }
 

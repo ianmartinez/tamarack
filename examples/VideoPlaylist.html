@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Bootstrap CSS -->
 		<link href="../bootstrap/bootstrap.min.css" rel="stylesheet">
 		<!-- Tamarack CSS -->
-		<link href="../tamarack/tamarack.css" rel="stylesheet">
-	</head>
-	<body>
+		<link href="../tamarack/tamarack.css" rel="stylesheet">		
 		<!-- jQuery -->
 		<script src="../jquery/jquery.min.js"></script>
-		<!-- Tamarack JS -->
-		<script src="../tamarack/tamarack.js"></script>
+		<!-- Popper JS -->
+		<script src="../popper/popper.min.js"></script>
 		<!-- Bootstrap JS -->
 		<script src="../bootstrap/bootstrap.min.js"></script>
-		
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack-core.js"></script>
+		<!-- Tamarack Dialogs JS -->
+		<script src="../tamarack/tamarack-dialogs.js"></script>
+	</head>
+	<body>	
 		<script>
 			var doc = new tkDocument();
 			var slideshow = new tkSlideshow();
@@ -25,7 +29,7 @@
 			
 			for (var i=0; i<videos.length; i++)
 			{
-				var slide = new tkSlide();
+				var slide = new tkNotebookPage();
 				var video = new tkVideoPlayer();
 				video.source = videos[i];
 				video.setSize(700,500);
@@ -41,14 +45,14 @@
 			};	
 			
 			var backButton = new tkButton();
-			backButton.e.className = "tkRedButton";
+			backButton.e.className = "btn btn-danger";
 			backButton.text = "<";
 			backButton.e.onclick = () => {
 				slideshow.back();
 			};
 			
 			var nextButton = new tkButton();
-			nextButton.e.className = "tkRedButton";
+			nextButton.e.className = "btn btn-danger";
 			nextButton.text = ">";
 			nextButton.e.onclick = () => {
 				slideshow.next();
