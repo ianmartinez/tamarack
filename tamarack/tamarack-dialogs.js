@@ -11,10 +11,8 @@ var tkDialogResult= {
   RETRY: 8
 };
 
-class tkDialog extends tkWidget
-{
-	constructor()
-	{
+class tkDialog extends tkWidget {
+	constructor() {
 		super();
 		this.element = make("div"); 
 		this.className = "modal fade";
@@ -55,23 +53,19 @@ class tkDialog extends tkWidget
 		this.isOpen = false;
 	}
 	
-	addContent(_content)
-	{
+	addContent(_content) {
 		this.modalBody.appendChild(_content);
 	}
 	
-	removeContent(_content)
-	{
+	removeContent(_content)	{
 		this.modalBody.removeChild(_content);
 	}
 
-	get title()
-	{
+	get title()	{
 		return this.modalTitle.nodeValue;
 	}
 
-	set title(_title)
-	{
+	set title(_title) {
 		if (_title == "")
 			this.modalTitle.style.display = "none";
 		else
@@ -82,8 +76,7 @@ class tkDialog extends tkWidget
 
 	/*	Returns a tkDialogResult that 
 		corresponds to the button clicked */
-	show(_on_dialog_result)
-	{
+	show(_on_dialog_result)	{
 		this.isOpen = true;
 		$(this.element).modal('show')
 
@@ -102,13 +95,11 @@ class tkDialog extends tkWidget
 		else
 			this.modalFooter.style.display = "block";
 
-		for(var i=0;i<this.choices.length;i++) 
-		{
+		for(var i=0;i<this.choices.length;i++) {
 			var button = new tkButton();
 			var result = tkDialogResult.NOTHING;
 
-			switch (this.choices[i]) 
-			{
+			switch (this.choices[i]) {
 				case tkDialogResult.NOTHING:
 					continue;
 				case tkDialogResult.OK:
@@ -188,17 +179,14 @@ class tkDialog extends tkWidget
 		}
 	}
 
-	close()
-	{
+	close()	{
 		this.isOpen = false;
 		$(this.element).modal('hide');
 	}
 }
 
-class tkAboutTamarackDialog extends tkDialog
-{
-	constructor()
-	{
+class tkAboutTamarackDialog extends tkDialog {
+	constructor() {
 		super();
 
 		var logo = sayP("tamarack " + tamarack.version);
@@ -225,10 +213,8 @@ class tkAboutTamarackDialog extends tkDialog
 	}
 }
 
-class tkFontDialog extends tkDialog
-{
-	constructor()
-	{
+class tkFontDialog extends tkDialog {
+	constructor() {
 		super();
 
 		this.choices = [tkDialogResult.OK,tkDialogResult.CANCEL];
@@ -240,21 +226,17 @@ class tkFontDialog extends tkDialog
 		this.addClass("tkFontDialog");
 	}
 	
-	get font()
-	{
+	get font() {
 		return this.fontPicker.font;
 	}
 	
-	set font(_font)
-	{
+	set font(_font)	{
 		this.fontPicker.font = _font;
 	}
 }
 
-class tkFontPicker extends tkWidget
-{
-	constructor()
-	{
+class tkFontPicker extends tkWidget {
+	constructor() {
 		super();
 
 		this.element = make("div");
@@ -285,26 +267,21 @@ class tkFontPicker extends tkWidget
 		this.refreshFont();
 	}
 
-	get font()
-	{
+	get font() {
 		return this.intFont;
 	}
 
-	set font(_font)
-	{		
+	set font(_font)	{		
 		
 	}
 
-	refreshFont()
-	{
+	refreshFont() {
 		
 	}
 }
 
-class tkColorDialog extends tkDialog
-{
-	constructor()
-	{
+class tkColorDialog extends tkDialog {
+	constructor() {
 		super();
 
 		this.choices = [tkDialogResult.OK,tkDialogResult.CANCEL];
@@ -315,21 +292,17 @@ class tkColorDialog extends tkDialog
 		this.addClass("tkColorDialog");
 	}
 
-	get color()
-	{
+	get color()	{
 		return this.colorPicker.color;
 	}
 	
-	set color(_color)
-	{
+	set color(_color) {
 		this.colorPicker.color = _color;
 	}
 }
 
-class tkColorPicker extends tkWidget
-{
-	constructor()
-	{
+class tkColorPicker extends tkWidget {
+	constructor() {
 		super();
 
 		this.element = make("div");
@@ -412,8 +385,7 @@ class tkColorPicker extends tkWidget
 
 		this.textInput = new tkColorTextInput();
 		this.textInput.onInput = function()	{
-			if(colorPicker.textInput.isValidColor())
-			{
+			if(colorPicker.textInput.isValidColor()) {
 				var new_color = new tkColor();
 				new_color.parse(colorPicker.textInput.element.value);
 				colorPicker.color = new_color;				
@@ -427,20 +399,17 @@ class tkColorPicker extends tkWidget
 		this.updateColor();
 	}
 
-	get color()
-	{
+	get color()	{
 		return this.internalColor;
 	}
 
-	set color(_color)
-	{		
+	set color(_color) {		
 		this.internalColor = _color;
 		this.updateColor();
 	}
 
 	// Set color to the sliders' values
-	grabColor()
-	{
+	grabColor() {
 		var new_color = new tkColor();
 		new_color.h = this.hueSlider.valueAsNumber;
 		new_color.s = this.saturationSlider.valueAsNumber;
@@ -451,8 +420,7 @@ class tkColorPicker extends tkWidget
 	}
 	
 	// Update the sliders to reflect the current color
-	updateColor()
-	{		
+	updateColor() {		
 		this.hueSlider.value = this.color.h;
 		this.saturationSlider.value = this.color.s;		
 		this.lightnessSlider.value = this.color.l;
@@ -483,10 +451,8 @@ class tkColorPicker extends tkWidget
 	}
 }
 
-class tkColorTextInput extends tkTextInput
-{
-	constructor()
-	{
+class tkColorTextInput extends tkTextInput {
+	constructor() {
 		super();
 
 		this.onInput = function() {};
@@ -498,8 +464,7 @@ class tkColorTextInput extends tkTextInput
 		});
 	}
 
-	isValidColor()
-	{
+	isValidColor()	{
 		return tkColor.isColor(this.element.value);
 	}
 }
