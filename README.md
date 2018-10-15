@@ -43,15 +43,9 @@ doc.add(notebook);
 
 **Show a yes/no dialog:**
 ```javascript
-var dlgMessage = new tkDialog();
-
-dlgMessage.choices = [tkDialogResult.YES, tkDialogResult.NO];
-dlgMessage.title = "I was just wondering...";
-dlgMessage.addContent(say("Do you like this demo?"));
-
-dlgMessage.show((dialogResult) => {
+tkDialog.show("Do you like this demo?", "I was just wondering...", [tkDialogResult.YES, tkDialogResult.NO], (dialogResult) => {
     if(dialogResult == tkDialogResult.YES)
-        alert("Thanks!");
+        tkDialog.show("Thanks!");
 });
 ```
 ![Dialog](examples/screenshots/Dialog.jpg) 
