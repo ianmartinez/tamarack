@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Bootstrap CSS -->
+		<link href="../bootstrap/bootstrap.min.css" rel="stylesheet">
+		<!-- Tamarack CSS -->
+		<link href="../tamarack/tamarack.css" rel="stylesheet">		
+		<!-- jQuery -->
+		<script src="../jquery/jquery.min.js"></script>
+		<!-- Popper JS -->
+		<script src="../popper/popper.min.js"></script>
+		<!-- Bootstrap JS -->
+		<script src="../bootstrap/bootstrap.min.js"></script>
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack-core.js"></script>
+		<!-- Tamarack Dialogs JS -->
+		<script src="../tamarack/tamarack-dialogs.js"></script>
+	</head>
+	<body>		
+		<script>
+			var doc = new tkDocument("Dialog Demo");
+			doc.padding = "1rem";
+
+			var dialogButton = new tkButton("Show Dialog");
+			dialogButton.e.onclick = () => {
+				tkDialog.show("Welcome to tamarack! Do you like this demo?", "Some Dialog", [tkDialogResult.YES, tkDialogResult.NO], (dialogResult) => {
+					if (dialogResult == tkDialogResult.YES)
+						tkDialog.show("Thanks!");
+					else
+						tkDialog.show("Well then...")
+				});
+			};
+
+			doc.add(dialogButton);
+		</script>
+	</body>
+</html>

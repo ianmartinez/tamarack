@@ -12,7 +12,7 @@ var tkDialogResult= {
 };
 
 class tkDialog extends tkWidget {
-	constructor() {
+	constructor(_title,_choices) {
 		super();
 		this.element = make("div"); 
 		this.className = "modal fade";
@@ -32,7 +32,7 @@ class tkDialog extends tkWidget {
 
 		this.modalTitle =  make("h5");
 		this.titleNode = say("");
-		this.title = "";
+		this.title = (_title) ? _title : "";
 		this.modalTitle.appendChild(this.titleNode);
 		this.modalTitle.className = "modal-title";
 		this.modalHeader.appendChild(this.modalTitle);
@@ -47,7 +47,7 @@ class tkDialog extends tkWidget {
 		
 		/* 	An array of tkDialogResult listing 
 			the buttons that are shown */
-		this.choices = [tkDialogResult.OK];
+		this.choices = (_choices) ? _choices : [tkDialogResult.OK];
 		this.choicesButtons = [];
 
 		this.isOpen = false;
@@ -74,11 +74,23 @@ class tkDialog extends tkWidget {
 		this.titleNode.nodeValue = _title;
 	}
 
+	static show(_text,_title,_choices,_on_dialog_result) {
+		var dlg = new tkDialog(_title,_choices);
+		dlg.addContent(sayP(_text));
+		dlg.show(function() {
+			if(_on_dialog_result) 
+				_on_dialog_result();
+
+			// So we don't clutter up the DOM with zombie dialog elements
+			dlg.element.parentNode.removeChild(dlg.element);
+		});
+	}
+
 	/*	Returns a tkDialogResult that 
 		corresponds to the button clicked */
 	show(_on_dialog_result)	{
 		this.isOpen = true;
-		$(this.element).modal('show')
+		$(this.element).modal("show");
 
 		if(!_on_dialog_result) 
 			_on_dialog_result = function() {};
