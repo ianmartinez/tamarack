@@ -66,9 +66,7 @@
 				aboutButton.image = "../icons/actions/22/project-development.svg";
 				helpGroup.addButton(aboutButton.element);
 				aboutButton.e.onclick = function() {
-					var aboutDialog = new tkDialog();
-					aboutDialog.addContent(sayP("Notepad App 1.0 - A Tamarack Demo"));
-					aboutDialog.show();
+					tkDialog.show("Notepad App 1.0 - A Tamarack Demo");
 				};
 				
 				
@@ -93,16 +91,13 @@
 				colorButton.tooltip = say("Background Color");
 				colorButton.image = "../icons/actions/22/adjustlevels.svg";
 				styleGroup.addButton(colorButton.element);
-				colorButton.e.onclick = () => 
-				{
-					var colorDialog = new tkColorDialog();
+				colorButton.e.onclick = () => {
 					var oldColor = new tkColor();
 					oldColor.parse(textEditor.style.backgroundColor);
 
-					colorDialog.color = oldColor.clone();
-					colorDialog.show((dialogResult) => {
+					tkColorDialog.show(oldColor.clone(), (dialogResult, color) => {
 						if(dialogResult == tkDialogResult.OK) 
-							setColor(colorDialog.color);
+							setColor(color);
 					});
 				};
 
@@ -110,11 +105,10 @@
 				fontButton.tooltip = say("Font");
 				fontButton.image = "../icons/actions/22/gtk-select-font.svg";
 				styleGroup.addButton(fontButton.element);
-				fontButton.e.onclick = () => 
-				{
-					var fontDialog = new tkFontDialog();
-					fontDialog.show((dialogResult) => {
-
+				fontButton.e.onclick = () => {
+					tkFontDialog.show(tkFont.fromElement(textEditor.e), (dialogResult, font) => {
+						if (dialogResult == tkDialogResult.OK)
+							textEditor.e.style.font = font.getCss();
 					});
 				};
 
@@ -123,8 +117,7 @@
 				ribbon.addTo(clientArea);
 			}
 
-			function setColor(_color)
-			{
+			function setColor(_color) {
 				textEditor.style.backgroundColor = _color.getHslaCss();
 				textEditor.style.color = (_color.isDark()) ? "rgb(255,255,255)" : "rgb(0,0,0)"; 
 			}

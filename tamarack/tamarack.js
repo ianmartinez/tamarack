@@ -91,6 +91,7 @@ class tkFont {
 		this.variant = "";
 	}
 
+	
 	// Check if a font family exists
 	static exists(_family) {
 		// From https://www.samclarke.com/javascript-is-font-available/
@@ -141,6 +142,18 @@ class tkFont {
 				availableFonts.push(standardFonts[i]);
 
 		return availableFonts;
+	}
+
+	static fromElement(_element) {
+		var element = makeElement(_element);
+
+		var computedFamily = element.computedProperty("font-family");
+		var fontFamily = (computedFamily.includes(",")) ? tkFont.getStandardFonts()[0] : computedFamily;
+
+		return new tkFont(fontFamily, 
+			element.computedProperty("font-size"),
+			element.computedProperty("font-weight"),
+			element.computedProperty("font-style"));
 	}
 
 	getCss() {
@@ -556,6 +569,10 @@ class tkControl {
 	removeElement()	{
 		for (var i=0;i<arguments.length;i++)
 			this.element.removeChild(arguments[i]);
+	}
+
+	computedProperty(_property ) {
+		return window.getComputedStyle(this.element, null).getPropertyValue(_property);
 	}
 }
 
@@ -1770,9 +1787,6 @@ class tkDialog extends tkWidget {
 		dlg.show(function(dialogResult) {
 			if(_on_dialog_result) 
 				_on_dialog_result(dialogResult);
-
-			// So we don't clutter up the DOM with zombie dialog elements
-			dlg.delete();
 		});
 	}
 
@@ -1884,6 +1898,12 @@ class tkDialog extends tkWidget {
 	close()	{
 		this.isOpen = false;
 		$(this.element).modal('hide');
+
+		// Remove dialog element from DOM when dialog is closed
+		var dlg = this;
+		$(this.element).on('hidden.bs.modal', function (e) {
+			dlg.delete();
+		});
 	}
 }
 
@@ -1929,6 +1949,15 @@ class tkFontDialog extends tkDialog {
 		this.title = "Font";
 		this.addClass("tkFontDialog");
 	}
+
+	static show(_font,_on_dialog_result) {
+		var dlg = new tkFontDialog();
+		dlg.font = _font;		
+		dlg.show(function(dialogResult) {
+			if(_on_dialog_result) 
+				_on_dialog_result(dialogResult,dlg.font);
+		});
+	}
 	
 	get font() {
 		return this.fontPicker.font;
@@ -1954,6 +1983,7 @@ class tkFontPicker extends tkWidget {
 			current_picker._font.family = current_picker.fontFamilyList.getFirstSelected().text;
 			current_picker.refreshFont();
 		});
+
 		this.fontFamilyList.allowMultipleSelection = false;
 		this.fontFamilyArray = tkFont.getAvailableFonts();
 		this.fontFamilyArray.forEach((value) => {
@@ -1979,7 +2009,8 @@ class tkFontPicker extends tkWidget {
 	}
 
 	set font(_font)	{		
-		
+		this._font = _font;
+		this.refreshFont();
 	}
 
 	refreshFont() {
@@ -2005,9 +2036,6 @@ class tkColorDialog extends tkDialog {
 		dlg.show(function(dialogResult) {
 			if(_on_dialog_result) 
 				_on_dialog_result(dialogResult,dlg.color);
-
-			// So we don't clutter up the DOM with zombie dialog elements
-			dlg.delete();
 		});
 	}
 
@@ -2039,9 +2067,6 @@ class tkColorPicker extends tkWidget {
 		this.colorPreview.className = "tkColorPickerPreview";
 		this.colorPreviewContainer = make("div");
 		this.colorPreviewContainer.className = "tkColorPickerPreviewContainer";
-		this.previewTitle = sayP("Preview");
-		this.previewTitle.className = "tkSliderTitle";
-		this.rightPane.appendChild(this.previewTitle);
 		this.colorPreviewContainer.appendChild(this.colorPreview);
 		this.rightPane.appendChild(this.colorPreviewContainer);
 
