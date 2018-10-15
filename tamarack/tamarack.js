@@ -1948,8 +1948,7 @@ class tkFontPicker extends tkWidget {
 
 		this.choices = [tkDialogResult.OK,tkDialogResult.CANCEL];
 		
-		this.fontFamily = sayP("Font Family:");
-		this.fontFamily.className = "tkFontPickerTitle";
+		this.fontFamilyTitle = sayText("Family:", "h6");
 		var current_picker = this;
 		this.fontFamilyList = new tkList(function() {
 			current_picker._font.family = current_picker.fontFamilyList.getFirstSelected().text;
@@ -1964,13 +1963,12 @@ class tkFontPicker extends tkWidget {
 			this.fontFamilyList.addItem(item);
 		});
 
-		this.fontDemoTitle = sayP("Font Preview:");
-		this.fontDemoTitle.className = "tkFontPickerTitle";
+		this.fontDemoTitle = sayText("Preview:", "h6");
 		this.fontDemo = new tkText("pre");
 		this.fontDemo.className = "tkFontPickerPreview";
 		this.fontDemo.text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcdefghijklmnopqrstuvwxyz\n1234567890 ?!.";
 
-		this.addElement(this.fontFamily,this.fontFamilyList.element,this.fontDemoTitle, this.fontDemo.element);
+		this.addElement(this.fontFamilyTitle,this.fontFamilyList.element,this.fontDemoTitle, this.fontDemo.element);
 
 		this._font = new tkFont(this.fontFamilyArray[0],"24px","normal","normal");
 		this.refreshFont();

@@ -40,17 +40,19 @@ body {
     color: #b95b2d;
 }
 
-.tkFontPicker .list-group {    
+.tkFontPicker .list-group, .tkFontPicker pre {
     max-height: 10rem;
-    overflow-y: auto;
+    overflow: auto;
     padding: 1rem;
     background: rgba(0, 0, 0, 0.03);
     border-radius: 0.25rem;
     border: 1px solid rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
 }
 
 .tkFontPicker .list-group-item {
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);    
+    text-align: center;
 }
 
 p {
