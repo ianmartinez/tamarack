@@ -77,12 +77,12 @@ class tkDialog extends tkWidget {
 	static show(_text,_title,_choices,_on_dialog_result) {
 		var dlg = new tkDialog(_title,_choices);
 		dlg.addContent(sayP(_text));
-		dlg.show(function() {
+		dlg.show(function(dialogResult) {
 			if(_on_dialog_result) 
-				_on_dialog_result();
+				_on_dialog_result(dialogResult);
 
 			// So we don't clutter up the DOM with zombie dialog elements
-			dlg.element.parentNode.removeChild(dlg.element);
+			dlg.delete();
 		});
 	}
 
@@ -304,6 +304,18 @@ class tkColorDialog extends tkDialog {
 		this.addContent(this.colorPicker.element);
 		this.title = "Color";
 		this.addClass("tkColorDialog");
+	}
+
+	static show(_color,_on_dialog_result) {
+		var dlg = new tkColorDialog();
+		dlg.color = _color;		
+		dlg.show(function(dialogResult) {
+			if(_on_dialog_result) 
+				_on_dialog_result(dialogResult,dlg.color);
+
+			// So we don't clutter up the DOM with zombie dialog elements
+			dlg.delete();
+		});
 	}
 
 	get color()	{

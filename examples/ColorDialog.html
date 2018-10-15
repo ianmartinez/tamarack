@@ -25,18 +25,14 @@
 			var backgroundColor = new tkColor();
 			backgroundColor.randomizeOpaque();
 			doc.setBackgroundColor(backgroundColor.getHslaCss());
-			
-			var colorDialog = new tkColorDialog();
 			var dialogButton = new tkButton();
 			
 			dialogButton.text = "New Color";
 			dialogButton.e.onclick = () => {
-				colorDialog.color = backgroundColor.clone();
-				colorDialog.show((dialogResult) => {
+				tkColorDialog.show(backgroundColor.clone(), (dialogResult, color) => {
 					if(dialogResult == tkDialogResult.OK) {
-						backgroundColor = colorDialog.color;
-						backColor = colorDialog.color.getHslaCss();
-						doc.setBackgroundColor(backColor);
+						backgroundColor = color;
+						doc.setBackgroundColor(color.getHslaCss());
 					}
 				});
 			};

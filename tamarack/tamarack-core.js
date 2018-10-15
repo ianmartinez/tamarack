@@ -532,6 +532,10 @@ class tkWidget extends tkControl {
 		_destination.element.removeChild(this.element);
 	}
 
+	delete() {
+		this.element.parentNode.removeChild(this.element);
+	}
+
 	// animations
 	fadeIn() {
 		$(this.element).fadeIn(150);
