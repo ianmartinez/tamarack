@@ -54,6 +54,10 @@ class tkNumber {
 		return Math.floor(Math.random() * (_max - _min + 1)) + _min;
 	}
 
+	static randomDecimal(_min,_max) {
+		return Math.random() < 0.5 ? ((1-Math.random()) * (_max-_min) + _min) : (Math.random() * (_max-_min) + _min);
+	}
+
 	static toPercent(_value,_max) {
 		return ((_value*100)/_max);
 	}
@@ -210,6 +214,26 @@ class tkColor {
 		return (image.style.color !== "rgb(255, 255, 255)");
 	}	
 
+	static fromElementBackground(_element) {
+		return new tkColor(_element.style.backgroundColor);
+	}
+
+	static fromElementColor(_element) {
+		return new tkColor(_element.style.color);
+	}
+
+	static random() {
+		var color = new tkColor();
+		color.randomize();
+		return color;
+	}
+
+	static randomOpaque() {
+		var color = new tkColor();
+		color.randomizeOpaque();
+		return color;
+	}
+
 	equals(_other) 	{
 		if(	_other.h == this.h && _other.s == this.s && _other.l == this.a && _other.a == this.a)
 			return true;
@@ -217,11 +241,17 @@ class tkColor {
 	}
 	
 	randomize()	{
-		this.fromRgba(tkNumber.random(0,255),tkNumber.random(0,255),tkNumber.random(0,255),Math.tkNumber.random());
+		this.fromRgba(tkNumber.random(0,255),
+		tkNumber.random(0,255),
+		tkNumber.random(0,255),
+		tkNumber.randomDecimal(0,1));
 	}
 
 	randomizeOpaque() {
-		this.fromRgba(tkNumber.random(0,255),tkNumber.random(0,255),tkNumber.random(0,255),1);
+		this.fromRgba(tkNumber.random(0,255),
+		tkNumber.random(0,255),
+		tkNumber.random(0,255),
+		1);
 	}
 
 	clone()	{

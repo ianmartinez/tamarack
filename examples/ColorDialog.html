@@ -20,18 +20,14 @@
 			var doc = new tkDocument("Color Dialog Demo");
 			doc.padding = "1rem";
 
-			var backgroundColor = new tkColor();
-			backgroundColor.randomizeOpaque();
-			doc.setBackgroundColor(backgroundColor.getHslaCss());
+			doc.setBackgroundColor(tkColor.random().getHslaCss());
 
 			var dialogButton = new tkButton();			
 			dialogButton.text = "New Color";
 			dialogButton.e.onclick = () => {
-				tkColorDialog.show(backgroundColor.clone(), (dialogResult, color) => {
-					if(dialogResult == tkDialogResult.OK) {
-						backgroundColor = color;
+				tkColorDialog.show(tkColor.fromElementBackground(doc.e), (dialogResult, color) => {
+					if(dialogResult == tkDialogResult.OK) 
 						doc.setBackgroundColor(color.getHslaCss());
-					}
 				});
 			};
 
