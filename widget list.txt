@@ -30,10 +30,12 @@ tkVideoPlayer
 ** tkAccordion
 ** tkCarousel
 ** tkGroupBox
+** tkHorizontal
 tkNotebook
 tkNotebookPage
 tkSlide (Add pagination option)
 tkSlideshow
+** tkVertical (With option to reverse direction on mobile)
 
 === Input ===
 ** tkCheckBox (Allow states- checked, intermediate, unchecked)
