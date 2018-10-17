@@ -1,0 +1,60 @@
+=== Common ===
+tkButton
+** tkButtonGroup
+** tkCalendar (Wrap http://jqueryui.com/datepicker/#inline)
+tkDiv
+** tkDropdown
+tkImage
+tkInput
+tkLink
+tkList
+** tkMenuStrip
+tkMeter
+** tkPalette
+tkReviewMeter
+tkProgress (Allow different colors and animation)
+tkSlider
+tkText
+tkTextEdit
+
+=== Data ===
+** tkTable (Editable)
+** tkTree
+
+=== Media ====
+tkAudioPlayer
+tkMediaPlayer
+tkVideoPlayer
+
+=== Containers ===
+** tkAccordion
+** tkCarousel
+** tkGroupBox
+tkNotebook
+tkNotebookPage
+tkSlide (Add pagination option)
+tkSlideshow
+
+=== Input ===
+** tkCheckBox (Allow states- checked, intermediate, unchecked)
+** tkFileInput
+** tkFormGroup
+** tkRadio 
+** tkSpinner (NumericUpDown)
+tkTextInput (Add type for passwords/email)
+
+===  Pickers ===
+** tkColorButton
+** tkFontButton
+tkColorPicker
+tkFontPicker
+
+=== Dialogs ===
+tkColorDialog
+tkDialog
+tkFontDialog
+
+=== Ribbon ===
+tkRibbon
+tkRibbonGroup
+tkRibbonPage

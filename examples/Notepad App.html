@@ -17,9 +17,7 @@
 	</head>
 	<body>	
 		<script>
-			var textEditor = new tkTextEdit();
-			var doc = new tkDocument();
-			doc.title = "Notepad";
+			var doc = new tkDocument("Notepad");
 
 			var clientArea = new tkDiv();
 			clientArea.element.style.backgroundColor = "rgb(240,240,240)";
@@ -28,14 +26,14 @@
 
 			buildRibbon();
 
+			var textEditor = new tkTextEdit();
 			textEditor.autofocus = true;
 			textEditor.placeholder = "Type here..."
 			textEditor.addTo(clientArea);
 			textEditor.addClass("fill","borderless");
 			setColor(new tkColor("hsla(199, 33%, 20%, 1.00)"));
 
-			function buildRibbon()
-			{
+			function buildRibbon() {
 				var ribbon = new tkRibbon();
 				
 				// Home Page
@@ -50,7 +48,7 @@
 				var toggleFullscreenButton = new tkButton();
 				toggleFullscreenButton.tooltip = say("Toggle Fullscreen");
 				toggleFullscreenButton.image = "../icons/actions/22/zoom-fullscreen.svg";
-				windowGroup.addButton(toggleFullscreenButton.element);
+				windowGroup.addButton(toggleFullscreenButton.e);
 				toggleFullscreenButton.e.onclick = function() {
 					var bodyElement = makeElement(document.body);
 					bodyElement.toggleFullscreen();
@@ -59,12 +57,12 @@
 				// Help Group
 				var helpGroup = new tkRibbonGroup();
 				helpGroup.title = "Help";
-				homePage.addContent(helpGroup.element);
+				homePage.addContent(helpGroup.e);
 
 				var aboutButton = new tkButton();
 				aboutButton.tooltip = say("About App");
 				aboutButton.image = "../icons/actions/22/project-development.svg";
-				helpGroup.addButton(aboutButton.element);
+				helpGroup.addButton(aboutButton.e);
 				aboutButton.e.onclick = function() {
 					tkDialog.show("Notepad App 1.0 - A Tamarack Demo");
 				};
@@ -73,7 +71,7 @@
 				var aboutTkButton = new tkButton();
 				aboutTkButton.tooltip = say("About Tamarack");
 				aboutTkButton.image = "../icons/actions/22/help-about.svg";
-				helpGroup.addButton(aboutTkButton.element);
+				helpGroup.addButton(aboutTkButton.e);
 				aboutTkButton.e.onclick = function() {					
 					aboutTamarack.show();
 				};
@@ -85,12 +83,12 @@
 				// Style Group
 				var styleGroup = new tkRibbonGroup();
 				styleGroup.title = "Style";
-				formatPage.addContent(styleGroup.element);
+				formatPage.addContent(styleGroup.e);
 
 				var colorButton = new tkButton();
 				colorButton.tooltip = say("Background Color");
 				colorButton.image = "../icons/actions/22/adjustlevels.svg";
-				styleGroup.addButton(colorButton.element);
+				styleGroup.addButton(colorButton.e);
 				colorButton.e.onclick = () => {
 					var oldColor = new tkColor();
 					oldColor.parse(textEditor.style.backgroundColor);
@@ -104,7 +102,7 @@
 				var fontButton = new tkButton();
 				fontButton.tooltip = say("Font");
 				fontButton.image = "../icons/actions/22/gtk-select-font.svg";
-				styleGroup.addButton(fontButton.element);
+				styleGroup.addButton(fontButton.e);
 				fontButton.e.onclick = () => {
 					tkFontDialog.show(tkFont.fromElement(textEditor.e), (dialogResult, font) => {
 						if (dialogResult == tkDialogResult.OK)
