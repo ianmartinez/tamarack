@@ -19,12 +19,10 @@
 		<script>
 			var doc = new tkDocument("Color Dialog Demo");
 			doc.padding = "1rem";
+			doc.setBackgroundColor(tkColor.randomOpaque().getHslaCss());
 
-			doc.setBackgroundColor(tkColor.random().getHslaCss());
-
-			var dialogButton = new tkButton();			
-			dialogButton.text = "New Color";
-			dialogButton.e.onclick = () => {
+			var dialogButton = new tkButton("New Color");	
+			dialogButton.e.onclick = function() {
 				tkColorDialog.show(tkColor.fromElementBackground(doc.e), (dialogResult, color) => {
 					if(dialogResult == tkDialogResult.OK) 
 						doc.setBackgroundColor(color.getHslaCss());
