@@ -742,8 +742,14 @@ class tkText extends tkWidget {
 }
 
 class tkLink extends tkText {
-	constructor() {
+	constructor(_text,_source) {
 		super("a");
+		
+		if(_text)
+			this.text = _text;
+
+		if (_source)
+			this.source = _source;
 	}
 		
 	// Link source
@@ -756,8 +762,7 @@ class tkLink extends tkText {
 	}
 }
 
-
-var tkButtonType= {
+var tkWidgetStyle= {
 	PRIMARY: 0,
 	SECONDARY: 1,
 	SUCCESS: 2,
@@ -770,36 +775,36 @@ var tkButtonType= {
 };
 
 class tkButton extends tkWidget {
-	constructor(_text, _button_type, _class, _outline) {
+	constructor(_text, _button_style, _class, _outline) {
 		super();
 
 		this.element = make("button");
 		this.element.type = "button";
 		var btnClass = "";
 
-		switch(_button_type) {
-			case tkButtonType.PRIMARY:
+		switch(_button_style) {
+			case tkWidgetStyle.PRIMARY:
 				btnClass = "btn btn-primary";
 				break;
-			case tkButtonType.SECONDARY:
+			case tkWidgetStyle.SECONDARY:
 				btnClass = "btn btn-secondary";
 				break;
-			case tkButtonType.SUCCESS:
+			case tkWidgetStyle.SUCCESS:
 				btnClass = "btn btn-success";
 				break;				
-			case tkButtonType.DANGER:
+			case tkWidgetStyle.DANGER:
 				btnClass = "btn btn-danger";
 				break;
-			case tkButtonType.WARNING:
+			case tkWidgetStyle.WARNING:
 				btnClass = "btn btn-warning";
 				break;				
-			case tkButtonType.INFO:
+			case tkWidgetStyle.INFO:
 				btnClass = "btn btn-info";
 				break;
-			case tkButtonType.LIGHT:
+			case tkWidgetStyle.LIGHT:
 				btnClass = "btn btn-light";
 				break;
-			case tkButtonType.DARK:
+			case tkWidgetStyle.DARK:
 				btnClass = "btn btn-dark";
 				break;
 			default:
@@ -843,6 +848,70 @@ class tkButton extends tkWidget {
 
 	set text(_text)	{
 		this.textWidget.text = _text;
+	}
+}
+
+class tkDropdownItem extends tkLink {
+	constructor(_text,_source,_onclick) {
+		super(_text,_source);
+
+		this.className = "dropdown-item";
+
+		if (!_onclick)
+			_onclick = function() {};
+
+		this.element.onclick = _onclick;
+	}
+}
+
+class tkDropdownDivider extends tkDiv {
+	constructor() {
+		super();
+
+		this.className = "dropdown-divider";
+	}
+}
+
+
+class tkDropdown extends tkWidget {
+	constructor(_text,_button_style,_class,_menu_items) {
+		this.element = make("div");
+		this.className = "btn-group";
+
+		this.button = new tkButton(_text, _button_style, _class, false);
+		this.button.setAttribute("data-toggle","dropdown");
+
+		this.menu = make("div");
+		this.menu.className = "dropdown-menu";
+		
+		this.menuItems = (_menu_items) ? _menu_items : [];
+				
+		for(var i; i<this.menuItems.length; i++)
+			this.menuItems[i].addToElement(this.menu);
+	}	
+
+	get image()	{
+		return this.button.image;
+	}
+
+	set image(_image) {
+		this.button.image = _image;
+	}
+
+	get text()	{
+		return this.button.text;
+	}
+
+	set text(_text)	{
+		this.button.text = _text;
+	}
+
+	addItem(_item) {
+
+	}
+
+	removeItem(_item) {
+
 	}
 }
 
