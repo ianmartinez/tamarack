@@ -629,6 +629,13 @@ class tkWidget extends tkControl {
 	}
 }
 
+class tkDiv extends tkWidget {
+	constructor() {
+		super();
+		this.element = make("div");
+	}
+}
+
 class tkDocument extends tkControl {	
 	constructor(_title) {
 		super();
@@ -821,7 +828,7 @@ class tkButton extends tkWidget {
 		this.element.appendChild(this.imageWidget.element);
 		this.imageWidget.e.style.display = "none";
 
-		this.textWidget = new tkText("p");
+		this.textWidget = new tkText("span");
 		this.textWidget.className = "tkButtonText";
 		this.element.appendChild(this.textWidget.element);
 		this.text = _text;
@@ -851,7 +858,7 @@ class tkButton extends tkWidget {
 	}
 }
 
-class tkDropdownItem extends tkLink {
+class tkMenuItem extends tkLink {
 	constructor(_text,_source,_onclick) {
 		super(_text,_source);
 
@@ -864,7 +871,7 @@ class tkDropdownItem extends tkLink {
 	}
 }
 
-class tkDropdownDivider extends tkDiv {
+class tkMenuDivider extends tkDiv {
 	constructor() {
 		super();
 
@@ -872,22 +879,23 @@ class tkDropdownDivider extends tkDiv {
 	}
 }
 
-
-class tkDropdown extends tkWidget {
+class tkMenuButton extends tkWidget {
 	constructor(_text,_button_style,_class,_menu_items) {
+		super();
+
 		this.element = make("div");
 		this.className = "btn-group";
 
-		this.button = new tkButton(_text, _button_style, _class, false);
+		this.button = new tkButton(_text, _button_style, "dropdown-toggle " + _class, false);
 		this.button.setAttribute("data-toggle","dropdown");
+		this.button.addToElement(this.e);
 
-		this.menu = make("div");
+		this.menu = new tkDiv();
 		this.menu.className = "dropdown-menu";
+		this.menu.addToElement(this.e);
 		
-		this.menuItems = (_menu_items) ? _menu_items : [];
-				
-		for(var i; i<this.menuItems.length; i++)
-			this.menuItems[i].addToElement(this.menu);
+		this.items = (_menu_items) ? _menu_items : [];
+		this.refreshItems();
 	}	
 
 	get image()	{
@@ -906,19 +914,20 @@ class tkDropdown extends tkWidget {
 		this.button.text = _text;
 	}
 
-	addItem(_item) {
+	refreshItems() {
+		this.menu.clear();
+		for(var i = 0; i<this.items.length; i++)
+			this.items[i].addTo(this.menu);
+	}
 
+	addItem(_item) {
+		this.items.push(_item);
+		refreshItems();
 	}
 
 	removeItem(_item) {
-
-	}
-}
-
-class tkDiv extends tkWidget {
-	constructor() {
-		super();
-		this.element = make("div");
+		this.items.splice(_item,1);
+		refreshItems();
 	}
 }
 

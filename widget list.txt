@@ -13,6 +13,7 @@ tkMeter
 ** tkPalette
 tkReviewMeter
 tkProgress (Allow different colors and animation)
+** tkSelect
 tkSlider
 tkText
 tkTextEdit
