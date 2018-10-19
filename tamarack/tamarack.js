@@ -215,11 +215,11 @@ class tkColor {
 	}	
 
 	static fromElementBackground(_element) {
-		return new tkColor(_element.style.backgroundColor);
+		return new tkColor((new tkElement(_element).computedProperty("background-color")));
 	}
 
 	static fromElementColor(_element) {
-		return new tkColor(_element.style.color);
+		return new tkColor((new tkElement(_element).computedProperty("color")));
 	}
 
 	static random() {
@@ -337,7 +337,7 @@ class tkColor {
 		if(_l>0) _l /= 100;
 
 		if(_s == 0) {
-			r = g = b = l; // achromatic
+			r = g = b = _l; // achromatic
 		} else {
 			var hue2rgb = function hue2rgb(_p,_q,_t) {
 				if(_t < 0) _t += 1;
@@ -392,6 +392,19 @@ class tkColor {
 
 	rgbToHex(_r,_g,_b) {
 		return "#" + ((1 << 24) + (_r << 16) + (_g << 8) + _b).toString(16).slice(1);
+	}
+
+	lighter(_factor) {
+		var c = this.clone();
+		var new_l = (_factor * c.l) + c.l;
+		
+		if (new_l > 100)
+			new_l = 100;
+		else if (new_l < 0)
+			new_l = 0;
+
+		c.fromHsla(c.h, c.s, new_l, c.a);
+		return c;
 	}
 
 	isDark() {
@@ -535,6 +548,14 @@ class tkControl {
 
 	set background(_background) {
 		this.element.style.background = _background;
+	}		
+	
+	get color() {
+		return this.element.style.color;
+	}
+
+	set color(_color) {
+		this.element.style.color = _color;
 	}	
 
 	get border() {
@@ -928,6 +949,23 @@ class tkButton extends tkWidget {
 	set text(_text)	{
 		this.textWidget.text = _text;
 	}
+}
+
+class tkColorButton extends tkButton {
+	constructor(_text) {
+		super(_text,tkWidgetStyle.PRIMARY,"tkColorButton",false);
+		this.on("click", (_color_button) => {
+			tkColorDialog.show(tkColor.fromElementBackground(_color_button.element),
+			(_dialogResult,_color) => {
+				if (_dialogResult == tkDialogResult.OK) {
+					_color_button.background = _color.getHslaCss();
+					_color_button.style.borderColor = _color.lighter(-0.3).getHslaCss();
+
+					_color_button.color = (_color.isDark()) ? "white" : "black";
+				}
+			});
+		});
+	}	
 }
 
 class tkMenuItem extends tkLink {
