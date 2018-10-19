@@ -22,7 +22,6 @@
 			doc.title = "Different Buttons";
 			doc.padding = "1rem";
 			
-			
 			doc.add(new tkText("h2", "Regular Buttons"),
 				new tkButton("Primary", tkWidgetStyle.PRIMARY, "", false, clickButton),
 				new tkButton("Secondary", tkWidgetStyle.SECONDARY, "", false, clickButton),
@@ -35,18 +34,26 @@
 				new tkButton("Link", tkWidgetStyle.LINK, "", false, clickButton));
 
 			doc.add(new tkText("h2", "Outlined Buttons"),
-				new tkButton("Primary", tkWidgetStyle.PRIMARY, "", true, clickButton),
-				new tkButton("Secondary", tkWidgetStyle.SECONDARY, "", true, clickButton),
-				new tkButton("Success", tkWidgetStyle.SUCCESS, "", true, clickButton),
-				new tkButton("Danger", tkWidgetStyle.DANGER, "", true, clickButton),
-				new tkButton("Warning", tkWidgetStyle.WARNING, "", true, clickButton),
-				new tkButton("Info", tkWidgetStyle.INFO, "", true, clickButton),
-				new tkButton("Light", tkWidgetStyle.LIGHT, "", true, clickButton),
-				new tkButton("Dark", tkWidgetStyle.DARK, "", true, clickButton),
-				new tkButton("Link", tkWidgetStyle.LINK, "", true, clickButton));
+				new tkButton("Primary Outline", tkWidgetStyle.PRIMARY, "", true, clickButton),
+				new tkButton("Secondary Outline", tkWidgetStyle.SECONDARY, "", true, clickButton),
+				new tkButton("Success Outline", tkWidgetStyle.SUCCESS, "", true, clickButton),
+				new tkButton("Danger Outline", tkWidgetStyle.DANGER, "", true, clickButton),
+				new tkButton("Warning Outline", tkWidgetStyle.WARNING, "", true, clickButton),
+				new tkButton("Info Outline", tkWidgetStyle.INFO, "", true, clickButton),
+				new tkButton("Light Outline", tkWidgetStyle.LIGHT, "", true, clickButton),
+				new tkButton("Dark Outline", tkWidgetStyle.DARK, "", true, clickButton),
+				new tkButton("Link Outline", tkWidgetStyle.LINK, "", true, clickButton));
 
 			function clickButton(button) {
-				tkDialog.show(button.text,"Button Clicked");
+				var dlg = new tkDialog("Button Clicked");
+				
+				var color = new tkDiv();
+				color.background = button.computedProperty("background");
+				color.height = "20px";
+				color.width = "100px";
+				dlg.addContent(sayP(button.text), color.e);
+
+				dlg.show();
 			}
 		</script>
 	</body>

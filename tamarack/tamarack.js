@@ -512,7 +512,7 @@ class tkControl {
 	
 	set width(_width) {
 		this.setAttribute("width",_width);
-		this.element.style.width = _width + "px";
+		this.element.style.width = _width;
 	}
 		
 	get height() {
@@ -521,13 +521,29 @@ class tkControl {
 
 	set height(_height)	{
 		this.setAttribute("height",_height);
-		this.element.style.height = _height + "px";
+		this.element.style.height = _height;
 	}
 	
 	setSize(_width,_height) {
 		this.width = _width;
 		this.height = _height;
+	}	
+	
+	get background() {
+		return this.element.style.background;
 	}
+
+	set background(_background) {
+		this.element.style.background = _background;
+	}	
+
+	get border() {
+		return this.element.style.border;
+	}
+
+	set border(_border) {
+		this.element.style.border = _border;
+	}	
 
 	get padding() {
 		return this.element.style.padding;
@@ -611,7 +627,7 @@ class tkControl {
 		});
 	}
 
-	computedProperty(_property ) {
+	computedProperty(_property) {
 		return window.getComputedStyle(this.element, null).getPropertyValue(_property);
 	}
 }
@@ -1893,13 +1909,15 @@ class tkDialog extends tkWidget {
 
 		this.isOpen = false;
 	}
-	
-	addContent(_content) {
-		this.modalBody.appendChild(_content);
+
+	addContent(/* Elements to add to dialog body */) {		
+		for (var i=0;i<arguments.length;i++)
+			this.modalBody.appendChild(arguments[i]);
 	}
 	
-	removeContent(_content)	{
-		this.modalBody.removeChild(_content);
+	removeContent(/* Elements to remove from dialog body */)	{
+		for (var i=0;i<arguments.length;i++)
+			this.modalBody.removeChild(arguments[i]);
 	}
 
 	get title()	{
