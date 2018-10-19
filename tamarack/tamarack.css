@@ -294,3 +294,7 @@ video {
 .tkRibbonButton {    
     padding: 0.25rem;
 }
+
+button {
+    margin: 0.25rem;
+}

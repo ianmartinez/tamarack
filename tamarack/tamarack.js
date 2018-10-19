@@ -586,19 +586,29 @@ class tkControl {
 			this.element.appendChild(arguments[i].element);
 	}
 
-	addElement(_element) {
-		for (var i=0;i<arguments.length;i++)
-			this.element.appendChild(arguments[i]);
-	}
-
 	remove(/* array of tkControls to remove */)	{
 		for (var i=0;i<arguments.length;i++)
 			this.element.removeChild(arguments[i].element);
 	}
 
-	removeElement()	{
+	addElement(/* array of elements to add */) {
+		for (var i=0;i<arguments.length;i++)
+			this.element.appendChild(arguments[i]);
+	}
+
+	removeElement(/* array of elements to remove */) {
 		for (var i=0;i<arguments.length;i++)
 			this.element.removeChild(arguments[i]);
+	}
+
+	/* A wrapper around the jQuery $(element).on(...) function 
+	   that sends the tkControl associated with the element as one 
+	   of the parameters */
+	on(_event_name,_function) {
+		var _control = this;
+		$(this.element).on(_event_name, function() {
+			_function(_control);
+		});
 	}
 
 	computedProperty(_property ) {
@@ -761,11 +771,11 @@ function makeElementFromId(_id) {
 }
 
 class tkText extends tkWidget {
-	constructor(_tag) {
+	constructor(_tag,_text) {
 		super();
 		
 		this.element = make(_tag);
-		this.textNode = document.createTextNode("");
+		this.textNode = document.createTextNode((_text) ? _text : "");
 		this.element.appendChild(this.textNode);
 	}
 
@@ -812,7 +822,7 @@ var tkWidgetStyle= {
 };
 
 class tkButton extends tkWidget {
-	constructor(_text, _button_style, _class, _outline) {
+	constructor(_text,_button_style,_class,_outline,_on_click) {
 		super();
 
 		this.element = make("button");
@@ -862,6 +872,11 @@ class tkButton extends tkWidget {
 		this.textWidget.className = "tkButtonText";
 		this.element.appendChild(this.textWidget.element);
 		this.text = _text;
+
+		if (!_on_click)
+			_on_click = function() {};
+
+		this.on("click",_on_click);
 	}	
 
 	get image()	{
@@ -889,15 +904,15 @@ class tkButton extends tkWidget {
 }
 
 class tkMenuItem extends tkLink {
-	constructor(_text,_source,_onclick) {
+	constructor(_text,_source,_on_click) {
 		super(_text,_source);
 
 		this.className = "dropdown-item";
 
-		if (!_onclick)
-			_onclick = function() {};
+		if (_on_click)
+			_on_click = function() {};
 
-		this.element.onclick = _onclick;
+		this.element.onclick = _on_click;
 	}
 }
 

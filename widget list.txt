@@ -3,12 +3,12 @@ tkButton
 ** tkButtonGroup
 ** tkCalendar (Wrap http://jqueryui.com/datepicker/#inline)
 tkDiv
-** tkDropdown
 tkImage
 tkInput
 tkLink
 tkList
 ** tkMenuStrip
+tkMenuButton
 tkMeter
 ** tkPalette
 tkReviewMeter
@@ -50,7 +50,7 @@ tkTextInput (Add type for passwords/email)
 ** tkColorButton
 ** tkFontButton
 tkColorPicker
-tkFontPicker
+** tkFontPicker
 
 === Dialogs ===
 tkColorDialog

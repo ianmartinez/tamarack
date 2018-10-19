@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Bootstrap CSS -->
+		<link href="../bootstrap/bootstrap.min.css" rel="stylesheet">
+		<!-- Tamarack CSS -->
+		<link href="../tamarack/tamarack.css" rel="stylesheet">		
+		<!-- jQuery -->
+		<script src="../jquery/jquery.min.js"></script>
+		<!-- Popper JS -->
+		<script src="../popper/popper.min.js"></script>
+		<!-- Bootstrap JS -->
+		<script src="../bootstrap/bootstrap.min.js"></script>
+		<!-- Tamarack JS -->
+		<script src="../tamarack/tamarack.js"></script>
+	</head>
+
+	<body>		
+		<script>
+			var doc = new tkDocument();
+			doc.title = "Different Buttons";
+			doc.padding = "1rem";
+			
+			
+			doc.add(new tkText("h2", "Regular Buttons"),
+				new tkButton("Primary", tkWidgetStyle.PRIMARY, "", false, clickButton),
+				new tkButton("Secondary", tkWidgetStyle.SECONDARY, "", false, clickButton),
+				new tkButton("Success", tkWidgetStyle.SUCCESS, "", false, clickButton),
+				new tkButton("Danger", tkWidgetStyle.DANGER, "", false, clickButton),
+				new tkButton("Warning", tkWidgetStyle.WARNING, "", false, clickButton),
+				new tkButton("Info", tkWidgetStyle.INFO, "", false, clickButton),
+				new tkButton("Light", tkWidgetStyle.LIGHT, "", false, clickButton),
+				new tkButton("Dark", tkWidgetStyle.DARK, "", false, clickButton),
+				new tkButton("Link", tkWidgetStyle.LINK, "", false, clickButton));
+
+			doc.add(new tkText("h2", "Outlined Buttons"),
+				new tkButton("Primary", tkWidgetStyle.PRIMARY, "", true, clickButton),
+				new tkButton("Secondary", tkWidgetStyle.SECONDARY, "", true, clickButton),
+				new tkButton("Success", tkWidgetStyle.SUCCESS, "", true, clickButton),
+				new tkButton("Danger", tkWidgetStyle.DANGER, "", true, clickButton),
+				new tkButton("Warning", tkWidgetStyle.WARNING, "", true, clickButton),
+				new tkButton("Info", tkWidgetStyle.INFO, "", true, clickButton),
+				new tkButton("Light", tkWidgetStyle.LIGHT, "", true, clickButton),
+				new tkButton("Dark", tkWidgetStyle.DARK, "", true, clickButton),
+				new tkButton("Link", tkWidgetStyle.LINK, "", true, clickButton));
+
+			function clickButton(button) {
+				tkDialog.show(button.text,"Button Clicked");
+			}
+		</script>
+	</body>
+</html>
