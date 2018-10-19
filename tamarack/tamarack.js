@@ -879,6 +879,17 @@ class tkButton extends tkWidget {
 		this.on("click",_on_click);
 	}	
 
+	get outline() {
+		return (btnClass.includes("btn-outline-"));
+	}
+
+	set outline(_outline) {
+		if (_outline)
+			btnClass = btnClass.replace("btn-", "btn-outline-");
+		else 
+			btnClass = btnClass.replace("btn-outline", "btn-");
+	}
+
 	get image()	{
 		return this.image.source;
 	}
