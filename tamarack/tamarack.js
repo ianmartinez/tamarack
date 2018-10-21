@@ -2140,7 +2140,7 @@ class aboutTamarack {
 		creditsTab.contentArea.classList.add("tkAboutDialogCredits");
 		credits.forEach((e) => creditsTab.addContent(e));
 
-		aboutDialog.notebook.addPages(aboutTab,creditsTab);
+		aboutDialog.notebook.addPage(aboutTab, creditsTab);
 		aboutDialog.addContent(aboutDialog.notebook.element);
 
 		aboutDialog.choices = [tkDialogResult.OK];
