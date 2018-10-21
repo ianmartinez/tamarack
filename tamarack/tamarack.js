@@ -588,12 +588,12 @@ class tkControl {
 	}
 
 	// class
-	addClass()	{
+	addClass(/* classes to add */)	{
 		for (var i=0;i<arguments.length;i++)
 			this.element.classList.add(arguments[i]);
 	}
 
-	removeClass() {
+	removeClass(/* classes to remove */) {
 		for (var i=0;i<arguments.length;i++)
 			this.element.classList.remove(arguments[i]);
 	}
@@ -618,22 +618,22 @@ class tkControl {
 		this.element.className = _class_name;
 	}
 
-	add(/* array of tkControls to add */) {
+	add(/* tkControls to add */) {
 		for (var i=0;i<arguments.length;i++)
 			this.element.appendChild(arguments[i].element);
 	}
 
-	remove(/* array of tkControls to remove */)	{
+	remove(/* tkControls to remove */)	{
 		for (var i=0;i<arguments.length;i++)
 			this.element.removeChild(arguments[i].element);
 	}
 
-	addElement(/* array of elements to add */) {
+	addElement(/* elements to add */) {
 		for (var i=0;i<arguments.length;i++)
 			this.element.appendChild(arguments[i]);
 	}
 
-	removeElement(/* array of elements to remove */) {
+	removeElement(/* elements to remove */) {
 		for (var i=0;i<arguments.length;i++)
 			this.element.removeChild(arguments[i]);
 	}
@@ -702,7 +702,7 @@ class tkWidget extends tkControl {
 
 	set tooltip(_title) {
 		this.tooltipTitle = _title;
-		$(this.element).tooltip({ title: _title})
+		$(this.element).tooltip({title: _title})
 	}
 }
 
@@ -827,10 +827,7 @@ class tkText extends tkWidget {
 
 class tkLink extends tkText {
 	constructor(_text,_source) {
-		super("a");
-		
-		if(_text)
-			this.text = _text;
+		super("a",_text);
 
 		if (_source)
 			this.source = _source;
