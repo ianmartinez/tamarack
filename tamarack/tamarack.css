@@ -298,3 +298,7 @@ video {
 button {
     margin: 0.25rem;
 }
+
+.list-group-item {    
+    cursor: pointer;
+}

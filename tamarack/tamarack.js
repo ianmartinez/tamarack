@@ -986,7 +986,7 @@ class tkMenuItem extends tkLink {
 
 		this.className = "dropdown-item";
 
-		if (_on_click)
+		if (!_on_click)
 			_on_click = function() {};
 
 		this.element.onclick = _on_click;
@@ -2227,6 +2227,7 @@ class tkFontPicker extends tkWidget {
 	}
 
 	refreshFont() {
+		alert(this._font.getCss());
 		this.fontDemo.style.font = this._font.getCss();
 	}
 }
