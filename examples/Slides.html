@@ -49,8 +49,12 @@
 			
 			var fullScreenButton = new tkButton("Make Fullscreen");
 			fullScreenButton.e.onclick = () => {
-				makeElement(slideshow.getActive().contentArea.childNodes[0]).makeFullscreen();
+				makeElement(slideshow.active.contentArea.childNodes[0]).makeFullscreen();
 			};
+
+			slideshow.on("activeChanged", (_slideshow) => {
+				doc.title = "Slides Demo - Slide " + (_slideshow.activeIndex + 1);
+			});
 
 			doc.add(backButton, nextButton, fullScreenButton, slideshow);
 		</script>

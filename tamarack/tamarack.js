@@ -648,6 +648,10 @@ class tkControl {
 		});
 	}
 
+	trigger(_event_name) {
+		$(this.element).trigger(_event_name);
+	}
+
 	computedProperty(_property) {
 		return window.getComputedStyle(this.element, null).getPropertyValue(_property);
 	}
@@ -1378,6 +1382,10 @@ class tkNotebook extends tkWidget {
 		
 		this.tabs = [];
 		this.activeIndex = 0;
+
+		/* Custom events:
+		   activeChanged: When the active tab is changed
+		*/
 	}
 	
 	addPage(/* pages to add */) {
@@ -1398,7 +1406,7 @@ class tkNotebook extends tkWidget {
 	removePage(/* pages to remove */) {
 		for(var i=0;i<arguments.length;i++) {
 			var _page = arguments[i];
-			
+
 			this.tabBar.removeChild(_page.tabContainer);
 			this.contentPanel.removeChild(_page.contentArea);
 			this.tabs.splice(this.getIndex(_page),1);
@@ -1413,6 +1421,7 @@ class tkNotebook extends tkWidget {
 
 	set active(_page) {
 		if(!_page) return;
+		
 		// Make all tabs inactive
 		for(var i=0;i<this.tabBar.childNodes.length;i++) {
 			this.tabBar.childNodes[i].className = "nav-item";
@@ -1425,6 +1434,8 @@ class tkNotebook extends tkWidget {
 		_page.tabContainer.className = "nav-item active";
 		_page.tab.className = "nav-link active show";
 		_page.contentArea.className = "tab-pane fade show active";
+		
+		this.trigger("activeChanged");
 	}
 	
 	get activeIndex() {
