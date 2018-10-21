@@ -37,12 +37,12 @@
 				slideshow.addPage(slide);
 			}	
 			
-			var backButton = new tkButton("<", tkButtonType.DANGER);
+			var backButton = new tkButton("<", tkWidgetStyle.DANGER);
 			backButton.e.onclick = () => {
 				slideshow.back();
 			};
 			
-			var nextButton = new tkButton(">", tkButtonType.DANGER);
+			var nextButton = new tkButton(">", tkWidgetStyle.DANGER);
 			nextButton.e.onclick = () => {
 				slideshow.next();
 			};

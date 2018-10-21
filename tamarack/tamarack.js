@@ -1380,30 +1380,37 @@ class tkNotebook extends tkWidget {
 		this.activeIndex = 0;
 	}
 	
-	addPage(_page) {
-		this.tabBar.appendChild(_page.tabContainer);
-		this.contentPanel.appendChild(_page.contentArea);
-		this.tabs.push(_page);
-		
-		if (this.newestTabActive)
-			this.active = _page;
-		else if (this.active == undefined)
-			this.activeIndex = 0;
+	addPage(/* pages to add */) {
+		for(var i=0;i<arguments.length;i++) {
+			var _page = arguments[i];
+
+			this.tabBar.appendChild(_page.tabContainer);
+			this.contentPanel.appendChild(_page.contentArea);
+			this.tabs.push(_page);
+			
+			if (this.newestTabActive)
+				this.active = _page;
+			else if (this.active == undefined)
+				this.activeIndex = 0;
+		}
 	}
 	
-	addPages() {
-		for(var i=0;i<arguments.length;i++)
-			this.addPage(arguments[i]);
+	removePage(/* pages to remove */) {
+		for(var i=0;i<arguments.length;i++) {
+			var _page = arguments[i];
+			
+			this.tabBar.removeChild(_page.tabContainer);
+			this.contentPanel.removeChild(_page.contentArea);
+			this.tabs.splice(this.getIndex(_page),1);
+			
+			this.activeIndex = Math.max(0,activeIndex-1);
+		}
+	}	
+
+	get active() {
+		return this.tabs[this.activeIndex];
 	}
-	
-	removePage(_page) {
-		this.tabBar.removeChild(_page.tabContainer);
-		this.contentPanel.removeChild(_page.contentArea);
-		this.tabs.splice(this.getIndex(_page),1);
-		
-		this.activeIndex = Math.max(0,activeIndex-1);
-	}
-	
+
 	set active(_page) {
 		if(!_page) return;
 		// Make all tabs inactive
@@ -1411,6 +1418,7 @@ class tkNotebook extends tkWidget {
 			this.tabBar.childNodes[i].className = "nav-item";
 			this.tabBar.childNodes[i].firstChild.className = "nav-link";
 		}
+
 		for(var i=0;i<this.contentPanel.childNodes.length;i++)
 			this.contentPanel.childNodes[i].className = "tab-pane fade";
 		
@@ -1435,10 +1443,6 @@ class tkNotebook extends tkWidget {
 	
 	set tabsVisible(_visible) {
 		this.tabBar.style.display = ((_visible) ? "block" : "none");
-	}
-
-	getActive() {
-		return this.tabs[this.activeIndex];
 	}
 	
 	getIndex(_page) {
