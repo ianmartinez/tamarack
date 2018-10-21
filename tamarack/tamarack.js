@@ -88,10 +88,10 @@ class tkArray {
 // Regular classes
 class tkFont {
 	constructor(_family,_size,_weight,_style) {
-		this.family = _family;
-		this.size = _size;
-		this.weight = _weight;
-		this.style = _style;
+		this.family = (_family) ? _family : "Arial";
+		this.size = (_size) ? _size : "24px";
+		this.weight = (_weight) ? _weight : "normal"; 
+		this.style = (_style) ? _style : "normal";
 		this.variant = "";
 	}
 
@@ -2227,7 +2227,6 @@ class tkFontPicker extends tkWidget {
 	}
 
 	refreshFont() {
-		alert(this._font.getCss());
 		this.fontDemo.style.font = this._font.getCss();
 	}
 }
