@@ -47,7 +47,7 @@ tkSlideshow
 tkTextInput (Add type for passwords/email)
 
 ===  Pickers ===
-** tkColorButton
+tkColorButton
 ** tkFontButton
 tkColorPicker
 ** tkFontPicker

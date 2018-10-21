@@ -550,11 +550,11 @@ class tkControl {
 		this.element.style.background = _background;
 	}		
 	
-	get color() {
+	get fontColor() {
 		return this.element.style.color;
 	}
 
-	set color(_color) {
+	set fontColor(_color) {
 		this.element.style.color = _color;
 	}	
 
@@ -954,18 +954,29 @@ class tkButton extends tkWidget {
 class tkColorButton extends tkButton {
 	constructor(_text) {
 		super(_text,tkWidgetStyle.PRIMARY,"tkColorButton",false);
-		this.on("click", (_color_button) => {
-			tkColorDialog.show(tkColor.fromElementBackground(_color_button.element),
-			(_dialogResult,_color) => {
-				if (_dialogResult == tkDialogResult.OK) {
-					_color_button.background = _color.getHslaCss();
-					_color_button.style.borderColor = _color.lighter(-0.3).getHslaCss();
 
-					_color_button.color = (_color.isDark()) ? "white" : "black";
-				}
+		this.colorDialog = new tkColorDialog();	
+		this.color = this.colorDialog.color;
+
+		this.on("click", (_color_button) => {
+			this.colorDialog.color = tkColor.fromElementBackground(_color_button.element);
+			this.colorDialog.show((_dialogResult) => {
+				if (_dialogResult == tkDialogResult.OK) 
+					_color_button.color = _color_button.colorDialog.color;
 			});
 		});
 	}	
+
+	get color() {
+		return this._color;
+	}
+
+	set color(_color) {
+		this._color = _color;
+		this.background = this._color.getHslaCss();
+		this.style.borderColor = _color.lighter(-0.3).getHslaCss();
+		this.fontColor = (_color.isDark()) ? "white" : "black";
+	}
 }
 
 class tkMenuItem extends tkLink {
