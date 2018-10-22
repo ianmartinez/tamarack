@@ -1052,10 +1052,99 @@ class tkMenuButton extends tkWidget {
 	}
 }
 
+class tkSelectItem extends tkText {
+	constructor(_text,_value) {
+		super("option",_text);
+		this.value = (_value) ? _value : _text;
+	}
+
+	get value() {
+		return this.getAttribute("value");
+	}
+
+	set value(_value) {
+		this.setAttribute("value",_value);
+	}
+}
+
 class tkSelect extends tkWidget {
 	constructor() {
 		super("select");
+		this.className = "form-control";
+		this.items = [];
+	}
 
+	addItem(/* items to add */) {
+		for(var i=0;i<arguments.length;i++)
+			this.items.push(arguments[i]);
+
+		this.refreshItems();
+	}
+	
+	removeItem(/* items to remove */) {
+		for(var i=0;i<arguments.length;i++)			
+			this.items.splice(arguments[i],1);
+		
+		this.refreshItems();
+	}	
+
+	get selectedCount() {
+		return this.selectedIndex.length;
+	}
+
+	getSelected() {
+		var _active = [];
+		var _activeIndex = this.getSelectedIndex();
+
+		for(var i=0;i<_activeIndex.length;i++)
+			_active.push(this.items[_activeIndex[i]]);
+
+		return _active;
+	}
+
+	setSelected(/* items to select */) {	
+		var _values = [];
+
+		for(var i=0;i<arguments.length;i++)	
+			_values.push(arguments[i].value);		
+
+		$(this.element).val(_values);		
+	}
+	
+	getSelectedIndex() {	
+		var _activeValues = $(this.element).val();
+		var _active = [];
+		for(var i=0;i<this.items.length;i++)
+			if (_activeValues.includes(this.items[i].value))
+				_active.push(i);
+
+		return _active;
+	}
+	
+	setSelectedIndex(/* indexes to select */) {		
+		var _items = [];
+		for(var i=0;i<arguments.length;i++)	
+			_items.push(this.items[arguments[i]]);		
+
+		this.setSelected.apply(this,_items);
+	}
+
+	refreshItems() {
+		this.clear();
+		for(var i=0;i<this.items.length;i++)
+			this.items[i].addTo(this);
+	}
+
+	get multipleSelection() {
+		return (this.hasAttribute("multiple"));
+	}
+	
+	set multipleSelection(_multiple_selection)	{
+		if (this.multipleSelection == true)
+			this.removeAttribute("multiple");
+		
+		if (_multiple_selection)
+			this.addAttribute("multiple");
 	}
 }
 
