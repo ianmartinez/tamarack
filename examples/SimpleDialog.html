@@ -21,6 +21,8 @@
 			doc.padding = "1rem";
 
 			var dialogButton = new tkButton("Show Dialog");
+			doc.add(dialogButton);
+
 			dialogButton.e.onclick = () => {
 				tkDialog.show("Welcome to tamarack! Do you like this demo?", "Some Dialog", [tkDialogResult.YES, tkDialogResult.NO], (dialogResult) => {
 					if (dialogResult == tkDialogResult.YES)
@@ -29,8 +31,6 @@
 						tkDialog.show("Well then...");
 				});
 			};
-
-			doc.add(dialogButton);
 		</script>
 	</body>
 </html>

@@ -660,10 +660,9 @@ class tkControl {
 
 // A widget is a control that is associated with an element besides document.
 class tkWidget extends tkControl {
-	constructor() {
+	constructor(_tag) {
 		super();
-		this.element = make("div");
-		this.tooltipElement = null;
+		this.element = make((_tag) ? _tag : "div");
 	}
 
 	addToElement(_destination) {
@@ -989,7 +988,7 @@ class tkMenuItem extends tkLink {
 		if (!_on_click)
 			_on_click = function() {};
 
-		this.element.onclick = _on_click;
+		this.on("click",_on_click);
 	}
 }
 
@@ -1053,9 +1052,16 @@ class tkMenuButton extends tkWidget {
 	}
 }
 
-class tkMediaPlayer extends tkWidget {
+class tkSelect extends tkWidget {
 	constructor() {
-		super();
+		super("select");
+
+	}
+}
+
+class tkMediaPlayer extends tkWidget {
+	constructor(_tag) {
+		super(_tag);
 	}
 
 	get source() {
@@ -1186,23 +1192,21 @@ class tkMediaPlayer extends tkWidget {
 
 class tkVideoPlayer extends tkMediaPlayer {
 	constructor()	{
-		super();
-		this.element = make("video"); 
+		super("video");
 		this.showControls = true;
 	}	
 }
 
 class tkAudioPlayer extends tkMediaPlayer {
 	constructor() {
-		super();
-		this.element = make("audio"); 
+		super("audio");
+		this.showControls = true;
 	}
 }
 
 class tkImage extends tkWidget {
 	constructor() {
-		super();
-		this.element = make("img"); 
+		super("img");
 	}
 	
 	// Image source
@@ -1249,8 +1253,7 @@ class tkProgress extends tkWidget {
 
 class tkMeter extends tkWidget {
 	constructor() {
-		super();
-		this.element = make("meter"); 
+		super("meter");
 	}
 	
 	get value()	{
@@ -1360,8 +1363,7 @@ class tkNotebookPage {
 
 class tkNotebook extends tkWidget {
 	constructor() {
-		super();
-		this.element = make("div"); 
+		super("div");
 		this.element.className = "tkNotebook";
 		
 		this.tabBar = make("ul");
@@ -1492,8 +1494,7 @@ class tkRibbonPage extends tkNotebookPage {
 
 class tkRibbonGroup extends tkWidget {
 	constructor() {
-		super();
-		this.element = make("div");
+		super("div");
 		this.className = "tkRibbonGroup";
 
 		this.contentArea = make("div");
@@ -1571,8 +1572,7 @@ class tkListItem extends tkText {
 
 class tkList extends tkWidget {
 	constructor(_on_selection_changed) {
-		super();
-		this.element = make("ul");
+		super("ul");
 		this.element.className = "list-group";
 
 		this.items = [];
@@ -1678,9 +1678,7 @@ class tkList extends tkWidget {
 
 class tkSlider extends tkWidget {
 	constructor() {
-		super();
-
-		this.element = make("input");
+		super("input");
 		this.className = "tkSlider";
 		this.setAttribute("type","range");
 	}
@@ -1841,8 +1839,7 @@ class tkTextEdit extends tkText {
 // Forms
 class tkInput extends tkWidget {
 	constructor() {
-		super();
-		this.element = make("input"); 
+		super("input");
 	}
 
 	get type() {
@@ -1931,8 +1928,7 @@ var tkDialogResult= {
 
 class tkDialog extends tkWidget {
 	constructor(_title,_choices) {
-		super();
-		this.element = make("div"); 
+		super("div");
 		this.className = "modal fade";
 
 		this.modal = make("div");
@@ -2183,11 +2179,9 @@ class tkFontDialog extends tkDialog {
 
 class tkFontPicker extends tkWidget {
 	constructor() {
-		super();
+		super("div");
 
-		this.element = make("div");
 		this.className = "tkFontPicker";
-
 		this.choices = [tkDialogResult.OK,tkDialogResult.CANCEL];
 		
 		this.fontFamilyTitle = sayText("Family:", "h6");
@@ -2263,9 +2257,8 @@ class tkColorDialog extends tkDialog {
 
 class tkColorPicker extends tkWidget {
 	constructor() {
-		super();
-
-		this.element = make("div");
+		super("div");
+		
 		this.className = "tkColorPicker";
 
 		this.leftPane = make("div");

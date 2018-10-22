@@ -30,7 +30,7 @@
 				var slide = new tkNotebookPage();
 				var video = new tkVideoPlayer();
 				video.source = videos[i];
-				video.setSize(700,500);
+				video.setSize(700, 500);
 
 				var caption = new tkText("p");
 				caption.e.className = "caption";
@@ -39,8 +39,8 @@
 				slide.addContent(video.e);
 				slide.addContent(caption.e);
 				slideshow.addPage(slide);
-				videoControls.push(video);
-			};	
+				videoControls.push(video);	
+			};			
 			
 			var backButton = new tkButton();
 			backButton.e.className = "btn btn-danger";
