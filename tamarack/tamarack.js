@@ -1316,11 +1316,27 @@ class tkImage extends tkWidget {
 		this.element.alt = _alt;
 	}
 }
+var tkBackgroundStyle= {
+	PRIMARY: 0,
+	SECONDARY: 1,
+	SUCCESS: 2,
+	DANGER: 3,
+	WARNING: 4,
+	INFO: 5,
+	LIGHT: 6,
+	DARK: 7,
+	WHITE: 8,
+	TRANSPARENT: 9
+};
 
 class tkProgress extends tkWidget {
 	constructor() {
-		super();
-		this.element = make("progress"); 
+		super("progress");
+
+		/* A map (key/value pairs) of values:
+			threshold = tkBackgroundStyle
+		*/
+		this.thresholds = new Map();
 	}
 	
 	get max() {
