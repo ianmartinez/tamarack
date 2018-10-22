@@ -2507,3 +2507,55 @@ class tkColorTextInput extends tkTextInput {
 		return tkColor.isColor(this.element.value);
 	}
 }
+
+class tkGroupBox extends tkWidget {
+	constructor(_title,_description) {
+		super("card");
+		this.className = "card tkGroupBox";
+
+		this.header = new tkText("h5",_title);
+		this.header.className = "card-header";
+
+		this.contentArea = new tkDiv();
+		this.contentArea.className = "card-body";
+
+		this.descriptionWidget = new tkText("p");
+		this.descriptionWidget.className = "card-footer tkGroupBoxDescription";
+		this.description = _description;
+
+		this.add(this.header, this.descriptionWidget, this.contentArea);
+	}
+
+	get title() {
+		return this.header.text;
+	}
+
+	set title(_title) {
+		this.header.text = _title;
+	}
+
+	get description() {
+		return this.descriptionWidget.text;
+	}
+
+	set description(_description) {
+		if (_description) {
+			this.descriptionWidget.style.display = "block"; 
+			this.descriptionWidget.text = _description;
+		} else {
+			this.descriptionWidget.style.display = "none"; 
+		}
+	}
+	
+	addContent(/* items to add */) {
+		this.contentArea.add.apply(this.contentArea, arguments);
+	}	
+	
+	removeContent(/* items to remove */) {
+		this.contentArea.remove.apply(this.contentArea, arguments);
+	}
+
+	clearContent() {
+		this.contentArea.clear();
+	}
+}

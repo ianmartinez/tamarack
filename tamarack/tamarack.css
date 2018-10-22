@@ -36,6 +36,11 @@ body {
     background-color: white;
 }
 
+h1, h2, h3, h4, h5, h6 {    
+    margin: 1rem;
+    padding: 0;
+}
+
 .tkAboutDialogLogo {
     color: #b95b2d;
 }
@@ -301,4 +306,22 @@ button {
 
 .list-group-item {    
     cursor: pointer;
+}
+
+.tkGroupBox {
+    margin: 1rem 0rem;
+}
+
+.tkGroupBoxDescription {
+    padding: 0.5rem 1.25rem;
+    margin: 0;
+    border: 0px solid transparent;
+    color: #989898;
+    font-size: small;
+    background-color: rgba(0, 0, 0, 0.01);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card-header {    
+    margin: 0;
 }

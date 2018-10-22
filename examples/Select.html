@@ -32,9 +32,14 @@
 				});
 			});
 
+			var singleSelectGroup = new tkGroupBox("Single Selection", "Only one item can be selected");			
+			singleSelectGroup.addContent(singleSelect, singleSelectText);
+
 			var multipleSelect = new tkSelect;
 			multipleSelect.multipleSelection = true;
-			multipleSelect.addItem(new tkSelectItem("Hello"), new tkSelectItem("World!"));
+			multipleSelect.addItem(new tkSelectItem("Red"),
+			new tkSelectItem("Green"),
+			new tkSelectItem("Blue"));
 						
 			var multipleSelectText = new tkText("h6","");
 			multipleSelect.on("change", (_selectedInput) => {
@@ -45,7 +50,10 @@
 				});
 			});
 			
-			doc.add(singleSelect, singleSelectText, multipleSelect, multipleSelectText);
+			var multipleSelectGroup = new tkGroupBox("Multiple Selection", "Multiple items can be selected");			
+			multipleSelectGroup.addContent(multipleSelect, multipleSelectText);
+			
+			doc.add(singleSelectGroup, multipleSelectGroup);
 		</script>
 	</body>
 </html>

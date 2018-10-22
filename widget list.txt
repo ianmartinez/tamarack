@@ -13,7 +13,7 @@ tkMeter
 ** tkPalette
 tkReviewMeter
 tkProgress (Allow different colors and animation)
-** tkSelect
+tkSelect
 tkSlider
 tkText
 tkTextEdit
@@ -30,7 +30,7 @@ tkVideoPlayer
 === Containers ===
 ** tkAccordion
 ** tkCarousel
-** tkGroupBox
+tkGroupBox
 ** tkHorizontal
 tkNotebook
 tkNotebookPage
