@@ -19,9 +19,13 @@
 		<script>
 			var doc = new tkDocument("Progress Demo");
 			doc.padding = "1rem";
-
-
-			doc.add(btnTab, backButton, nextButton, notebook);
+			
+			var prog10 = new tkProgress(10);
+			var prog25 = new tkProgress(25)
+			var prog50 = new tkProgress(50)
+			var prog100 = new tkProgress(100)
+			
+			doc.add(prog10, prog25, prog50, prog100);
 		</script>
 	</body>
 </html>

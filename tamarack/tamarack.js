@@ -329,7 +329,7 @@ class tkColor {
 		return this.rgbToHex(this.r, this.g, this.b);
 	}
 
-	hslToRgb(_h, _s, _l) {
+	hslToRgb(_h,_s,_l) {
 		var r, g, b;
 
 		if(_h>0) _h /= 360;
@@ -581,10 +581,26 @@ class tkControl {
 	set margin(_margin) {
 		this.element.style.margin = _margin;
 	}
-		
+
+	get display() {
+		return this.element.style.display;
+	}
+
+	set display(_display) {
+		this.element.style.display = _display;
+	}
+
 	clear()	{
 		while (this.element.firstChild) 
 			this.element.removeChild(this.element.firstChild);
+	}
+
+	get role() {
+		return this.getAttribute("role");
+	}
+
+	set role(_role)	{
+		this.setAttribute("role",_role);
 	}
 
 	// class
@@ -1316,43 +1332,98 @@ class tkImage extends tkWidget {
 		this.element.alt = _alt;
 	}
 }
-var tkBackgroundStyle= {
-	PRIMARY: 0,
-	SECONDARY: 1,
-	SUCCESS: 2,
-	DANGER: 3,
-	WARNING: 4,
-	INFO: 5,
-	LIGHT: 6,
-	DARK: 7,
-	WHITE: 8,
-	TRANSPARENT: 9
+
+var tkProgressColor= {
+	BLUE: "tkProgressBarBlue",
+	GRAY: "tkProgressBarGray",
+	RED: "tkProgressBarRed",
+	ORANGE: "tkProgressBarOrange",
+	YELLOW: "tkProgressBarYellow",
+	GREEN: "tkProgressBarGreen"
 };
 
 class tkProgress extends tkWidget {
-	constructor() {
-		super("progress");
+	constructor(_value) {
+		super("div");
+		this.className = "progress tkProgress";
+
+		this.progressBar = new tkDiv();
+		this.progressBar.className = "progress-bar";
+		this.progressBar.role = "progressbar"
+		this.add(this.progressBar);
+
+		this.progressBarPercentage = new tkText("span");
+		this.progressBar.add(this.progressBarPercentage);
+
+		this.showPercentage = true;
 
 		/* A map (key/value pairs) of values:
 			threshold = tkBackgroundStyle
-		*/
-		this.thresholds = new Map();
+		*/		
+		this.thresholds = new Map([
+			[0, tkProgressColor.RED],
+			[25, tkProgressColor.ORANGE],
+			[50, tkProgressColor.YELLOW],
+			[75, tkProgressColor.GREEN],
+		]);
+
+		this.useThresholds = true;
+
+		this.max = 100;	
+		this.value = (_value) ? _value : 50;	
 	}
 	
 	get max() {
-		return this.element.max;
+		return this._max;
 	}
 	
 	set max(_max) {
-		this.element.max = _max;
+		this._max = _max;
+		this.updateProgress();
 	}
 	
 	get value()	{
-		return this.element.value;
+		return this._value;
 	}
 	
 	set value(_value) {
-		this.element.value = _value;
+		this._value = _value;
+		this.updateProgress();
+	}
+
+	get showPercentage() {
+		return (this.progressBarPercentage.display != "none");
+	}
+
+	set showPercentage(_show_percentage) {
+		this.progressBarPercentage.display = (_show_percentage) ? "block" : "none";
+	}
+
+	get useThresholds() {
+		return this._use_thresholds;
+	}
+
+	set useThresholds(_use_thresholds) {
+		this._use_thresholds = _use_thresholds;
+		this.updateProgress();
+	}
+
+	setColor(_color) {		
+		this.progressBar.className = "progress-bar " + _color;
+	}
+
+	updateProgress() {
+		this.progressBar.width = this.getPercentage() + "%";
+		this.progressBarPercentage.text = this.getPercentage() + "%";
+
+		if(this.useThresholds)
+			for(var [key, value] of this.thresholds)
+				if (this.value>=key) 
+					this.setColor(value);
+	}
+
+	getPercentage() {
+		return (this.value/this.max)*100;
 	}
 }
 
