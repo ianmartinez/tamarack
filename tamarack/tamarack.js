@@ -1418,7 +1418,7 @@ class tkProgress extends tkWidget {
 
 		if(this.useThresholds)
 			for(var [key, value] of this.thresholds)
-				if (this.value>=key) 
+				if (this.getPercentage()>=key) 
 					this.setColor(value);
 	}
 
