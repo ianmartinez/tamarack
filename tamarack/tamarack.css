@@ -108,6 +108,10 @@ video {
     transition: all .15s linear;
 }
 
+.modal-title {
+    margin: 0;
+}
+
 .modal-backdrop.show {    
     backdrop-filter: blur(6px);
     opacity: .85;

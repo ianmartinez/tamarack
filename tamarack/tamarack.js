@@ -1581,15 +1581,15 @@ class tkNotebook extends tkWidget {
 		}
 	}
 	
-	removePage(/* pages to remove */) {
+	removePage(/* pages to remove */) {		
 		for(var i=0;i<arguments.length;i++) {
+			var _old_active = this.activeIndex;
 			var _page = arguments[i];
 
 			this.tabBar.removeChild(_page.tabContainer);
 			this.contentPanel.removeChild(_page.contentArea);
 			this.tabs.splice(this.getIndex(_page),1);
-			
-			this.activeIndex = Math.max(0,activeIndex-1);
+			this.activeIndex = Math.max(0,_old_active-1);
 		}
 	}	
 

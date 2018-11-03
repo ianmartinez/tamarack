@@ -22,7 +22,7 @@
 			doc.setBackgroundColor(tkColor.randomOpaque().getHslaCss());
 
 			var dialogButton = new tkButton("New Color");	
-			dialogButton.e.onclick = function() {
+			dialogButton.e.onclick = () => {
 				tkColorDialog.show(tkColor.fromElementBackground(doc.e), (dialogResult, color) => {
 					if(dialogResult == tkDialogResult.OK) 
 						doc.setBackgroundColor(color.getHslaCss());

@@ -15,6 +15,7 @@
 		<!-- Tamarack JS -->
 		<script src="../tamarack/tamarack.js"></script>
 	</head>
+	
 	<body>		
 		<script>
 			var doc = new tkDocument();
@@ -38,10 +39,10 @@
 				notebook.next();
 			};
 								
-			var btnTab = new tkButton();
-			btnTab.text = "Add Tab";
+			var btnAddTab = new tkButton();
+			btnAddTab.text = "Add Tab";
 			var pageCount = 1;
-			btnTab.e.onclick = () => {
+			btnAddTab.e.onclick = () => {
 				var page = new tkNotebookPage("Page " + pageCount,"page" + pageCount);
 				page.addContent(say("Page " + pageCount));
 				notebook.addPage(page);
@@ -49,7 +50,14 @@
 				pageCount++;
 			};				
 			
-			doc.add(btnTab, backButton, nextButton, notebook);
+			var btnRemoveTab = new tkButton();
+			btnRemoveTab.text = "Remove Tab";
+			btnRemoveTab.e.onclick = () => {
+				if (notebook.active) 
+					notebook.removePage(notebook.active);				
+			};		
+
+			doc.add(btnAddTab, btnRemoveTab, backButton, nextButton, notebook);
 		</script>
 	</body>
 </html>
