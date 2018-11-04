@@ -2456,6 +2456,7 @@ class tkColorPicker extends tkWidget {
 		
 		this.hueSlider = new tkSlider();
 		this.hueSlider.className= "tkColorSlider"; 
+		this.hueSlider.tooltip = "Hue";
 		this.hueSlider.min = 0;
 		this.hueSlider.max = 360;
 		this.hueSlider.value = 0;
@@ -2469,6 +2470,7 @@ class tkColorPicker extends tkWidget {
 
 		this.saturationSlider = new tkSlider();		
 		this.saturationSlider.className= "tkColorSlider"; 
+		this.saturationSlider.tooltip = "Saturation";
 		this.saturationSlider.min = 0;
 		this.saturationSlider.max = 100;
 		this.saturationSlider.value = 50;
@@ -2482,6 +2484,7 @@ class tkColorPicker extends tkWidget {
 
 		this.lightnessSlider = new tkSlider();	
 		this.lightnessSlider.className= "tkColorSlider"; 
+		this.lightnessSlider.tooltip = "Lightness";
 		this.lightnessSlider.min = 0;
 		this.lightnessSlider.max = 100;
 		this.lightnessSlider.value = 50;
@@ -2495,6 +2498,7 @@ class tkColorPicker extends tkWidget {
 
 		this.alphaSlider = new tkSlider();
 		this.alphaSlider.className= "tkColorSlider"; 
+		this.alphaSlider.tooltip = "Alpha";
 		this.alphaSlider.min = 0;
 		this.alphaSlider.max = 1;
 		this.alphaSlider.value = 1;
@@ -2515,8 +2519,8 @@ class tkColorPicker extends tkWidget {
 				colorPicker.color = new_color;				
 			}
 		};
-		this.textInput.addToElement(this.leftPane);
 
+		this.textInput.addToElement(this.leftPane);
 		this.internalColor = new tkColor();
 		this.internalColor.fromRgba(0,0,0,1);
 		this.color = this.internalColor;
