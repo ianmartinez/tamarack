@@ -39,7 +39,7 @@
 			var tabsCreated = 1;
 			addTabButton.on("click", function() {
 				var page = new tkNotebookPage("Page " + tabsCreated,"page" + tabsCreated);
-				page.addContent(say("Page " + tabsCreated));
+				page.content.addElement(say("Page " + tabsCreated));
 				notebook.addPage(page);
 				tabsCreated++;
 			});				

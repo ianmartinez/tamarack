@@ -1498,55 +1498,41 @@ class tkReviewMeter extends tkMeter {
 class tkNotebookPage {
 	constructor(_title,_id) {
 		// A <li> that holds the tab button
-		this.tabContainer = make("li");
-		this.tabContainer.className = "nav-item";
+		this.tabHolder = make("li");
+		this.tabHolder.className = "nav-item";
 		
-		// A <a> that makes up the tab button
-		this.tab = make("a");
-		this.tab.className = "nav-link";
-		this.tab.setAttribute("data-toggle","tab");
-		this.tab.role = "tab";
-		this.tabContainer.appendChild(this.tab);
-		this.tab.setAttribute("href","#"+_id);
-		
-		// Text node to hold title text
-		this.titleTextNode = document.createTextNode(_title);
-		this.tab.appendChild(this.titleTextNode);
+		this.tabButton = new tkLink(_title, "#"+_id);
+		this.tabButton.className = "nav-link";
+		this.tabButton.setAttribute("data-toggle","tab");
+		this.tabButton.role = "tab";
+		this.tabHolder.appendChild(this.tabButton.e);
 		
 		/*	A <div> that contains the content that
 			is brought up when the tab is clicked	*/
-		this.contentArea = make("div");
-		this.contentArea.id = _id;
-		this.contentArea.role = "tabpanel";
-		this.contentArea.className = "tab-pane fade";
+		this.content = new tkDiv();
+		this.content.id = _id;
+		this.content.role = "tabpanel";
+		this.content.className = "tab-pane fade";
 	}
 	
 	get title() {
-		return this.titleTextNode.nodeValue;
+		return this.tabButton.text;
 	}
 	
 	set title(_string) {
-		this.titleTextNode.nodeValue = _string;
-	}
-	
-	addContent(_content) {
-		this.contentArea.appendChild(_content);
-	}
-	
-	removeContent(_content) {
-		this.contentArea.removeChild(_content);
+		this.tabButton.text = _string;
 	}
 }
 
 class tkNotebook extends tkWidget {
 	constructor() {
 		super("div");
-		this.element.className = "tkNotebook";
+		this.e.className = "tkNotebook";
 		
 		this.tabBar = make("ul");
 		this.tabBar.className = "nav nav-tabs";
 		this.tabBar.role = "tablist";
-		this.element.appendChild(this.tabBar);
+		this.e.appendChild(this.tabBar);
 		
 		this.contentPanel = make("div");
 		this.contentPanel.className = "tab-content";
@@ -1571,8 +1557,8 @@ class tkNotebook extends tkWidget {
 		for(var i=0;i<arguments.length;i++) {
 			var _page = arguments[i];
 
-			this.tabBar.appendChild(_page.tabContainer);
-			this.contentPanel.appendChild(_page.contentArea);
+			this.tabBar.appendChild(_page.tabHolder);
+			this.contentPanel.appendChild(_page.content.e);
 			this.tabs.push(_page);
 			
 			if (this.newestTabActive)
@@ -1587,8 +1573,8 @@ class tkNotebook extends tkWidget {
 			var _old_active = this.activeIndex;
 			var _page = arguments[i];
 
-			this.tabBar.removeChild(_page.tabContainer);
-			this.contentPanel.removeChild(_page.contentArea);
+			this.tabBar.removeChild(_page.tabHolder);
+			this.contentPanel.removeChild(_page.content.e);
 			this.tabs.splice(this.getIndex(_page),1);
 			this.activeIndex = Math.max(0,_old_active-1);
 		}
@@ -1610,9 +1596,9 @@ class tkNotebook extends tkWidget {
 		for(var i=0;i<this.contentPanel.childNodes.length;i++)
 			this.contentPanel.childNodes[i].className = "tab-pane fade";
 		
-		_page.tabContainer.className = "nav-item active";
-		_page.tab.className = "nav-link active show";
-		_page.contentArea.className = "tab-pane fade show active";
+		_page.tabHolder.className = "nav-item active";
+		_page.tabButton.className = "nav-link active show";
+		_page.content.className = "tab-pane fade show active";
 		
 		this.trigger("activeChanged");
 	}
@@ -2307,11 +2293,11 @@ class aboutTamarack {
 		aboutDialog.notebook = new tkNotebook();
 
 		var aboutTab = new tkNotebookPage("Tamarack", "aboutTab");
-		lines.forEach((e) => aboutTab.addContent(e));
+		lines.forEach((e) => aboutTab.content.addElement(e));
 
 		var creditsTab = new tkNotebookPage("Credits", "creditsTab");
-		creditsTab.contentArea.classList.add("tkAboutDialogCredits");
-		credits.forEach((e) => creditsTab.addContent(e));
+		creditsTab.content.addClass("tkAboutDialogCredits");
+		credits.forEach((e) => creditsTab.content.addElement(e));
 
 		aboutDialog.notebook.addPage(aboutTab, creditsTab);
 		aboutDialog.addContent(aboutDialog.notebook.element);
