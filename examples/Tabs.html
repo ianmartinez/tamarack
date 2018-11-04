@@ -15,47 +15,40 @@
 		<!-- Tamarack JS -->
 		<script src="../tamarack/tamarack.js"></script>
 	</head>
-	
+
 	<body>		
 		<script>
-			var doc = new tkDocument();
-			doc.title = "Tabs Demo";
+			var doc = new tkDocument("Tabs Demo");
 			doc.padding = "1rem";
 			
 			var notebook = new tkNotebook();
 			notebook.padding = "1rem";
+			notebook.newestTabActive = true;
 
-			var backButton = new tkButton();
-			backButton.e.className = "btn btn-danger";
-			backButton.text = "<";
-			backButton.e.onclick = () => {
+			var backButton = new tkButton("<", tkWidgetStyle.DANGER);
+			backButton.on("click", function() {
 				notebook.back();
-			};
+			});
 
-			var nextButton = new tkButton();
-			nextButton.e.className = "btn btn-danger";
-			nextButton.text = ">";
-			nextButton.e.onclick = () => {
+			var nextButton = new tkButton(">", tkWidgetStyle.DANGER);
+			nextButton.on("click", function() {
 				notebook.next();
-			};
+			});
 								
-			var btnAddTab = new tkButton();
-			btnAddTab.text = "Add Tab";
-			var pageCount = 1;
-			btnAddTab.e.onclick = () => {
-				var page = new tkNotebookPage("Page " + pageCount,"page" + pageCount);
-				page.addContent(say("Page " + pageCount));
+			var btnAddTab = new tkButton("Add Tab");
+			var tabsCreated = 1;
+			btnAddTab.on("click", function() {
+				var page = new tkNotebookPage("Page " + tabsCreated,"page" + tabsCreated);
+				page.addContent(say("Page " + tabsCreated));
 				notebook.addPage(page);
-				notebook.activeIndex = pageCount-1;
-				pageCount++;
-			};				
+				tabsCreated++;
+			});				
 			
-			var btnRemoveTab = new tkButton();
-			btnRemoveTab.text = "Remove Tab";
-			btnRemoveTab.e.onclick = () => {
+			var btnRemoveTab = new tkButton("Remove Tab");
+			btnRemoveTab.on("click", function() {
 				if (notebook.active) 
 					notebook.removePage(notebook.active);				
-			};		
+			});		
 
 			doc.add(btnAddTab, btnRemoveTab, backButton, nextButton, notebook);
 		</script>
