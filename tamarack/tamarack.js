@@ -1580,6 +1580,11 @@ class tkNotebook extends tkWidget {
 		}
 	}	
 
+	clear() {
+		while(this.pageCount > 0)
+			this.removePage(this.tabs[this.tabs.length-1]);
+	}
+
 	get active() {
 		return this.tabs[this.activeIndex];
 	}
