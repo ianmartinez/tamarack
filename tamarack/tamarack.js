@@ -1585,7 +1585,10 @@ class tkNotebook extends tkWidget {
 	}
 
 	set active(_page) {
-		if(!_page) return;
+		if(!_page) {
+			this.trigger("activeChanged");
+			return;			
+		}
 		
 		// Make all tabs inactive
 		for(var i=0;i<this.tabBar.childNodes.length;i++) {
@@ -1598,8 +1601,7 @@ class tkNotebook extends tkWidget {
 		
 		_page.tabHolder.className = "nav-item active";
 		_page.tabButton.className = "nav-link active show";
-		_page.content.className = "tab-pane fade show active";
-		
+		_page.content.className = "tab-pane fade show active";		
 		this.trigger("activeChanged");
 	}
 	
@@ -1623,6 +1625,10 @@ class tkNotebook extends tkWidget {
 	
 	getIndex(_page) {
 		return this.tabs.indexOf(_page);
+	}
+
+	get pageCount() {
+		return this.tabs.length;
 	}
 		
 	back() {

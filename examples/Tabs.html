@@ -49,8 +49,16 @@
 				if (notebook.active) 
 					notebook.removePage(notebook.active);				
 			});		
+			
+			var currentTabText = new tkText("h3", "No tab selected");
+			notebook.on("activeChanged", function() {
+				if (notebook.pageCount > 0)
+					currentTabText.text = notebook.active.title + " is selected."
+				else 
+					currentTabText.text = "No tab selected";
+			});
 
-			doc.add(addTabButton, removeTabButton, backButton, nextButton, notebook);
+			doc.add(addTabButton, removeTabButton, backButton, nextButton, currentTabText, notebook);
 		</script>
 	</body>
 </html>
