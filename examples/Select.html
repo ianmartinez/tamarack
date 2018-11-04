@@ -24,10 +24,10 @@
 			singleSelect.addItem(new tkSelectItem("Hello"), new tkSelectItem("World!"));
 						
 			var singleSelectText = new tkText("h6","");
-			singleSelect.on("change", (_selectedInput) => {
+			singleSelect.on("change", (selectedInput) => {
 				singleSelectText.text = "";
 
-				_selectedInput.getSelected().forEach((item) => {
+				selectedInput.getSelected().forEach((item) => {
 					singleSelectText.text += " '" + item.text + "' ";
 				});
 			});
@@ -42,10 +42,10 @@
 			new tkSelectItem("Blue"));
 						
 			var multipleSelectText = new tkText("h6","");
-			multipleSelect.on("change", (_selectedInput) => {
+			multipleSelect.on("change", (selectedInput) => {
 				multipleSelectText.text = "";
 
-				_selectedInput.getSelected().forEach((item) => {
+				selectedInput.getSelected().forEach((item) => {
 					multipleSelectText.text += " '" + item.text + "' ";
 				});
 			});

@@ -38,22 +38,22 @@
 			}	
 			
 			var backButton = new tkButton("<", tkWidgetStyle.DANGER);
-			backButton.e.onclick = () => {
+			backButton.on("click", function() {
 				slideshow.back();
-			};
+			});
 			
 			var nextButton = new tkButton(">", tkWidgetStyle.DANGER);
-			nextButton.e.onclick = () => {
+			nextButton.on("click", function() {
 				slideshow.next();
-			};
+			});
 			
 			var fullScreenButton = new tkButton("Make Fullscreen");
-			fullScreenButton.e.onclick = () => {
+			fullScreenButton.on("click", function() {
 				makeElement(slideshow.active.contentArea.childNodes[0]).makeFullscreen();
-			};
+			});
 
-			slideshow.on("activeChanged", (_slideshow) => {
-				doc.title = "Slides Demo - Slide " + (_slideshow.activeIndex + 1);
+			slideshow.on("activeChanged", (slideshow) => {
+				doc.title = "Slides Demo - Slide " + (slideshow.activeIndex + 1);
 			});
 
 			doc.add(backButton, nextButton, fullScreenButton, slideshow);

@@ -35,22 +35,22 @@
 				notebook.next();
 			});
 								
-			var btnAddTab = new tkButton("Add Tab");
+			var addTabButton = new tkButton("Add Tab");
 			var tabsCreated = 1;
-			btnAddTab.on("click", function() {
+			addTabButton.on("click", function() {
 				var page = new tkNotebookPage("Page " + tabsCreated,"page" + tabsCreated);
 				page.addContent(say("Page " + tabsCreated));
 				notebook.addPage(page);
 				tabsCreated++;
 			});				
 			
-			var btnRemoveTab = new tkButton("Remove Tab");
-			btnRemoveTab.on("click", function() {
+			var removeTabButton = new tkButton("Remove Tab");
+			removeTabButton.on("click", function() {
 				if (notebook.active) 
 					notebook.removePage(notebook.active);				
 			});		
 
-			doc.add(btnAddTab, btnRemoveTab, backButton, nextButton, notebook);
+			doc.add(addTabButton, removeTabButton, backButton, nextButton, notebook);
 		</script>
 	</body>
 </html>

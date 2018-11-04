@@ -22,12 +22,12 @@
 			doc.setBackgroundColor(tkColor.randomOpaque().getHslaCss());
 
 			var dialogButton = new tkButton("New Color");	
-			dialogButton.e.onclick = () => {
+			dialogButton.on("click", function() {
 				tkColorDialog.show(tkColor.fromElementBackground(doc.e), (dialogResult, color) => {
 					if(dialogResult == tkDialogResult.OK) 
 						doc.setBackgroundColor(color.getHslaCss());
 				});
-			};
+			});
 
 			doc.add(dialogButton);
 		</script>

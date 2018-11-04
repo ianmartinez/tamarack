@@ -23,14 +23,14 @@
 			var dialogButton = new tkButton("Show Dialog");
 			doc.add(dialogButton);
 
-			dialogButton.e.onclick = () => {
+			dialogButton.on("click", function() {
 				tkDialog.show("Welcome to tamarack! Do you like this demo?", "Some Dialog", [tkDialogResult.YES, tkDialogResult.NO], (dialogResult) => {
 					if (dialogResult == tkDialogResult.YES)
 						tkDialog.show("Thanks!");
 					else
 						tkDialog.show("Well then...");
 				});
-			};
+			});
 		</script>
 	</body>
 </html>

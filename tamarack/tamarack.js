@@ -698,7 +698,8 @@ class tkWidget extends tkControl {
 	}
 
 	delete() {
-		this.element.parentNode.removeChild(this.element);
+		if(this.element.parentNode)
+			this.element.parentNode.removeChild(this.element);
 	}
 
 	// animations
@@ -2286,7 +2287,7 @@ class tkDialog extends tkWidget {
 
 		// Remove dialog element from DOM when dialog is closed
 		var dlg = this;
-		$(this.element).on('hidden.bs.modal', function (e) {
+		$(this.element).on('hidden.bs.modal', function (e) {			
 			dlg.delete();
 		});
 	}
@@ -2418,7 +2419,7 @@ class tkColorDialog extends tkDialog {
 		dlg.color = _color;		
 		dlg.show(function(dialogResult) {
 			if(_on_dialog_result) 
-				_on_dialog_result(dialogResult,dlg.color);
+				_on_dialog_result(dialogResult, dlg.color);
 		});
 	}
 

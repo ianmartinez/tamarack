@@ -17,23 +17,14 @@
 	</head>
 	<body>			
 		<script>
-			var doc = new tkDocument();		
-			doc.padding = "1rem";				
-			doc.title = "Media Players Demo";
-
-			var p = make("p");
-			doc.addElement(p);
+			var doc = new tkDocument("Media Players Demo");		
+			doc.padding = "1rem";	
 			
-			var video = new tkVideoPlayer();
-			video.source = "resources/1.mp4";
-			video.loop = true;
-			doc.add(video);
-
-			video.e.onloadeddata = function() {
-				var title = new tkText("h1");
-				title.text = "Jellyfish";	
-				title.addToElement(p);
-			};
+			var videoPlayer = new tkVideoPlayer();
+			videoPlayer.source = "resources/1.mp4";
+			videoPlayer.loop = true;
+			
+			doc.add(videoPlayer);
 		</script>
 	</body>
 </html>

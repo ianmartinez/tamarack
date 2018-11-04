@@ -18,8 +18,7 @@
 
 	<body>		
 		<script>
-			var doc = new tkDocument();
-			doc.title = "Different Buttons";
+			var doc = new tkDocument("Different Buttons");
 			doc.padding = "1rem";
 			
 			doc.add(new tkText("h2", "Regular Buttons"),
@@ -45,13 +44,13 @@
 				new tkButton("Link Outline", tkWidgetStyle.LINK, "", true, clickButton));
 
 			function clickButton(button) {
-				var dlg = new tkDialog("Button Clicked");
+				var dlg = new tkDialog(button.text + " Button Clicked");
 				
-				var color = new tkDiv();
-				color.background = button.computedProperty("background");
-				color.height = "20px";
-				color.width = "100px";
-				dlg.addContent(sayP(button.text), color.e);
+				var colorPanel = new tkDiv();
+				colorPanel.background = button.computedProperty("background");
+				colorPanel.height = "20px";
+				colorPanel.width = "100px";
+				dlg.addContent(sayP(button.text), colorPanel.e);
 
 				dlg.show();
 			}

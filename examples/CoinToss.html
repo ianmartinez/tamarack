@@ -22,21 +22,20 @@
 			doc.addElement(sayText("Coin Toss","h1"));
 			
 			var btnTossCoin = new tkButton("Toss Coin!");
-			btnTossCoin.text = "Toss Coin!";
 			doc.add(btnTossCoin);
 			
-			btnTossCoin.element.onclick = () => {
-				var new_line = new tkText("p");
-				var flip_coin = (tkNumber.random(0,1) == 0) ? "Heads" : "Tails";
+			btnTossCoin.on("click", function() {
+				var newLine = new tkText("p");
+				var flipCoin = (tkNumber.random(0,1) == 0) ? "Heads" : "Tails";
 				
-				new_line.text = flip_coin;						
-				new_line.element.style.color = (flip_coin == "Heads") ? "maroon" : "midnightblue";
-				new_line.element.style.fontWeight = "bold";
-				new_line.element.style.display = "none";
+				newLine.text = flipCoin;						
+				newLine.element.style.color = (flipCoin == "Heads") ? "maroon" : "midnightblue";
+				newLine.element.style.fontWeight = "bold";
+				newLine.element.style.display = "none";
 					
-				doc.add(new_line);
-				new_line.fadeIn();
-			};
+				doc.add(newLine);
+				newLine.fadeIn();
+			});
 		</script>
 	</body>
 </html>

@@ -49,10 +49,10 @@
 				toggleFullscreenButton.tooltip = say("Toggle Fullscreen");
 				toggleFullscreenButton.image = "../icons/actions/22/zoom-fullscreen.svg";
 				windowGroup.addButton(toggleFullscreenButton.e);
-				toggleFullscreenButton.e.onclick = function() {
+				toggleFullscreenButton.on("click", function() {
 					var bodyElement = makeElement(document.body);
 					bodyElement.toggleFullscreen();
-				};
+				});
 
 				// Help Group
 				var helpGroup = new tkRibbonGroup();
@@ -63,18 +63,18 @@
 				aboutButton.tooltip = say("About App");
 				aboutButton.image = "../icons/actions/22/project-development.svg";
 				helpGroup.addButton(aboutButton.e);
-				aboutButton.e.onclick = function() {
+				aboutButton.on("click", function() {
 					tkDialog.show("Notepad App 1.0 - A Tamarack Demo");
-				};
+				});
 				
 				
 				var aboutTkButton = new tkButton();
 				aboutTkButton.tooltip = say("About Tamarack");
 				aboutTkButton.image = "../icons/actions/22/help-about.svg";
 				helpGroup.addButton(aboutTkButton.e);
-				aboutTkButton.e.onclick = function() {					
+				aboutTkButton.on("click", function() {					
 					aboutTamarack.show();
-				};
+				});
 
 				// Format Page
 				var formatPage = new tkRibbonPage("Format", "formatPage");
@@ -89,26 +89,23 @@
 				colorButton.tooltip = say("Background Color");
 				colorButton.image = "../icons/actions/22/adjustlevels.svg";
 				styleGroup.addButton(colorButton.e);
-				colorButton.e.onclick = () => {
-					var oldColor = new tkColor();
-					oldColor.parse(textEditor.style.backgroundColor);
-
-					tkColorDialog.show(oldColor.clone(), (dialogResult, color) => {
+				colorButton.on("click", function() {
+					tkColorDialog.show(tkColor.fromElementBackground(textEditor.e), (dialogResult, color) => {
 						if(dialogResult == tkDialogResult.OK) 
 							setColor(color);
 					});
-				};
+				});
 
 				var fontButton = new tkButton();
 				fontButton.tooltip = say("Font");
 				fontButton.image = "../icons/actions/22/gtk-select-font.svg";
 				styleGroup.addButton(fontButton.e);
-				fontButton.e.onclick = () => {
+				fontButton.on("click", function() {
 					tkFontDialog.show(tkFont.fromElement(textEditor.e), (dialogResult, font) => {
 						if (dialogResult == tkDialogResult.OK)
 							textEditor.e.style.font = font.getCss();
 					});
-				};
+				});
 
 				// Select Home Page
 				ribbon.activeIndex = 0;	

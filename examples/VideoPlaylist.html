@@ -17,14 +17,13 @@
 	</head>
 	<body>	
 		<script>
-			var doc = new tkDocument();
+			var doc = new tkDocument("Playlist Demo");			
+			doc.padding = "1rem";
+
 			var slideshow = new tkSlideshow();
 			var videos = ["resources/1.mp4","resources/2.mp4","resources/3.mp4"];
 			var captions = ["Jellyfish","Bird","Aurora"];
 			var videoControls = [];
-			
-			doc.title = "Playlist Demo";
-			doc.padding = "1rem";
 			
 			for (var i=0; i<videos.length; i++)	{
 				var slide = new tkNotebookPage();
@@ -42,25 +41,20 @@
 				videoControls.push(video);	
 			};			
 			
-			var backButton = new tkButton();
-			backButton.e.className = "btn btn-danger";
-			backButton.text = "<";
-			backButton.e.onclick = () => {
+			var backButton = new tkButton("<", tkWidgetStyle.DANGER);
+			backButton.on("click", function() {
 				slideshow.back();
-			};
-			
-			var nextButton = new tkButton();
-			nextButton.e.className = "btn btn-danger";
-			nextButton.text = ">";
-			nextButton.e.onclick = () => {
+			});
+
+			var nextButton = new tkButton(">", tkWidgetStyle.DANGER);
+			nextButton.on("click", function() {
 				slideshow.next();
-			};
+			});
 			
-			var fullScreenButton = new tkButton();
-			fullScreenButton.text = "Make Fullscreen";
-			fullScreenButton.e.onclick = () => {
+			var fullScreenButton = new tkButton("Make Fullscreen");
+			fullScreenButton.on("click", function() {
 				videoControls[slideshow.activeIndex].makeFullscreen();
-			};
+			});
 			
 			doc.add(backButton, nextButton, fullScreenButton, slideshow);
 		</script>

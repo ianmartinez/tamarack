@@ -22,9 +22,9 @@
 			doc.padding = "1rem";
 
 			var dialogButton = new tkButton("Tamarack About Dialog");
-			dialogButton.e.onclick = () => {
+			dialogButton.on("click", function() {
 				aboutTamarack.show();
-			};
+			});
 
 			doc.add(dialogButton);
 		</script>
