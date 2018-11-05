@@ -7,21 +7,22 @@ Most of Tamarack is a collection of widgets that provide a wrapper around html e
 
 Examples
 -------
-**Add HTML5 video:**
+**Add progress bars:**
 ```javascript
-var doc = new tkDocument();
-var video = new tkVideo();
-video.source = "video_source.mp4";
-doc.add(video);
+var doc = new tkDocument("Progress Demo");
+doc.padding = "1rem";
+			 
+doc.add(new tkProgress(10), new tkProgress(25), new tkProgress(50), new tkProgress(100));
 ```
-![Video](examples/screenshots/MediaPlayer.jpg)
+![Progres Bars](examples/screenshots/Progress.gif)
 
 **Create a button that makes the video fullscreen when clicked:**
 ```javascript
 var doc = new tkDocument();
-var btnFullscreen = new tkButton();
-btnFullscreen.text = "Go Fullscreen";				
-btnFullscreen.element.onclick = () => video.makeFullScreen();
+var btnFullscreen = new tkButton("Go Fullscreen");
+btnFullscreen.on("click", function() { 
+   video.makeFullScreen();
+});
 doc.add(btnFullscreen);
 ```
 
@@ -31,15 +32,15 @@ var doc = new tkDocument();
 var notebook = new tkNotebook();
 
 var page1 = new tkNotebookPage("Page 1", "page1");
-page1.addContent(say("Hello"));
+page1.content.addElement(say("Hello"));
 
 var page2 = new tkNotebookPage("Page 2", "page2");
-page2.addContent(say("World!"));
+page2.content.addElement(say("World!"));
 
 notebook.addPages(page1,page2);
 doc.add(notebook);
 ```
-![Notebook](examples/screenshots/Tabs.jpg)
+![Notebook](examples/screenshots/Tabs.gif)
 
 **Show a yes/no dialog:**
 ```javascript
@@ -60,4 +61,4 @@ dlgColor.show((dialogResult) => {
         doc.setBackgroundColor(dlgColor.color.getHslaCss());
 });
 ```
-![Color Dialog](examples/screenshots/ColorDialog.jpg)
+![Color Dialog](examples/screenshots/ColorDialog.gif)
