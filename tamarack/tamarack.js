@@ -425,6 +425,7 @@ class tkControl {
 	constructor() {
 		this.element = document.body;
 		this.element.id = "";
+		this._parent = null;
 	}
 	
 	get id() {
@@ -635,13 +636,17 @@ class tkControl {
 	}
 
 	add(/* tkControls to add */) {
-		for (var i=0;i<arguments.length;i++)
+		for (var i=0;i<arguments.length;i++) {
 			this.element.appendChild(arguments[i].element);
+			arguments[i]._parent = this;
+		}
 	}
 
 	remove(/* tkControls to remove */)	{
-		for (var i=0;i<arguments.length;i++)
+		for (var i=0;i<arguments.length;i++) {
 			this.element.removeChild(arguments[i].element);
+			arguments[i]._parent = null;
+		}
 	}
 
 	addElement(/* elements to add */) {
@@ -652,6 +657,15 @@ class tkControl {
 	removeElement(/* elements to remove */) {
 		for (var i=0;i<arguments.length;i++)
 			this.element.removeChild(arguments[i]);
+	}
+	
+	// get the parent tkElement
+	getParent() {
+		return this._parent;
+	}
+
+	getParentElement() {
+		return this.e.parentNode;
 	}
 
 	/* A wrapper around the jQuery $(element).on(...) function 
@@ -681,25 +695,29 @@ class tkWidget extends tkControl {
 		this.element = make((_tag) ? _tag : "div");
 	}
 
-	addToElement(_destination) {
-		_destination.appendChild(this.element);
+	addToElement(_destination_element) {
+		_destination_element.appendChild(this.element);
 	}
 
-	addTo(_destination) {
-		_destination.element.appendChild(this.element);
+	addTo(_destination_widget) {
+		_destination_widget.element.appendChild(this.element);
+		this._parent = _destination_widget;
 	}
 	
-	removeFromElement(_destination) {
-		_destination.removeChild(this.element);
+	removeFromElement(_destination_element) {
+		_destination_element.removeChild(this.element);
 	}
 
-	removeFrom(_destination) {
-		_destination.element.removeChild(this.element);
+	removeFrom(_destination_widget) {
+		_destination_widget.element.removeChild(this.element);
+		this._parent = null;
 	}
 
 	delete() {
-		if(this.element.parentNode)
+		if(this.element.parentNode) {
 			this.element.parentNode.removeChild(this.element);
+			this._parent = null;
+		}
 	}
 
 	// animations
@@ -724,7 +742,7 @@ class tkWidget extends tkControl {
 		this.tooltipTitle = _title;
 		$(this.element).tooltip({title: _title})
 	}
-}
+ }
 
 class tkDiv extends tkWidget {
 	constructor() {
@@ -1497,15 +1515,15 @@ class tkReviewMeter extends tkMeter {
 
 class tkNotebookPage {
 	constructor(_title,_id) {
-		// A <li> that holds the tab button
-		this.tabHolder = make("li");
+		// A <li> that holds the tab button		
+		this.tabHolder = new tkWidget("li");
 		this.tabHolder.className = "nav-item";
 		
 		this.tabButton = new tkLink(_title, "#"+_id);
 		this.tabButton.className = "nav-link";
 		this.tabButton.setAttribute("data-toggle","tab");
 		this.tabButton.role = "tab";
-		this.tabHolder.appendChild(this.tabButton.e);
+		this.tabHolder.add(this.tabButton);
 		
 		/*	A <div> that contains the content that
 			is brought up when the tab is clicked	*/
@@ -1529,10 +1547,10 @@ class tkNotebook extends tkWidget {
 		super("div");
 		this.e.className = "tkNotebook";
 		
-		this.tabBar = make("ul");
+		this.tabBar = new tkWidget("ul");
 		this.tabBar.className = "nav nav-tabs";
 		this.tabBar.role = "tablist";
-		this.e.appendChild(this.tabBar);
+		this.add(this.tabBar);
 		
 		this.contentPanel = make("div");
 		this.contentPanel.className = "tab-content";
@@ -1546,7 +1564,7 @@ class tkNotebook extends tkWidget {
 		this.newestTabActive = false;
 		
 		this.tabs = [];
-		this.activeIndex = 0;
+		this.activeIndex = 0;		
 
 		/* Custom events:
 		   activeChanged: When the active tab is changed
@@ -1557,7 +1575,7 @@ class tkNotebook extends tkWidget {
 		for(var i=0;i<arguments.length;i++) {
 			var _page = arguments[i];
 
-			this.tabBar.appendChild(_page.tabHolder);
+			this.tabBar.add(_page.tabHolder);
 			this.contentPanel.appendChild(_page.content.e);
 			this.tabs.push(_page);
 			
@@ -1565,6 +1583,16 @@ class tkNotebook extends tkWidget {
 				this.active = _page;
 			else if (this.active == undefined)
 				this.activeIndex = 0;
+				
+			var _notebook = this;
+			$(_page.tabButton.e).on('shown.bs.tab', function (e) {
+				_notebook.trigger("activeChanged");
+			});
+
+			/* For some reason Bootstrap doesn't trigger the tab shown 
+			   event when a new tab is added to an empty notebook. */
+			if (this.tabs.length == 1) 
+				this.trigger("activeChanged");
 		}
 	}
 	
@@ -1573,10 +1601,12 @@ class tkNotebook extends tkWidget {
 			var _old_active = this.activeIndex;
 			var _page = arguments[i];
 
-			this.tabBar.removeChild(_page.tabHolder);
+			this.tabBar.remove(_page.tabHolder);
 			this.contentPanel.removeChild(_page.content.e);
 			this.tabs.splice(this.getIndex(_page),1);
 			this.activeIndex = Math.max(0,_old_active-1);
+
+			$(_page.tabButton.e).off('shown.bs.tab');
 		}
 	}	
 
@@ -1595,24 +1625,12 @@ class tkNotebook extends tkWidget {
 			return;			
 		}
 		
-		// Make all tabs inactive
-		for(var i=0;i<this.tabBar.childNodes.length;i++) {
-			this.tabBar.childNodes[i].className = "nav-item";
-			this.tabBar.childNodes[i].firstChild.className = "nav-link";
-		}
-
-		for(var i=0;i<this.contentPanel.childNodes.length;i++)
-			this.contentPanel.childNodes[i].className = "tab-pane fade";
-		
-		_page.tabHolder.className = "nav-item active";
-		_page.tabButton.className = "nav-link active show";
-		_page.content.className = "tab-pane fade show active";		
-		this.trigger("activeChanged");
+		$(_page.tabButton.e).tab('show');
 	}
 	
 	get activeIndex() {
-		for(var i=0;i<this.tabBar.childNodes.length;i++)
-			if (this.tabBar.childNodes[i].firstChild.classList.contains("active"))
+		for(var i=0;i<this.tabBar.e.childNodes.length;i++)
+			if (this.tabBar.e.childNodes[i].firstChild.classList.contains("active"))
 				return i;
 	}
 	
@@ -1621,11 +1639,11 @@ class tkNotebook extends tkWidget {
 	}
 
 	get tabsVisible() {
-		return (this.tabBar.style.display != "none");
+		return (this.tabBar.e.style.display != "none");
 	}
 	
 	set tabsVisible(_visible) {
-		this.tabBar.style.display = ((_visible) ? "block" : "none");
+		this.tabBar.e.style.display = ((_visible) ? "block" : "none");
 	}
 	
 	getIndex(_page) {
