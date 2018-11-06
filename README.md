@@ -44,12 +44,22 @@ doc.add(notebook);
 
 **Show a yes/no dialog:**
 ```javascript
-tkDialog.show("Do you like this demo?", "I was just wondering...", [tkDialogResult.YES, tkDialogResult.NO], (dialogResult) => {
-    if(dialogResult == tkDialogResult.YES)
-        tkDialog.show("Thanks!");
+var doc = new tkDocument("Dialog Demo");
+doc.padding = "1rem";
+
+var dialogButton = new tkButton("Show Dialog");
+doc.add(dialogButton);
+
+dialogButton.on("click", function() {
+	tkDialog.show("Welcome to tamarack! Do you like this demo?", "Some Dialog", [tkDialogResult.YES, tkDialogResult.NO], (dialogResult) => {
+		if (dialogResult == tkDialogResult.YES)
+			tkDialog.show("Thanks!");
+		else
+			tkDialog.show("Well then...");
+	});
 });
 ```
-![Dialog](examples/screenshots/Dialog.jpg) 
+![Dialog](examples/screenshots/SimpleDialog.gif) 
 
 **Set the background from a color dialog:**
 ```javascript
