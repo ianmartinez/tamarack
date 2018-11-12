@@ -33,7 +33,7 @@
     
         <h2><span class="attribs"><span class="type-signature"></span></span>tkNumber</h2>
         
-            <div class="class-description"><p>A class containing static functions dealing dealing with numbers.</p></div>
+            <div class="class-description"><p>A class containing static functions dealing with numbers</p></div>
         
     
 </header>
@@ -86,7 +86,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tamarack.js.html">tamarack.js</a>, <a href="tamarack.js.html#line86">line 86</a>
+        <a href="tamarack.js.html">tamarack.js</a>, <a href="tamarack.js.html#line94">line 94</a>
     </li></ul></dd>
     
 
@@ -140,7 +140,7 @@
     
 
     
-    <h4 class="name" id=".random"><span class="type-signature">(static) </span>random<span class="signature">(_min, _max)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".fromPercent"><span class="type-signature">(static) </span>fromPercent<span class="signature">(_value, _max)</span><span class="type-signature"> &rarr; {Number}</span></h4>
     
 
     
@@ -148,7 +148,187 @@
 
 
 <div class="description">
-    <p>Generate a random whole number between min and max, inclusive</p>
+    <p>Convert a percentage into a number.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>_value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The percentage</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_max</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The maximum number</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="tamarack.js.html">tamarack.js</a>, <a href="tamarack.js.html#line144">line 144</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The number</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".random"><span class="type-signature">(static) </span>random<span class="signature">(_min, _max)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Generate a random whole number between _min and _max, inclusive.</p>
 </div>
 
 
@@ -264,7 +444,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tamarack.js.html">tamarack.js</a>, <a href="tamarack.js.html#line93">line 93</a>
+        <a href="tamarack.js.html">tamarack.js</a>, <a href="tamarack.js.html#line101">line 101</a>
     </li></ul></dd>
     
 
@@ -291,10 +471,563 @@
 
         
 <div class="param-desc">
-    <p>The generated number</p>
+    <p>The generated whole number</p>
 </div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".randomDecimal"><span class="type-signature">(static) </span>randomDecimal<span class="signature">(_min, _max)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Generate a random decimal number between _min and _max, inclusive.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>_min</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_max</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="tamarack.js.html">tamarack.js</a>, <a href="tamarack.js.html#line113">line 113</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The generated decimal number</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".toPercent"><span class="type-signature">(static) </span>toPercent<span class="signature">(_value, _max)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Get the percent of _max that _value represents.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>_value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The number</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_max</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The maximum number</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="tamarack.js.html">tamarack.js</a>, <a href="tamarack.js.html#line123">line 123</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The percentage</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".toPercentF"><span class="type-signature">(static) </span>toPercentF<span class="signature">(_value, _max)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Get the formatted percent of _max that _value represents, 
+that is, what tkNumber.toPercentage() would return + a percent sign.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>_value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The number</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_max</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The maximum number</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="tamarack.js.html">tamarack.js</a>, <a href="tamarack.js.html#line134">line 134</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The percentage, including %</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -318,13 +1051,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="tkNumber.html">tkNumber</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createLinearGradient">createLinearGradient</a></li><li><a href="global.html#make">make</a></li><li><a href="global.html#makeParagraphs">makeParagraphs</a></li><li><a href="global.html#say">say</a></li><li><a href="global.html#sayP">sayP</a></li><li><a href="global.html#sayText">sayText</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="tamarack.html">tamarack</a></li><li><a href="tkArray.html">tkArray</a></li><li><a href="tkColor.html">tkColor</a></li><li><a href="tkNumber.html">tkNumber</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createLinearGradient">createLinearGradient</a></li><li><a href="global.html#make">make</a></li><li><a href="global.html#makeParagraphs">makeParagraphs</a></li><li><a href="global.html#say">say</a></li><li><a href="global.html#sayP">sayP</a></li><li><a href="global.html#sayText">sayText</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Nov 12 2018 10:21:24 GMT-0600 (Central Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Nov 12 2018 13:15:05 GMT-0600 (Central Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

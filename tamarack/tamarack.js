@@ -1,7 +1,15 @@
 // To make jQuery work in Electron
 if(typeof require == 'function') window.$ = window.jQuery = require('../jquery/jquery.min.js');
 
+/**
+ * @class A static class containing information on the tamarack library.
+ * @hideconstructor 
+ */
 class tamarack {
+	/**
+	 * The current tamarack version.
+	 * @readonly
+	 */
 	static get version() {
 		return 0.6;
 	}
@@ -11,7 +19,7 @@ class tamarack {
 
 /**
  * Makes an element of tag _tag.
- * @param {string} _tag The tag of the element to be created
+ * @param {String} _tag The tag of the element to be created
  * @returns {HTMLElement} The new element
  */
 function make(_tag) {
@@ -21,7 +29,7 @@ function make(_tag) {
 /**
  * Takes a string, splits it into lines, 
  * and makes a &lt;p&gt; element for each line.
- * @param {string} _text The string to be converted into &lt;p&gt; elements
+ * @param {String} _text The string to be converted into &lt;p&gt; elements
  * @returns {string} HTML representing the all of the paragraphs
  */
 function makeParagraphs(_text) {
@@ -34,8 +42,8 @@ function makeParagraphs(_text) {
 }
 
 /**
- * Creates a new text node containing the string _text
- * @param {string} _text The string to be placed inside the text node
+ * Creates a new text node containing the string _text.
+ * @param {String} _text The string to be placed inside the text node
  * @returns {Node} The new text node containing _text
  */
 function say(_text) {
@@ -43,9 +51,9 @@ function say(_text) {
 }
 
 /**
- * Creates a new element of tag _tag containing the string _text
- * @param {string} _text The string to be placed inside the element
- * @param {string} _tag The tag of the element to be created
+ * Creates a new element of tag _tag containing the string _text.
+ * @param {String} _text The string to be placed inside the element
+ * @param {String} _tag The tag of the element to be created
  * @returns {HTMLElement} The new element containing _text
  */
 function sayText(_text,_tag) {
@@ -56,7 +64,7 @@ function sayText(_text,_tag) {
 }
 
 /**
- * Creates a new &lt;p&gt; element containing the string _text
+ * Creates a new &lt;p&gt; element containing the string _text.
  * @param {string} _text The string to be placed inside a &lt;p&gt; element
  * @returns {HTMLElement} The new &lt;p&gt; element containing _text
  */
@@ -80,15 +88,15 @@ function createLinearGradient(_angle_deg, _colors) {
 // Static classes
 
 /**
- * @classdesc A class containing static functions dealing dealing with numbers.
+ * @class A class containing static functions dealing with numbers
  * @hideconstructor 
  */
 class tkNumber {	
 	/**
-	 * Generate a random whole number between min and max, inclusive
+	 * Generate a random whole number between _min and _max, inclusive.
 	 * @param {Number} _min The minimum number
 	 * @param {Number} _max The maximum number
-	 * @return The generated number
+	 * @return {Number} The generated whole number
 	 */
 	static random(_min,_max) {
 		_min = Math.ceil(_min);
@@ -96,34 +104,74 @@ class tkNumber {
 		return Math.floor(Math.random() * (_max - _min + 1)) + _min;
 	}
 
+	/**
+	 * Generate a random decimal number between _min and _max, inclusive.
+	 * @param {Number} _min 
+	 * @param {Number} _max 
+	 * @return {Number} The generated decimal number
+	 */
 	static randomDecimal(_min,_max) {
 		return Math.random() < 0.5 ? ((1-Math.random()) * (_max-_min) + _min) : (Math.random() * (_max-_min) + _min);
 	}
 
+	/**
+	 * Get the percent of _max that _value represents.
+	 * @param {Number} _value The number
+	 * @param {Number} _max The maximum number
+	 * @return {Number} The percentage
+	 */
 	static toPercent(_value,_max) {
 		return ((_value*100)/_max);
 	}
 
+	/**
+	 * Get the formatted percent of _max that _value represents, 
+	 * that is, what tkNumber.toPercentage() would return + a percent sign.
+	 * @param {Number} _value The number
+	 * @param {Number} _max The maximum number
+	 * @return {String} The percentage, including %
+	 */
 	static toPercentF(_value,_max)	{
 		return this.toPercent(_value, _max) + "%";
 	}
 
+	/**
+	 * Convert a percentage into a number.
+	 * @param {Number} _value The percentage
+	 * @param {Number} _max The maximum number
+	 * @return {Number} The number
+	 */
 	static fromPercent(_value,_max)	{
 		return ((_value*_max)/100);
 	}
 }
 
+/**
+ * @class A class containing static functions dealing with Arrays
+ * @hideconstructor 
+ */
 class tkArray {
-	static compare(_arr) {
+	/**
+	 * Compare all the elements in array _arr with
+	 * each other.
+	 * @param {Array} _arr The array whose elements are to be compared with each other
+	 * @returns {Boolean} True if all elements are equal, false otherwise 
+	 */
+	static elementsAreEqual(_arr) {
 		for(var i=0;i<_arr.length;i++)
 			for(var j=0;j<_arr.length;j++)
-				if (_arr[i]!=_arr[j])
+				if (_arr[i]!==_arr[j])
 					return false;
 		return true;
 	}
-	
-	static isArray(_arr) {
-		return (_arr.constructor === Array);
+
+	/**
+	 * Determine if an object is an array
+	 * @param {Object} _object 
+	 * @returns {Boolean} True if _object is an Array, false otherwise
+	 */
+	static isArray(_object) {
+		return (_object.constructor === Array);
 	}
 }
 
@@ -211,8 +259,19 @@ class tkFont {
 	}
 }
 
+/**
+ * @class A class containing various functions 
+ * to convert between color types, grab colors from elements,
+ * generate random colors, parse color strings, and more. Used 
+ * internally by tamarack to represent color.
+ */
 class tkColor {
-	constructor(_css) {
+	/**
+	 * Create a tkColor object, optionally based
+	 * off of an existing color, _color_string.
+	 * @param {String} _color_string The string representing a color to be parsed
+	 */
+	constructor(_color_string) {
 		this.r = 0;
 		this.g = 0;
 		this.b = 0;
@@ -223,20 +282,31 @@ class tkColor {
 
 		this.a = 1;
 
-		if(_css)
-			this.parse(_css);
+		if(_color_string)
+			this.parse(_color_string);
 	}
 
+	/**
+	 * Generate a random RGB color, without an alpha channel.
+	 * @returns {String} The randomly generated color in the format of rgb(0,0,0)
+	 */
 	static randomRgbCss() {
 		return "rgb(" + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + ")";
 	}
 
+	/**
+	 * Generate a random RGBA color, with an alpha channel.
+	 * @returns {String} The randomly generated color in the format of rgba(0,0,0,0)
+	 */
 	static randomRgbaCss() {
 		return "rgba(" + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + Math.tkNumber.random() + ")";
 	}
-
-	/* As of now tamarack does not accept colors formatted in names,
-	   such as "black" or "transparent", instead use #000000 or rgba(0,0,0,0). */ 
+	/**
+	 * Find whether _color represents a valid color that can be used.
+	 * Currently, tamarack does not accept colors formatted in names,
+	   such as "black" or "transparent", instead use #000000 or rgba(0,0,0,0).
+	 * @param {String} _color 
+	 */
 	static isColor(_color) {
 		if (_color === "" || _color === "inherit" || _color === "transparent") 
 			return false;
@@ -256,32 +326,66 @@ class tkColor {
 		return (image.style.color !== "rgb(255, 255, 255)");
 	}	
 
+	/**
+	 * Extract a color from the computed background-color style
+	 * of the HTMLElement _element.
+	 * @param {HTMLElement} _element The element
+	 * @returns {tkColor} The tkColor generated from the extracted color
+	 */
 	static fromElementBackground(_element) {
 		return new tkColor((new tkElement(_element).computedProperty("background-color")));
 	}
 
+	/**
+	 * Extract a color from the computed color style
+	 * of the HTMLElement _element.
+	 * @param {HTMLElement} _element The element
+	 * @returns {tkColor} The tkColor generated from the extracted color
+	 */
 	static fromElementColor(_element) {
 		return new tkColor((new tkElement(_element).computedProperty("color")));
 	}
 
+	/**
+	 * Generate a random tkColor, with an alpha channel.
+	 * @returns {tkColor} The generated color
+	 */
 	static random() {
 		var color = new tkColor();
 		color.randomize();
+
 		return color;
 	}
 
+	/**
+	 * Generate a random tkColor, without an alpha channel.
+	 * @returns {tkColor} The generated color
+	 */
 	static randomOpaque() {
 		var color = new tkColor();
 		color.randomizeOpaque();
+
 		return color;
 	}
-
+	
+	/**
+	 * Compare a tkColor to another tkColor, _other.
+	 * @returns {Boolean} True if all of the values are the same, false otherwise
+	 */
 	equals(_other) 	{
-		if(	_other.h == this.h && _other.s == this.s && _other.l == this.a && _other.a == this.a)
+		if(	_other.h == this.h 
+			&& _other.s == this.s 
+			&& _other.l == this.a 
+			&& _other.a == this.a)
 			return true;
+
 		return false;
 	}
 	
+	/**
+	 * Set all of the values of the current tkColor 
+	 * randomly, with alpha channel.
+	 */ 
 	randomize()	{
 		this.fromRgba(tkNumber.random(0,255),
 		tkNumber.random(0,255),
@@ -289,6 +393,10 @@ class tkColor {
 		tkNumber.randomDecimal(0,1));
 	}
 
+	/**
+	 * Set all of the value of the current tkColor 
+	 * randomly, without alpha channel.
+	 */ 
 	randomizeOpaque() {
 		this.fromRgba(tkNumber.random(0,255),
 		tkNumber.random(0,255),
@@ -296,12 +404,23 @@ class tkColor {
 		1);
 	}
 
+	/**
+	 * Create a deep copy of the current tkColor.
+	 * @returns {tkColor} A deep copy of the current tkColor
+	 */
 	clone()	{
 		var new_color = new tkColor();
 		new_color.fromHsla(this.h,this.s,this.l,this.a);
 		return new_color;
 	}
 
+	/**
+	 * Set the current tkColor from RGBA values.
+	 * @param {Number} _r Red
+	 * @param {Number} _g Green
+	 * @param {Number} _b Blue
+	 * @param {Number} _a Alpha
+	 */
 	fromRgba(_r,_g,_b,_a) {
 		var hsl = this.rgbToHsl(_r,_g,_b);
 		this.r = _r;
@@ -315,6 +434,13 @@ class tkColor {
 		this.a = _a;
 	}
 
+	/**
+	 * Set the current tkColor from HSLA values.
+	 * @param {Number} _h Hue
+	 * @param {Number} _s Saturation
+	 * @param {Number} _l Lightness
+	 * @param {Number} _a Alpha
+	 */
 	fromHsla(_h,_s,_l,_a) {
 		var rgb = this.hslToRgb(_h,_s,_l);
 		this.r = rgb[0];
@@ -328,11 +454,19 @@ class tkColor {
 		this.a = _a;
 	}
 
+	/**
+	 * Set the current tkColor from a hexadecimal value.
+	 * @param {Number} _hex Hexadecimal
+	 */
 	fromHex(_hex) {
 		var rgb = this.hexToRgb(_hex);
 		this.fromRgba(rgb[0],rgb[1],rgb[2],this.a);
 	}
 
+	/**
+	 * Parse a color, _input, and the current tkColor to match it.
+	 * @param {String} _input The color to parse
+	 */
 	parse(_input) {
 		if(_input.startsWith("#")) {
 			this.fromHex(_input);
@@ -359,18 +493,37 @@ class tkColor {
 		}
 	}
 
-	getHslaCss() {
+	/**
+	 * Get the current tkColor's string representation, represented in hsla(0,0%,0%,1) form.
+	 * @returns {String} The current color, as an RGBA string
+	 */
+	getHslaString() {
 		return "hsla(" + this.h.toFixed(0) + ", " + this.s.toFixed(0) + "%, " + this.l.toFixed(0) + "%, " + this.a.toFixed(2) + ")";
 	}
 
-	getRgbaCss() {
+	/**
+	 * Get the current tkColor's string representation, represented in rgba(0,0,0,1) form.
+	 * @returns {String} The current color, as an HSLA string
+	 */
+	getRgbaString() {
 		return "rgba(" + this.r.toFixed(0) + ", " + this.g.toFixed(0) + ", " + this.b.toFixed(0) + ", " + this.a.toFixed(2) + ")";
 	}
 
-	getHexCss()	{
+	/**
+	 * Get the current tkColor's string representation, represented in #000000 form.
+	 * @returns {String} The current color, as a hexadecimal color
+	 */
+	getHexString()	{
 		return this.rgbToHex(this.r, this.g, this.b);
 	}
 
+	/**
+	 * Convert an HSL color to an RGB color.
+	 * @param {Number} _h Hue
+	 * @param {Number} _s Saturation
+	 * @param {Number} _l Lightness
+	 * @returns {Array} An array [r,g,b], which represents the converted color
+	 */
 	hslToRgb(_h,_s,_l) {
 		var r, g, b;
 
@@ -400,6 +553,13 @@ class tkColor {
 		return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 	}
 
+	/**
+	 * Convert an RGB color to an HSL color.
+	 * @param {Number} _r Red
+	 * @param {Number} _g Green
+	 * @param {Number} _b Blue
+	 * @returns {Array} An array [h,s,l], which represents the converted color
+	 */
 	rgbToHsl(_r,_g,_b) {
 		_r /= 255, _g /= 255, _b /= 255;
 		var max = Math.max(_r, _g, _b), min = Math.min(_r, _g, _b);
@@ -420,7 +580,21 @@ class tkColor {
 
 		return [h*360, s*100, l*100];
 	}
+	/**
+	 * Convert a hexadecimal color to HSL.
+	 * @param {String} _hex The hexadecimal color 
+	 * @returns {Array} An array [h,s,l], which represents the converted color
+	 */
+	hexToHsl(_hex)	{
+		var rgb = this.hexToRgb(_hex);
+		return this.rgbToHsl(rgb[0], rgb[1], rgb[2]);
+	}
 
+	/**
+	 * Convert a hexadecimal color to RGB.
+	 * @param {String} _hex The hexadecimal color 
+	 * @returns {Array} An array [r,g,b], which represents the converted color
+	 */
 	hexToRgb(_hex)	{
 		// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
 		var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
@@ -432,10 +606,35 @@ class tkColor {
 		return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : null;
 	}
 
+	/**
+	 * Convert an HSL color to hexadecimal color.
+	 * @param {Number} _h Hue
+	 * @param {Number} _s Saturation
+	 * @param {Number} _l Lightness
+	 * @returns {String} The converted hexadecimal color
+	 */
+	hslToHex(_h,_s,_l) {
+		var rgb = this.hslToRgb(_h,_s,_l);
+		return this.rgbToHex(rgb[0], rgb[1], rgb[2]);
+	}
+
+	/**
+	 * Convert an RGB color to hexadecimal color.
+	 * @param {Number} _r Red
+	 * @param {Number} _g Green
+	 * @param {Number} _b Blue
+	 * @returns {String} The converted hexadecimal color
+	 */
 	rgbToHex(_r,_g,_b) {
 		return "#" + ((1 << 24) + (_r << 16) + (_g << 8) + _b).toString(16).slice(1);
 	}
 
+	/**
+	 * Return a clone of the current tkColor, but lighter by a 
+	 * factor of _factor.
+	 * @param {Number} _factor The factor to multiply the lightness value by
+	 * @returns {tkColor} The new, tkColor
+	 */
 	lighter(_factor) {
 		var c = this.clone();
 		var new_l = (_factor * c.l) + c.l;
@@ -449,16 +648,29 @@ class tkColor {
 		return c;
 	}
 
+	/**
+	 * If the current tkColor's lightness is less than 50% and the
+	 * alpha is more than 0.4.
+	 * @returns {Boolean} True if dark, false otherwise
+	 */
 	isDark() {
 		return (this.l <= 50 && this.a > 0.4);
 	}
 	
+	/**
+	 * The opposite of tkColor.isDark().
+	 * @returns {Boolean} True if not dark, false otherwise
+	 */
 	isLight() {
 		return (!this.isDark());
 	}
 
+	/**
+	 * If the red, green, and blue values are equal to each other.
+	 * @returns {Boolean} True if all are equal, false otherwise
+	 */
 	isGray() {
-		return (tkArray.compare([this.r,this.g,this.b]));
+		return (tkArray.elementsAreEqual([this.r,this.g,this.b]));
 	}
 }
 
@@ -1050,8 +1262,8 @@ class tkColorButton extends tkButton {
 
 	set color(_color) {
 		this._color = _color;
-		this.background = this._color.getHslaCss();
-		this.style.borderColor = _color.lighter(-0.3).getHslaCss();
+		this.background = this._color.getHslaString();
+		this.style.borderColor = _color.lighter(-0.3).getHslaString();
 		this.fontColor = (_color.isDark()) ? "white" : "black";
 	}
 }
@@ -2634,8 +2846,8 @@ class tkColorPicker extends tkWidget {
 			alpha.push("hsla(" + this.hueSlider.valueAsNumber + "," + this.saturationSlider.valueAsNumber + "%," + this.lightnessSlider.valueAsNumber + "%," + i + ")");	
 		this.alphaSlider.e.style.background =  createLinearGradient(90,alpha);
 		
-		this.colorPreview.style.backgroundColor = this.color.getHslaCss();
-		this.textInput.e.value = this.color.getHslaCss();
+		this.colorPreview.style.backgroundColor = this.color.getHslaString();
+		this.textInput.e.value = this.color.getHslaString();
 	}
 }
 
