@@ -68,7 +68,7 @@ var dlgColor = new tkColorDialog();
 
 dlgColor.show((dialogResult) => {
     if (dialogResult == tkDialogResult.OK)
-        doc.setBackgroundColor(dlgColor.color.getHslaCss());
+        doc.setBackgroundColor(dlgColor.color.getHslaString());
 });
 ```
 ![Color Dialog](examples/screenshots/ColorDialog.gif)

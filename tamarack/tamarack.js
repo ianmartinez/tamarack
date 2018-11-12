@@ -2,7 +2,7 @@
 if(typeof require == 'function') window.$ = window.jQuery = require('../jquery/jquery.min.js');
 
 /**
- * @class A static class containing information on the tamarack library.
+ * @class A static class containing information on the tamarack library. Do not use constructor.
  * @hideconstructor 
  */
 class tamarack {
@@ -88,7 +88,7 @@ function createLinearGradient(_angle_deg, _colors) {
 // Static classes
 
 /**
- * @class A class containing static functions dealing with numbers
+ * @class A class containing static functions dealing with numbers. Do not use constructor.
  * @hideconstructor 
  */
 class tkNumber {	
@@ -147,7 +147,7 @@ class tkNumber {
 }
 
 /**
- * @class A class containing static functions dealing with Arrays
+ * @class A class containing static functions dealing with arrays. Do not use constructor.
  * @hideconstructor 
  */
 class tkArray {
@@ -157,7 +157,7 @@ class tkArray {
 	 * @param {Array} _arr The array whose elements are to be compared with each other
 	 * @returns {Boolean} True if all elements are equal, false otherwise 
 	 */
-	static elementsAreEqual(_arr) {
+	static areElementsEqual(_arr) {
 		for(var i=0;i<_arr.length;i++)
 			for(var j=0;j<_arr.length;j++)
 				if (_arr[i]!==_arr[j])
@@ -301,6 +301,7 @@ class tkColor {
 	static randomRgbaCss() {
 		return "rgba(" + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + Math.tkNumber.random() + ")";
 	}
+
 	/**
 	 * Find whether _color represents a valid color that can be used.
 	 * Currently, tamarack does not accept colors formatted in names,
@@ -670,18 +671,40 @@ class tkColor {
 	 * @returns {Boolean} True if all are equal, false otherwise
 	 */
 	isGray() {
-		return (tkArray.elementsAreEqual([this.r,this.g,this.b]));
+		return (tkArray.areElementsEqual([this.r,this.g,this.b]));
 	}
 }
 
 // A control can be any html element
+/**
+ * A wrapper around a HTMLElement exposing additional functionality.
+ */
 class tkControl {	
+	/**
+	 * Initialize the tkControl.
+	 */
 	constructor() {
-		this.element = document.body;
-		this.element.id = "";
+		this._element = document.body;
+		this._element.id = "";
 		this._parent = null;
 	}
+
+	/**
+	 * The element the tkControl represents
+	 * @type {HTMLElement}
+	 */
+	get element()	{
+		return this._element;
+	}
 	
+	set element(_element) {
+		this._element = _element;
+	}
+	
+	/**
+	 * The id of the element.
+	 * @type {String}
+	 */
 	get id() {
 		return this.element.id;
 	}
@@ -690,11 +713,19 @@ class tkControl {
 		this.element.id = _id;
 	}
 	
+	/**
+	 * The style of the element.
+	 * @type {CSSStyleDeclaration}
+	 * @readonly
+	 */	
 	get style() {
 		return this.element.style;
 	}
 	
-	// shorthand for this.element
+	/**
+	 * Shorthand for tkControl.element.
+	 * @type {HTMLElement}
+	 */
 	get e()	{
 		return this.element;
 	}
@@ -703,6 +734,9 @@ class tkControl {
 		this.element = _e;
 	}
 
+	/**
+	 * The inner HTML of an the element. 
+	 */
 	get innerHtml() {
 		return this.element.innerHTML;
 	}
@@ -710,8 +744,10 @@ class tkControl {
 	set innerHtml(_html) {
 		this.element.innerHTML = _html;
 	}
-	
-	// fullscreen
+
+	/**
+	 * Make the element fullscreen.
+	 */
 	makeFullscreen() {
 		if (this.element.requestFullscreen)
 			this.element.requestFullscreen();
@@ -723,6 +759,9 @@ class tkControl {
 		  this.element.webkitRequestFullscreen();
 	}	
 
+	/**
+	 * Exit fullscreen.
+	 */
 	exitFullscreen() {
 		if (document.exitFullscreen) 
 			document.exitFullscreen();
@@ -734,6 +773,11 @@ class tkControl {
 			document.msExitFullscreen();
 	}
 
+	/**
+	 * Determine if the root element is fullscreen.
+	 * @returns {Boolean} True if the document's fullscreen element is
+	 * the root element
+	 */
 	isFullscreen() {
 		return (document.fullscreenElement == this.element 
 				|| document.mozFullScreenElement == this.element 
@@ -741,6 +785,9 @@ class tkControl {
 				|| document.msFullscreenElement == this.element);
 	}
 
+	/**
+	 * Toogle the element being fullscreen
+	 */
 	toggleFullscreen()	{
 		if (this.isFullscreen())
 			this.exitFullscreen();
@@ -748,32 +795,67 @@ class tkControl {
 			this.makeFullscreen();
 	}
 
-	// attributes	
+	/**
+	 * Determine if the root element has an attribute named _attribute.
+	 * @param {String} _attribute The attribute name
+	 * @returns {Boolean} True if the element contains an attribute named _attribute, false otherwise
+	 */	
 	hasAttribute(_attribute) {
 		return this.element.hasAttribute(_attribute);
 	}
 	
+	/**
+	 * Get the value of the attribute named _attribute 
+	 * for the root element.
+	 * @param {String} _attribute 
+	 * @returns {String} The value of the attribute
+	 */
 	getAttribute(_attribute) {
 		return this.element.getAttribute(_attribute);
 	}
-	
+		
+	/**
+	 * Set the value of the attribute named _attribute to _value 
+	 * for the root element.
+	 * @param {String} _attribute 
+	 * @param {String} _value
+	 */
 	setAttribute(_attribute, _value)	{
 		this.element.setAttribute(_attribute,_value);		
 	}
 	
+	/**
+	 * Remove the attribute named _attribute from the 
+	 * root element.
+	 * @param {String} _attribute 
+	 */
 	removeAttribute(_attribute)	{
 		this.element.removeAttribute(_attribute);
 	}
 	
+	/**
+	 * Add an attribute named _attribute without a value to 
+	 * the root element.
+	 * @param {*} _attribute 
+	 */
 	addAttribute(_attribute) {
 		var attribute = document.createAttribute(_attribute); 
 		this.element.setAttributeNode(attribute);
 	}
 
-	setAttributeNode(_attribute) {
-		this.element.setAttributeNode(_attribute);
+	/**
+	 * Set an attribute node to _attribute_node in 
+	 * the root element.
+	 * @param {Attr} _attribute_node 
+	 */
+	setAttributeNode(_attribute_node) {
+		this.element.setAttributeNode(_attribute_node);
 	}
 
+	/**
+	 * The width of the root element.
+	 * @type {String}
+	 */
 	get width()	{
 		return this.getAttribute("width");
 	}
@@ -783,6 +865,10 @@ class tkControl {
 		this.element.style.width = _width;
 	}
 		
+	/**
+	 * The height of the root element.
+	 * @type {String}
+	 */
 	get height() {
 		return this.getAttribute("height");
 	}
@@ -792,11 +878,21 @@ class tkControl {
 		this.element.style.height = _height;
 	}
 	
+	/**
+	 * Set both the width and the height
+	 * at the same time for the root element.
+	 * @param {Number} _width 
+	 * @param {Number} _height 
+	 */
 	setSize(_width,_height) {
 		this.width = _width;
 		this.height = _height;
 	}	
 	
+	/**
+	 * The background style of the root element.
+	 * @type {String}
+	 */
 	get background() {
 		return this.element.style.background;
 	}
@@ -804,7 +900,11 @@ class tkControl {
 	set background(_background) {
 		this.element.style.background = _background;
 	}		
-	
+		
+	/**
+	 * The color style of the root element.
+	 * @type {String}
+	 */
 	get fontColor() {
 		return this.element.style.color;
 	}
@@ -812,7 +912,11 @@ class tkControl {
 	set fontColor(_color) {
 		this.element.style.color = _color;
 	}	
-
+	
+	/**
+	 * The border style of the root element.
+	 * @type {String}
+	 */
 	get border() {
 		return this.element.style.border;
 	}
@@ -821,6 +925,10 @@ class tkControl {
 		this.element.style.border = _border;
 	}	
 
+	/**
+	 * The padding of the root element.
+	 * @type {String}
+	 */
 	get padding() {
 		return this.element.style.padding;
 	}
@@ -829,6 +937,10 @@ class tkControl {
 		this.element.style.padding = _padding;
 	}
 	
+	/**
+	 * The margin of the root element.
+	 * @type {String}
+	 */
 	get margin() {
 		return this.element.style.margin;
 	}
@@ -837,6 +949,10 @@ class tkControl {
 		this.element.style.margin = _margin;
 	}
 
+	/**
+	 * The display of the root element.
+	 * @type {String}
+	 */
 	get display() {
 		return this.element.style.display;
 	}
@@ -845,11 +961,18 @@ class tkControl {
 		this.element.style.display = _display;
 	}
 
+	/**
+	 * Remove all child elements from the root element.
+	 */
 	clear()	{
 		while (this.element.firstChild) 
 			this.element.removeChild(this.element.firstChild);
 	}
 
+	/**
+	 * The role attribute of root element.
+	 * @type {String}
+	 */
 	get role() {
 		return this.getAttribute("role");
 	}
@@ -858,29 +981,54 @@ class tkControl {
 		this.setAttribute("role",_role);
 	}
 
-	// class
+	/**
+	 * Add classes to root element.
+	 * @param {...String} _classes Classes to add to the root element
+	 */
 	addClass(/* classes to add */)	{
 		for (var i=0;i<arguments.length;i++)
 			this.element.classList.add(arguments[i]);
 	}
 
+	/**
+	 * Remove classes from root element.
+	 * @param {...String} _classes Classes to remove from the root element
+	 */
 	removeClass(/* classes to remove */) {
 		for (var i=0;i<arguments.length;i++)
 			this.element.classList.remove(arguments[i]);
 	}
 
+	/**
+	 * Toggle a class in the root element.
+	 * @param {String} _class Class to toggle from the root element
+	 */
 	toggleClass(_class)	{
 		this.element.classList.toggle(_class);
 	}
 
+	/**
+	 * Get the class at position _index in the root element's
+	 * class list. 
+	 * @param {Number} _index The index of the class
+	 */
 	classAt(_index)	{
 		this.element.classList.item(_index);
 	}
 
+	/**
+	 * Determine if the root element has a class
+	 * named _class in its class list.
+	 * @param {String} _class Class to search for
+	 */
 	hasClass(_class) {
 		return this.element.classList.contains(_class);
 	}
 
+	/**
+	 * The class name of the root element.
+	 * @type {String}
+	 */
 	get className()	{
 		return this.element.className;
 	}
@@ -889,6 +1037,10 @@ class tkControl {
 		this.element.className = _class_name;
 	}
 
+	/**
+	 * Add tkWidgets to the root element.
+	 * @param {...tkWidget} _widgets tkWidgets to add to the root element
+	 */
 	add(/* tkControls to add */) {
 		for (var i=0;i<arguments.length;i++) {
 			this.element.appendChild(arguments[i].element);
@@ -896,6 +1048,10 @@ class tkControl {
 		}
 	}
 
+	/**
+	 * Remove tkWidgets from the root element.
+	 * @param {...tkWidget} _widgets tkWidgets to remove from the root element
+	 */
 	remove(/* tkControls to remove */)	{
 		for (var i=0;i<arguments.length;i++) {
 			this.element.removeChild(arguments[i].element);
@@ -903,28 +1059,47 @@ class tkControl {
 		}
 	}
 
+	/**
+	 * Add elements to the root element.
+	 * @param {...HTMLElement} _widgets Elements to add to the root element
+	 */
 	addElement(/* elements to add */) {
 		for (var i=0;i<arguments.length;i++)
 			this.element.appendChild(arguments[i]);
 	}
 
+	/**
+	 * Remove elements from the root element.
+	 * @param {...HTMLElement} _widgets Elements to remove from the root element
+	 */
 	removeElement(/* elements to remove */) {
 		for (var i=0;i<arguments.length;i++)
 			this.element.removeChild(arguments[i]);
 	}
 	
-	// get the parent tkElement
+	/**
+	 * Get the parent tkWidget.
+	 * @returns {tkWidget} The parent tkWidget
+	 */
 	getParent() {
 		return this._parent;
 	}
 
+	/**
+	 * Get the parent element of the root element.
+	 * @returns {HTMLElement} The parent element 
+	 */
 	getParentElement() {
 		return this.e.parentNode;
 	}
 
-	/* A wrapper around the jQuery $(element).on(...) function 
+	/**
+	 * A wrapper around the jQuery $(element).on(...) function 
 	   that sends the tkControl associated with the element as one 
-	   of the parameters */
+	   of the parameters.
+	 * @param {String} _event_name 
+	 * @param {Function} _function 
+	 */
 	on(_event_name,_function) {
 		var _control = this;
 		$(this.element).on(_event_name, function() {
@@ -932,12 +1107,21 @@ class tkControl {
 		});
 	}
 
+	/**
+	 * Trigger an event by the name of _event_name.
+	 * @param {String} _event_name 
+	 */
 	trigger(_event_name) {
 		$(this.element).trigger(_event_name);
 	}
 
-	computedProperty(_property) {
-		return window.getComputedStyle(this.element, null).getPropertyValue(_property);
+	/**
+	 * Get the computed property by the name of _property_name of an element.
+	 * @param {String} _property_name 
+	 * @returns {*} The computed property value
+	 */
+	computedProperty(_property_name) {
+		return window.getComputedStyle(this.element, null).getPropertyValue(_property_name);
 	}
 }
 

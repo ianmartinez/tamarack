@@ -15,15 +15,13 @@
         "cleverLinks": false,
         "monospaceLinks": true,
         "useLongnameInNav": false,
-        "showInheritedInNav": true,
-		"default": {
-			"layoutFile" : "doclayout.tmpl"
-		}
+        "showInheritedInNav": true
     },
     "opts": {
         "destination": "../docs/",
         "encoding": "utf8",
         "private": true,
-        "recurse": true
+        "recurse": true,
+        "template": "./node_modules/docdash"
     }
 }
