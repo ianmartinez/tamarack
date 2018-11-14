@@ -155,7 +155,17 @@ class tkArray {
 	 * Compare all the elements in array _arr with
 	 * each other.
 	 * @param {Array} _arr The array whose elements are to be compared with each other
-	 * @returns {Boolean} True if all elements are equal, false otherwise 
+	 * @returns {Boolean} True if all elements are equal (as compared by JavaScript's === comparer), 
+	 * false otherwise 
+	 * @example
+	 * tkArray.areElementsEqual(["blue", "blue", "blue"]);
+	 * // Output: true
+	 * 
+	 * tkArray.areElementsEqual(["blue", "blue", "red"]);
+	 * // Output: false
+	 * 
+	 * tkArray.areElementsEqual([false, false, 0]);
+	 * // Output: false
 	 */
 	static areElementsEqual(_arr) {
 		for(var i=0;i<_arr.length;i++)
@@ -168,7 +178,13 @@ class tkArray {
 	/**
 	 * Determine if an object is an array
 	 * @param {Object} _object 
-	 * @returns {Boolean} True if _object is an Array, false otherwise
+	 * @returns {Boolean} True if _object is an Array, false otherwise	 
+	 * @example
+	 * tkArray.isArray([1, 2]);
+	 * // Output: true
+	 * 
+	 * tkArray.isArray("hello");
+	 * // Output: false
 	 */
 	static isArray(_object) {
 		return (_object.constructor === Array);
@@ -289,24 +305,35 @@ class tkColor {
 	/**
 	 * Generate a random RGB color, without an alpha channel.
 	 * @returns {String} The randomly generated color in the format of rgb(0,0,0)
+	 * @example 
+	 * tkColor.randomRgbString();
+	 * // Output: "rgb(174,236,36)"
 	 */
-	static randomRgbCss() {
+	static randomRgbString() {
 		return "rgb(" + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + ")";
 	}
 
 	/**
 	 * Generate a random RGBA color, with an alpha channel.
 	 * @returns {String} The randomly generated color in the format of rgba(0,0,0,0)
+	 * @example 
+	 * tkColor.randomRgbaString();
+	 * // Output: "rgba(26,30,96,0.33)"
 	 */
-	static randomRgbaCss() {
-		return "rgba(" + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + Math.tkNumber.random() + ")";
+	static randomRgbaString() {
+		return "rgba(" + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + tkNumber.random(0,255) + "," + (Math.random()).toFixed(2) + ")";
 	}
 
 	/**
 	 * Find whether _color represents a valid color that can be used.
 	 * Currently, tamarack does not accept colors formatted in names,
 	   such as "black" or "transparent", instead use #000000 or rgba(0,0,0,0).
-	 * @param {String} _color 
+	 * @param {String} _color
+	 * @example 
+	 * tkColor.isColor("blah");
+	 * // Output: false
+	 * tkColor.isColor("#000000");
+	 * // Output: true
 	 */
 	static isColor(_color) {
 		if (_color === "" || _color === "inherit" || _color === "transparent") 
@@ -332,6 +359,9 @@ class tkColor {
 	 * of the HTMLElement _element.
 	 * @param {HTMLElement} _element The element
 	 * @returns {tkColor} The tkColor generated from the extracted color
+	 * @example
+	 * tkColor.fromElementBackground(document.body);
+	 * // Output, the default white: tkColor {r: 255, g: 255, b: 255, h: 0, s: 0, …}
 	 */
 	static fromElementBackground(_element) {
 		return new tkColor((new tkElement(_element).computedProperty("background-color")));
@@ -342,6 +372,9 @@ class tkColor {
 	 * of the HTMLElement _element.
 	 * @param {HTMLElement} _element The element
 	 * @returns {tkColor} The tkColor generated from the extracted color
+	 * @example
+	 * tkColor.fromElementColor(document.body);
+	 * // Output, the default black: tkColor {r: 33, g: 37, b: 41, h: 210, s: 10.81081081081081, …}
 	 */
 	static fromElementColor(_element) {
 		return new tkColor((new tkElement(_element).computedProperty("color")));
@@ -350,6 +383,9 @@ class tkColor {
 	/**
 	 * Generate a random tkColor, with an alpha channel.
 	 * @returns {tkColor} The generated color
+	 * @example
+	 * tkColor.random();
+	 * // Output: tkColor {r: 202, g: 141, b: 212, h: 291.5492957746479, s: 45.22292993630575, …}
 	 */
 	static random() {
 		var color = new tkColor();
@@ -361,6 +397,9 @@ class tkColor {
 	/**
 	 * Generate a random tkColor, without an alpha channel.
 	 * @returns {tkColor} The generated color
+	 * @example
+	 * tkColor.randomOpaque();
+	 * // Output: tkColor {r: 217, g: 127, b: 11, h: 33.78640776699029, s: 90.35087719298247, …}
 	 */
 	static randomOpaque() {
 		var color = new tkColor();
@@ -372,11 +411,16 @@ class tkColor {
 	/**
 	 * Compare a tkColor to another tkColor, _other.
 	 * @returns {Boolean} True if all of the values are the same, false otherwise
+	 * @example
+	 * let color1 = new tkColor("rgba(255,0,0,1)"); // Red
+	 * let color2 = new tkColor("hsla(0,100,50,1)"); // Exact same color, but in HSLA
+	 * color1.equals(color2);
+	 * // Output: true
 	 */
 	equals(_other) 	{
 		if(	_other.h == this.h 
 			&& _other.s == this.s 
-			&& _other.l == this.a 
+			&& _other.l == this.l 
 			&& _other.a == this.a)
 			return true;
 
@@ -391,7 +435,7 @@ class tkColor {
 		this.fromRgba(tkNumber.random(0,255),
 		tkNumber.random(0,255),
 		tkNumber.random(0,255),
-		tkNumber.randomDecimal(0,1));
+		(tkNumber.randomDecimal(0,1)).toFixed(2));
 	}
 
 	/**
