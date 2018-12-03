@@ -36,6 +36,10 @@ body {
     background-color: white;
 }
 
+textarea {
+    resize: both;
+}
+
 h1, h2, h3, h4, h5, h6 {    
     margin: 1rem 0;
     padding: 0;
@@ -78,6 +82,10 @@ button p {
     height: 100%;
     margin: 0px;
     height: 100%;
+}
+
+.borderless {
+    border: 0px solid transparent;
 }
 
 .flexColumns {
@@ -380,4 +388,21 @@ button {
 @keyframes tkProgressAnimation {
     0% { background-position: left bottom; }
     100% { background-position: right bottom; }
+}
+
+.tkPalette {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    max-height: 8rem;
+    overflow: auto;
+    flex-wrap: wrap;
+    flex-direction: row;
+    background: rgb(243, 243, 243);
+    border: 1px solid rgb(210, 210, 210);
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+}
+
+.tkPalette button {
 }

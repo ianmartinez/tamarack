@@ -85,6 +85,29 @@ function createLinearGradient(_angle_deg, _colors) {
 	return gradient + " )";
 }
 
+/**
+ * Inserts text into a editable text element at the caret position
+ * @param {*} _element The element to insert the text into
+ * @param {String} _text The text to insert
+ */
+function insertTextAtCaret(_element, _text) { 
+	if (document.selection) { // IE
+		_element.focus();
+		sel = document.selection.createRange();
+		sel.text = _text;
+	} else if (_element.selectionStart || _element.selectionStart == '0') { // Everything elese
+		var startPos = _element.selectionStart;
+		var endPos = _element.selectionEnd;
+		_element.value = _element.value.substring(0, startPos)
+			+ _text
+			+ _element.value.substring(endPos, _element.value.length);
+			_element.selectionStart = startPos + _text.length;
+			_element.selectionEnd = startPos + _text.length;
+	} else {
+		_element.value += _text;
+	}
+}
+
 // Static classes
 
 /**
@@ -2524,22 +2547,8 @@ class tkTextEdit extends tkText {
 	 * Insert text at the caret position.
 	 * @param {String} _text The text to insert
 	 */
-	insertText(_text) {		 
-		 if (document.selection) { // IE
-			this.element.focus();
-			sel = document.selection.createRange();
-			sel.text = _text;
-		} else if (this.element.selectionStart || this.element.selectionStart == '0') { // Everything elese
-			var startPos = this.element.selectionStart;
-			var endPos = this.element.selectionEnd;
-			this.element.value = this.element.value.substring(0, startPos)
-				+ _text
-				+ this.element.value.substring(endPos, this.element.value.length);
-			this.element.selectionStart = startPos + _text.length;
-			this.element.selectionEnd = startPos + _text.length;
-		} else {
-			this.element.value += _text;
-		}
+	insertText(_text) {		
+		insertTextAtCaret(this.element, _text);
 	}
 }
 
@@ -2611,6 +2620,10 @@ class tkTextInput extends tkInput {
 	
 	set maxLength(_max_length) {
 		this.e.maxLength = _read_only;
+	}
+
+	insertText(_text) {
+		insertTextAtCaret(this.element,_text);
 	}
 }
 

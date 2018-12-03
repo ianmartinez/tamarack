@@ -19,11 +19,13 @@
 	<body>		
 		<script>
 			var doc = new tkDocument("Text Edit");
-			doc.padding = "1rem";
 
 			var palette = new tkPalette();
 			var edit = new tkTextEdit();
-			var affricates = ["p͡f", "t͡s", "d͡z", "t͡ɬ", "d͡ɮ", "t͡ʃ", "d͡ʒ", "t͡ɕ", "d͡ʑ", "ʈ͡ʂ", "ɖ͡ʐ", "k͡x"];	
+			edit.className += " fill borderless";
+			var affricates = ["p͡f", "t͡s", "d͡z", "t͡ɬ", "d͡ɮ", "t͡ʃ", "d͡ʒ", "t͡ɕ", "d͡ʑ", "ʈ͡ʂ", "ɖ͡ʐ", "k͡x",
+			"p͡f", "t͡s", "d͡z", "t͡ɬ", "d͡ɮ", "t͡ʃ", "d͡ʒ", "t͡ɕ", "d͡ʑ", "ʈ͡ʂ", "ɖ͡ʐ", "k͡x", "p͡f", "t͡s", "d͡z", 
+			"t͡ɬ", "d͡ɮ", "t͡ʃ", "d͡ʒ", "t͡ɕ", "d͡ʑ", "ʈ͡ʂ", "ɖ͡ʐ", "k͡x"];	
 			
 			for(var i=0; i<affricates.length; i++)
 				palette.add(new tkButton(affricates[i], tkWidgetStyle.PRIMARY, "", false, typeChar));
