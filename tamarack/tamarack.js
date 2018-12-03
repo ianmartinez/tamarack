@@ -91,11 +91,7 @@ function createLinearGradient(_angle_deg, _colors) {
  * @param {String} _text The text to insert
  */
 function insertTextAtCaret(_element, _text) { 
-	if (document.selection) { // IE
-		_element.focus();
-		sel = document.selection.createRange();
-		sel.text = _text;
-	} else if (_element.selectionStart || _element.selectionStart == '0') { // Everything elese
+	if (_element.selectionStart || _element.selectionStart == '0') {
 		var startPos = _element.selectionStart;
 		var endPos = _element.selectionEnd;
 		_element.value = _element.value.substring(0, startPos)
@@ -108,6 +104,37 @@ function insertTextAtCaret(_element, _text) {
 	}
 }
 
+/**
+ * Set the selection of a text-editing element.
+ * @param {HTMLElement} _element 
+ * @param {Number} _start 
+ * @param {Number} _end 
+ */
+function setSelectionRange(_element, _start, _end) {
+	if (_element.setSelectionRange) {
+		_element.focus();
+		_element.setSelectionRange(_start, _end);
+	}
+  }
+
+/**
+ * Set the caret position of a text-editing element.
+ * @param {HTMLElement} _element 
+ * @param {Number} _position 
+ */
+  function moveCaret(_element, _position) {
+	  setSelectionRange(_element,_position,_position);
+  }
+
+function getSelectionText() {
+    var text = "";
+    if (window.getSelection) {
+        text = window.getSelection().toString();
+    } else if (document.selection && document.selection.type != "Control") {
+        text = document.selection.createRange().text;
+    }
+    return text;
+}
 // Static classes
 
 /**
@@ -1029,6 +1056,18 @@ class tkControl {
 	}
 
 	/**
+	 * The cursor displayed when the user hovers over the root element.
+	 * @type {String}
+	 */
+	get cursor() {
+		return this.element.style.cursor = "pointer";
+	}
+
+	set cursor(_cursor) {
+		this.element.style.cursor = _cursor;
+	}
+
+	/**
 	 * Remove all child elements from the root element.
 	 */
 	clear()	{
@@ -1189,6 +1228,10 @@ class tkControl {
 	 */
 	computedProperty(_property_name) {
 		return window.getComputedStyle(this.element, null).getPropertyValue(_property_name);
+	}
+
+	hasFocus() {
+		return (document.activeElement == this.element);
 	}
 }
 
@@ -2429,12 +2472,36 @@ class tkTextEdit extends tkText {
 		super("textarea");
 		this.className = "tkTextEdit";
 
+		/* I wish there was another way to detect selection change on BOTH desktop and mobile, 
+		but as far as I have seen, there is not. Events such as onmouseup only work on desktops
+		and for some goddamn reason, Firefox is the only browser with enough sense to implement the
+		"selectionchange" event on HTMLInputElements and HTMLTextAreaElements. "*/
+		var selectionEndTimeout = null;
 		var textEdit = this;
-		this.element.addEventListener('mouseup', function () {
-			textEdit.selected_text = this.value.substring(this.selectionStart, this.selectionEnd)
+		var selectionStarted = false;
+
+		$(document).on("selectionchange", function() {
+			// Wait 50 ms after the last selection change event
+			if (selectionEndTimeout) {
+				clearTimeout(selectionEndTimeout);
+			}
+			
+			selectionEndTimeout = setTimeout(function () {
+				$(window).trigger('selectionend');
+			}, 50);
+			
+		});
+
+		$(window).on('selectionend', function () {
+			// Reset selection timeout
+			selectionEndTimeout = null;
+			
+			textEdit._selected_text = getSelectionText();
+			textEdit.trigger("selectionChanged");
+			selectionStarted = false;
 		});
 	}
-
+	
 	// Characters, not pixels
 	get width() {
 		return this.getAttribute("cols");
@@ -2532,7 +2599,10 @@ class tkTextEdit extends tkText {
 	}
 
 	getSelectedText() {
-		return this.selected_text;
+		if(this.hasFocus())
+			return this._selected_text;
+		else 
+			return null;
 	}
 	
 	get text() {
@@ -2544,11 +2614,80 @@ class tkTextEdit extends tkText {
 	}
 
 	/**
+	 * Remove all text.
+	 */
+	clearAllText() {
+		this.text = "";
+	}
+
+	/**
+	 * Remove only the selected text.
+	 */
+	clearSelectedText() {
+		this.insertText("");
+	}
+
+	/**
 	 * Insert text at the caret position.
 	 * @param {String} _text The text to insert
 	 */
 	insertText(_text) {		
-		insertTextAtCaret(this.element, _text);
+		insertTextAtCaret(this.element,_text);
+	}
+	
+	/**
+	* Insert text at a specified position.
+	* @param {Number} _position The position to insert at
+	* @param {String} _text The text to insert
+	*/
+	insertTextAt(_position, _text) {
+		this.caretPosition = _position;
+		this.insertText(_text);
+	}
+
+	/**
+	 * The caret position.
+	 * @type {Number}
+	 */
+	get caretPosition() {
+		return this.element.selectionStart;
+	}
+
+	set caretPosition(_position) {
+		moveCaret(this.element,_position);
+	}
+
+	/**
+	 * The start of the selection.
+	 * @type {Number}
+	 */
+	get selectionStart() {		
+		return this.element.selectionStart;
+	}
+
+	set selectionStart(_position) {		
+		this.element.selectionStart = _position;
+	}
+
+	/**
+	 * The end of the selection.
+	 * @type {Number}
+	 */
+	get selectionEnd() {		
+		return this.element.selectionEnd;
+	}
+
+	set selectionEnd(_position) {		
+		this.element.selectionEnd = _position;
+	}
+
+	/**
+	 * Select a range of text.
+	 * @param {Number} _start The start of the selection
+	 * @param {Number} _end The end of the selection
+	 */
+	selectRange(_start, _end) {
+		setSelectionRange(this.element,_start,_end);
 	}
 }
 
