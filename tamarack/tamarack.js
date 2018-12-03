@@ -1233,6 +1233,13 @@ class tkDiv extends tkWidget {
 	}
 }
 
+class tkPalette extends tkDiv {
+	constructor() {
+		super();
+		this.className = "tkPalette";
+	}
+}
+
 class tkDocument extends tkControl {	
 	constructor(_title) {
 		super();
@@ -2452,6 +2459,10 @@ class tkTextEdit extends tkText {
 		}
 	}
 
+	focus() {
+		this.element.focus();
+	}
+
 	get disabled() {
 		return this.hasAttribute("disabled");
 	}
@@ -2507,6 +2518,28 @@ class tkTextEdit extends tkText {
 	
 	set text(_string) {
 		this.e.value = _string;
+	}
+
+	/**
+	 * Insert text at the caret position.
+	 * @param {String} _text The text to insert
+	 */
+	insertText(_text) {		 
+		 if (document.selection) { // IE
+			this.element.focus();
+			sel = document.selection.createRange();
+			sel.text = _text;
+		} else if (this.element.selectionStart || this.element.selectionStart == '0') { // Everything elese
+			var startPos = this.element.selectionStart;
+			var endPos = this.element.selectionEnd;
+			this.element.value = this.element.value.substring(0, startPos)
+				+ _text
+				+ this.element.value.substring(endPos, this.element.value.length);
+			this.element.selectionStart = startPos + _text.length;
+			this.element.selectionEnd = startPos + _text.length;
+		} else {
+			this.element.value += _text;
+		}
 	}
 }
 
