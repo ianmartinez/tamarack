@@ -22,9 +22,84 @@
 			var clientArea = new tkDiv();
 			clientArea.element.style.backgroundColor = "rgb(240,240,240)";
 			clientArea.addClass("fill", "flexColumns");
-			doc.add(clientArea);
+			doc.add(clientArea);	
 
-			buildRibbon();
+			var ribbon = new tkRibbon();
+			
+			// Home Page
+			var homePage = new tkRibbonPage("Home", "homePage");
+			ribbon.addPage(homePage);
+
+			// Window Group
+			var windowGroup = new tkRibbonGroup();
+			windowGroup.title = "Window";
+			homePage.content.add(windowGroup);
+
+			var toggleFullscreenButton = new tkButton();
+			toggleFullscreenButton.tooltip = say("Toggle Fullscreen");
+			toggleFullscreenButton.image = "../icons/actions/22/zoom-fullscreen.svg";
+			windowGroup.addButton(toggleFullscreenButton.e);
+			toggleFullscreenButton.on("click", function() {
+				var bodyElement = makeElement(document.body);
+				bodyElement.toggleFullscreen();
+			});
+
+			// Help Group
+			var helpGroup = new tkRibbonGroup();
+			helpGroup.title = "Help";
+			homePage.content.add(helpGroup);
+
+			var aboutButton = new tkButton();
+			aboutButton.tooltip = say("About App");
+			aboutButton.image = "../icons/actions/22/project-development.svg";
+			helpGroup.addButton(aboutButton.e);
+			aboutButton.on("click", function() {
+				tkDialog.show("Notepad App 1.0 - A Tamarack Demo");
+			});
+			
+			
+			var aboutTkButton = new tkButton();
+			aboutTkButton.tooltip = say("About Tamarack");
+			aboutTkButton.image = "../icons/actions/22/help-about.svg";
+			helpGroup.addButton(aboutTkButton.e);
+			aboutTkButton.on("click", function() {					
+				aboutTamarack.show();
+			});
+
+			// Format Page
+			var formatPage = new tkRibbonPage("Format", "formatPage");
+			ribbon.addPage(formatPage);
+			
+			// Style Group
+			var styleGroup = new tkRibbonGroup();
+			styleGroup.title = "Style";
+			formatPage.content.add(styleGroup);
+
+			var colorButton = new tkButton();
+			colorButton.tooltip = say("Background Color");
+			colorButton.image = "../icons/actions/22/adjustlevels.svg";
+			styleGroup.addButton(colorButton.e);
+			colorButton.on("click", function() {
+				tkColorDialog.show(tkColor.fromElementBackground(textEditor.e), (dialogResult, color) => {
+					if(dialogResult == tkDialogResult.OK) 
+						setColor(color);
+				});
+			});
+
+			var fontButton = new tkButton();
+			fontButton.tooltip = say("Font");
+			fontButton.image = "../icons/actions/22/gtk-select-font.svg";
+			styleGroup.addButton(fontButton.e);
+			fontButton.on("click", function() {
+				tkFontDialog.show(tkFont.fromElement(textEditor.e), (dialogResult, font) => {
+					if (dialogResult == tkDialogResult.OK)
+						textEditor.e.style.font = font.getCss();
+				});
+			});
+
+			ribbon.addTo(clientArea);
+			// Select Home Page
+			ribbon.active = homePage;	
 
 			var textEditor = new tkTextEdit();
 			textEditor.autofocus = true;
@@ -32,85 +107,6 @@
 			textEditor.addTo(clientArea);
 			textEditor.addClass("fill","borderless");
 			setColor(new tkColor("hsla(199, 33%, 20%, 1.00)"));
-
-			function buildRibbon() {
-				var ribbon = new tkRibbon();
-				
-				// Home Page
-				var homePage = new tkRibbonPage("Home", "homePage");
-				ribbon.addPage(homePage);
-
-				// Window Group
-				var windowGroup = new tkRibbonGroup();
-				windowGroup.title = "Window";
-				homePage.addContent(windowGroup.element);
-
-				var toggleFullscreenButton = new tkButton();
-				toggleFullscreenButton.tooltip = say("Toggle Fullscreen");
-				toggleFullscreenButton.image = "../icons/actions/22/zoom-fullscreen.svg";
-				windowGroup.addButton(toggleFullscreenButton.e);
-				toggleFullscreenButton.on("click", function() {
-					var bodyElement = makeElement(document.body);
-					bodyElement.toggleFullscreen();
-				});
-
-				// Help Group
-				var helpGroup = new tkRibbonGroup();
-				helpGroup.title = "Help";
-				homePage.addContent(helpGroup.e);
-
-				var aboutButton = new tkButton();
-				aboutButton.tooltip = say("About App");
-				aboutButton.image = "../icons/actions/22/project-development.svg";
-				helpGroup.addButton(aboutButton.e);
-				aboutButton.on("click", function() {
-					tkDialog.show("Notepad App 1.0 - A Tamarack Demo");
-				});
-				
-				
-				var aboutTkButton = new tkButton();
-				aboutTkButton.tooltip = say("About Tamarack");
-				aboutTkButton.image = "../icons/actions/22/help-about.svg";
-				helpGroup.addButton(aboutTkButton.e);
-				aboutTkButton.on("click", function() {					
-					aboutTamarack.show();
-				});
-
-				// Format Page
-				var formatPage = new tkRibbonPage("Format", "formatPage");
-				ribbon.addPage(formatPage);
-				
-				// Style Group
-				var styleGroup = new tkRibbonGroup();
-				styleGroup.title = "Style";
-				formatPage.addContent(styleGroup.e);
-
-				var colorButton = new tkButton();
-				colorButton.tooltip = say("Background Color");
-				colorButton.image = "../icons/actions/22/adjustlevels.svg";
-				styleGroup.addButton(colorButton.e);
-				colorButton.on("click", function() {
-					tkColorDialog.show(tkColor.fromElementBackground(textEditor.e), (dialogResult, color) => {
-						if(dialogResult == tkDialogResult.OK) 
-							setColor(color);
-					});
-				});
-
-				var fontButton = new tkButton();
-				fontButton.tooltip = say("Font");
-				fontButton.image = "../icons/actions/22/gtk-select-font.svg";
-				styleGroup.addButton(fontButton.e);
-				fontButton.on("click", function() {
-					tkFontDialog.show(tkFont.fromElement(textEditor.e), (dialogResult, font) => {
-						if (dialogResult == tkDialogResult.OK)
-							textEditor.e.style.font = font.getCss();
-					});
-				});
-
-				// Select Home Page
-				ribbon.activeIndex = 0;	
-				ribbon.addTo(clientArea);
-			}
 
 			function setColor(_color) {
 				textEditor.style.backgroundColor = _color.getHslaString();

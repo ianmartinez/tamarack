@@ -1106,11 +1106,12 @@ class tkControl {
 	}
 
 	/**
-	 * Toggle a class in the root element.
-	 * @param {String} _class Class to toggle from the root element
+	 * Toggle classes in the root element.
+	 * @param {...String} _class Classes to toggle from the root element
 	 */
-	toggleClass(_class)	{
-		this.element.classList.toggle(_class);
+	toggleClass(/* Classes to toggle */)	{
+		for (var i=0;i<arguments.length;i++)
+			this.element.classList.toggle(_class);
 	}
 
 	/**
@@ -2180,7 +2181,16 @@ class tkNotebook extends tkWidget {
 			return;			
 		}
 		
-		$(_page.tabButton.e).tab('show');
+		// If there is already a tab selected, deselect it
+		var oldActive = this.active;
+		if (oldActive) {
+			oldActive.tabButton.removeClass("active", "show");
+			oldActive.content.removeClass("active", "show");
+		}
+
+		// Select the new tab
+		_page.tabButton.addClass("active", "show");
+		_page.content.addClass("active", "show");
 	}
 	
 	get activeIndex() {
@@ -2473,7 +2483,7 @@ class tkTextEdit extends tkText {
 		this.className = "tkTextEdit";
 
 		/* I wish there was another way to detect selection change on BOTH desktop and mobile, 
-		but as far as I have seen, there is not. Events such as onmouseup only work on desktops
+		but as far as I have seen, there is not. Events such as "onmouseup" only work on desktops
 		and for some goddamn reason, Firefox is the only browser with enough sense to implement the
 		"selectionchange" event on HTMLInputElements and HTMLTextAreaElements. "*/
 		var selectionEndTimeout = null;
