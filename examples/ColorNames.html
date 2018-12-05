@@ -21,16 +21,16 @@
 			doc.padding = "1rem";
 			doc.addElement(sayText("Color Names","h1"));
 			
-			for (var key in tkColor.colorNames) {				
-				var newLine = new tkText("h4");	
-				var currentColor = new tkColor(tkColor.colorNames[key]);
-				newLine.text = key + " / " + tkColor.colorNames[key] + " / " + currentColor.getRgbaString() + " / " + currentColor.getHslaString();
-				newLine.e.style.color = tkColor.colorNames[key];
-				newLine.e.style.padding = "1rem";
+			for (var key in tkColor.named) {				
+				var colorInfo = new tkText("h4");	
+				var currentColor = new tkColor(tkColor.named[key]);
+
+				colorInfo.text = key + " / " + tkColor.named[key] + " / " + currentColor.getRgbaString() + " / " + currentColor.getHslaString();
+				colorInfo.e.style.color = tkColor.named[key];
+				colorInfo.e.style.padding = "1rem";				
+				colorInfo.e.style.backgroundColor = (currentColor.isLight()) ? "black" : "white";
 				
-				newLine.e.style.backgroundColor = (currentColor.isLight()) ? "black" : "white";
-				
-				doc.add(newLine);
+				doc.add(colorInfo);
 			}
 		</script>
 	</body>

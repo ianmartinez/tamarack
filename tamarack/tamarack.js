@@ -352,7 +352,7 @@ class tkColor {
 			this.parse(_color_string);
 	}
 	
-	static get colorNames() {
+	static get named() {
 		return {"aliceblue":"#f0f8ff",
 		"antiquewhite":"#faebd7",
 		"aqua":"#00ffff",
@@ -938,6 +938,10 @@ class tkColor {
 	 */
 	isGray() {
 		return (tkArray.areElementsEqual([this.r,this.g,this.b]));
+	}
+
+	invert() {
+		
 	}
 }
 
