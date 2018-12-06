@@ -715,6 +715,7 @@ class tkColor {
 			trimmed = trimmed.replace(")","");
 			trimmed = trimmed.replace("'","");
 			trimmed = trimmed.replace("\"","");
+			var chunks = trimmed.split(",");
 
 			if (chunks.length == 3) // hsl
 				this.fromHsla(parseInt(chunks[0]),parseInt(chunks[1]),parseInt(chunks[2]),1);
