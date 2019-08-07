@@ -2,39 +2,30 @@
 <html lang="en">
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<!-- Bootstrap CSS -->
-		<link href="../bootstrap/bootstrap.min.css" rel="stylesheet">
-		<!-- Tamarack CSS -->
-		<link href="../tamarack/tamarack.css" rel="stylesheet">		
-		<!-- jQuery -->
-		<script src="../jquery/jquery.min.js"></script>
-		<!-- Popper JS -->
-		<script src="../popper/popper.min.js"></script>
-		<!-- Bootstrap JS -->
-		<script src="../bootstrap/bootstrap.min.js"></script>
-		<!-- Tamarack JS -->
-		<script src="../tamarack/tamarack.js"></script>
+		<link href="../src/tamarack.css" rel="stylesheet">		
+		<script src="../src/tamarack.js"></script>
 	</head>
+
 	<body>		
 		<script>
-			var doc = new tkDocument("Coin Toss Demo");		
-			doc.padding = "1rem";
-			doc.addElement(sayText("Coin Toss","h1"));
+			let view = new tk.Document("Coin Toss Flip", {style: "padding: 0.5rem;"});		
+			let heading = new tk.Text("h1",  "Coin Flip", {parent: view});
+
+			let flips = 0;
+			let flipCount = new tk.Text("h3", getFlipsText(flips), {parent: view});
+
+			function getFlipsText(count) {
+				return  `Flipped Coin ${count} Times`;
+			}
+
+			let flipCoinButton = new tk.Button("Flip Coin!", {parent: view});
 			
-			var btnTossCoin = new tkButton("Toss Coin!");
-			doc.add(btnTossCoin);
-			
-			btnTossCoin.on("click", function() {
-				var newLine = new tkText("p");
-				var flipCoin = (tkNumber.random(0,1) == 0) ? "Heads" : "Tails";
-				
-				newLine.text = flipCoin;						
-				newLine.element.style.color = (flipCoin == "Heads") ? "maroon" : "midnightblue";
-				newLine.element.style.fontWeight = "bold";
-				newLine.element.style.display = "none";
-					
-				doc.add(newLine);
-				newLine.fadeIn();
+			flipCoinButton.on("click", function() {
+				let flipCoin = tk.Random.item("Heads", "Tails");
+				let newLine = new tk.Text("p", flipCoin, {parent: view});					
+				newLine.e.style.color = (flipCoin == "Heads") ? "maroon" : "midnightblue";
+				newLine.e.style.fontWeight = "bold";
+				flipCount.text = getFlipsText(++flips);
 			});
 		</script>
 	</body>
