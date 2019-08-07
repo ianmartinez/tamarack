@@ -8,25 +8,25 @@
 
 	<body>		
 		<script>
-			let view = new tk.Document("Coin Toss Flip", {style: "padding: 0.5rem;"});		
-			let heading = new tk.Text("h1",  "Coin Flip", {parent: view});
-
-			let flips = 0;
-			let flipCount = new tk.Text("h3", getFlipsText(flips), {parent: view});
-
 			function getFlipsText(count) {
 				return  `Flipped Coin ${count} Times`;
 			}
 
-			let flipCoinButton = new tk.Button("Flip Coin!", {parent: view});
-			
+			let view = new tk.Document("Coin Toss Flip", {style: "padding: 0.5rem;"});		
+			let heading = new tk.Text("h1",  "Coin Flip");
+			let flips = 0;
+			let flipCounter = new tk.Text("h3", getFlipsText(flips));
+			let flipCoinButton = new tk.Button("Flip Coin!");
+
 			flipCoinButton.on("click", function() {
 				let flipCoin = tk.Random.item("Heads", "Tails");
 				let newLine = new tk.Text("p", flipCoin, {parent: view});					
 				newLine.e.style.color = (flipCoin == "Heads") ? "maroon" : "midnightblue";
 				newLine.e.style.fontWeight = "bold";
-				flipCount.text = getFlipsText(++flips);
+				flipCounter.text = getFlipsText(++flips);
 			});
+
+			view.add(heading, flipCounter, flipCoinButton);
 		</script>
 	</body>
 </html>
