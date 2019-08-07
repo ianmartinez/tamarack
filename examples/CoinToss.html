@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link href="../src/tamarack.css" rel="stylesheet">		
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">	
 		<script src="../src/tamarack.js"></script>
 	</head>
 
 	<body>		
 		<script>
+			let flips = 0;
 			function getFlipsText(count) {
 				return  `Flipped Coin ${count} Times`;
 			}
 
-			let view = new tk.Document("Coin Toss Flip", {style: "padding: 0.5rem;"});		
+			let view = new tk.View("Coin Toss Flip", {style: "padding: 0.5rem;"});		
 			let heading = new tk.Text("h1",  "Coin Flip");
-			let flips = 0;
 			let flipCounter = new tk.Text("h3", getFlipsText(flips));
 			let flipCoinButton = new tk.Button("Flip Coin!");
 

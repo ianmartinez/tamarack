@@ -47,6 +47,16 @@ tk.Size = class {
 	}
 }
 
+tk.EventPair = class {
+	targetElement = "";
+	targetEvent = "";
+
+	constructor(targetElement, targetEvent) {
+		this.targetElement = targetElement;
+		this.targetEvent = targetEvent;
+	}
+}
+
 // System
 tk.Timer = class {
 
@@ -92,6 +102,7 @@ tk.Color = class {
 
 tk.Element = class {
 	_base; // The html element
+	_eventMaps = [];
 
 	constructor(element, options) {
 		this._base = tk.isDefined(element) ? element : document.body; 
@@ -134,21 +145,35 @@ tk.Element = class {
 	}
 
 	on(eventName, callback) {
-		var element = this;
-		this.element.addEventListener(eventName, function() {
-			callback(element);
-		});
+		var tkElement = this;
+
+		if(tk.isDefined(this._eventMaps[eventName])) {
+			var eventPair = this._eventMaps[eventName];
+			eventPair.targetElement.addEventListener(eventPair.targetEvent, function() {
+				callback(tkElement);
+			});
+		} else {
+			this.element.addEventListener(eventName, function() {
+				callback(tkElement);
+			});
+		}
 	}
 
-	trigger(eventName, callback) {
-		return this.element.dispatchEvent(new Event(eventName));
+	trigger(eventName) {	
+		if(tk.isDefined(this._eventMaps[eventName])) {
+			var eventPair = this._eventMaps[eventName];
+			console.log(eventPair)
+			eventPair.targetElement.dispatchEvent(new Event(eventPair.targetEvent));
+		} else {
+			return this.element.dispatchEvent(new Event(eventName));
+		}
 	}
 
 	get style() {
 		return this.element.style;
 	}
 
-	computedProperty(propertyName) {
+	getComputed(propertyName) {
 		return window.getComputedStyle(this.element, null).getPropertyValue(propertyName);
 	}
 	
@@ -357,24 +382,41 @@ tk.Element = class {
 	}
 } 
 
-tk.Document = class extends tk.Element {
+tk.View = class extends tk.Element {
 	constructor(title, options) {
 		super(document.body, options);
 
 		if(tk.isDefined(title))
 			this.title = title;
+
+		// Events
+		this._eventMaps["loaded"] = new tk.EventPair(document, "DOMContentLoaded");
+
 	}
 
-	onLoaded(callback) {
-		if (document.readyState === "complete" || (document.readyState !== "loading" && !document.documentElement.doScroll)) {
-		  callback();
+	/*
+		Events:
+		Loaded
+		Closing
+		Resize
+		Fullscreen
+	 */
+
+	whenReady(callback) {
+		if (this.hasLoaded) {
+			callback();
 		} else {
-		  document.addEventListener("DOMContentLoaded", callback);
+			document.addEventListener("DOMContentLoaded", callback);
 		}
 	}
 
 	onExit(callback) {
 		
+	}
+
+	get hasLoaded () {
+		return document.readyState === "complete" 
+			|| (document.readyState !== "loading" && !document.documentElement.doScroll);
 	}
 
 	get title()	{
@@ -385,12 +427,20 @@ tk.Document = class extends tk.Element {
 		document.title = title;
 	}
 
+	get appIcon() {
+
+	}
+
+	set appIcon(appIcon) {
+
+	}
+
 	get icon()	{
-		return document.title;
+
 	}
 	
-	set icon(title) {
-		document.title = title;
+	set icon(icon) {
+
 	}
 
 	buildUrl(urlBase, args, values) {
@@ -424,6 +474,40 @@ tk.Document = class extends tk.Element {
 				
 	getUrl() {
 		return window.location.href;
+	}
+
+	// Return a list of all stylesheets
+	getStylesheets() {
+
+	}
+
+	addStylesheet(...stylesheet) {
+
+	}
+
+	removeStylesheet(...stylesheet) {
+
+	}
+
+	clearStylesheets(removeTamarackCss) {
+
+	}
+
+	hasStylesheet(stylesheet) {
+
+	}
+
+	// <style>
+	addStyle(style) {
+
+	}
+
+	removeStyle(style) {
+
+	}
+
+	getSize() {
+
 	}
 }
 
