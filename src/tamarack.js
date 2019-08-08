@@ -915,15 +915,24 @@ tk.Link = class extends tk.Text {
 	}
 }
 
-tk.NotebookPage = class {
-	constructor(title, id) {
+tk.Panel = class extends tk.Widget {
+	constructor(options) {
+		super("div", options);
+	}
+}
 
+tk.Page = class {
+	constructor(title, buttonOptions, sheetOptions) {
+		this.button = new tk.Button(title, buttonOptions);
+		this.sheet = new tk.Panel(sheetOptions);
 	}
 	
 	get title() {
+		return this.button.text;
 	}
 	
 	set title(text) {
+		this.button.text = text;
 	}
 
 	get hidden() {
@@ -933,47 +942,76 @@ tk.NotebookPage = class {
 	set hidden(hidden) {
 
 	}
-
-	get sheet() {
-
-	}
-
-	set sheet(tabSheet) {
-
-	} 
-
-	get button() {
+	
+	get disabled() {
 
 	}
 
-	set button(button) {
+	set disabled(disabled) {
 
-	} 
+	}
 
 	get icon() {
-
+		return this.button.icon;
 	}
 
 	set icon(icon) {
-
+		this.button.icon = icon;
 	}
 }
 
 tk.Notebook = class extends tk.Widget {
 	constructor(options) {
 		super("div", options);
+		this.addClass("tkNotebook");
+
+		this.buttonArea = new tk.Panel({
+			parent: this, 
+			className: "tkNotebookButtonArea"
+		});
+
+		this.sheetArea = new tk.Panel({
+			parent: this, 
+			className: "tkNotebookSheetArea"
+		});
+
+
+		/*	Whether or not to wrap around when the
+		end of index is reached*/
+		this.wrap = tk.fallback(options.wrap, true);
+
+		/* Whether to jump to a newly added tab */
+		this.newestTabActive = tk.fallback(options.newestTabActive, false);
+		
+		this.tabs = [];
+		this.activeIndex = 0;		
+
+		/* Custom events:
+			activeChanged: When the active tab is changed
+		*/
 	}
 	
 	addPage(...pages) {
+		pages.forEach((page) => {
+			this.tabs.push(page);
 
+			page.button.addTo(this.buttonArea);
+			page.sheet.addTo(this.sheetArea);
+		});
 	}
 	
 	removePage(...pages) {		
+		pages.forEach((page) => {
+			this.tabs.splice(this.indexOf(page), 1);
 
+			page.button.removeFrom(this.buttonArea);
+			page.sheet.removeFrom(this.sheetArea);
+		});
 	}	
 
 	clear() {
-
+		this.buttonArea.clear();
+		this.sheetArea.clear();
 	}
 
 	get active() {
@@ -1004,7 +1042,7 @@ tk.Notebook = class extends tk.Widget {
 
 	}
 
-	get pageCount() {
+	pageCount() {
 
 	}
 		
@@ -1015,9 +1053,26 @@ tk.Notebook = class extends tk.Widget {
 	next() {
 
 	}
+
+	// .ignoreHidden, .ignoreDisabled, .ignore
+	getPreviousIndex(options) {
+
+	}
+
+	getNextIndex(ignoreHidden) {
+
+	}
+
+	getFirstIndex(ignoreHidden) {
+		
+	}
+
+	getLastIndex(ignoreHidden) {
+
+	}
 }
 
-tk.NotebookMenuPage = class extends tk.NotebookPage {
+tk.NotebookMenuPage = class extends tk.Page {
 
 }
 

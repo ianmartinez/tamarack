@@ -11,7 +11,10 @@
             let view = new tk.View("Notebook Demo");		
 			let notebook = new tk.Notebook({parent: view});
 			
-		
+			let page1 = new tk.Page("Page 1");
+			let page2 = new tk.Page("Page 2");
+
+			notebook.addPage(page1, page2);
 		</script>
 	</body>
 </html>
