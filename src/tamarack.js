@@ -31,12 +31,12 @@ tk.textElement = function(tag, text) {
 	return element;
 }
 
-tk.isDefined = function(object) {
+tk.exists = function(object) {
 	return typeof object !== "undefined";
 }
 
 tk.fallback = function(object, objectIfUndefined) {
-	return tk.isDefined(object) ? object : objectIfUndefined;
+	return tk.exists(object) ? object : objectIfUndefined;
 }
 
 tk.Size = class {
@@ -162,7 +162,7 @@ tk.Color = class {
 
 		this.a = 1;
 
-		if(tk.isDefined(colorString))
+		if(tk.exists(colorString))
 			this.parse(colorString);
 	}
 
@@ -257,7 +257,7 @@ tk.Color = class {
 	parse(colorString) {
 		if(colorString.startsWith("#")) {
 			this.fromHex(colorString);
-		} else if (tk.isDefined(tk.Color._named[colorString])){
+		} else if (tk.exists(tk.Color._named[colorString])){
 			this.fromHex(tk.Color._named[colorString]);
 		} else if (colorString.startsWith("hsl")) {
 			var trimmed = colorString.replace("hsla(","");
@@ -426,19 +426,19 @@ tk.Element = class {
 	_eventMaps = [];
 
 	constructor(element, options) {
-		this._base = tk.isDefined(element) ? element : document.body; 
+		this._base = tk.exists(element) ? element : document.body; 
 
-		if(tk.isDefined(options)) {
-			if(tk.isDefined(options.className))
+		if(tk.exists(options)) {
+			if(tk.exists(options.className))
 				this.className = options.className;
 
-			if (tk.isDefined(options.attributes)) {
+			if (tk.exists(options.attributes)) {
 				var attributeNames = Object.keys(options.attributes);
 				attributeNames.forEach(attributeName => 
 					this._base.setAttribute(attributeName, options.attributes[attributeName]));
 			}	
 
-			if (tk.isDefined(options.style))
+			if (tk.exists(options.style))
 				this._base.setAttribute("style", options.style);
 		}
 	}
@@ -466,7 +466,7 @@ tk.Element = class {
 	on(eventName, callback) {
 		var tkElement = this;
 
-		if(tk.isDefined(this._eventMaps[eventName])) {
+		if(tk.exists(this._eventMaps[eventName])) {
 			var eventPair = this._eventMaps[eventName];
 			eventPair.targetElement.addEventListener(eventPair.targetEvent, function() {
 				callback(tkElement);
@@ -479,7 +479,7 @@ tk.Element = class {
 	}
 
 	trigger(eventName) {	
-		if(tk.isDefined(this._eventMaps[eventName])) {
+		if(tk.exists(this._eventMaps[eventName])) {
 			var eventPair = this._eventMaps[eventName];
 			console.log(eventPair)
 			eventPair.targetElement.dispatchEvent(new Event(eventPair.targetEvent));
@@ -705,7 +705,7 @@ tk.View = class extends tk.Element {
 	constructor(title, options) {
 		super(document.body, options);
 
-		if(tk.isDefined(title))
+		if(tk.exists(title))
 			this.title = title;
 
 		// Events
@@ -835,8 +835,8 @@ tk.Widget = class extends tk.Element {
 
 	constructor(tag, options) {
 		super(tk.make(tk.fallback(tag, "div")), options);
-		if(tk.isDefined(options)) {
-			if(tk.isDefined(options.parent))
+		if(tk.exists(options)) {
+			if(tk.exists(options.parent))
 				options.parent.add(this);
 		}
 	}	
