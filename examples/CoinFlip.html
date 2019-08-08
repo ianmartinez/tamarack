@@ -15,14 +15,15 @@
 
 			let view = new tk.View("Coin Flip Demo", {style: "padding: 0.5rem;"});		
 			let heading = new tk.Text("h1",  "Coin Flip");
-			let flipCounter = new tk.Text("h3", getFlipsText(flips));
-			let flipCoinButton = new tk.Button("Flip Coin!");
+			let flipCounter = new tk.Text("h4", getFlipsText(flips), {style: "color: gray;"});
+			let flipCoinButton = new tk.Button("Flip Coin!", {display: "block"});
 
 			flipCoinButton.on("click", function() {
-				let flipCoin = tk.Random.item("Heads", "Tails");
-				let newLine = new tk.Text("p", flipCoin, {parent: view});					
-				newLine.e.style.color = (flipCoin == "Heads") ? "maroon" : "midnightblue";
-				newLine.e.style.fontWeight = "bold";
+				let coinFlip = tk.Random.item("Heads", "Tails");
+				let result = new tk.Text("span", coinFlip, {parent: view, display: "inline-block"});					
+				result.style.color = (coinFlip == "Heads") ? "maroon" : "midnightblue";
+				result.style.fontWeight = "bold";
+				result.padding = "1rem 0.5rem";
 				flipCounter.text = getFlipsText(++flips);
 			});
 

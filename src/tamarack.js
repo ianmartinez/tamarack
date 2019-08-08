@@ -76,6 +76,7 @@ tk.Random = class {
 	static integer(min, max) {
 		min = Math.ceil(min);
 		max = Math.floor(max);
+
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
@@ -99,12 +100,14 @@ tk.Random = class {
 	static color() {
 		var color = new tk.Color();
 		color.randomize();
+
 		return color;
 	}
 
 	static opaqueColor() {
 		var color = new tk.Color();
 		color.randomizeOpaque();
+		
 		return color;
 	}
 }
@@ -440,6 +443,9 @@ tk.Element = class {
 
 			if (tk.exists(options.style))
 				this._base.setAttribute("style", options.style);
+
+			if (tk.exists(options.display))
+				this.display = options.display;
 		}
 	}
 
