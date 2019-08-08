@@ -961,7 +961,7 @@ tk.NotebookPage = class {
 
 tk.Notebook = class extends tk.Widget {
 	constructor(options) {
-		super(options);
+		super("div", options);
 	}
 	
 	addPage(...pages) {
@@ -1031,7 +1031,7 @@ tk.Layout = class extends tk.Widget {
 		this.resizable = tk.fallback(options.resizable, false);
 		this.panels = tk.fallback(options.panels, []);		
 
-		super(options);
+		super("div", options);
 	}
 
 	get direction() {
