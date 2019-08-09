@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">	
+		<link href="../src/tamarack.css" rel="stylesheet" type="text/css">
+		<script src="../src/tamarack.js"></script>
+	</head>
+
+	<body>		
+		<script>
+			let view = new tk.View("List Colors by Hue Demo");	
+
+			// Get a list of named colors and sort them by hue (h)
+			let namedColors = tk.Color.getNamed().sort((a, b) => {
+				return a.color.h - b.color.h;
+			});
+			
+			namedColors.forEach((namedColor) => {				
+				let colorText = new tk.Text("h4", namedColor.name, {parent: view, style: "padding: 0.25rem; margin: 0.25rem;"});
+
+				// If the color is dark, make the border lighter by a factor of 0.2, if light, -0.2
+				let borderColor = namedColor.color.isDark() ? namedColor.color.lighter(0.2).asHex() : namedColor.color.lighter(-0.2).asHex()
+
+				// Get the current color as a hex string and set it as the text's backgroun
+				colorText.background = namedColor.color.asHex();
+
+				// Choose the most readable color for the text color
+				colorText.color = namedColor.color.isDark() ? "white" : "black";
+				
+				colorText.style.border = `1px solid ${borderColor}`;
+			});
+		</script>
+	</body>
+</html>

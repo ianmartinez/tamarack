@@ -169,6 +169,15 @@ tk.Color = class {
 			this.parse(colorString);
 	}
 
+	static getNamed() {
+		var colors = [];
+
+		for (let colorName in tk.Color.named) 		
+			colors.push({name: colorName, color: new tk.Color(colorName)});
+
+		return colors;
+	}
+
 	static fromElementBackgroundColor(element) {
 		return new tk.Color((new tk.Element(element).getComputed("background-color")));
 	}
