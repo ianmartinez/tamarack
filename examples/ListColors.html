@@ -12,11 +12,17 @@
 
 			for (let colorName in tk.Color.named) {				
 				let colorText = new tk.Text("h4", colorName, {parent: view, style: "padding: 0.25rem; margin: 0.25rem;"});
-				var color = new tk.Color(colorName);
-				
+				let color = new tk.Color(colorName);
+				// If the color is dark, make the border lighter by a factor of 0.2, if light, -0.2
+				let borderColor = color.isDark() ? color.lighter(0.2).asHex() : color.lighter(-0.2).asHex()
+
+				// Get the current color as a hex string and set it as the text's backgroun
 				colorText.background = color.asHex();
+
+				// Choose the most readable color for the text color
 				colorText.color = color.isDark() ? "white" : "black";
-				colorText.style.border = `1px solid ${color.lighter(-0.1).asHex()}`;
+				
+				colorText.style.border = `1px solid ${borderColor}`;
 			}
 		</script>
 	</body>
