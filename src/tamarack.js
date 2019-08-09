@@ -107,7 +107,7 @@ tk.Random = class {
 	static opaqueColor() {
 		var color = new tk.Color();
 		color.randomizeOpaque();
-		
+
 		return color;
 	}
 }
@@ -127,7 +127,7 @@ tk.Number = class {
 }
 
 tk.Color = class {
-	static _named = {"aliceblue":"#f0f8ff", "antiquewhite":"#faebd7", "aqua":"#00ffff", "aquamarine":"#7fffd4", "azure":"#f0ffff", 
+	static named = {"aliceblue":"#f0f8ff", "antiquewhite":"#faebd7", "aqua":"#00ffff", "aquamarine":"#7fffd4", "azure":"#f0ffff", 
 	"beige":"#f5f5dc", "bisque":"#ffe4c4", "black":"#000000", "blanchedalmond":"#ffebcd", "blue":"#0000ff", "blueviolet":"#8a2be2", 
 	"brown":"#a52a2a", "burlywood":"#deb887", "cadetblue":"#5f9ea0", "chartreuse":"#7fff00", "chocolate":"#d2691e", "coral":"#ff7f50", 
 	"cornflowerblue":"#6495ed", "cornsilk":"#fff8dc", "crimson":"#dc143c", "cyan":"#00ffff", "darkblue":"#00008b", "darkcyan":"#008b8b", 
@@ -260,8 +260,8 @@ tk.Color = class {
 	parse(colorString) {
 		if(colorString.startsWith("#")) {
 			this.fromHex(colorString);
-		} else if (tk.exists(tk.Color._named[colorString])){
-			this.fromHex(tk.Color._named[colorString]);
+		} else if (tk.exists(tk.Color.named[colorString])){
+			this.fromHex(tk.Color.named[colorString]);
 		} else if (colorString.startsWith("hsl")) {
 			var trimmed = colorString.replace("hsla(","");
 			trimmed = trimmed.replace("hsl(","");
@@ -292,15 +292,15 @@ tk.Color = class {
 		}
 	}
 	
-	asHslaString() {
+	asHsla() {
 		return "hsla(" + this.h.toFixed(0) + ", " + this.s.toFixed(0) + "%, " + this.l.toFixed(0) + "%, " + this.a.toFixed(2) + ")";
 	}
 
-	asRgbaString() {
+	asRgba() {
 		return "rgba(" + this.r.toFixed(0) + ", " + this.g.toFixed(0) + ", " + this.b.toFixed(0) + ", " + this.a.toFixed(2) + ")";
 	}
 	
-	asHexString()	{
+	asHex()	{
 		return this.rgbToHex(this.r, this.g, this.b);
 	}
 	
@@ -389,6 +389,7 @@ tk.Color = class {
 			newl = 0;
 
 		c.fromHsla(c.h, c.s, newl, c.a);
+
 		return c;
 	}
 	
@@ -408,7 +409,7 @@ tk.Color = class {
 	}
 	
 	isDark() {
-		return this.contrastWith(new tk.Color("white")) > 1.5;
+		return this.contrastWith(new tk.Color("white")) > 2.5;
 	}
 	
 	isLight() {

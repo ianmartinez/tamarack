@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">	
+		<link href="../src/tamarack.css" rel="stylesheet" type="text/css">
+		<script src="../src/tamarack.js"></script>
+	</head>
+
+	<body>		
+		<script>
+			let view = new tk.View("List Colors Demo");	
+
+			for (let colorName in tk.Color.named) {				
+				let colorText = new tk.Text("h4", colorName, {parent: view, style: "padding: 0.25rem; margin: 0.25rem;"});
+				var color = new tk.Color(colorName);
+				
+				colorText.background = color.asHex();
+				colorText.color = color.isDark() ? "white" : "black";
+				colorText.style.border = `1px solid ${color.lighter(-0.1).asHex()}`;
+			}
+		</script>
+	</body>
+</html>
