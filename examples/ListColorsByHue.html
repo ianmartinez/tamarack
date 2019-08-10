@@ -10,16 +10,21 @@
 		<script>
 			let view = new tk.View("List Colors by Hue Demo");	
 
-			// Get a list of named colors and sort them by hue (h)
+			/* Get a list of named colors and sort them by hue (h), but keep 
+			   colors with no saturation at the top */
+			function weighColor(color) {
+				return (color.h) + (color.s == 0 ? color.l - 360 : 0);
+			}
+
 			let namedColors = tk.Color.getNamed().sort((a, b) => {
-				return a.color.h - b.color.h;
+				return weighColor(a.color) - weighColor(b.color);
 			});
 			
 			namedColors.forEach((namedColor) => {				
 				let colorText = new tk.Text("h4", "", {parent: view, style: "padding: 0.25rem; margin: 0.25rem;"});
 
-				// Set the color text to have the color name and hex
-				colorText.text = `${namedColor.name} ${namedColor.color.asHex()}`
+				// Set the color text to have the color name and hue
+				colorText.text = `${namedColor.name} ${Math.round(namedColor.color.h)}`
 
 				// If the color is dark, make the border lighter by a factor of 0.2, if light, -0.2
 				let borderColor = namedColor.color.isDark() ? namedColor.color.lighter(0.2).asHex() : namedColor.color.lighter(-0.2).asHex()
