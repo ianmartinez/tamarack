@@ -16,7 +16,10 @@
 			});
 			
 			namedColors.forEach((namedColor) => {				
-				let colorText = new tk.Text("h4", namedColor.name, {parent: view, style: "padding: 0.25rem; margin: 0.25rem;"});
+				let colorText = new tk.Text("h4", "", {parent: view, style: "padding: 0.25rem; margin: 0.25rem;"});
+
+				// Set the color text to have the color name and hex
+				colorText.text = `${namedColor.name} ${namedColor.color.asHex()}`
 
 				// If the color is dark, make the border lighter by a factor of 0.2, if light, -0.2
 				let borderColor = namedColor.color.isDark() ? namedColor.color.lighter(0.2).asHex() : namedColor.color.lighter(-0.2).asHex()
