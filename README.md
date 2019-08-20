@@ -12,7 +12,7 @@ Examples
 var view = new tk.View("Progress Demo", { padding: "1rem" });
 view.add(new tk.Progress(10), new tk.Progress(25), new tk.Progress(50), new tk.Progress(100));
 ```
-![Progres Bars](examples/screenshots/Progress.gif)
+![Progress Bars](examples/screenshots/Progress.gif)
 
 **Create a button that makes the video fullscreen when clicked:**
 ```javascript
