@@ -3,16 +3,14 @@ An easy to use JavaScript library that can create, modify, and style HTML throug
  
 Architecture 
 -------
-Most of Tamarack is a collection of widgets that provide a wrapper around html elements, such as tkButton, which wraps around &lt;button&gt; or tkImage, which wraps around &lt;img&gt;. All of these widgets inherit from tkWidget, which provides them with basic functionality such as making the element full-screen or adding the widget to another widget. In addition, there are also composite widgets, such as tkNotebook and tkDialog, that represent multiple html elements in one single class, cutting down the need for massive amounts of boilerplate code for simple tasks.
+Most of Tamarack is a collection of widgets that provide a wrapper around html elements, such as tk.Button, which wraps around &lt;button&gt; or tk.Image, which wraps around &lt;img&gt;. All of these widgets inherit from tk.Widget, which provides them with basic functionality such as making the element full-screen or adding the widget to another widget. In addition, there are also composite widgets, such as tk.Notebook and tk.Dialog, that represent multiple html elements in one single class, cutting down the need for massive amounts of boilerplate code for simple tasks.
 
 Examples
 -------
 **Add progress bars:**
 ```javascript
-var doc = new tkDocument("Progress Demo");
-doc.padding = "1rem";
-			 
-doc.add(new tkProgress(10), new tkProgress(25), new tkProgress(50), new tkProgress(100));
+var view = new tk.View("Progress Demo", { padding: "1rem" });
+view.add(new tk.Progress(10), new tk.Progress(25), new tk.Progress(50), new tk.Progress(100));
 ```
 ![Progres Bars](examples/screenshots/Progress.gif)
 
