@@ -12,7 +12,11 @@
 			let notebook = new tk.Notebook({parent: view});
 			
 			let page1 = new tk.Page("Page 1");
+			page1.content.add(new tk.Text("h1", "Some text on page 1"));
+
 			let page2 = new tk.Page("Page 2");
+			page2.content.add(new tk.Text("h1", "Some text on page 2"));
+			page2.content.background = "blue";
 
 			notebook.addPage(page1, page2);
 		</script>

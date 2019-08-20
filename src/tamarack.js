@@ -599,8 +599,10 @@ tk.Element = class {
 	}
 
 	addClass(...classes)	{
-		classes.forEach((className) => 
-			this.element.classList.add(className));
+		classes.forEach((className) => {
+			if(!this.hasClass(className))
+				this.element.classList.add(className);
+		});
 	}
 
 	removeClass(...classes)	{
@@ -722,6 +724,26 @@ tk.Element = class {
 
 	set cursor(cursor) {
 		this.element.style.cursor = cursor;
+	}
+
+	get visible() {
+		return this.getComputed("display") != "none";
+	}
+
+	set visible(visible) {
+		var visibleDisplay = "block";
+		if(this.hasAttribute("visible-display") && this.visible) {	
+			visibleDisplay = this.getAttribute("visible-display");
+		} else if (this.visible) {
+			var currentDisplay =  this.getComputed("display");
+			this.setAttribute("visible-display", currentDisplay);
+			visibleDisplay = currentDisplay;
+		}
+
+		if(visible)
+			this.display = visibleDisplay;
+		else 
+			this.display = "none";
 	}
 } 
 
@@ -942,9 +964,12 @@ tk.Panel = class extends tk.Widget {
 }
 
 tk.Page = class {
-	constructor(title, buttonOptions, sheetOptions) {
+	constructor(title, buttonOptions, contentOptions) {
 		this.button = new tk.Button(title, buttonOptions);
-		this.sheet = new tk.Panel(sheetOptions);
+		this.button.associatedPage = this;
+
+		this.content = new tk.Panel(contentOptions);
+		this.content.associatedPage = this;
 	}
 	
 	get title() {
@@ -978,6 +1003,20 @@ tk.Page = class {
 	set icon(icon) {
 		this.button.icon = icon;
 	}
+
+	get activated() {
+		return this.button.hasClass("active");
+	}
+
+	set activated(activated) {
+		if(activated) {
+			this.button.addClass("active");
+			this.content.visible = true;
+		} else {
+			this.button.removeClass("active");
+			this.content.visible = false;
+		}
+	}
 }
 
 tk.Notebook = class extends tk.Widget {
@@ -990,9 +1029,9 @@ tk.Notebook = class extends tk.Widget {
 			className: "tkNotebookButtonArea"
 		});
 
-		this.sheetArea = new tk.Panel({
+		this.contentArea = new tk.Panel({
 			parent: this, 
-			className: "tkNotebookSheetArea"
+			className: "tkNotebookContentArea"
 		});
 
 
@@ -1003,7 +1042,7 @@ tk.Notebook = class extends tk.Widget {
 		/* Whether to jump to a newly added tab */
 		this.newestTabActive = tk.fallback(options.newestTabActive, false);
 		
-		this.tabs = [];
+		this.pages = [];
 		this.activeIndex = 0;		
 
 		/* Custom events:
@@ -1013,49 +1052,59 @@ tk.Notebook = class extends tk.Widget {
 	
 	addPage(...pages) {
 		pages.forEach((page) => {
-			this.tabs.push(page);
+			this.pages.push(page);
 
 			page.button.addTo(this.buttonArea);
-			page.sheet.addTo(this.sheetArea);
+			page.content.addTo(this.contentArea);
 
-			if (this.newestTabActive)
+			if (this.newestTabActive || this.active === undefined) {
 				this.active = page;
-			else if (this.active === undefined)
-				this.activeIndex = 0;
+			} else {
+				page.activated = false;
+			}
+
+			let notebook = this;
+			page.button.on("click", (button) => {
+				notebook.active = button.associatedPage;
+			});
 		});
 	}
 	
 	removePage(...pages) {		
 		pages.forEach((page) => {
 			let oldActiveIndex = this.activeIndex;
-			this.tabs.splice(this.indexOf(page), 1);
+			this.pages.splice(this.indexOf(page), 1);
 
 			page.button.removeFrom(this.buttonArea);
-			page.sheet.removeFrom(this.sheetArea);
+			page.content.removeFrom(this.contentArea);
 			this.activeIndex = Math.max(0, oldActiveIndex - 1);
 		});
 	}	
 
 	clear() {
 		while(this.pageCount > 0)
-			this.removePage(this.tabs[this.tabs.length - 1]);
+			this.removePage(this.pages[this.pages.length - 1]);
 	}
 
 	get active() {
-		return this.tabs[this.activeIndex];
+		return this.pages[this.activeIndex];
 	}
 
 	set active(page) {
 		if(!tk.exists(page))
 			return;
 
-		// Unselect the old tab, if it exists
+		// Unselect the old tab, if it exists, if none has been selected
+		// make sure every one remains unselected
 		let oldActive = this.active;
-		if(tk.exists(oldActive))
-			deactivate(oldActive.button, oldActive.sheet);
+		if(tk.exists(oldActive)) {
+			oldActive.activated = false;
+		} else {
+			this.pages.forEach(page => page.activated = false);
+		}
 
 		// Select the new tab
-		activate(page.button, page.sheet);
+		page.activated = true;
 	}
 	
 	get activeIndex() {
@@ -1070,14 +1119,14 @@ tk.Notebook = class extends tk.Widget {
 	}
 	
 	set activeIndex(index) {
-
+		this.active = this.pages[index];
 	}
 
-	get tabsVisible() {
+	get pagesVisible() {
 
 	}
 	
-	set tabsVisible(visible) {
+	set pagesVisible(visible) {
 
 	}
 	

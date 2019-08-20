@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 html {
     width: 100%;
     height: 100%;
@@ -12,6 +16,15 @@ body {
     padding: 0;
     margin: 0;
     background: #f1f1f1;
+}
+
+h1, h2, h3, h4, h5 {
+    /* Reset margin block */
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding: 1rem 0;
 }
 
 .tkNotebook {
@@ -42,12 +55,12 @@ body {
     background: white;
     color: black;
 }
-.tkNotebookSheetArea {
+.tkNotebookContentArea {
     width: 100%;
     height: 100%;
     background: white;
 }
 
-.tkNotebookSheetArea > div {
+.tkNotebookContentArea > div {
 
 }
