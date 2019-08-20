@@ -39,6 +39,11 @@ tk.fallback = function(object, objectIfUndefined) {
 	return tk.exists(object) ? object : objectIfUndefined;
 }
 
+// Remove a element in Javascript in a sane way
+tk.removeElement = function(array, element) {
+	array.splice(array.indexOf(element), 1);
+}
+
 tk.Size = class {
 	width = 0;
 	height = 0;
@@ -428,15 +433,12 @@ tk.Color = class {
 	isGray() {
 		return (tkArray.areElementsEqual([this.r,this.g,this.b]));
 	}
-
-	invert() {
-		
-	}
 }
 
 tk.Element = class {
 	_base; // The html element
 	_eventMaps = [];
+	_children = [];
 
 	constructor(element, options) {
 		this._base = tk.exists(element) ? element : document.body; 
@@ -502,6 +504,10 @@ tk.Element = class {
 		} else {
 			return this.element.dispatchEvent(new Event(eventName));
 		}
+	}
+
+	forEachChild(callback) {
+		this._children.forEach(callback);
 	}
 
 	get style() {
@@ -627,13 +633,15 @@ tk.Element = class {
 		widgets.forEach((widget) => {			
 			this.element.appendChild(widget.element);
 			widget._parent = this;
+			this._children.push(widget);
 		});
 	}
 
 	remove(...widgets) {		
 		widgets.forEach((widget) => {			
-			this.element.appendChild(widget.element);
-			widget._parent = this;
+			this.element.removeChild(widget.element);
+			widget._parent = null;
+			tk.removeElement(this._children, widget);
 		});
 	}
 
@@ -870,8 +878,7 @@ tk.Widget = class extends tk.Element {
 	}
 
 	addTo(destinationWidget) {
-		destinationWidget.element.appendChild(this.element);
-		this._parent = destinationWidget;
+		destinationWidget.add(this); 
 	}
 
 	removeFromElement(destinationElement) {
@@ -879,15 +886,12 @@ tk.Widget = class extends tk.Element {
 	}
 
 	removeFrom(destinationWidget) {
-		destinationWidget.element.removeChild(this.element);
-		this._parent = null;
+		destinationWidget.remove(this);
 	}
 
 	delete() {
-		if(this.element.parentNode) {
-			this.element.parentNode.removeChild(this.element);
-			this._parent = null;
-		}
+		if(this._parent)
+			this._parent.remove(this);
 	}
 
 	get tooltip() {
@@ -1013,33 +1017,56 @@ tk.Notebook = class extends tk.Widget {
 
 			page.button.addTo(this.buttonArea);
 			page.sheet.addTo(this.sheetArea);
+
+			if (this.newestTabActive)
+				this.active = page;
+			else if (this.active === undefined)
+				this.activeIndex = 0;
 		});
 	}
 	
 	removePage(...pages) {		
 		pages.forEach((page) => {
+			let oldActiveIndex = this.activeIndex;
 			this.tabs.splice(this.indexOf(page), 1);
 
 			page.button.removeFrom(this.buttonArea);
 			page.sheet.removeFrom(this.sheetArea);
+			this.activeIndex = Math.max(0, oldActiveIndex - 1);
 		});
 	}	
 
 	clear() {
-		this.buttonArea.clear();
-		this.sheetArea.clear();
+		while(this.pageCount > 0)
+			this.removePage(this.tabs[this.tabs.length - 1]);
 	}
 
 	get active() {
-
+		return this.tabs[this.activeIndex];
 	}
 
 	set active(page) {
+		if(!tk.exists(page))
+			return;
 
+		// Unselect the old tab, if it exists
+		let oldActive = this.active;
+		if(tk.exists(oldActive))
+			deactivate(oldActive.button, oldActive.sheet);
+
+		// Select the new tab
+		activate(page.button, page.sheet);
 	}
 	
 	get activeIndex() {
+		let index = -1;
 
+		this.buttonArea.forEachChild((button, i) => {
+			if(button.hasClass("active"))
+				index = i;
+		});
+
+		return index;
 	}
 	
 	set activeIndex(index) {
