@@ -1,5 +1,5 @@
 # Tamarack
-An easy to use JavaScript library that can create, modify, and style HTML through ECMAScript 6 classes. It is designed to be used in Electron apps, but works well for browser apps as well.
+An easy to use JavaScript library that can create, modify, and style HTML entirely through ECMAScript 6 classes, with no boilerplate HTML or CSS needed. It is designed to be used in Electron apps, but works well for browser apps as well.
  
 Architecture 
 -------
