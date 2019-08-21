@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">	
+		<link href="../src/tamarack.css" rel="stylesheet" type="text/css">
+		<script src="../src/tamarack.js"></script>
+	</head>
+
+	<body>		
+		<script>
+			let view = new tk.View("Icons Demo", {style: "padding: 0.5rem;"});		
+
+			tk.forEachProperty(tk.Icons, (iconName) => {
+				let container = new tk.Panel({parent: view, style: "display: flex; align-items: center;"});
+				container.add(new tk.Image(tk.Icons[iconName], {style: "padding: 0.25rem;"}));
+				container.add(new tk.Text("span", iconName));
+			});
+		</script>
+	</body>
+</html>

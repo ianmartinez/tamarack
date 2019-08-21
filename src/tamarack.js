@@ -16,6 +16,12 @@ tk.LayoutDirection = Object.freeze({
 	VERTICAL: 1
 });
 
+tk.forEachProperty = function(object, callback) {
+	Object.keys(object).forEach(function(key,index) {
+		callback(key, index);
+	});
+}
+
 // Helper functions
 tk.make = function(tag) {
 	return document.createElement(tag);
