@@ -12,10 +12,13 @@
 			let currentActiveText = new tk.Text("h1", "", {parent: view});	
 			let notebook = new tk.Notebook({parent: view});
 
+			/*	Change current active text to match a newly selected tab
+				whenever it is changed */
 			notebook.on("activeChanged", (w) => {
 				currentActiveText.text = w.active.title;
 			});
 
+			// Add 100 tabs to the notebook
 			for(var i=1; i<=100; i++) {
 				let newPage = new tk.Page("Page " + i);
 				newPage.content.add(new tk.Text("p", "Some text on page " + i));

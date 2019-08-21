@@ -16,7 +16,7 @@
 			let view = new tk.View("Coin Flip Demo", {style: "padding: 0.5rem;"});		
 			let heading = new tk.Text("h1",  "Coin Flip");
 			let flipCounter = new tk.Text("h4", getFlipsText(flips), {style: "color: gray;"});
-			let flipCoinButton = new tk.Button("Flip Coin!", {display: "block"});
+			let flipCoinButton = new tk.Button("Flip Coin!", {className: "flexless"});
 
 			flipCoinButton.on("click", function() {
 				let coinFlip = tk.Random.item("Heads", "Tails");
