@@ -11,8 +11,7 @@
 			let view = new tk.View("Icons Demo", {style: "padding: 0.5rem;"});		
 
 			tk.forEachProperty(tk.Icons, (iconName) => {
-				let container = new tk.Panel({parent: view});
-				container.add(new tk.Label(iconName, tk.Icons[iconName]));
+				view.add(new tk.Label(iconName, tk.Icons[iconName]));
 			});
 		</script>
 	</body>
