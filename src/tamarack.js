@@ -96,7 +96,7 @@ tk.Folders = class {
 	// Gets the folder that has the icons
 	static get ICONS()
 	{
-		return tk.Folders.SCRIPT + "icons\\";
+		return tk.Folders.SCRIPT + "icons/";
 	}
 }
 
@@ -119,6 +119,7 @@ tk.Icons = {
 	characters: tk.Folders.ICONS + "characters.svg",
 	chat: tk.Folders.ICONS + "chat.svg",
 	contact: tk.Folders.ICONS + "contact.svg",
+	desktop: tk.Folders.ICONS + "user-desktop.svg",
 	development: tk.Folders.ICONS + "development.svg",
 	dialogError: tk.Folders.ICONS + "dialog-error.svg",
 	dialogInformation: tk.Folders.ICONS + "dialog-information.svg",
@@ -203,6 +204,7 @@ tk.Icons = {
 	goUp: tk.Folders.ICONS + "go-up.svg",
 	graphics: tk.Folders.ICONS + "graphics.svg",
 	hardDisk: tk.Folders.ICONS + "hard-disk.svg",
+	homeFolder: tk.Folders.ICONS + "user-home.svg",
 	heart: tk.Folders.ICONS + "heart.svg",
 	help: tk.Folders.ICONS + "help.svg",
 	html: tk.Folders.ICONS + "html.svg",
@@ -293,12 +295,10 @@ tk.Icons = {
 	text: tk.Folders.ICONS + "text.svg",
 	theme: tk.Folders.ICONS + "theme.svg",
 	time: tk.Folders.ICONS + "time.svg",
+	trash: tk.Folders.ICONS + "user-trash.svg",
+	trashFull: tk.Folders.ICONS + "user-trash-full.svg",
 	unread: tk.Folders.ICONS + "unread.svg",
 	update: tk.Folders.ICONS + "update.svg",
-	userDesktop: tk.Folders.ICONS + "user-desktop.svg",
-	userHome: tk.Folders.ICONS + "user-home.svg",
-	userTrashFull: tk.Folders.ICONS + "user-trash-full.svg",
-	userTrash: tk.Folders.ICONS + "user-trash.svg",
 	users: tk.Folders.ICONS + "users.svg",
 	videoRecorder: tk.Folders.ICONS + "video-recorder.svg",
 	videoReel: tk.Folders.ICONS + "video-reel.svg",

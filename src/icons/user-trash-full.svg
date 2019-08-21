@@ -2,8 +2,6 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:ns="&amp;#38;#38;#38;#38;ns_ai;"
-   xmlns:i="&amp;#38;#38;ns_ai;"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -649,7 +647,7 @@
        transform="matrix(0.11763207,0,0,0.11763207,1.653764,4.8471038)"
        id="g620-5"
        style="color:#000000;font-size:12px;display:inline;overflow:visible;visibility:visible;fill:url(#linearGradient234-6);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.13333321;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none"
-       ns:knockout="Off" />
+       />
   </g>
   <g
      inkscape:label="trash"
@@ -703,13 +701,12 @@
        transform="matrix(0.11763207,0,0,0.11763207,-15.964109,20.624813)"
        id="g378"
        style="color:#000000;font-size:12px;display:inline;overflow:visible;visibility:visible;fill:url(#linearGradient234);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.13333321;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none"
-       i:knockout="Off">
+       >
       <path
          sodipodi:nodetypes="cccc"
          id="path379"
          d="M 163.66854,88.723079 C 164.69803,92.209992 156.205,98.079 148.429,97.376 c 7.313,-0.381 4.751,0.926 6.551,1.863 2.157,1.341 13.88508,-3.704652 8.68854,-10.515921 z"
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:url(#linearGradient607);stroke-dashoffset:0;marker:none;marker-start:none;marker-mid:none;marker-end:none"
-         i:knockout="Off"
          inkscape:connector-curvature="0" />
     </g>
     <path
@@ -731,7 +728,7 @@
        transform="matrix(0.11763207,0,0,0.11763207,2.8909526,30.435573)"
        id="g620"
        style="color:#000000;font-size:12px;display:inline;overflow:visible;visibility:visible;fill:url(#linearGradient632);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.13333321;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none"
-       i:knockout="Off" />
+       />
     <path
        sodipodi:nodetypes="cccscscc"
        id="path644"

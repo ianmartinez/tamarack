@@ -2,9 +2,7 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:ns="&amp;#38;#38;#38;#38;#38;ns_ai;"
-   xmlns:i="&amp;#38;#38;#38;ns_ai;"
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
@@ -570,11 +568,11 @@
        transform="matrix(0.11763207,0,0,0.11763207,1.6537643,4.8471041)"
        id="g620-5"
        style="color:#000000;font-size:12px;display:inline;overflow:visible;visibility:visible;fill:url(#linearGradient1455);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.13333321;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none"
-       ns:knockout="Off" />
+       />
     <g
        transform="matrix(0.11763207,0,0,0.11763207,2.8909523,30.435573)"
        id="g620"
        style="color:#000000;font-size:12px;display:inline;overflow:visible;visibility:visible;fill:url(#linearGradient234-6);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2.13333321;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none"
-       i:knockout="Off" />
+       />
   </g>
 </svg>
