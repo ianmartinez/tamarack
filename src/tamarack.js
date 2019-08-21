@@ -1398,11 +1398,19 @@ tk.Notebook = class extends tk.Widget {
 
 	}
 		
-	back() {
+	goBack() {
 			
 	}
 	
-	next() {
+	goNext() {
+
+	}
+
+	goToFirst() {
+		
+	}
+
+	goToLast() {
 
 	}
 

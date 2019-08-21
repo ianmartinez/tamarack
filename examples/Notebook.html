@@ -11,7 +11,7 @@
             let view = new tk.View("Notebook Demo", {style: "padding: 1rem"});	
 			let currentActiveText = new tk.Text("h1", "", {parent: view});	
 			let notebook = new tk.Notebook({parent: view});
-
+			
 			/*	Change current active text to match a newly selected tab
 				whenever it is changed */
 			notebook.on("activeChanged", (w) => {
