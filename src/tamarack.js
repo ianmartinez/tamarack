@@ -1190,6 +1190,15 @@ tk.Text = class extends tk.Widget {
 	}
 }
 
+tk.Label = class extends tk.Widget {
+	constructor(text, iconImage, options) {
+		super("div", options);
+		this.addClass("tkLabel");
+		this.icon = new tk.Image(iconImage, {parent: this});
+		this.caption = new tk.Text("span", text, {parent: this});
+	}
+}
+
 tk.Link = class extends tk.Text {
 	constructor(text, url, options) {
 		super("a", text, options);		

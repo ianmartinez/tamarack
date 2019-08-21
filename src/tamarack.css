@@ -91,3 +91,16 @@ h1, h2, h3, h4, h5, p {
     height: 100%;
     width: 100%;
 }
+
+.tkLabel {
+    display: flex; 
+    align-items: center;
+}
+
+.tkLabel span {
+
+}
+
+.tkLabel img {
+    padding: 0.25rem;
+}
