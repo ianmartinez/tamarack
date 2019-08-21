@@ -8,17 +8,19 @@
 
 	<body>		
 		<script>
-            let view = new tk.View("Notebook Demo");		
+            let view = new tk.View("Notebook Demo", {style: "padding: 1rem"});	
+			let currentActiveText = new tk.Text("h1", "", {parent: view});	
 			let notebook = new tk.Notebook({parent: view});
-			
-			let page1 = new tk.Page("Page 1");
-			page1.content.add(new tk.Text("h1", "Some text on page 1"));
 
-			let page2 = new tk.Page("Page 2");
-			page2.content.add(new tk.Text("h1", "Some text on page 2"));
-			page2.content.background = "blue";
+			notebook.on("activeChanged", (w) => {
+				currentActiveText.text = w.active.title;
+			});
 
-			notebook.addPage(page1, page2);
+			for(var i=1; i<=100; i++) {
+				let newPage = new tk.Page("Page " + i);
+				newPage.content.add(new tk.Text("p", "Some text on page " + i));
+				notebook.addPage(newPage);
+			}
 		</script>
 	</body>
 </html>

@@ -1105,6 +1105,9 @@ tk.Notebook = class extends tk.Widget {
 
 		// Select the new tab
 		page.activated = true;
+
+		// Trigger the activeChanged event
+		this.trigger("activeChanged");
 	}
 	
 	get activeIndex() {
