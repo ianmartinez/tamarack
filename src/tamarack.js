@@ -1313,11 +1313,7 @@ tk.Notebook = class extends tk.Widget {
 		this.newestTabActive = tk.fallback(options.newestTabActive, false);
 		
 		this.pages = [];
-		this.activeIndex = 0;		
-
-		/* Custom events:
-			activeChanged: When the active tab is changed
-		*/
+		this.activeIndex = 0;	
 	}
 	
 	addPage(...pages) {
@@ -1394,14 +1390,6 @@ tk.Notebook = class extends tk.Widget {
 	
 	set activeIndex(index) {
 		this.active = this.pages[index];
-	}
-
-	get pagesVisible() {
-
-	}
-	
-	set pagesVisible(visible) {
-
 	}
 	
 	indexOf(page) {
