@@ -22,6 +22,11 @@ tk.forEachProperty = function(object, callback) {
 	});
 }
 
+tk.descendArray = function(array, callback) {
+	for(let i=array.length -1; i>=0; i--)
+		callback(array[i], i);
+}
+
 // Helper functions
 tk.make = function(tag) {
 	return document.createElement(tag);
@@ -76,10 +81,6 @@ tk.EventPair = class {
 
 // System
 tk.Timer = class {
-
-}
-
-tk.Array = class {
 
 }
 
@@ -1328,12 +1329,13 @@ tk.Notebook = class extends tk.Widget {
 	}
 	
 	removePage(...pages) {		
-		pages.forEach((page) => {
+		tk.descendArray(pages, (page) => {
 			let oldActiveIndex = this.activeIndex;
-			this.pages.splice(this.indexOf(page), 1);
 
 			page.button.removeFrom(this.buttonArea);
 			page.content.removeFrom(this.contentArea);
+			this.pages.splice(this.pages.indexOf(page), 1);
+
 			this.activeIndex = Math.max(0, oldActiveIndex - 1);
 		});
 	}	
@@ -1394,8 +1396,8 @@ tk.Notebook = class extends tk.Widget {
 
 	}
 
-	pageCount() {
-
+	get pageCount() {
+		return this.pages.length;
 	}
 		
 	goBack() {
@@ -1407,7 +1409,7 @@ tk.Notebook = class extends tk.Widget {
 	}
 
 	goToFirst() {
-		
+
 	}
 
 	goToLast() {
