@@ -1304,7 +1304,6 @@ tk.Notebook = class extends tk.Widget {
 			className: "tkNotebookContentArea"
 		});
 
-
 		/*	Whether or not to wrap around when the
 		end of index is reached*/
 		this.wrap = tk.fallback(options.wrap, true);
@@ -1432,28 +1431,43 @@ tk.Notebook = class extends tk.Widget {
 }
 
 tk.NotebookMenuPage = class extends tk.Page {
+	constructor(title, buttonOptions, contentOptions) {
+		super(title, buttonOptions, contentOptions);
+	}
 
 }
 
 tk.NotebookMenu = class extends tk.Notebook {
-
+	constructor(options) {
+		super(options);
+		this.addClass("tkNotebookMenu");
+	}
 }
 
 tk.Layout = class extends tk.Widget {
 	constructor(options) {
-		this.direction = tk.fallback(options.direction, tk.LayoutDirection.HORIZONTAL);		
+		super("div", options);
+
+		this.direction = tk.fallback(options.direction, tk.LayoutDirection.VERTICAL);		
 		this.resizable = tk.fallback(options.resizable, false);
 		this.panels = tk.fallback(options.panels, []);		
-
-		super("div", options);
+		this.addClass("tkLayout");
 	}
 
 	get direction() {
-
+		if(this.hasClass("tkLayoutHorizontal"))
+			return tk.LayoutDirection.HORIZONTAL;
+		
+		return tk.LayoutDirection.VERTICAL;
 	}
 
 	set direction(layoutDirection) {
+		this.removeClass("tkLayoutHorizontal", "tkLayoutVertical");
 
+		if(layoutDirection == tk.LayoutDirection.HORIZONTAL)
+			this.addClass("tkLayoutHorizontal");
+		else if(layoutDirection == tk.LayoutDirection.VERTICAL)
+			this.addClass("tkLayoutVertical");
 	}
 
 	get resizable() {

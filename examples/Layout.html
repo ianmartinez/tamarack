@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">	
+		<link href="../src/tamarack.css" rel="stylesheet" type="text/css">
+		<script src="../src/tamarack.js"></script>
+	</head>
+
+	<body>		
+		<script>
+			let view = new tk.View("Layout Demo");		
+			let layout = new tk.Layout({parent: view});
+
+			for(var i=1; i<=200; i++) {
+				let text = new tk.Text("p", "#" + i);
+				let randomColor = tk.random.color();
+				text.background = randomColor.asHex();
+				text.color = randomColor.isDark() ? "white" : "black";
+				layout.add(text);
+			}
+		</script>
+	</body>
+</html>

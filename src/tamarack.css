@@ -110,3 +110,22 @@ h1, h2, h3, h4, h5, p {
     flex-flow: row; 
     padding: 0.25rem;
 }
+
+.tkLayout {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.tkLayout > * {
+    flex-grow: 1;
+}
+
+.tkLayoutHorizontal {
+    flex-direction: row !important;
+}
+
+.tkLayoutVertical {
+    flex-direction: column !important;
+}
