@@ -8,7 +8,19 @@
 
 	<body>		
 		<script>
-			let view = new tk.View("Layout Demo");		
+			let view = new tk.View("Layout Demo");	
+			let buttonPanel = new tk.ButtonPanel({parent: view});
+			
+			let horizontalButton = new tk.Button("Horizontal", {parent: buttonPanel});
+			horizontalButton.on("click", function() {
+				layout.direction = tk.LayoutDirection.HORIZONTAL;
+			});
+
+			let verticalButton = new tk.Button("Vertical", {parent: buttonPanel});
+			verticalButton.on("click", function() {
+				layout.direction = tk.LayoutDirection.VERTICAL;
+			});
+
 			let layout = new tk.Layout({parent: view});
 
 			for(var i=1; i<=200; i++) {
