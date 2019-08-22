@@ -1235,19 +1235,19 @@ tk.ButtonPanel = class extends tk.Panel {
 
 tk.Page = class {
 	constructor(title, buttonOptions, contentOptions) {
-		this.button = new tk.Button(title, buttonOptions);
-		this.button.associatedPage = this;
+		this.tab = new tk.Button(title, buttonOptions);
+		this.tab.associatedPage = this;
 
 		this.content = new tk.Panel(contentOptions);
 		this.content.associatedPage = this;
 	}
 	
 	get title() {
-		return this.button.text;
+		return this.tab.text;
 	}
 	
 	set title(text) {
-		this.button.text = text;
+		this.tab.text = text;
 	}
 
 	get hidden() {
@@ -1267,23 +1267,23 @@ tk.Page = class {
 	}
 
 	get icon() {
-		return this.button.icon;
+		return this.tab.icon;
 	}
 
 	set icon(icon) {
-		this.button.icon = icon;
+		this.tab.icon = icon;
 	}
 
 	get activated() {
-		return this.button.hasClass("active");
+		return this.tab.hasClass("active");
 	}
 
 	set activated(activated) {
 		if(activated) {
-			this.button.addClass("active");
+			this.tab.addClass("active");
 			this.content.visible = true;
 		} else {
-			this.button.removeClass("active");
+			this.tab.removeClass("active");
 			this.content.visible = false;
 		}
 	}
@@ -1294,9 +1294,9 @@ tk.Notebook = class extends tk.Widget {
 		super("div", options);
 		this.addClass("tkNotebook");
 
-		this.buttonArea = new tk.Panel({
+		this.tabArea = new tk.Panel({
 			parent: this, 
-			className: "tkNotebookButtonArea"
+			className: "tkNotebookTabArea"
 		});
 
 		this.contentArea = new tk.Panel({
@@ -1324,7 +1324,7 @@ tk.Notebook = class extends tk.Widget {
 		pages.forEach((page) => {
 			this.pages.push(page);
 
-			page.button.addTo(this.buttonArea);
+			page.tab.addTo(this.tabArea);
 			page.content.addTo(this.contentArea);
 
 			if (this.newestTabActive || this.active === undefined) {
@@ -1334,8 +1334,8 @@ tk.Notebook = class extends tk.Widget {
 			}
 
 			let notebook = this;
-			page.button.on("click", (button) => {
-				notebook.active = button.associatedPage;
+			page.tab.on("click", (tab) => {
+				notebook.active = tab.associatedPage;
 			});
 		});
 	}
@@ -1344,7 +1344,7 @@ tk.Notebook = class extends tk.Widget {
 		pages.forEach((page) => {
 			let oldActiveIndex = this.activeIndex;
 
-			page.button.removeFrom(this.buttonArea);
+			page.tab.removeFrom(this.tabArea);
 			page.content.removeFrom(this.contentArea);
 			this.pages.splice(this.pages.indexOf(page), 1);
 
@@ -1384,8 +1384,8 @@ tk.Notebook = class extends tk.Widget {
 	get activeIndex() {
 		let index = -1;
 
-		this.buttonArea.forEachChild((button, i) => {
-			if(button.hasClass("active"))
+		this.tabArea.forEachChild((tab, i) => {
+			if(tab.hasClass("active"))
 				index = i;
 		});
 
