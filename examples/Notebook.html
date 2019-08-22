@@ -10,8 +10,20 @@
 		<script>
             let view = new tk.View("Notebook Demo", {style: "padding: 1rem"});	
 			let currentActiveText = new tk.Text("h1", "", {parent: view});	
-			let notebook = new tk.Notebook({parent: view});
+			let buttonPanel = new tk.Panel({parent: view, style: "flex-flow: row; padding: 0.25rem;"});
 			
+			let backButton = new tk.Button("Back", {parent: buttonPanel});
+			backButton.on("click", function() {
+				notebook.goBack();
+			});
+
+			let nextButton = new tk.Button("Next", {parent: buttonPanel});
+			nextButton.on("click", function() {
+				notebook.goNext();
+			});
+
+			let notebook = new tk.Notebook({parent: view});
+
 			/*	Change current active text to match a newly selected tab
 				whenever it is changed */
 			notebook.on("activeChanged", (w) => {
