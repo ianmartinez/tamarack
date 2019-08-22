@@ -1398,44 +1398,41 @@ tk.Notebook = class extends tk.Widget {
 	}
 	
 	indexOf(page) {
-
+		return this.pages.indexOf(page);
 	}
 
 	get pageCount() {
 		return this.pages.length;
 	}
-		
+
+	get lastPageIndex() {
+		if (this.activeIndex - 1 < 0 && this.wrap)
+			return this.pages.length-1;
+		else
+			return  Math.max(0, this.activeIndex - 1);	
+	}
+
+	get nextPageIndex() {
+		if (this.activeIndex + 1 >= this.pages.length && this.wrap)
+			return 0;
+		else
+			return Math.min(this.pages.length-1, this.activeIndex + 1);	
+	}
+	
 	goBack() {
-			
+		this.activeIndex = this.lastPageIndex;
 	}
 	
 	goNext() {
-
+		this.activeIndex = this.nextPageIndex;
 	}
 
 	goToFirst() {
-
+		this.activeIndex = 0;
 	}
 
 	goToLast() {
-
-	}
-
-	// .ignoreHidden, .ignoreDisabled, .ignore
-	getPreviousIndex(options) {
-
-	}
-
-	getNextIndex(ignoreHidden) {
-
-	}
-
-	getFirstIndex(ignoreHidden) {
-		
-	}
-
-	getLastIndex(ignoreHidden) {
-
+		this.activeIndex = this.pages.length - 1;
 	}
 }
 
