@@ -1099,11 +1099,11 @@ tk.View = class extends tk.Element {
 
 	}
 
-	addStylesheet(...stylesheet) {
+	addStylesheet(...stylesheets) {
 
 	}
 
-	removeStylesheet(...stylesheet) {
+	removeStylesheet(...stylesheets) {
 
 	}
 
@@ -1116,17 +1116,28 @@ tk.View = class extends tk.Element {
 	}
 
 	// <style>
-	addStyle(style) {
+	addStyle(...styles) {
 
 	}
 
-	removeStyle(style) {
+	removeStyle(...styles) {
 
 	}
 
+	// <script>
+	addScript(...scripts) {
+
+	}
+
+	removeScript(...scripts) {
+
+	}
+
+	// tk.Size
 	getSize() {
 
 	}
+
 }
 
 tk.Widget = class extends tk.Element {	
