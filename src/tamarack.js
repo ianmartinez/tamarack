@@ -753,7 +753,6 @@ tk.Element = class {
 	trigger(eventName) {	
 		if(tk.exists(this._eventMaps[eventName])) {
 			var eventPair = this._eventMaps[eventName];
-			console.log(eventPair)
 			eventPair.targetElement.dispatchEvent(new Event(eventPair.targetEvent));
 		} else {
 			return this.element.dispatchEvent(new Event(eventName));
