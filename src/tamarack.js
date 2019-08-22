@@ -22,11 +22,6 @@ tk.forEachProperty = function(object, callback) {
 	});
 }
 
-tk.descendArray = function(array, callback) {
-	for(let i=array.length -1; i>=0; i--)
-		callback(array[i], i);
-}
-
 // Helper functions
 tk.make = function(tag) {
 	return document.createElement(tag);
@@ -50,9 +45,19 @@ tk.fallback = function(object, objectIfUndefined) {
 	return tk.exists(object) ? object : objectIfUndefined;
 }
 
-// Remove a element in Javascript in a sane way
-tk.removeElement = function(array, element) {
-	array.splice(array.indexOf(element), 1);
+tk.array = class {
+	static remove(array, element) {
+		array.splice(array.indexOf(element), 1);
+	}
+
+	static removeAt(array, index) {
+		array.splice(index, 1);
+	}
+
+	static descend(array, callback) {
+		for(let i=array.length -1; i>=0; i--)
+			callback(array[i], i);
+	}
 }
 
 tk.Size = class {
@@ -84,9 +89,9 @@ tk.Timer = class {
 
 }
 
-tk.Folders = class {
+tk.directory = class {
 	// Gets the folder that the tamarack.js folder is located in
-	static get SCRIPT() {
+	static get script() {
 		var scripts = [];
 		document.querySelectorAll('script[src]').forEach((script) => scripts.push(script.getAttribute("src")));
 		var tamarackJsLocation = scripts.find((x) => x.indexOf("tamarack.js") != -1)
@@ -95,238 +100,238 @@ tk.Folders = class {
 	}
 
 	// Gets the folder that has the icons
-	static get ICONS()
+	static get icons()
 	{
-		return tk.Folders.SCRIPT + "icons/";
+		return tk.directory.script + "icons/";
 	}
 }
 
-tk.Icons = {
-	accessibilitySettings: tk.Folders.ICONS + "accessibility-settings.svg",
-	accessibility: tk.Folders.ICONS + "accessibility.svg",
-	accessories: tk.Folders.ICONS + "accessories.svg",
-	addressBook: tk.Folders.ICONS + "address-book.svg",
-	audioFile: tk.Folders.ICONS + "audio-file.svg",
-	audio: tk.Folders.ICONS + "audio.svg",
-	batteryCaution: tk.Folders.ICONS + "battery-caution.svg",
-	battery: tk.Folders.ICONS + "battery.svg",
-	book: tk.Folders.ICONS + "book.svg",
-	bookmark: tk.Folders.ICONS + "bookmark.svg",
-	calculator: tk.Folders.ICONS + "calculator.svg",
-	calendar: tk.Folders.ICONS + "calendar.svg",
-	camera: tk.Folders.ICONS + "camera.svg",
-	certificate: tk.Folders.ICONS + "certificate.svg",
-	characters: tk.Folders.ICONS + "characters.svg",
-	chat: tk.Folders.ICONS + "chat.svg",
-	contact: tk.Folders.ICONS + "contact.svg",
-	desktop: tk.Folders.ICONS + "user-desktop.svg",
-	development: tk.Folders.ICONS + "development.svg",
-	dialogError: tk.Folders.ICONS + "dialog-error.svg",
-	dialogInformation: tk.Folders.ICONS + "dialog-information.svg",
-	dialogWarning: tk.Folders.ICONS + "dialog-warning.svg",
-	documentExport: tk.Folders.ICONS + "document-export.svg",
-	documentImport: tk.Folders.ICONS + "document-import.svg",
-	documentNew: tk.Folders.ICONS + "document-new.svg",
-	documentOpen: tk.Folders.ICONS + "document-open.svg",
-	documentPrintPreview: tk.Folders.ICONS + "document-print-preview.svg",
-	documentPrint: tk.Folders.ICONS + "document-print.svg",
-	documentProperties: tk.Folders.ICONS + "document-properties.svg",
-	documentSaveAs: tk.Folders.ICONS + "document-save-as.svg",
-	documentSave: tk.Folders.ICONS + "document-save.svg",
-	documentTemplate: tk.Folders.ICONS + "document-template.svg",
-	document: tk.Folders.ICONS + "document.svg",
-	drawingTemplate: tk.Folders.ICONS + "drawing-template.svg",
-	drawing: tk.Folders.ICONS + "drawing.svg",
-	editClear: tk.Folders.ICONS + "edit-clear.svg",
-	editCopy: tk.Folders.ICONS + "edit-copy.svg",
-	editCut: tk.Folders.ICONS + "edit-cut.svg",
-	editDelete: tk.Folders.ICONS + "edit-delete.svg",
-	editFindReplace: tk.Folders.ICONS + "edit-find-replace.svg",
-	editFind: tk.Folders.ICONS + "edit-find.svg",
-	editPaste: tk.Folders.ICONS + "edit-paste.svg",
-	editRedo: tk.Folders.ICONS + "edit-redo.svg",
-	editSelectAll: tk.Folders.ICONS + "edit-select-all.svg",
-	editUndo: tk.Folders.ICONS + "edit-undo.svg",
-	email: tk.Folders.ICONS + "email.svg",
-	executable: tk.Folders.ICONS + "executable.svg",
-	faceAngel: tk.Folders.ICONS + "face-angel.svg",
-	faceCrying: tk.Folders.ICONS + "face-crying.svg",
-	faceDevilish: tk.Folders.ICONS + "face-devilish.svg",
-	faceGlasses: tk.Folders.ICONS + "face-glasses.svg",
-	faceGrin: tk.Folders.ICONS + "face-grin.svg",
-	faceKiss: tk.Folders.ICONS + "face-kiss.svg",
-	faceMonkey: tk.Folders.ICONS + "face-monkey.svg",
-	facePlain: tk.Folders.ICONS + "face-plain.svg",
-	faceSad: tk.Folders.ICONS + "face-sad.svg",
-	faceSmileBig: tk.Folders.ICONS + "face-smile-big.svg",
-	faceSmile: tk.Folders.ICONS + "face-smile.svg",
-	faceSurprise: tk.Folders.ICONS + "face-surprise.svg",
-	faceWink: tk.Folders.ICONS + "face-wink.svg",
-	fileManager: tk.Folders.ICONS + "file-manager.svg",
-	find: tk.Folders.ICONS + "find.svg",
-	floppy: tk.Folders.ICONS + "floppy.svg",
-	folderAdd: tk.Folders.ICONS + "folder-add.svg",
-	folderDragAccept: tk.Folders.ICONS + "folder-drag-accept.svg",
-	folderNew: tk.Folders.ICONS + "folder-new.svg",
-	folderOpen: tk.Folders.ICONS + "folder-open.svg",
-	folderRemote: tk.Folders.ICONS + "folder-remote.svg",
-	folderRemove: tk.Folders.ICONS + "folder-remove.svg",
-	folderSavedSearch: tk.Folders.ICONS + "folder-saved-search.svg",
-	folderVisiting: tk.Folders.ICONS + "folder-visiting.svg",
-	folder: tk.Folders.ICONS + "folder.svg",
-	fontFile: tk.Folders.ICONS + "font-file.svg",
-	fontSizeDecrease: tk.Folders.ICONS + "font-size-decrease.svg",
-	fontSizeIncrease: tk.Folders.ICONS + "font-size-increase.svg",
-	font: tk.Folders.ICONS + "font.svg",
-	formatIndentLess: tk.Folders.ICONS + "format-indent-less.svg",
-	formatIndentMore: tk.Folders.ICONS + "format-indent-more.svg",
-	formatJustifyCenter: tk.Folders.ICONS + "format-justify-center.svg",
-	formatJustifyFill: tk.Folders.ICONS + "format-justify-fill.svg",
-	formatJustifyLeft: tk.Folders.ICONS + "format-justify-left.svg",
-	formatJustifyRight: tk.Folders.ICONS + "format-justify-right.svg",
-	formatSub: tk.Folders.ICONS + "format-sub.svg",
-	formatSuper: tk.Folders.ICONS + "format-super.svg",
-	formatTextBold: tk.Folders.ICONS + "format-text-bold.svg",
-	formatTextItalic: tk.Folders.ICONS + "format-text-italic.svg",
-	formatTextStrikethrough: tk.Folders.ICONS + "format-text-strikethrough.svg",
-	formatTextUnderline: tk.Folders.ICONS + "format-text-underline.svg",
-	games: tk.Folders.ICONS + "games.svg",
-	gear: tk.Folders.ICONS + "gear.svg",
-	goBottom: tk.Folders.ICONS + "go-bottom.svg",
-	goDown: tk.Folders.ICONS + "go-down.svg",
-	goFirst: tk.Folders.ICONS + "go-first.svg",
-	goHome: tk.Folders.ICONS + "go-home.svg",
-	goJump: tk.Folders.ICONS + "go-jump.svg",
-	goLast: tk.Folders.ICONS + "go-last.svg",
-	goNext: tk.Folders.ICONS + "go-next.svg",
-	goPrevious: tk.Folders.ICONS + "go-previous.svg",
-	goTop: tk.Folders.ICONS + "go-top.svg",
-	goUp: tk.Folders.ICONS + "go-up.svg",
-	graphics: tk.Folders.ICONS + "graphics.svg",
-	hardDisk: tk.Folders.ICONS + "hard-disk.svg",
-	homeFolder: tk.Folders.ICONS + "user-home.svg",
-	heart: tk.Folders.ICONS + "heart.svg",
-	help: tk.Folders.ICONS + "help.svg",
-	html: tk.Folders.ICONS + "html.svg",
-	imageLoading: tk.Folders.ICONS + "image-loading.svg",
-	imageMissing: tk.Folders.ICONS + "image-missing.svg",
-	image: tk.Folders.ICONS + "image.svg",
-	important: tk.Folders.ICONS + "important.svg",
-	inputSettings: tk.Folders.ICONS + "input-settings.svg",
-	installer: tk.Folders.ICONS + "installer.svg",
-	internet: tk.Folders.ICONS + "applications-internet.svg",
-	joystick: tk.Folders.ICONS + "joystick.svg",
-	junk: tk.Folders.ICONS + "junk.svg",
-	keyboard: tk.Folders.ICONS + "keyboard.svg",
-	link: tk.Folders.ICONS + "link.svg",
-	listAdd: tk.Folders.ICONS + "list-add.svg",
-	listRemove: tk.Folders.ICONS + "list-remove.svg",
-	locale: tk.Folders.ICONS + "locale.svg",
-	lock: tk.Folders.ICONS + "lock.svg",
-	mailAttachment: tk.Folders.ICONS + "mail-attachment.svg",
-	mailForward: tk.Folders.ICONS + "mail-forward.svg",
-	mailReplyAll: tk.Folders.ICONS + "mail-reply-all.svg",
-	mailReply: tk.Folders.ICONS + "mail-reply.svg",
-	mailSendReceive: tk.Folders.ICONS + "mail-send-receive.svg",
-	mediaEject: tk.Folders.ICONS + "media-eject.svg",
-	mediaFlash: tk.Folders.ICONS + "media-flash.svg",
-	mediaPlaybackPause: tk.Folders.ICONS + "media-playback-pause.svg",
-	mediaPlaybackStart: tk.Folders.ICONS + "media-playback-start.svg",
-	mediaPlaybackStop: tk.Folders.ICONS + "media-playback-stop.svg",
-	mediaRecord: tk.Folders.ICONS + "media-record.svg",
-	mediaSeekBackward: tk.Folders.ICONS + "media-seek-backward.svg",
-	mediaSeekForward: tk.Folders.ICONS + "media-seek-forward.svg",
-	mediaSkipBackward: tk.Folders.ICONS + "media-skip-backward.svg",
-	mediaSkipForward: tk.Folders.ICONS + "media-skip-forward.svg",
-	message: tk.Folders.ICONS + "message.svg",
-	microphone: tk.Folders.ICONS + "microphone.svg",
-	monitor: tk.Folders.ICONS + "monitor.svg",
-	mouse: tk.Folders.ICONS + "mouse.svg",
-	mp3Player: tk.Folders.ICONS + "mp3-player.svg",
-	multimedia: tk.Folders.ICONS + "multimedia.svg",
-	networkError: tk.Folders.ICONS + "network-error.svg",
-	networkIdle: tk.Folders.ICONS + "network-idle.svg",
-	networkOffline: tk.Folders.ICONS + "network-offline.svg",
-	networkReceive: tk.Folders.ICONS + "network-receive.svg",
-	networkServer: tk.Folders.ICONS + "network-server.svg",
-	networkTransmitReceive: tk.Folders.ICONS + "network-transmit-receive.svg",
-	networkTransmit: tk.Folders.ICONS + "network-transmit.svg",
-	networkWired: tk.Folders.ICONS + "network-wired.svg",
-	networkWirelessEncrypted: tk.Folders.ICONS + "network-wireless-encrypted.svg",
-	networkWireless: tk.Folders.ICONS + "network-wireless.svg",
-	networkWorkgroup: tk.Folders.ICONS + "network-workgroup.svg",
-	news: tk.Folders.ICONS + "news.svg",
-	notify: tk.Folders.ICONS + "notify.svg",
-	office: tk.Folders.ICONS + "office.svg",
-	opticalDisk: tk.Folders.ICONS + "optical-disk.svg",
-	opticalDriveRemovable: tk.Folders.ICONS + "optical-drive-removable.svg",
-	opticalDrive: tk.Folders.ICONS + "optical-drive.svg",
-	other: tk.Folders.ICONS + "other.svg",
-	package: tk.Folders.ICONS + "package.svg",
-	pageAdd: tk.Folders.ICONS + "page-add.svg",
-	pageRemove: tk.Folders.ICONS + "page-remove.svg",
-	page: tk.Folders.ICONS + "page.svg",
-	photos: tk.Folders.ICONS + "photos.svg",
-	preferencesDials: tk.Folders.ICONS + "preferences-dials.svg",
-	preferences: tk.Folders.ICONS + "preferences.svg",
-	presentationTemplate: tk.Folders.ICONS + "presentation-template.svg",
-	presentation: tk.Folders.ICONS + "presentation.svg",
-	printerError: tk.Folders.ICONS + "printer-error.svg",
-	printer: tk.Folders.ICONS + "printer.svg",
-	proxy: tk.Folders.ICONS + "proxy.svg",
-	quit: tk.Folders.ICONS + "quit.svg",
-	readOnly: tk.Folders.ICONS + "read-only.svg",
-	remoteDesktop: tk.Folders.ICONS + "remote-desktop.svg",
-	screensaver: tk.Folders.ICONS + "screensaver.svg",
-	script: tk.Folders.ICONS + "script.svg",
-	session: tk.Folders.ICONS + "session.svg",
-	shortcuts: tk.Folders.ICONS + "shortcuts.svg",
-	softwareUpdateAvailable: tk.Folders.ICONS + "software-update-available.svg",
-	softwareUpdateUrgent: tk.Folders.ICONS + "software-update-urgent.svg",
-	spreadsheetTemplate: tk.Folders.ICONS + "spreadsheet-template.svg",
-	spreadsheet: tk.Folders.ICONS + "spreadsheet.svg",
-	startHere: tk.Folders.ICONS + "start-here.svg",
-	stop: tk.Folders.ICONS + "stop.svg",
-	systemMonitor: tk.Folders.ICONS + "system-monitor.svg",
-	systemShutdown: tk.Folders.ICONS + "system-shutdown.svg",
-	system: tk.Folders.ICONS + "system.svg",
-	tabNew: tk.Folders.ICONS + "tab-new.svg",
-	terminal: tk.Folders.ICONS + "terminal.svg",
-	textEdit: tk.Folders.ICONS + "text-edit.svg",
-	text: tk.Folders.ICONS + "text.svg",
-	theme: tk.Folders.ICONS + "theme.svg",
-	time: tk.Folders.ICONS + "time.svg",
-	trash: tk.Folders.ICONS + "user-trash.svg",
-	trashFull: tk.Folders.ICONS + "user-trash-full.svg",
-	unread: tk.Folders.ICONS + "unread.svg",
-	update: tk.Folders.ICONS + "update.svg",
-	users: tk.Folders.ICONS + "users.svg",
-	videoRecorder: tk.Folders.ICONS + "video-recorder.svg",
-	videoReel: tk.Folders.ICONS + "video-reel.svg",
-	viewFullscreen: tk.Folders.ICONS + "view-fullscreen.svg",
-	viewRefresh: tk.Folders.ICONS + "view-refresh.svg",
-	volumeHigh: tk.Folders.ICONS + "volume-high.svg",
-	volumeLow: tk.Folders.ICONS + "volume-low.svg",
-	volumeMedium: tk.Folders.ICONS + "volume-medium.svg",
-	volumeMute: tk.Folders.ICONS + "volume-mute.svg",
-	wallpaper: tk.Folders.ICONS + "wallpaper.svg",
-	weatherClearNight: tk.Folders.ICONS + "weather-clear-night.svg",
-	weatherClear: tk.Folders.ICONS + "weather-clear.svg",
-	weatherFewCloudsNight: tk.Folders.ICONS + "weather-few-clouds-night.svg",
-	weatherFewClouds: tk.Folders.ICONS + "weather-few-clouds.svg",
-	weatherMixed: tk.Folders.ICONS + "weather-mixed.svg",
-	weatherOvercast: tk.Folders.ICONS + "weather-overcast.svg",
-	weatherSevereAlert: tk.Folders.ICONS + "weather-severe-alert.svg",
-	weatherShowersScattered: tk.Folders.ICONS + "weather-showers-scattered.svg",
-	weatherShowers: tk.Folders.ICONS + "weather-showers.svg",
-	weatherSnow: tk.Folders.ICONS + "weather-snow.svg",
-	weatherStorm: tk.Folders.ICONS + "weather-storm.svg",
-	web: tk.Folders.ICONS + "web.svg",
-	windowNew: tk.Folders.ICONS + "window-new.svg",
-	windows: tk.Folders.ICONS + "windows.svg"
+tk.icons = {
+	accessibilitySettings: tk.directory.icons + "accessibility-settings.svg",
+	accessibility: tk.directory.icons + "accessibility.svg",
+	accessories: tk.directory.icons + "accessories.svg",
+	addressBook: tk.directory.icons + "address-book.svg",
+	audioFile: tk.directory.icons + "audio-file.svg",
+	audio: tk.directory.icons + "audio.svg",
+	batteryCaution: tk.directory.icons + "battery-caution.svg",
+	battery: tk.directory.icons + "battery.svg",
+	book: tk.directory.icons + "book.svg",
+	bookmark: tk.directory.icons + "bookmark.svg",
+	calculator: tk.directory.icons + "calculator.svg",
+	calendar: tk.directory.icons + "calendar.svg",
+	camera: tk.directory.icons + "camera.svg",
+	certificate: tk.directory.icons + "certificate.svg",
+	characters: tk.directory.icons + "characters.svg",
+	chat: tk.directory.icons + "chat.svg",
+	contact: tk.directory.icons + "contact.svg",
+	desktop: tk.directory.icons + "user-desktop.svg",
+	development: tk.directory.icons + "development.svg",
+	dialogError: tk.directory.icons + "dialog-error.svg",
+	dialogInformation: tk.directory.icons + "dialog-information.svg",
+	dialogWarning: tk.directory.icons + "dialog-warning.svg",
+	documentExport: tk.directory.icons + "document-export.svg",
+	documentImport: tk.directory.icons + "document-import.svg",
+	documentNew: tk.directory.icons + "document-new.svg",
+	documentOpen: tk.directory.icons + "document-open.svg",
+	documentPrintPreview: tk.directory.icons + "document-print-preview.svg",
+	documentPrint: tk.directory.icons + "document-print.svg",
+	documentProperties: tk.directory.icons + "document-properties.svg",
+	documentSaveAs: tk.directory.icons + "document-save-as.svg",
+	documentSave: tk.directory.icons + "document-save.svg",
+	documentTemplate: tk.directory.icons + "document-template.svg",
+	document: tk.directory.icons + "document.svg",
+	drawingTemplate: tk.directory.icons + "drawing-template.svg",
+	drawing: tk.directory.icons + "drawing.svg",
+	editClear: tk.directory.icons + "edit-clear.svg",
+	editCopy: tk.directory.icons + "edit-copy.svg",
+	editCut: tk.directory.icons + "edit-cut.svg",
+	editDelete: tk.directory.icons + "edit-delete.svg",
+	editFindReplace: tk.directory.icons + "edit-find-replace.svg",
+	editFind: tk.directory.icons + "edit-find.svg",
+	editPaste: tk.directory.icons + "edit-paste.svg",
+	editRedo: tk.directory.icons + "edit-redo.svg",
+	editSelectAll: tk.directory.icons + "edit-select-all.svg",
+	editUndo: tk.directory.icons + "edit-undo.svg",
+	email: tk.directory.icons + "email.svg",
+	executable: tk.directory.icons + "executable.svg",
+	faceAngel: tk.directory.icons + "face-angel.svg",
+	faceCrying: tk.directory.icons + "face-crying.svg",
+	faceDevilish: tk.directory.icons + "face-devilish.svg",
+	faceGlasses: tk.directory.icons + "face-glasses.svg",
+	faceGrin: tk.directory.icons + "face-grin.svg",
+	faceKiss: tk.directory.icons + "face-kiss.svg",
+	faceMonkey: tk.directory.icons + "face-monkey.svg",
+	facePlain: tk.directory.icons + "face-plain.svg",
+	faceSad: tk.directory.icons + "face-sad.svg",
+	faceSmileBig: tk.directory.icons + "face-smile-big.svg",
+	faceSmile: tk.directory.icons + "face-smile.svg",
+	faceSurprise: tk.directory.icons + "face-surprise.svg",
+	faceWink: tk.directory.icons + "face-wink.svg",
+	fileManager: tk.directory.icons + "file-manager.svg",
+	find: tk.directory.icons + "find.svg",
+	floppy: tk.directory.icons + "floppy.svg",
+	folderAdd: tk.directory.icons + "folder-add.svg",
+	folderDragAccept: tk.directory.icons + "folder-drag-accept.svg",
+	folderNew: tk.directory.icons + "folder-new.svg",
+	folderOpen: tk.directory.icons + "folder-open.svg",
+	folderRemote: tk.directory.icons + "folder-remote.svg",
+	folderRemove: tk.directory.icons + "folder-remove.svg",
+	folderSavedSearch: tk.directory.icons + "folder-saved-search.svg",
+	folderVisiting: tk.directory.icons + "folder-visiting.svg",
+	folder: tk.directory.icons + "folder.svg",
+	fontFile: tk.directory.icons + "font-file.svg",
+	fontSizeDecrease: tk.directory.icons + "font-size-decrease.svg",
+	fontSizeIncrease: tk.directory.icons + "font-size-increase.svg",
+	font: tk.directory.icons + "font.svg",
+	formatIndentLess: tk.directory.icons + "format-indent-less.svg",
+	formatIndentMore: tk.directory.icons + "format-indent-more.svg",
+	formatJustifyCenter: tk.directory.icons + "format-justify-center.svg",
+	formatJustifyFill: tk.directory.icons + "format-justify-fill.svg",
+	formatJustifyLeft: tk.directory.icons + "format-justify-left.svg",
+	formatJustifyRight: tk.directory.icons + "format-justify-right.svg",
+	formatSub: tk.directory.icons + "format-sub.svg",
+	formatSuper: tk.directory.icons + "format-super.svg",
+	formatTextBold: tk.directory.icons + "format-text-bold.svg",
+	formatTextItalic: tk.directory.icons + "format-text-italic.svg",
+	formatTextStrikethrough: tk.directory.icons + "format-text-strikethrough.svg",
+	formatTextUnderline: tk.directory.icons + "format-text-underline.svg",
+	games: tk.directory.icons + "games.svg",
+	gear: tk.directory.icons + "gear.svg",
+	goBottom: tk.directory.icons + "go-bottom.svg",
+	goDown: tk.directory.icons + "go-down.svg",
+	goFirst: tk.directory.icons + "go-first.svg",
+	goHome: tk.directory.icons + "go-home.svg",
+	goJump: tk.directory.icons + "go-jump.svg",
+	goLast: tk.directory.icons + "go-last.svg",
+	goNext: tk.directory.icons + "go-next.svg",
+	goPrevious: tk.directory.icons + "go-previous.svg",
+	goTop: tk.directory.icons + "go-top.svg",
+	goUp: tk.directory.icons + "go-up.svg",
+	graphics: tk.directory.icons + "graphics.svg",
+	hardDisk: tk.directory.icons + "hard-disk.svg",
+	homeFolder: tk.directory.icons + "user-home.svg",
+	heart: tk.directory.icons + "heart.svg",
+	help: tk.directory.icons + "help.svg",
+	html: tk.directory.icons + "html.svg",
+	imageLoading: tk.directory.icons + "image-loading.svg",
+	imageMissing: tk.directory.icons + "image-missing.svg",
+	image: tk.directory.icons + "image.svg",
+	important: tk.directory.icons + "important.svg",
+	inputSettings: tk.directory.icons + "input-settings.svg",
+	installer: tk.directory.icons + "installer.svg",
+	internet: tk.directory.icons + "applications-internet.svg",
+	joystick: tk.directory.icons + "joystick.svg",
+	junk: tk.directory.icons + "junk.svg",
+	keyboard: tk.directory.icons + "keyboard.svg",
+	link: tk.directory.icons + "link.svg",
+	listAdd: tk.directory.icons + "list-add.svg",
+	listRemove: tk.directory.icons + "list-remove.svg",
+	locale: tk.directory.icons + "locale.svg",
+	lock: tk.directory.icons + "lock.svg",
+	mailAttachment: tk.directory.icons + "mail-attachment.svg",
+	mailForward: tk.directory.icons + "mail-forward.svg",
+	mailReplyAll: tk.directory.icons + "mail-reply-all.svg",
+	mailReply: tk.directory.icons + "mail-reply.svg",
+	mailSendReceive: tk.directory.icons + "mail-send-receive.svg",
+	mediaEject: tk.directory.icons + "media-eject.svg",
+	mediaFlash: tk.directory.icons + "media-flash.svg",
+	mediaPlaybackPause: tk.directory.icons + "media-playback-pause.svg",
+	mediaPlaybackStart: tk.directory.icons + "media-playback-start.svg",
+	mediaPlaybackStop: tk.directory.icons + "media-playback-stop.svg",
+	mediaRecord: tk.directory.icons + "media-record.svg",
+	mediaSeekBackward: tk.directory.icons + "media-seek-backward.svg",
+	mediaSeekForward: tk.directory.icons + "media-seek-forward.svg",
+	mediaSkipBackward: tk.directory.icons + "media-skip-backward.svg",
+	mediaSkipForward: tk.directory.icons + "media-skip-forward.svg",
+	message: tk.directory.icons + "message.svg",
+	microphone: tk.directory.icons + "microphone.svg",
+	monitor: tk.directory.icons + "monitor.svg",
+	mouse: tk.directory.icons + "mouse.svg",
+	mp3Player: tk.directory.icons + "mp3-player.svg",
+	multimedia: tk.directory.icons + "multimedia.svg",
+	networkError: tk.directory.icons + "network-error.svg",
+	networkIdle: tk.directory.icons + "network-idle.svg",
+	networkOffline: tk.directory.icons + "network-offline.svg",
+	networkReceive: tk.directory.icons + "network-receive.svg",
+	networkServer: tk.directory.icons + "network-server.svg",
+	networkTransmitReceive: tk.directory.icons + "network-transmit-receive.svg",
+	networkTransmit: tk.directory.icons + "network-transmit.svg",
+	networkWired: tk.directory.icons + "network-wired.svg",
+	networkWirelessEncrypted: tk.directory.icons + "network-wireless-encrypted.svg",
+	networkWireless: tk.directory.icons + "network-wireless.svg",
+	networkWorkgroup: tk.directory.icons + "network-workgroup.svg",
+	news: tk.directory.icons + "news.svg",
+	notify: tk.directory.icons + "notify.svg",
+	office: tk.directory.icons + "office.svg",
+	opticalDisk: tk.directory.icons + "optical-disk.svg",
+	opticalDriveRemovable: tk.directory.icons + "optical-drive-removable.svg",
+	opticalDrive: tk.directory.icons + "optical-drive.svg",
+	other: tk.directory.icons + "other.svg",
+	package: tk.directory.icons + "package.svg",
+	pageAdd: tk.directory.icons + "page-add.svg",
+	pageRemove: tk.directory.icons + "page-remove.svg",
+	page: tk.directory.icons + "page.svg",
+	photos: tk.directory.icons + "photos.svg",
+	preferencesDials: tk.directory.icons + "preferences-dials.svg",
+	preferences: tk.directory.icons + "preferences.svg",
+	presentationTemplate: tk.directory.icons + "presentation-template.svg",
+	presentation: tk.directory.icons + "presentation.svg",
+	printerError: tk.directory.icons + "printer-error.svg",
+	printer: tk.directory.icons + "printer.svg",
+	proxy: tk.directory.icons + "proxy.svg",
+	quit: tk.directory.icons + "quit.svg",
+	readOnly: tk.directory.icons + "read-only.svg",
+	remoteDesktop: tk.directory.icons + "remote-desktop.svg",
+	screensaver: tk.directory.icons + "screensaver.svg",
+	script: tk.directory.icons + "script.svg",
+	session: tk.directory.icons + "session.svg",
+	shortcuts: tk.directory.icons + "shortcuts.svg",
+	softwareUpdateAvailable: tk.directory.icons + "software-update-available.svg",
+	softwareUpdateUrgent: tk.directory.icons + "software-update-urgent.svg",
+	spreadsheetTemplate: tk.directory.icons + "spreadsheet-template.svg",
+	spreadsheet: tk.directory.icons + "spreadsheet.svg",
+	startHere: tk.directory.icons + "start-here.svg",
+	stop: tk.directory.icons + "stop.svg",
+	systemMonitor: tk.directory.icons + "system-monitor.svg",
+	systemShutdown: tk.directory.icons + "system-shutdown.svg",
+	system: tk.directory.icons + "system.svg",
+	tabNew: tk.directory.icons + "tab-new.svg",
+	terminal: tk.directory.icons + "terminal.svg",
+	textEdit: tk.directory.icons + "text-edit.svg",
+	text: tk.directory.icons + "text.svg",
+	theme: tk.directory.icons + "theme.svg",
+	time: tk.directory.icons + "time.svg",
+	trash: tk.directory.icons + "user-trash.svg",
+	trashFull: tk.directory.icons + "user-trash-full.svg",
+	unread: tk.directory.icons + "unread.svg",
+	update: tk.directory.icons + "update.svg",
+	users: tk.directory.icons + "users.svg",
+	videoRecorder: tk.directory.icons + "video-recorder.svg",
+	videoReel: tk.directory.icons + "video-reel.svg",
+	viewFullscreen: tk.directory.icons + "view-fullscreen.svg",
+	viewRefresh: tk.directory.icons + "view-refresh.svg",
+	volumeHigh: tk.directory.icons + "volume-high.svg",
+	volumeLow: tk.directory.icons + "volume-low.svg",
+	volumeMedium: tk.directory.icons + "volume-medium.svg",
+	volumeMute: tk.directory.icons + "volume-mute.svg",
+	wallpaper: tk.directory.icons + "wallpaper.svg",
+	weatherClearNight: tk.directory.icons + "weather-clear-night.svg",
+	weatherClear: tk.directory.icons + "weather-clear.svg",
+	weatherFewCloudsNight: tk.directory.icons + "weather-few-clouds-night.svg",
+	weatherFewClouds: tk.directory.icons + "weather-few-clouds.svg",
+	weatherMixed: tk.directory.icons + "weather-mixed.svg",
+	weatherOvercast: tk.directory.icons + "weather-overcast.svg",
+	weatherSevereAlert: tk.directory.icons + "weather-severe-alert.svg",
+	weatherShowersScattered: tk.directory.icons + "weather-showers-scattered.svg",
+	weatherShowers: tk.directory.icons + "weather-showers.svg",
+	weatherSnow: tk.directory.icons + "weather-snow.svg",
+	weatherStorm: tk.directory.icons + "weather-storm.svg",
+	web: tk.directory.icons + "web.svg",
+	windowNew: tk.directory.icons + "window-new.svg",
+	windows: tk.directory.icons + "windows.svg"
 }
 
-tk.Random = class {
+tk.random = class {
 	static integer(min, max) {
 		min = Math.ceil(min);
 		max = Math.floor(max);
@@ -340,15 +345,15 @@ tk.Random = class {
 	}
 
 	static item(...array) {
-		return array[tk.Random.integer(0, array.length - 1)];
+		return array[tk.random.integer(0, array.length - 1)];
 	}
 
 	static rgbString() {
-		return "rgb(" + tk.Random.integer(0,255) + "," + tk.Random.integer(0,255) + "," + tk.Random.integer(0,255) + ")";
+		return "rgb(" + tk.random.integer(0,255) + "," + tk.random.integer(0,255) + "," + tk.random.integer(0,255) + ")";
 	}
 
 	static rgbaString() {
-		return "rgba(" + tk.Random.integer(0,255) + "," + tk.Random.integer(0,255) + "," + tk.Random.integer(0,255) + "," + (Math.random()).toFixed(2) + ")";
+		return "rgba(" + tk.random.integer(0,255) + "," + tk.random.integer(0,255) + "," + tk.random.integer(0,255) + "," + (Math.random()).toFixed(2) + ")";
 	}
 
 	static color() {
@@ -366,7 +371,7 @@ tk.Random = class {
 	}
 }
 
-tk.Number = class {
+tk.number = class {
 	static toPercent(value, max) {
 		return ((value*100)/max);
 	}
@@ -470,16 +475,16 @@ tk.Color = class {
 	}
 
 	randomize()	{
-		this.fromRgba(tk.Random.integer(0,255),
-		tk.Random.integer(0,255),
-		tk.Random.integer(0,255),
-		(tk.Random.decimal(0,1)).toFixed(2));
+		this.fromRgba(tk.random.integer(0,255),
+		tk.random.integer(0,255),
+		tk.random.integer(0,255),
+		(tk.random.decimal(0,1)).toFixed(2));
 	}
 
 	randomizeOpaque() {
-		this.fromRgba(tk.Random.integer(0,255),
-		tk.Random.integer(0,255),
-		tk.Random.integer(0,255),
+		this.fromRgba(tk.random.integer(0,255),
+		tk.random.integer(0,255),
+		tk.random.integer(0,255),
 		1);
 	}
 
@@ -892,7 +897,7 @@ tk.Element = class {
 		widgets.forEach((widget) => {			
 			this.element.removeChild(widget.element);
 			widget._parent = null;
-			tk.removeElement(this._children, widget);
+			tk.array.remove(this._children, widget);
 		});
 	}
 
@@ -1329,7 +1334,7 @@ tk.Notebook = class extends tk.Widget {
 	}
 	
 	removePage(...pages) {		
-		tk.descendArray(pages, (page) => {
+		pages.forEach((page) => {
 			let oldActiveIndex = this.activeIndex;
 
 			page.button.removeFrom(this.buttonArea);

@@ -9,7 +9,7 @@
 	<body>		
 		<script>
 			let view = new tk.View("Random Color Demo");		
-			let randomColor = tk.Random.opaqueColor();
+			let randomColor = tk.random.opaqueColor();
 			view.background = randomColor.asHex();
 			view.color = randomColor.isDark() ? "white" : "black";
 			view.add(new tk.Text("h1", randomColor.asHex()));
