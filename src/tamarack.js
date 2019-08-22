@@ -763,6 +763,10 @@ tk.Element = class {
 		this._children.forEach(callback);
 	}
 
+	forEachChildDescending(callback) {
+		tk.array.descend(this._children, callback);
+	}
+
 	get style() {
 		return this.element.style;
 	}
@@ -1455,6 +1459,8 @@ tk.NotebookMenu = class extends tk.Notebook {
 }
 
 tk.Layout = class extends tk.Widget {
+	_enableResizeHandles = false;
+
 	constructor(options) {
 		super("div", options);
 
@@ -1481,19 +1487,19 @@ tk.Layout = class extends tk.Widget {
 	}
 
 	get resizable() {
-
+		return this._enableResizeHandles;
 	}
 
 	set resizable(resizable) {
-
+		this._enableResizeHandles = resizable;
 	}
-
+	
 	get panels() {
 
 	}
 
 	set panels(panels) {
-
+		
 	}
 }
 
