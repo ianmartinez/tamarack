@@ -1226,6 +1226,13 @@ tk.Panel = class extends tk.Widget {
 	}
 }
 
+tk.ButtonPanel = class extends tk.Panel {
+	constructor(options) {
+		super(options);
+		this.addClass("tkButtonPanel");
+	}
+}
+
 tk.Page = class {
 	constructor(title, buttonOptions, contentOptions) {
 		this.button = new tk.Button(title, buttonOptions);

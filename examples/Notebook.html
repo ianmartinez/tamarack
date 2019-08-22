@@ -10,7 +10,7 @@
 		<script>
             let view = new tk.View("Notebook Demo", {style: "padding: 1rem"});	
 			let currentActiveText = new tk.Text("h1", "", {parent: view});	
-			let buttonPanel = new tk.Panel({parent: view, style: "flex-flow: row; padding: 0.25rem;"});
+			let buttonPanel = new tk.ButtonPanel({parent: view});
 			
 			let backButton = new tk.Button("Back", {parent: buttonPanel});
 			backButton.on("click", function() {

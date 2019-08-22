@@ -104,3 +104,9 @@ h1, h2, h3, h4, h5, p {
 .tkLabel img {
     padding: 0.25rem;
 }
+
+.tkButtonPanel {
+    display: flex;
+    flex-flow: row; 
+    padding: 0.25rem;
+}
