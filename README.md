@@ -1,7 +1,9 @@
 # Tamarack
+Tamarack is collection of modern, easy to use JavaScript classes for designing rich user interfaces, working with color, and many other useful functions.
+
 - **core.js:** Contains functionality used by all of the other scripts
 - **color.js:** A class to make it simple to manage nearly every type of CSS color and easily convert between them: hex, hex w/ alpha, named CSS, HSL, HSLA, RGB, RGBA. Useful for building color pickers or other things that involve manipulating color.
-- **widgets.js:** Contains a collection of widgets, or wrappers around an HTML element that inherit from a class called 'TkWidget'. All of these can be entirely manipulated through JavaScript, requiring no HTML boilerplate.
+- **widgets.js:** Contains a collection of widgets, or wrapper for HTML elements that inherit from a class called 'TkWidget'. All of these can be entirely manipulated through JavaScript, requiring no HTML boilerplate.
  
 (The content below DOES NOT reflect the current version, which has been completely redesigned)
 Architecture 
