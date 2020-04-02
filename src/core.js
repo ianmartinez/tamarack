@@ -150,8 +150,8 @@ class TkDocument {
         return (TkDocument.fullscreenElement === document.documentElement);
     }
 
-    static goFullscreen() {
-        TkDocument.fullscreenElement = document.documentElement;
+    static set isFullscreen(value) {
+        TkDocument.fullscreenElement = (value) ? document.documentElement : null;
     }
 
     static toggleFullscreen() {

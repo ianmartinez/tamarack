@@ -62,17 +62,17 @@ class TkWidget {
 	}
 
     /**
-     * The root element of the widget.
+     * The element of the widget.
      * @type {HTMLElement}
      */
 	get element() {
 		return this._element;
 	}
 
-	set element(value) { 
+	set element(value) {
 		// If there's a parent, set that as 
 		// the new parent widget
-		if(value.parentElement)
+		if (value.parentElement)
 			this._parentWidget = new TkWidget({ from: value.parentElement });
 
 		// Point to the new element
@@ -83,7 +83,7 @@ class TkWidget {
 	}
 
     /**
-     * Shorthand for TkWidget.element The root element of the widget.
+     * Shorthand for TkWidget.element The element of the widget.
      * @type {HTMLElement}
      */
 	get e() {
@@ -105,7 +105,7 @@ class TkWidget {
 	}
 
 	/**
-	 * A list of child elements of the root element.
+	 * A list of child elements of the element.
      * @type {HTMLCollection}
 	 */
 	get childElements() {
@@ -113,7 +113,7 @@ class TkWidget {
 	}
 
 	/**
-	 * An array of child elements of the root element, represented
+	 * An array of child elements of the widget's element, represented
 	 * as TkWidgets.
      * @type {TkWidget[]}
 	 */
@@ -127,7 +127,7 @@ class TkWidget {
 	}
 
 	/**
-	 * An array of child widgets to the root element.
+	 * An array of child widgets to the widget's element.
      * @type {TkWidget[]}
 	 */
 	get children() {
@@ -146,7 +146,7 @@ class TkWidget {
 	}
 
 	/**
-	 * The parent element of the root element, represented as a TkWidget.
+	 * The parent element of the widget's element, represented as a TkWidget.
 	 * It always returns a TkWidget, but when setting its value, it will also 
 	 * accept plain HTMLElements and CSS selectors.
      * @type {TkWidget}
@@ -159,7 +159,7 @@ class TkWidget {
 			return (parentElement != null) ? new TkWidget({ from: parentElement }) : null;
 		}
 	}
-	
+
 	set parent(value) {
 		// Remove from DOM
 		this.delete();
@@ -224,7 +224,19 @@ class TkWidget {
 	}
 
 	/**
-	 * Attach an event handler to an event on the root element of
+	 * Remove all children from this widget.
+	 */
+	clear() {
+		// Remove widgets
+		this.remove(...this._childWidgets);
+
+		// Remove left over elements
+		while (this.element.firstChild)
+			this.element.removeChild(this.element.firstChild);
+	}
+
+	/**
+	 * Attach an event handler to an event on the element of
 	 * the widget.
 	 * 
 	 * @param {String} eventName The name of the even.
@@ -240,7 +252,7 @@ class TkWidget {
 	}
 
 	/**
-	 * Trigger and event on the root element of the widget.
+	 * Trigger and event on the element of the widget.
 	 * 
 	 * @param {String} eventName The name of the event to trigger.
 	 */
@@ -268,18 +280,35 @@ class TkWidget {
 		TkArray.descend(this.children, callback);
 	}
 
+	/**
+	 * @returns {CSSStyleDeclaration} The element's style.
+	 */
 	get style() {
 		return this.e.style;
 	}
 
+	/**
+	 * Get the computed value of one of the element's properties.
+	 * 
+	 * @param {String} propertyName The property's name.
+	 */
 	getComputed(propertyName) {
 		return window.getComputedStyle(this.e, null).getPropertyValue(propertyName);
 	}
 
+	/**
+	 * @returns {Boolean} If the active element in the document is the
+	 * widget's element.
+	 */
 	hasFocus() {
 		return (document.activeElement == this.e);
 	}
 
+	/**
+	 * The class name string of the widget's element.
+	 * 
+	 * @type {String}
+	 */
 	get className() {
 		return this.e.className;
 	}
@@ -288,6 +317,11 @@ class TkWidget {
 		this.e.className = value;
 	}
 
+	/**
+	 * Add classes to the class list of the widget's element.
+	 * 
+	 * @param  {...String} classes The classes to add.
+	 */
 	addClass(...classes) {
 		classes.forEach((className) => {
 			if (!this.hasClass(className))
@@ -295,56 +329,118 @@ class TkWidget {
 		});
 	}
 
+	/**
+	 * Remove classes from the class list of the widget's element.
+	 * 
+	 * @param  {...String} classes The classes to remove.
+	 */
 	removeClass(...classes) {
 		classes.forEach((className) =>
 			this.e.classList.remove(className));
 	}
-
+	/**
+	 * Toggle classes in the class list of the widget's element.
+	 * 
+	 * @param  {...String} classes The classes to toggle.
+	 */
 	toggleClass(...classes) {
 		classes.forEach((className) =>
 			this.e.classList.toggle(className));
 	}
 
+	/**
+	 * Find the name of the class at a specific index in the class
+	 * list of the widget's element.
+	 * 
+	 * @param {Number} index The index of the class.
+	 * 
+	 * @returns {String} The class name.
+	 */
 	classAt(index) {
 		return this.e.classList.item(index);
 	}
 
+	/**
+	 * Check if the class list of the widget's element contains
+	 * a class with a given name.
+	 * 
+	 * @param {String} className The name of the class to search for.
+	 * 
+	 * @returns {Boolean} If the class list contains the class.
+	 */
 	hasClass(className) {
 		return this.e.classList.contains(className);
 	}
 
+	/**
+	 * Check if the widget's element has an attribute.
+	 * 
+	 * @param {String} attribute The attribute's name.
+	 * 
+	 * @returns {Boolean} If the attribute was found.
+	 */
 	hasAttribute(attribute) {
 		return this.e.hasAttribute(attribute);
 	}
 
+	/**
+	 * Get the value of an attribute of the widget's element.
+	 * 
+	 * @param {String} attribute The attribute's name.
+	 * 
+	 * @returns {String} The attribute's value.
+	 */
 	getAttribute(attribute) {
 		return this.e.getAttribute(attribute);
 	}
 
+
+	/**
+	 * Set the value of an attribute of the widget's element.
+	 * 
+	 * @param {String} attribute The attribute's name.
+	 * @param {String} value The attribute's value.
+	 */
 	setAttribute(attribute, value) {
 		this.e.setAttribute(attribute, value);
 	}
 
+	/**
+	 * Remove an attribute from the widget's element.
+	 * 
+	 * @param {String} attribute The attribute's name.
+	 */
 	removeAttribute(attribute) {
 		this.e.removeAttribute(attribute);
 	}
 
+	/**
+	 * Add an attribute from the widget's element.
+	 * 
+	 * @param {String} attribute The attribute's name.
+	 * 
+	 * @returns {Attr} The new attribute.
+	 */
 	addAttribute(attribute) {
-		this.e.setAttributeNode(document.createAttribute(attribute));
+		return this.e.setAttributeNode(document.createAttribute(attribute));
 	}
 
-	setAttributeNode(attributeNode) {
-		this.e.setAttributeNode(attributeNode);
-	}
-
+	/**
+	 * Get the "role" attribute of the widget's element.
+	 * @type {String}
+	 */
 	get role() {
-		return this.getAttribute("role");
+		return this.getAttribute("role") ?? "";
 	}
 
 	set role(role) {
 		this.setAttribute("role", role);
 	}
 
+	/**
+	 * The inner HTML of the widget's element.
+	 * @type {String}
+	 */
 	get innerHtml() {
 		return this.e.innerHTML;
 	}
@@ -353,6 +449,10 @@ class TkWidget {
 		this.e.innerHTML = value;
 	}
 
+	/**
+	 * The inner text of the widget's element.
+	 * @type {String}
+	 */
 	get innerText() {
 		return this.e.innerText;
 	}
@@ -361,28 +461,27 @@ class TkWidget {
 		this.e.innerText = value;
 	}
 
+	/**
+	 * If the document's current fullscreen element is 
+	 * the widget's element.
+	 * @type {Boolean}
+	 */
 	get isFullscreen() {
 		return (TkDocument.fullscreenElement === this.e);
 	}
 
-	goFullscreen() {
-		TkDocument.fullscreenElement = this.e;
+	set isFullscreen(value) {
+		TkDocument.fullscreenElement = (value) ? this.e : null;
 	}
 
+	/**
+	 * Toggle the fullscreen state of the widget's element.
+	 */
 	toggleFullscreen() {
 		if (this.isFullscreen)
 			TkDocument.fullscreenElement = null;
 		else
 			TkDocument.fullscreenElement = this.e;
-	}
-
-	clear() {
-		// Remove widgets
-		this.remove(...this._childWidgets);
-
-		// Remove left over elements
-		while (this.element.firstChild)
-			this.element.removeChild(this.element.firstChild);
 	}
 
 }
