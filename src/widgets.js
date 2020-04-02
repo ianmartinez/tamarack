@@ -22,7 +22,10 @@ class TkWidget {
 	 * @param {String} [options.className] The value of class attribute of the element to set.
 	 * @param {String} [options.style] The value of style attribute of the element to set.		
 	 */
-	constructor(options = {}) {
+	constructor(options = {}, additionalOptions = null) {
+		if(additionalOptions !== null)
+			Object.assign(options, additionalOptions);
+
 		this._element = null;
 		this._childWidgets = [];
 		this._parentWidget = null;
@@ -92,6 +95,14 @@ class TkWidget {
 
 	set e(value) {
 		this.element = value;
+	}
+
+	/**
+	 * The tag name of the widget's element.
+	 * @type {String}
+	 */
+	get tag() {
+		return this.e.tagName;
 	}
 
 	/**
@@ -482,6 +493,24 @@ class TkWidget {
 			TkDocument.fullscreenElement = null;
 		else
 			TkDocument.fullscreenElement = this.e;
+	}
+
+}
+
+class TkText extends TkWidget {
+
+	constructor(tag, options) {
+		super(options, { tag: tag });
+		this.textNode = document.createTextNode(options.value ?? "");
+		this.element.appendChild(this.textNode);
+	}
+
+	get text() {
+		return this.textNode.nodeValue;
+	}
+	
+	set text(value) {
+		this.textNode.nodeValue = value;
 	}
 
 }
