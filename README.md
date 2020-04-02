@@ -5,7 +5,7 @@ Architecture
 -------
 Most of Tamarack is a collection of widgets that provide a wrapper around html elements, such as tk.Button, which wraps around &lt;button&gt; or tk.Image, which wraps around &lt;img&gt;. All of these widgets inherit from tk.Widget, which provides them with basic functionality such as making the element full-screen or adding the widget to another widget. In addition, there are also composite widgets, such as tk.Notebook and tk.Dialog, that represent multiple html elements in one single class, cutting down the need for massive amounts of boilerplate code for simple tasks.
 
-Examples
+Examples (These DO NOT reflect the current version)
 -------
 **Add progress bars:**
 ```javascript
