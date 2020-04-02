@@ -283,36 +283,20 @@ class TkWidget {
 	set innerText(value) {
 		this.e.innerText = value;
     }
-    
-    goFullscreen() {
-		if (this.e.requestFullscreen)
-			this.e.requestFullscreen();
-		else if (this.e.mozRequestFullScreen) 
-			this.e.mozRequestFullScreen();
-		else if (this.e.webkitRequestFullscreen) 
-			this.e.webkitRequestFullscreen();
+
+	get isFullscreen() {
+		return (TkDocument.fullscreenElement === this.e);
 	}
 
-	exitFullscreen() {
-		if (document.exitFullscreen) 
-			document.exitFullscreen();
-		else if (document.webkitExitFullscreen)
-			document.webkitExitFullscreen();
-		else if (document.mozCancelFullScreen)
-			document.mozCancelFullScreen();
-	}
-
-	isFullscreen() {
-		return (document.fullscreenElement == this.e 
-				|| document.mozFullScreenElement == this.e 
-				|| document.webkitFullscreenElement == this.e);
+	goFullscreen() {
+		TkDocument.fullscreenElement = this.e;
 	}
 
 	toggleFullscreen() {
-		if (this.isFullscreen())
-			this.exitFullscreen();
+		if (this.isFullscreen)
+			TkDocument.fullscreenElement = null;
 		else
-			this.goFullscreen();
+			TkDocument.fullscreenElement = this.e;
     }
     
     clear()	{

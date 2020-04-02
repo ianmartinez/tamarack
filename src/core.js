@@ -130,6 +130,66 @@ class TkNumber {
 
 class TkDocument {
 
+    static get title() {
+        return document.title;
+    } 
+    
+    static set title(value) {
+        document.title = value;
+    }
+
+    static get icon() {
+        return "";
+    } 
+    
+    static set icon(value) {
+        
+    }
+
+	static get isFullscreen() {
+		return (TkDocument.fullscreenElement === document.documentElement);
+	}
+
+	static goFullscreen() {
+		TkDocument.fullscreenElement = document.documentElement;
+	}
+
+	static toggleFullscreen() {
+		if (this.isFullscreen)
+			TkDocument.fullscreenElement = null;
+		else
+			TkDocument.fullscreenElement = document.documentElement;
+    }
+
+    static get fullscreenElement() {
+		if (document.fullscreenElement)
+			return document.fullscreenElement;
+		else if (document.mozFullScreenElement) 
+            return document.mozFullScreenElement;
+		else if (document.webkitFullscreenElement) 
+            document.webkitFullscreenElement;
+        
+        return null;
+    }
+
+    static set fullscreenElement(element) {
+        if(element === null) { // Exit fullscreen
+            if (document.exitFullscreen) 
+                document.exitFullscreen();
+            else if (document.webkitExitFullscreen)
+                document.webkitExitFullscreen();
+            else if (document.mozCancelFullScreen)
+                document.mozCancelFullScreen();
+        } else { // Go fullscreen
+            if (element.requestFullscreen)
+                element.requestFullscreen();
+            else if (element.mozRequestFullScreen) 
+                element.mozRequestFullScreen();
+            else if (element.webkitRequestFullscreen) 
+                element.webkitRequestFullscreen();
+        }
+    }
+
     static whenLoaded(callback) {
         document.addEventListener("DOMContentLoaded",  callback);
     }
