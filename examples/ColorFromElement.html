@@ -18,7 +18,7 @@
 
         // Declare widgets
         let body = new TkWidget({ from: "body" });
-        let p1 = new TkWidget({ tag: "p", parent: body });
+        let p1 = new TkText("p", { parent: body });
 
         // Set the properties
         body.style.backgroundColor = new TkColor("firebrick").asHex();
@@ -29,7 +29,7 @@
         let textColor = TkColor.fromProperty(p1, "color");
 
         // Print the results
-        p1.innerText = `The body's background color is ${backgroundColor.asName()} (${backgroundColor.asHex()})`
+        p1.text = `The body's background color is ${backgroundColor.asName()} (${backgroundColor.asHex()})`
                         + ` and the first paragraph's text color is ${textColor.asName()} (${textColor.asHex()}).`;
     </script>
 </body>

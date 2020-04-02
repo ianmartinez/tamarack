@@ -26,10 +26,10 @@
 
         // Declare all the widgets
         let body = new TkWidget({ from: "body" });
-        let hslaText = new TkWidget({ tag: "p", parent: body });
-        let rgbaText = new TkWidget({ tag: "p", parent: body });
-        let hexText = new TkWidget({ tag: "p", parent: body });
-        let namedText = new TkWidget({ tag: "p", parent: body });
+        let hslaText = new TkText("p", { parent: body });
+        let rgbaText = new TkText("p", { parent: body });
+        let hexText = new TkText("p", { parent: body });
+        let namedText = new TkText("p", { parent: body });
 
         // The color to cycle through
         let color = new TkColor("hsl(0, 100%, 50%)");
@@ -56,10 +56,10 @@
 
             // Display the current color in all the
             // possible formats
-            hslaText.innerText = color.asHsla();
-            rgbaText.innerText = color.asRgba();
-            hexText.innerText = color.asHex();
-            namedText.innerText = color.asName();
+            hslaText.text = color.asHsla();
+            rgbaText.text = color.asRgba();
+            hexText.text = color.asHex();
+            namedText.text = color.asName();
         }, 150);
     </script>
 </body>
