@@ -104,7 +104,7 @@ class TkWidget {
 		for(let childElement of this.e.children) {
 			// Find the widget representing this child, if it exists
 			let matchingWidget = this._childWidgets.find(widget => widget.e == childElement);
-			
+
 			// If it does, add it to the array, if not create a new TkWidget and 
 			// add it to the array
 			childWidgets.push(matchingWidget ?? new TkWidget({from: childElement}));
@@ -155,15 +155,18 @@ class TkWidget {
 	remove(...items) {		
 		for(let item of items) {
 			if(TkObject.is(item, TkWidget)) { // Other TkWidget
-				this.e.removeChild(item.e); 
+				if(this.e.contains(item.e))
+					this.e.removeChild(item.e); 
 				item._parentWidget = null;
 				TkArray.remove(this._childWidgets, item);
 			} else if (TkObject.is(item, String)) { // Selector
 				let selectedItem = document.querySelector(item);
 				if (selectedItem)
+				if(this.e.contains(selectedItem))
 					this.e.removeChild(selectedItem);
 			} else if (TkObject.is(item, HTMLElement)) { // HTMLElement
-				this.e.removeChild(item);
+				if(this.e.contains(item))
+					this.e.removeChild(item);
 			}
 		}
 	}
