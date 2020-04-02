@@ -1,11 +1,14 @@
 # Tamarack
-An easy to use JavaScript library that can create, modify, and style HTML entirely through ECMAScript 6 classes, with no boilerplate HTML or CSS needed. It is designed to be used in Electron apps, but works well for browser apps as well.
+- **core.js:** Contains functionality used by all of the other scripts
+- **color.js:** A class to make it simple to manage nearly every type of CSS color and easily convert between them: hex, hex w/ alpha, named CSS, HSL, HSLA, RGB, RGBA. Useful for building color pickers or other things that involve manipulating color.
+- **widgets.js:** Contains a collection of widgets, or wrappers around an HTML element that inherit from a class called 'TkWidget'. All of these can be entirely manipulated through JavaScript, requiring no HTML boilerplate.
  
+(The content below DOES NOT reflect the current version, which has been completely redesigned)
 Architecture 
 -------
 Most of Tamarack is a collection of widgets that provide a wrapper around html elements, such as tk.Button, which wraps around &lt;button&gt; or tk.Image, which wraps around &lt;img&gt;. All of these widgets inherit from tk.Widget, which provides them with basic functionality such as making the element full-screen or adding the widget to another widget. In addition, there are also composite widgets, such as tk.Notebook and tk.Dialog, that represent multiple html elements in one single class, cutting down the need for massive amounts of boilerplate code for simple tasks.
 
-Examples (These DO NOT reflect the current version)
+Examples 
 -------
 **Add progress bars:**
 ```javascript
