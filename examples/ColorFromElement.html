@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-    <title>Hue Shifter</title>
+    <title>Color from Element</title>
 </head>
 
 <body>
@@ -12,16 +12,8 @@
 
     <script>
         /**
-         * This example shows how easy it is to manipulate 
-         * color with TkColor. 
-         * 
-         * The script will cycle back and forth between the 
-         * lowest and highest hue (0 - 360) on an infinite loop.
-         * 
-         * As it cycles, it finds the most readable text 
-         * color (either black or white) and displays the current
-         * color as a string in all possible forms: HSLA, RGBA, hex, and
-         * named (if there is a named CSS color that matches it).
+         * Use TkColor to find the computed color of
+         * elements.
          */
 
         // Declare widgets
@@ -31,14 +23,14 @@
         // Set the properties
         body.style.backgroundColor = new TkColor("firebrick").asHex();
         p1.style.color = new TkColor("white").asHex();
-        p1.innerText = "Hello World!";
 
         // Extract the colors
-        let backgroundColor = TkColor.fromProperty(body, "background-color").asName();
-        let textColor = TkColor.fromProperty(p1, "color").asName();
+        let backgroundColor = TkColor.fromProperty(body, "background-color");
+        let textColor = TkColor.fromProperty(p1, "color");
 
-        // When loaded, log the results
-        console.log(`The body's background color is ${backgroundColor} and the first paragraph's text color is ${textColor}.`);
+        // When loaded, print the results
+        p1.innerText = `The body's background color is ${backgroundColor.asName()} (${backgroundColor.asHex()})`
+                        + ` and the first paragraph's text color is ${textColor.asName()} (${textColor.asHex()}).`;
     </script>
 </body>
 </html>
