@@ -1,6 +1,7 @@
 /**
  * Requires: 
  *  tamarack/core
+ *  tamarack/widgets (only if you use fromText, fromBackground, or fromProperty)
  * 
  * A class to make it simple to manage nearly every type of CSS color 
  * and easily convert between them: hex, hex w/ alpha, named CSS, HSL, HSLA, 
@@ -512,6 +513,21 @@ class TkColor extends TkStateObject {
     static register(name, value) {
         let registeredColor = new TkColor(value);
         TkColor._registeredColors.set(name, registeredColor.asHex());
+    }
+
+    static fromBackground(from) {
+        return TkColor.fromProperty(from, "background-color");
+	}
+
+	static fromText(from) {
+        return TkColor.fromProperty(from, "color");
+    }
+    
+    static fromProperty(from, propertyName) {
+        let propertyValue = new TkWidget({from: from}).getComputed(propertyName);
+        let extractedColor = new TkColor(propertyValue);
+
+		return (extractedColor.isValid) ? extractedColor : null; 
     }
 
     /**

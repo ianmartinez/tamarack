@@ -97,10 +97,15 @@ class TkArray {
 
 	static removeAt(array, index) {
 		array.splice(index, 1);
-	}
+	}	
+	
+	static ascend(array, callback) {
+		for(let i = 0; i < array.length; i++)
+			callback(array[i], i);
+    }
 
 	static descend(array, callback) {
-		for(let i=array.length -1; i>=0; i--)
+		for(let i = array.length -1; i >= 0; i--)
 			callback(array[i], i);
     }
 
@@ -119,5 +124,14 @@ class TkNumber {
     
     static in(number, from, to) {
         return (number >= from && number <= to);
+	}
+	
+}
+
+class TkDocument {
+
+    static whenLoaded(callback) {
+        document.addEventListener("DOMContentLoaded",  callback);
     }
+
 }

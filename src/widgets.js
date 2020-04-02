@@ -10,6 +10,19 @@
  */
 class TkWidget {
 
+	/**
+	 * Create a TkWidget, either from an existing element or representing a new one.
+	 * 
+	 * @param {String|HTMLElement|TkWidget} [options.parent] The widget's parent.
+	 * @param {String|HTMLElement|TkWidget} [options.from] If representing an existing element, where to find it, 
+	 * 													   be it from a CSS selector (String), and existing element (HTMLElement),
+	 * 													   or another TkWidget.
+	 * @param {String} [options.tag] If representing a new element, the tag of the element to create.
+	 * @param {Any} [options.attributes] The attributes to set for the element, in the format of 
+	 * 									 {"attribute1": "value1", "attribute2": "value2"}
+	 * @param {String} [options.className] The value of class attribute of the element to set.
+	 * @param {String} [options.style] The value of style attribute of the element to set.		
+	 */
     constructor(options = {}) {
 		this._element = null;
 		this._childWidgets = [];
@@ -17,10 +30,13 @@ class TkWidget {
 
 		// Set the element
         if(options.from !== undefined) { // From an existing element
-			if(TkObject.is(options.from, String))
+			if(TkObject.is(options.from, String)) { // Selector
 				this._element = document.querySelector(options.from);
-			else if (TkObject.is(options.from, HTMLElement))
+			} else if (TkObject.is(options.from, HTMLElement)) { // HTMLElement
 				this._element = options.from;
+			} else if (TkObject.is(options.from, TkWidget)) { // Other TkWidget
+				this._element = options.from.element;
+			}
 		} else if (options.tag !== undefined) { // Creating a new element
 			this._element = document.createElement(options.tag);
 		}
@@ -43,7 +59,7 @@ class TkWidget {
 		// Add an attribute showing that the html element
 		// is controlled by a TkWidget
         if(this._element != null)
-            this._element.setAttribute("tk-element", "");
+            this._element.setAttribute("tk-widget", "");
     }
 
     get element() {
@@ -83,7 +99,18 @@ class TkWidget {
 	}
 
     get children() {
-		return this._childWidgets;
+		let childWidgets = [];
+
+		for(let childElement of this.e.children) {
+			// Find the widget representing this child, if it exists
+			let matchingWidget = this._childWidgets.find(widget => widget.e == childElement);
+			
+			// If it does, add it to the array, if not create a new TkWidget and 
+			// add it to the array
+			childWidgets.push(matchingWidget ?? new TkWidget({from: childElement}));
+		}
+
+		return childWidgets;
 	}
 	
 	get parent() {
@@ -100,20 +127,26 @@ class TkWidget {
 		this.delete();
 
 		// Set the new parent
-		if(TkObject.is(value, TkWidget)) {
+		if(TkObject.is(value, TkWidget)) { // Other TkWidget
 			value.add(this);
-		} else if(TkObject.is(value, HTMLElement)) {
+		} else if(TkObject.is(value, String)) { // Selector
+			document.querySelector(value)?.appendChild(this.e);
+		} else if(TkObject.is(value, HTMLElement)) {  // HTMLElement
 			value.appendChild(this.e);
 		}
 	}
 
 	add(...items) {		
 		for(let item of items) {
-			if(item instanceof TkWidget) {
+			if(TkObject.is(item, TkWidget)) { // Other TkWidget
 				this.e.appendChild(item.e);
 				item._parentWidget = this;
 				this._childWidgets.push(item);
-			} else if (item instanceof HTMLElement) {
+			} else if (TkObject.is(item, String)) { // Selector
+				let selectedItem = document.querySelector(item);
+				if (selectedItem)
+					this.e.appendChild(selectedItem);
+			} else if (TkObject.is(item, HTMLElement)) { // HTMLElement
 				this.e.appendChild(item);
 			}
 		}
@@ -121,11 +154,15 @@ class TkWidget {
 
 	remove(...items) {		
 		for(let item of items) {
-			if(item instanceof TkWidget) {
-				this.e.removeChild(item.e);
+			if(TkObject.is(item, TkWidget)) { // Other TkWidget
+				this.e.removeChild(item.e); 
 				item._parentWidget = null;
 				TkArray.remove(this._childWidgets, item);
-			} else if (item instanceof HTMLElement) {
+			} else if (TkObject.is(item, String)) { // Selector
+				let selectedItem = document.querySelector(item);
+				if (selectedItem)
+					this.e.removeChild(selectedItem);
+			} else if (TkObject.is(item, HTMLElement)) { // HTMLElement
 				this.e.removeChild(item);
 			}
 		}
@@ -276,6 +313,10 @@ class TkWidget {
     }
     
     clear()	{
+		// Remove widgets
+		this.remove(...this._childWidgets);
+
+		// Remove left over elements
 		while (this.element.firstChild) 
 			this.element.removeChild(this.element.firstChild);
     }

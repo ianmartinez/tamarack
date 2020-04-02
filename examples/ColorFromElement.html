@@ -1,0 +1,44 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <title>Hue Shifter</title>
+</head>
+
+<body>
+    <script src="../src/core.js"></script>
+    <script src="../src/widgets.js"></script>
+    <script src="../src/color.js"></script>
+
+    <script>
+        /**
+         * This example shows how easy it is to manipulate 
+         * color with TkColor. 
+         * 
+         * The script will cycle back and forth between the 
+         * lowest and highest hue (0 - 360) on an infinite loop.
+         * 
+         * As it cycles, it finds the most readable text 
+         * color (either black or white) and displays the current
+         * color as a string in all possible forms: HSLA, RGBA, hex, and
+         * named (if there is a named CSS color that matches it).
+         */
+
+        // Declare widgets
+        let body = new TkWidget({ from: "body" });
+        let p1 = new TkWidget({ tag: "p", parent: body });
+
+        // Set the properties
+        body.style.backgroundColor = new TkColor("firebrick").asHex();
+        p1.style.color = new TkColor("white").asHex();
+        p1.innerText = "Hello World!";
+
+        // Extract the colors
+        let backgroundColor = TkColor.fromBackground(body).asName();
+        let textColor = TkColor.fromText(p1).asName();
+
+        // When loaded, log the results
+        console.log(`The body's background color is ${backgroundColor} and the first paragraph's text color is ${textColor}.`);
+    </script>
+</body>
+</html>

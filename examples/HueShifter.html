@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-    <title>Cycle Colors</title>
+    <title>Hue Shifter</title>
 </head>
 
 <body>
@@ -15,12 +15,12 @@
          * This example shows how easy it is to manipulate 
          * color with TkColor. 
          * 
-         * The program will cycle back and forth between the 
+         * The script will cycle back and forth between the 
          * lowest and highest hue (0 - 360) on an infinite loop.
          * 
-         * As it's cycles, it finds the most readable text 
+         * As it cycles, it finds the most readable text 
          * color (either black or white) and displays the current
-         * color in all possible forms: HSLA, RGBA, hex, and
+         * color as a string in all possible forms: HSLA, RGBA, hex, and
          * named (if there is a named CSS color that matches it).
          */
 
@@ -49,6 +49,7 @@
 
             // Set the background color
             body.style.backgroundColor = color.asHsla();
+
             // Find the best color to contrast with the current
             // color and set it as the text color
             body.style.color = color.isLight() ? "black" : "white";
