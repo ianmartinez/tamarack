@@ -47,10 +47,10 @@ class TkColor extends TkStateObject {
      * Initialize a new TkColor object with a given color string.
      * 
      * @param {String} value The color string to parse for a valid color. 
-     *                       Accepts the same values as CSS colors.
+     * Accepts the same values as CSS colors.
      * @param {Number} alpha (optional) The value to set for the alpha channel.
-     *                       If the color string that was specified before
-     *                       sets its own alpha value, this will override it.
+     * If the color string that was specified before sets its own alpha value, 
+     * this will override it.
      */
     constructor(value, alpha) {
         super();
@@ -276,8 +276,7 @@ class TkColor extends TkStateObject {
      * Get the name of the color that matches the value of this color.
      * 
      * @param {Boolean} ignoreAlpha (optional) If the alpha channel should be ignored when 
-     *                              searching for a color from the registered colors and
-     *                              CSS named colors. Defaults to false.
+     * searching for a color from the registered colors and CSS named colors. Defaults to false.
      * 
      * @returns {String} The name of the color found or empty string if none is found.
      */
@@ -316,7 +315,7 @@ class TkColor extends TkStateObject {
      * @param {Boolean} ignoreAlpha (optional) If the alpha channel should be ignored.
      * 
      * @returns {String} The name of the CSS color that matches this color, 
-     *                   or an empty string, if none is found.
+     * or an empty string, if none is found.
      */
     asCssName(ignoreAlpha = true) {
         let hexValue = ignoreAlpha ? this.asSolidHex() : this.asHex();
@@ -349,8 +348,8 @@ class TkColor extends TkStateObject {
     }
 
     /**
-     * @param {Boolean} forceAlpha (optional) If the resulting hex code could should include an alpha channel, 
-     *                             even if there is no transparency (alpha == 1), defaults to false.
+     * @param {Boolean} forceAlpha (optional) If the resulting hex code could should include 
+     * an alpha channel, even if there is no transparency (alpha == 1), defaults to false.
      * 
      * @returns {String} The hex code representing this color.
      */
@@ -519,7 +518,7 @@ class TkColor extends TkStateObject {
      * Get the computed property of an element and if it's a color, create an new TkColor from it.            
      * 
      * @param {String|HTMLElement|TkWidget} from The target to read the property from, accepts the same values 
-     *                                           as options.from in the TkWidget constructor.
+     * as options.from in the TkWidget constructor.
      * @param {String} propertyName The name of the property.
      * 
      * @returns {TkColor} The color extracted from that property, if it is a valid color, null if not.
@@ -674,7 +673,7 @@ class TkColor extends TkStateObject {
      * @param {Number} l The lightness of a color (0 - 100).
      * @param {Number} a (optional) The alpha of a color (0 - 1), defaults to 1.
      * @param {Boolean} forceAlpha (optional) If the resulting hex code should include an alpha channel, 
-     *                             even if there is no transparency (alpha == 1), defaults to false.
+     * even if there is no transparency (alpha == 1), defaults to false.
      * 
      * @returns {String} The HSLA value as a hex code.
      */
@@ -691,7 +690,7 @@ class TkColor extends TkStateObject {
      * @param {Number} b The blue value of a color (0 - 255).
      * @param {Number} a (optional) The alpha of a color (0 - 1), defaults to 1.
      * @param {Boolean} forceAlpha (optional) If the resulting hex code could should include an alpha channel, 
-     *                             even if there is no transparency (alpha == 1), defaults to false.
+     * even if there is no transparency (alpha == 1), defaults to false.
      * 
      * @returns {String} The resulting hex code reprenting the color.
      */

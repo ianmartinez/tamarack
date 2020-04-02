@@ -15,11 +15,10 @@ class TkWidget {
 	 * 
 	 * @param {String|HTMLElement|TkWidget} [options.parent] The widget's parent.
 	 * @param {String|HTMLElement|TkWidget} [options.from] If representing an existing element, where to find it, 
-	 * 													   be it from a CSS selector (String), and existing element (HTMLElement),
-	 * 													   or another TkWidget.
+	 * be it from a CSS selector (String), and existing element (HTMLElement), or another TkWidget.
 	 * @param {String} [options.tag] If representing a new element, the tag of the element to create.
 	 * @param {Any} [options.attributes] The attributes to set for the element, in the format of 
-	 * 									 {"attribute1": "value1", "attribute2": "value2"}
+	 * {"attribute1": "value1", "attribute2": "value2"}.
 	 * @param {String} [options.className] The value of class attribute of the element to set.
 	 * @param {String} [options.style] The value of style attribute of the element to set.		
 	 */
@@ -176,8 +175,11 @@ class TkWidget {
 	}
 
 	/**
+	 * Add child items to this widget. The child items can be
+	 * other TkWidgets, HTMLElements, or CSS selectors representing
+	 * HTMLElements.
 	 * 
-	 * @param  {...String|HTMLElement|TkWidget} items 
+	 * @param  {...String|HTMLElement|TkWidget} items The items to add.
 	 */
 	add(...items) {
 		for (let item of items) {
@@ -195,6 +197,13 @@ class TkWidget {
 		}
 	}
 
+	/**
+	 * Remove child items from this widget. The child items can be
+	 * other TkWidgets, HTMLElements, or CSS selectors representing
+	 * HTMLElements.
+	 * 
+	 * @param  {...String|HTMLElement|TkWidget} items The items to remove.
+	 */
 	remove(...items) {
 		for (let item of items) {
 			if (TkObject.is(item, TkWidget)) { // Other TkWidget
@@ -214,6 +223,14 @@ class TkWidget {
 		}
 	}
 
+	/**
+	 * Attach an event handler to an event on the root element of
+	 * the widget.
+	 * 
+	 * @param {String} eventName The name of the even.
+	 * @param {function(TkWidget)} callback The function to run when the event
+	 * is triggered. This function is passed target widget.
+	 */
 	on(eventName, callback) {
 		let widget = this;
 
@@ -222,15 +239,32 @@ class TkWidget {
 		});
 	}
 
+	/**
+	 * Trigger and event on the root element of the widget.
+	 * 
+	 * @param {String} eventName The name of the event to trigger.
+	 */
 	trigger(eventName) {
 		return this.e.dispatchEvent(new Event(eventName));
 	}
 
-	forEachChild(callback) {
-		this.children.forEach(callback);
+	/**
+	 * Iterate over each child widget, ascending.
+	 * 
+	 * @param {function(TkWidget, Number)} callback The function to
+	 * run on each child TkWidget, passed the widget and its index.
+	 */
+	ascendChildren(callback) {
+		TkArray.ascend(this.children, callback);
 	}
 
-	forEachChildDescending(callback) {
+	/**
+	 * Iterate over each child widget, descending.
+	 * 
+	 * @param {function(TkWidget, Number)} callback The function to
+	 * run on each child TkWidget, passed the widget and its index.
+	 */
+	descendChildren(callback) {
 		TkArray.descend(this.children, callback);
 	}
 
