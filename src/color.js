@@ -1,7 +1,7 @@
 /**
  * Requires: 
  *  tamarack/core
- *  tamarack/widgets (only if you use fromText, fromBackground, or fromProperty)
+ *  tamarack/widgets (only if you use fromProperty())
  * 
  * A class to make it simple to manage nearly every type of CSS color 
  * and easily convert between them: hex, hex w/ alpha, named CSS, HSL, HSLA, 
@@ -514,15 +514,16 @@ class TkColor extends TkStateObject {
         let registeredColor = new TkColor(value);
         TkColor._registeredColors.set(name, registeredColor.asHex());
     }
-
-    static fromBackground(from) {
-        return TkColor.fromProperty(from, "background-color");
-	}
-
-	static fromText(from) {
-        return TkColor.fromProperty(from, "color");
-    }
     
+    /**
+     * Get the computed property of an element and if it's a color, create an new TkColor from it.            
+     * 
+     * @param {String|HTMLElement|TkWidget} from The target to read the property from, accepts the same values 
+     *                                           as options.from in the TkWidget constructor.
+     * @param {String} propertyName The name of the property.
+     * 
+     * @returns {TkColor} The color extracted from that property, if it is a valid color, null if not.
+     */
     static fromProperty(from, propertyName) {
         let propertyValue = new TkWidget({from: from}).getComputed(propertyName);
         let extractedColor = new TkColor(propertyValue);

@@ -34,8 +34,8 @@
         p1.innerText = "Hello World!";
 
         // Extract the colors
-        let backgroundColor = TkColor.fromBackground(body).asName();
-        let textColor = TkColor.fromText(p1).asName();
+        let backgroundColor = TkColor.fromProperty(body, "background-color").asName();
+        let textColor = TkColor.fromProperty(p1, "color").asName();
 
         // When loaded, log the results
         console.log(`The body's background color is ${backgroundColor} and the first paragraph's text color is ${textColor}.`);
