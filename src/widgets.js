@@ -64,6 +64,19 @@ class TkWidget {
 			this._element.setAttribute("tk-widget", "");
 	}
 
+	/**
+	 * Get all the TkWidgets currently in the DOM.
+	 * @type {TkWidget[]}
+	 */
+	static get all() {
+		let widgets = [];
+
+		for (let widgetElement of document.querySelectorAll("[tk-widget]"))
+			widgets.push(new TkWidget({ from: widgetElement }));
+
+		return widgets;
+	}
+
     /**
      * The element of the widget.
      * @type {HTMLElement}
@@ -458,6 +471,18 @@ class TkWidget {
 
 	set innerHtml(value) {
 		this.e.innerHTML = value;
+	}
+
+	/**
+	 * The outer HTML of the widget's element.
+	 * @type {String}
+	 */
+	get outerHtml() {
+		return this.e.outerHTML;
+	}
+
+	set outerHtml(value) {
+		this.e.outerHTML = value;
 	}
 
 	/**
