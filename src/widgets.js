@@ -23,7 +23,7 @@ class TkWidget {
 	 * @param {String} [options.style] The value of style attribute of the element to set.		
 	 */
 	constructor(options = {}, additionalOptions = null) {
-		if(additionalOptions !== null)
+		if (additionalOptions !== null)
 			Object.assign(options, additionalOptions);
 
 		this._element = null;
@@ -497,20 +497,83 @@ class TkWidget {
 
 }
 
+/**
+ * A widget holding <div> element.
+ */
+class TkPanel extends TkWidget {
+
+	/**
+	 * Create a TkPanel.
+	 * 
+	 * @param {Any} options Same as TkWidget, minus options.tag.
+	 */
+	constructor(options) {
+		super(options, { tag: "div" });
+		this.addAttribute("tk-panel");
+	}
+
+}
+
+/**
+ * A widget representing a text element (<p>, <h1>, <span>, and so on...).
+ */
 class TkText extends TkWidget {
 
+	/**
+	 * Create a TkText.
+	 * 
+	 * @param {String} tag The tag of the text element.
+	 * @param {Any} options Same as TkWidget, minus options.tag.
+	 * @param {String} options.text The text to set inside the element.
+	 */
 	constructor(tag, options) {
 		super(options, { tag: tag });
-		this.textNode = document.createTextNode(options.value ?? "");
+		this.addAttribute("tk-text");
+		this.textNode = document.createTextNode(options.text ?? "");
 		this.element.appendChild(this.textNode);
 	}
 
+	/**
+	 * The text insdie the element.
+	 * @type {String}
+	 */
 	get text() {
 		return this.textNode.nodeValue;
 	}
-	
+
 	set text(value) {
 		this.textNode.nodeValue = value;
+	}
+
+}
+
+/**
+ * Widget representing an <a> element.
+ */
+class TkLink extends TkText {
+
+	/**
+	 * Create a TkLink.
+	 * 
+	 * @param {Any} options Same as TkWidget, minus options.tag.
+	 * @param {String} options.text The text to set inside the element.
+	 * @param {String} options.url The url of the link.
+	 */
+	constructor(options) {
+		super("a", options);
+		this.addAttribute("tk-link");
+		this.url = options.url ?? "#";
+	}
+
+	/**
+	 * @type {String} The URL (href) of the <a> element.
+	 */
+	get url() {
+		return this.getAttribute("href");
+	}
+
+	set url(value) {
+		this.setAttribute("href", value);
 	}
 
 }

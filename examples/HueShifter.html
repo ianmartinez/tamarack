@@ -1,6 +1,7 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
     <title>Hue Shifter</title>
 </head>
@@ -36,13 +37,13 @@
         let increasing = true;
 
         setInterval(() => {
-            if(color.h == 360) // When 360 is hit, start decreasing
+            if (color.h == 360) // When 360 is hit, start decreasing
                 increasing = false;
             else if (color.h == 0) // When 0 is hit, start increasing
                 increasing = true;
 
             // Increment/decrement the hue
-            if(increasing)
+            if (increasing)
                 color.h++;
             else
                 color.h--;
@@ -63,4 +64,5 @@
         }, 150);
     </script>
 </body>
+
 </html>
