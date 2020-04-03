@@ -19,14 +19,23 @@
 
         // Declare widgets
         let body = new TkWidget({ from: "body" });
-        let button = new TkButton({ 
-            parent: body, 
-            text: "Say Hello!",
-            image: "test.png" 
+        let stack = new TkStack({
+            parent: body,
+            direction: TkStack.direction.VERTICAL,
+            style: "align-items: flex-start;"
         });
 
-        // Events
-        button.on("click", () => alert("Hello World!"));
+        for (let layout in TkLabel.layout) {
+            let button = new TkButton({
+                parent: stack,
+                text: layout,
+                image: "test.png",
+                layout: TkLabel.layout[layout],
+                style: "margin: 0.25rem;"
+            });
+
+            button.on("click", () => alert(`Clicked "${layout}"`))
+        }
     </script>
 </body>
 
