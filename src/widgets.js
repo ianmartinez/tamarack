@@ -4,6 +4,34 @@
  */
 
 /**
+ * An enum representing the direction 
+ * to place the child elements in a 
+ * TkStack.
+ * 
+ * @enum {String}
+ */
+const TkStackDirection = {
+	HORIZONTAL: "tk-stack-h",
+	VERTICAL: "tk-stack-v",
+	HORIZONTAL_REVERSE: "tk-stack-hr",
+	VERTICAL_REVERSE: "tk-stack-vr",
+};
+
+/**
+ * An enum representing the labout of
+ * the text and image in a TkLabel.
+ * @enum {String}
+ */
+const TkLabelLayout = {
+	IMAGE_TOP: "tk-label-image-top",
+	IMAGE_BOTTOM: "tk-label-image-bottom",
+	IMAGE_LEFT: "tk-label-image-left",
+	IMAGE_RIGHT: "tk-label-image-right",
+	IMAGE_ONLY: "tk-label-image-only",
+	TEXT_ONLY: "tk-label-text-only",
+};
+
+/**
  * Represents an HTML element and exposes additional 
  * functionality that makes manipulating elements easier.
  */
@@ -584,19 +612,6 @@ class TkPanel extends TkWidget {
 class TkStack extends TkPanel {
 
 	/**
-	 * An enum representing the direction 
-	 * to place the child elements in a 
-	 * TkStack.
-	 * @enum {String}
-	 */
-	static direction = Object.freeze({
-		HORIZONTAL: "tk-stack-h",
-		VERTICAL: "tk-stack-v",
-		HORIZONTAL_REVERSE: "tk-stack-hr",
-		VERTICAL_REVERSE: "tk-stack-vr",
-	});
-
-	/**
 	 * Create a TkStack.
 	 * 
 	 * @param {Any} options Same as TkWidget, minus options.tag.
@@ -606,19 +621,19 @@ class TkStack extends TkPanel {
 		super(options);
 		this.addAttribute("tk-stack");
 
-		this.direction = options.direction ?? TkStack.direction.VERTICAL;
+		this.direction = options.direction ?? TkStackDirection.VERTICAL;
 	}
 
 	/**
 	 * The direction of the child elements.
-	 * @type {TkStack.direction}
+	 * @type {TkStackDirection}
 	 */
 	get direction() {
-		return this.getAttributeFromEnum(TkStack.direction, TkStack.direction.VERTICAL);
+		return this.getAttributeFromEnum(TkStackDirection, TkStackDirection.VERTICAL);
 	}
 
 	set direction(value) {
-		this.addAttributeFromEnum(TkStack.direction, value);
+		this.addAttributeFromEnum(TkStackDirection, value);
 	}
 
 }
@@ -745,26 +760,12 @@ class TkImage extends TkWidget {
 class TkLabel extends TkPanel {
 
 	/**
-	 * An enum representing the labout of
-	 * the text and image in a TkLabel.
-	 * @enum {String}
-	 */
-	static layout = Object.freeze({
-		IMAGE_TOP: "tk-label-image-top",
-		IMAGE_BOTTOM: "tk-label-image-bottom",
-		IMAGE_LEFT: "tk-label-image-left",
-		IMAGE_RIGHT: "tk-label-image-right",
-		IMAGE_ONLY: "tk-label-image-only",
-		TEXT_ONLY: "tk-label-text-only",
-	});
-
-	/**
 	 * Create a TkLabel.
 	 * 
 	 * @param {Any} options Same as TkWidget, minus options.tag.
 	 * @param {String} options.text The text of the label.
 	 * @param {String} options.image The image source of the label.
-	 * @param {TkLabel.layout} options.layout The layout of the image.
+	 * @param {TkLabelLayout} options.layout The layout of the image.
 	 * and text.
 	 */
 	constructor(options) {
@@ -773,10 +774,10 @@ class TkLabel extends TkPanel {
 
 		this.imageWidget = new TkImage({ parent: this });
 		this.textWidget = new TkText("span", { parent: this });
-		this.layout = TkLabel.layout.IMAGE_LEFT;
+		this.layout = TkLabelLayout.IMAGE_LEFT;
 		this.text = options.text ?? "";
 		this.image = options.image ?? "";
-		this.layout = options.layout ?? TkLabel.layout.IMAGE_LEFT;
+		this.layout = options.layout ?? TkLabelLayout.IMAGE_LEFT;
 	}
 
 	/**
@@ -806,20 +807,21 @@ class TkLabel extends TkPanel {
 
 	/**
 	 * The layout of the image and text.
-	 * @type {TkLabel.layout}
+	 * @type {TkLabelLayout}
 	 */
 	get layout() {
-		return this.getAttributeFromEnum(TkLabel.layout, TkLabel.layout.IMAGE_LEFT);
+		return this.getAttributeFromEnum(TkLabelLayout, TkLabelLayout.IMAGE_LEFT);
 	}
 
 	set layout(value) {
-		this.addAttributeFromEnum(TkLabel.layout, value);
+		this.addAttributeFromEnum(TkLabelLayout, value);
 	}
 
 }
 
 /**
  * A widget representing a <button> element.
+ * Allows setting the text and an image.
  */
 class TkButton extends TkWidget {
 
@@ -829,18 +831,18 @@ class TkButton extends TkWidget {
 	 * @param {Any} options Same as TkWidget, minus options.tag.
 	 * @param {String} options.text The text of the button.
 	 * @param {String} options.image The image source of the button's image.
-	 * @param {TkLabel.layout} options.layout The layout of the button.
+	 * @param {TkLabelLayout} options.layout The layout of the button.
 	 * and text.
 	 */
 	constructor(options) {
 		super(options, { tag: "button" });
 		this.addAttribute("tk-button");
-		
+
 		this.role = "button";
 		this.labelWidget = new TkLabel({ parent: this });
 		this.text = options.text ?? "";
 		this.image = options.image ?? "";
-		this.layout = options.layout ?? TkLabel.layout.IMAGE_LEFT;
+		this.layout = options.layout ?? TkLabelLayout.IMAGE_LEFT;
 	}
 
 	/**
@@ -869,7 +871,7 @@ class TkButton extends TkWidget {
 
 	/**
 	 * The layout of the button's image and text.
-	 * @type {TkLabel.layout}
+	 * @type {TkLabelLayout}
 	 */
 	get layout() {
 		return this.labelWidget.layout;

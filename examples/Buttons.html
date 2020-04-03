@@ -17,20 +17,21 @@
          * Show buttons.
          */
 
-        // Declare widgets
+        // Declare layout widgets
         let body = new TkWidget({ from: "body" });
         let stack = new TkStack({
             parent: body,
-            direction: TkStack.direction.VERTICAL,
+            direction: TkStackDirection.VERTICAL,
             style: "align-items: flex-start;"
         });
 
-        for (let layout in TkLabel.layout) {
+        // Add a button for each layout
+        for (let layout in TkLabelLayout) {
             let button = new TkButton({
                 parent: stack,
                 text: layout,
                 image: "test.png",
-                layout: TkLabel.layout[layout],
+                layout: TkLabelLayout[layout],
                 style: "margin: 0.25rem;"
             });
 
