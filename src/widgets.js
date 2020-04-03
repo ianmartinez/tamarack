@@ -15,6 +15,8 @@ const TkStackDirection = {
 	VERTICAL: "tk-stack-v",
 	HORIZONTAL_REVERSE: "tk-stack-hr",
 	VERTICAL_REVERSE: "tk-stack-vr",
+	FLOW: "tk-stack-flow",
+	FLOW_REVERSE: "tk-stack-flowr"
 };
 
 /**
@@ -788,7 +790,7 @@ class TkLabel extends TkPanel {
 		return this.textWidget.text;
 	}
 
-	set text(value) {
+	set text(value) {		
 		this.textWidget.text = value;
 	}
 
@@ -802,6 +804,12 @@ class TkLabel extends TkPanel {
 	}
 
 	set image(value) {
+		if(value != null || value.trim() == "") {
+			this.imageWidget.addAttribute("tk-hide");
+		} else {
+			this.imageWidget.removeAttribute("tk-hide");
+		}
+
 		this.imageWidget.source = value;
 	}
 
@@ -882,3 +890,4 @@ class TkButton extends TkWidget {
 	}
 
 }
+

@@ -19,10 +19,25 @@
 
         // Declare widgets
         let body = new TkWidget({ from: "body" });
+        let buttonStack = new TkStack({
+            parent: body,
+            direction: TkStackDirection.FLOW
+        });
         let stack = new TkStack({
             parent: body,
             direction: TkStackDirection.VERTICAL
         });
+
+        // Add a button for each direction
+        for (let direction in TkStackDirection) {
+            let button = new TkButton({
+                parent: buttonStack,
+                text: direction,
+                style: "margin: 0.25rem;"
+            });
+
+            button.on("click", () => stack.direction = TkStackDirection[direction]);
+        }
 
         // Loop through hues and add text for
         // each one to the stack

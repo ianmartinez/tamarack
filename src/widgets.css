@@ -1,3 +1,8 @@
+/* Display */
+[tk-hide] {
+    display: none !important;
+}
+
 /* TkWidget */
 [tk-widget] {
     font-family: sans-serif;
@@ -40,6 +45,22 @@
 
 [tk-stack-vr] {
     flex-direction: column-reverse !important;
+}
+
+[tk-stack-flow] > *, [tk-stack-flowr] > * {
+    flex-grow: 0;
+}
+
+[tk-stack-flow] {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start;
+}
+
+[tk-stack-flowr] {
+    flex-direction: row-reverse !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-end;
 }
 
 /* TkLabel */
