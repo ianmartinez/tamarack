@@ -558,7 +558,7 @@ class TkStack extends TkPanel {
 	get direction() {
 		for(let stackDirection in TkStack.direction) {
 			let stackDirectionValue = TkStack.direction[stackDirection];
-			
+
 			if(this.hasAttribute(stackDirectionValue))
 				return stackDirectionValue;
 		}
@@ -595,7 +595,7 @@ class TkText extends TkWidget {
 	}
 
 	/**
-	 * The text insdie the element.
+	 * The text inside the element.
 	 * @type {String}
 	 */
 	get text() {
@@ -683,6 +683,65 @@ class TkImage extends TkWidget {
 
 	set alt(value) {
 		this.e.alt = value;
+	}
+
+}
+
+/**
+ * A widget representing a root <div> with two children:
+ * an <img> and a <span>.
+ */
+class TkLabel extends TkPanel {
+
+	/**
+	 * Create a TkLabel.
+	 * 
+	 * @param {Any} options Same as TkWidget, minus options.tag.
+	 */
+	constructor(options) {
+		super(options);
+		this.addAttribute("tk-label");
+
+		this.imageWidget = new TkImage({parent: this});
+		this.textWidget = new TkImage({parent: this});
+	}
+
+	/**
+	 * The text inside the text widget.
+	 * @type {String}
+	 */
+	get text() {
+		return this.textWidget.text;
+	}
+
+	set text(value) {
+		this.textWidget.text = value;
+	}
+
+	/**
+	 * The source of the image in the image
+	 * widget.
+	 * @type {String}
+	 */
+	get source() {
+		return this.imageWidget.source;
+	}
+
+	set source(value) {
+		this.imageWidget.source = value;
+	}
+
+}
+
+/**
+ * A widget representing a <button> element.
+ */
+class TkButton extends TkWidget {
+
+	constructor(options) {
+		super(options, { tag: "button" });
+		this.addAttribute("tk-button");
+		this.role = "button";
 	}
 
 }
