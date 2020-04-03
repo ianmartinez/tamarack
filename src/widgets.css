@@ -1,0 +1,27 @@
+[tk-stack] {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+[tk-stack] > * {
+    flex-grow: 1;
+}
+
+[tk-stack-h] {
+    flex-direction: row !important;
+}
+
+[tk-stack-v] {
+    flex-direction: column !important;
+}
+
+[tk-stack-hr] {
+    flex-direction: row-reverse !important;
+}
+
+[tk-stack-vr] {
+    flex-direction: column-reverse !important;
+}

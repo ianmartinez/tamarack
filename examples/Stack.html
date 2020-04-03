@@ -1,0 +1,41 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <title>Stack</title>
+</head>
+
+<body>
+    <link href="../src/widgets.css" rel="stylesheet" type="text/css" />
+    <script src="../src/core.js"></script>
+    <script src="../src/widgets.js"></script>
+    <script src="../src/color.js"></script>
+
+    <script>
+        /**
+         * Show a stack of items
+         */
+
+        // Declare widgets
+        let body = new TkWidget({ from: "body" });
+        let stack = new TkStack({
+                parent: body,
+                direction: TkStack.direction.VERTICAL
+            });
+
+        for (let i = 0; i <= 360; i++) {
+            let itemColor = new TkColor(`hsl(${i}, 100%, 50%)`);
+            let stackItem = new TkText("span", { 
+                parent: stack,
+                style: "font-weight: bold; padding: 0.25rem;" 
+            });
+
+            stackItem.style.backgroundColor = itemColor.asHex();
+            stackItem.style.color = itemColor.isLight() ? "black" : "white";
+            stackItem.text = `${itemColor.asHex()}`;
+        }
+    </script>
+</body>
+
+</html>

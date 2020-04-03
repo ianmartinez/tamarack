@@ -429,23 +429,25 @@ class TkWidget {
 	}
 
 	/**
-	 * Remove an attribute from the widget's element.
+	 * Remove attributes from the widget's element.
 	 * 
-	 * @param {String} attribute The attribute's name.
+	 * @param {String} attributes The attributes' names.
 	 */
-	removeAttribute(attribute) {
-		this.e.removeAttribute(attribute);
+	removeAttribute(...attributes) {
+		for (let attribute of attributes)
+			this.e.removeAttribute(attribute);
 	}
 
 	/**
-	 * Add an attribute from the widget's element.
+	 * Add attributes to the widget's element.
 	 * 
-	 * @param {String} attribute The attribute's name.
+	 * @param {String} attributes The attributes' names.
 	 * 
 	 * @returns {Attr} The new attribute.
 	 */
-	addAttribute(attribute) {
-		return this.e.setAttributeNode(document.createAttribute(attribute));
+	addAttribute(...attributes) {
+		for (let attribute of attributes)
+			this.e.setAttributeNode(document.createAttribute(attribute));
 	}
 
 	/**
@@ -538,6 +540,41 @@ class TkPanel extends TkWidget {
 
 }
 
+class TkStack extends TkPanel {
+
+	static direction = Object.freeze({
+		HORIZONTAL: "tk-stack-h",
+		VERTICAL: "tk-stack-v",
+		HORIZONTAL_REVERSE: "tk-stack-hr",
+		VERTICAL_REVERSE: "tk-stack-vr",
+	});
+
+	constructor(options) {
+		super(options);
+		this.direction = options.direction ?? TkStack.direction.VERTICAL;
+		this.addAttribute("tk-stack");
+	}
+
+	get direction() {
+		for(let stackDirection in TkStack.direction) {
+			let stackDirectionValue = TkStack.direction[stackDirection];
+			
+			if(this.hasAttribute(stackDirectionValue))
+				return stackDirectionValue;
+		}
+		
+		return TkStack.direction.VERTICAL;
+	}
+
+	set direction(value) {
+		for(let stackDirection in TkStack.direction) 
+			this.removeAttribute(TkStack.direction[stackDirection]);
+
+		this.addAttribute(value);
+	}
+
+}
+
 /**
  * A widget representing a text element (<p>, <h1>, <span>, and so on...).
  */
@@ -616,11 +653,11 @@ class TkImage extends TkWidget {
 	 */
 	constructor(options) {
 		super(options, { tag: "img" });
-		
-		if(options.source !== undefined)
+
+		if (options.source !== undefined)
 			this.source = options.source;
 
-		if(options.alt !== undefined)
+		if (options.alt !== undefined)
 			this.alt = options.alt;
 	}
 
