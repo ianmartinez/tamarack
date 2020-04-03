@@ -24,6 +24,8 @@
             direction: TkStackDirection.VERTICAL
         });
 
+        // Loop through hues and add text for
+        // each one to the stack
         for (let i = 0; i <= 360; i++) {
             let itemColor = new TkColor(`hsl(${i}, 100%, 50%)`);
             let stackItem = new TkText("span", {
@@ -33,7 +35,7 @@
 
             stackItem.style.backgroundColor = itemColor.asHex();
             stackItem.style.color = itemColor.isLight() ? "black" : "white";
-            stackItem.text = `${itemColor.asHex()}`;
+            stackItem.text = itemColor.asHex();
         }
     </script>
 </body>
