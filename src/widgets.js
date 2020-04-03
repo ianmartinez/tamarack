@@ -451,6 +451,42 @@ class TkWidget {
 	}
 
 	/**
+	 * Remove the old attributes found in an enum from the 
+	 * widget's element and add new attribute it its place.
+	 * 
+	 * @param {Any} enumObject The enum to use.
+	 * @param {String} value The value from the enum to set as the attribute.
+	 */
+	addAttributeFromEnum(enumObject, value) {
+		for (let enumItem in enumObject)
+			this.removeAttribute(enumObject[enumItem]);
+
+		this.addAttribute(value);
+	}
+
+	/**
+	 * Find the attribute in the widget's element that matches
+	 * an item in an enum.
+	 * 
+	 * @param {Any} enumObject The enum to search through.
+	 * @param {String} defaultValue The value of the enum to be used if no
+	 * attribute is found.
+	 * 
+	 * @returns {String} The name of the attribute if found, or the default
+	 * value.
+	 */
+	getAttributeFromEnum(enumObject, defaultValue) {
+		for (let enumItem in enumObject) {
+			let enumItemValue = enumObject[enumItem];
+
+			if (this.hasAttribute(enumItemValue))
+				return enumItemValue;
+		}
+
+		return defaultValue;
+	}
+
+	/**
 	 * Get the "role" attribute of the widget's element.
 	 * @type {String}
 	 */
@@ -556,21 +592,11 @@ class TkStack extends TkPanel {
 	}
 
 	get direction() {
-		for(let stackDirection in TkStack.direction) {
-			let stackDirectionValue = TkStack.direction[stackDirection];
-
-			if(this.hasAttribute(stackDirectionValue))
-				return stackDirectionValue;
-		}
-		
-		return TkStack.direction.VERTICAL;
+		return this.getAttributeFromEnum(TkStack.direction, TkStack.direction.VERTICAL);
 	}
 
 	set direction(value) {
-		for(let stackDirection in TkStack.direction) 
-			this.removeAttribute(TkStack.direction[stackDirection]);
-
-		this.addAttribute(value);
+		this.addAttributeFromEnum(TkStack.direction, value);
 	}
 
 }
@@ -693,6 +719,15 @@ class TkImage extends TkWidget {
  */
 class TkLabel extends TkPanel {
 
+	static layout = Object.freeze({
+		IMAGE_TOP: "tk-label-",
+		IMAGE_BOTTOM: "tk-label-",
+		IMAGE_LEFT: "tk-label-",
+		IMAGE_RIGHT: "tk-label-",
+		IMAGE_ONLY: "tk-label-",
+		TEXT_ONLY: "tk-label-",
+	});
+
 	/**
 	 * Create a TkLabel.
 	 * 
@@ -702,8 +737,8 @@ class TkLabel extends TkPanel {
 		super(options);
 		this.addAttribute("tk-label");
 
-		this.imageWidget = new TkImage({parent: this});
-		this.textWidget = new TkImage({parent: this});
+		this.imageWidget = new TkImage({ parent: this });
+		this.textWidget = new TkText("span", { parent: this });
 	}
 
 	/**
@@ -723,11 +758,11 @@ class TkLabel extends TkPanel {
 	 * widget.
 	 * @type {String}
 	 */
-	get source() {
+	get image() {
 		return this.imageWidget.source;
 	}
 
-	set source(value) {
+	set image(value) {
 		this.imageWidget.source = value;
 	}
 
@@ -742,6 +777,31 @@ class TkButton extends TkWidget {
 		super(options, { tag: "button" });
 		this.addAttribute("tk-button");
 		this.role = "button";
+		this.labelWidget = new TkLabel({ parent: this });
+	}
+
+	/**
+	 * The text of the button.
+	 * @type {String}
+	 */
+	get text() {
+		return this.labelWidget.text;
+	}
+
+	set text(value) {
+		this.labelWidget.text = value;
+	}
+
+	/**
+	 * The source of the button's image.
+	 * @type {String}
+	 */
+	get image() {
+		return this.labelWidget.image;
+	}
+
+	set image(value) {
+		this.labelWidget.image = value;
 	}
 
 }
