@@ -3,7 +3,6 @@
  *  tamarack/core
  */
 
-
 /**
  * Represents an HTML element and exposes additional 
  * functionality that makes manipulating elements easier.
@@ -573,7 +572,7 @@ class TkText extends TkWidget {
 }
 
 /**
- * Widget representing an <a> element.
+ * A widget representing an <a> element.
  */
 class TkLink extends TkText {
 
@@ -599,6 +598,54 @@ class TkLink extends TkText {
 
 	set url(value) {
 		this.setAttribute("href", value);
+	}
+
+}
+
+/**
+ * A widget representing an <img> element.
+ */
+class TkImage extends TkWidget {
+
+	/*** 
+	 * Create a TkImage.
+	 * 
+	 * @param {Any} options Same as TkWidget, minus options.tag.
+	 * @param {String} options.source The image's source.
+	 * @param {String} options.alt The alternate text of the image.
+	 */
+	constructor(options) {
+		super(options, { tag: "img" });
+		
+		if(options.source !== undefined)
+			this.source = options.source;
+
+		if(options.alt !== undefined)
+			this.alt = options.alt;
+	}
+
+	/**
+	 * The source of the image.
+	 * @type {String}
+	 */
+	get source() {
+		return this.e.src;
+	}
+
+	set source(value) {
+		this.e.src = value;
+	}
+
+	/**
+	 * The alternate text of the image.
+	 * @type {String}
+	 */
+	get alt() {
+		return this.e.alt;
+	}
+
+	set alt(value) {
+		this.e.alt = value;
 	}
 
 }
