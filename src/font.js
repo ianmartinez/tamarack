@@ -1,6 +1,8 @@
 /**
  * Fonts are a complex topic, but these classes should 
- * cover about 90% of use cases.
+ * cover about 90% of use cases. They're designed mostly for
+ * use with a font picker to allow the user to pick 
+ * a font and its attributes.
  */
 
 
@@ -91,6 +93,9 @@ class TkFont extends TkStateObject {
 
 }
 
+/**
+ * Enum for the type of font size.
+ */
 const TkFontSizeType = {
     NAMED: "", // x-small, larger, smaller
     REM: "rem", // 12rem
@@ -98,6 +103,9 @@ const TkFontSizeType = {
     PX: "px", // 12px
 };
 
+/**
+ * Represents information about a font's size.
+ */
 class TkFontSize extends TkStateObject {
 
     constructor(value) {
@@ -146,24 +154,44 @@ class TkFontSize extends TkStateObject {
 
 }
 
+/**
+ * Enum for the font style.
+ */
 const TkFontStyleType = {
     NORMAL: "normal",
     ITALIC: "italic",
     OBLIQUE: "oblique"
-}
+};
 
+/**
+ * Class representing a font's style.
+ */
 class TkFontStyle extends TkStateObject {
 
+    /**
+     * Create as TkFontStyle representing a CSS font-style.
+     * 
+     * @param {String} value The CSS font-style string.
+     */
     constructor(value) {
         super();
 
+        // Set defaults
         this._style = TkFontStyleType.NORMAL;
         this._obliqueAngle = 0;
-        this.fromString(value);
+        // Parse value string
+        this.setString(value);
+
         this.hasIntialized = true;
     }
 
-    fromString(value) {
+    /**
+     * Parse a string and set this style to
+     * match it, if it is valid.
+     * 
+     * @param {String} value The CSS font-style string to parse.
+     */
+    setString(value) {
         let normalizedValues = value.toLowerCase().trim().split(" ");
         let normalizedValue = normalizedValues[0];
 
