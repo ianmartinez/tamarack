@@ -8,39 +8,32 @@ class TkFont extends TkStateObject {
     }
 
     static exists(fontFamily) {
-        // Adpted from https://www.samclarke.com/javascript-is-font-available/
-        let width;
-        let body = document.body;
+        // Adapted from https://www.samclarke.com/javascript-is-font-available/
+        let fontContainer = new TkText("span", {
+            text: "abcdefghijklmnopqrstuvwxyz".repeat(20),
+            style: [
+                "position: absolute",
+                "width: auto",
+                "font-size: 128px",
+                "left: -99999px"
+            ].join(" !important;")
+        });
 
-        let container = document.createElement('span');
-        container.innerText = 
-            "abcdefghijklmnopqrstuvwxyz".repeat(20);
-        container.style.cssText = [
-            'position:absolute',
-            'width:auto',
-            'font-size:128px',
-            'left:-99999px'
-        ].join(' !important;');
-
-        var getWidth = function (fontFamily) {
-            container.style.fontFamily = fontFamily;
-
-            body.appendChild(container);
-            width = container.clientWidth;
-            body.removeChild(container);
+        let getWidth = (fontName) => {
+            fontContainer.style.fontFamily = fontName;
+            fontContainer.parent = "body";
+            let width = fontContainer.e.clientWidth;
+            fontContainer.delete();
 
             return width;
         };
 
-        // Pre compute the widths of monospace, serif & sans-serif
-        // to improve performance.
-        var monoWidth  = getWidth('monospace');
-        var serifWidth = getWidth('serif');
-        var sansWidth  = getWidth('sans-serif');
-
-        return monoWidth !== getWidth(_family + ',monospace') 
-            || sansWidth !== getWidth(_family + ',sans-serif') 
-            || serifWidth !== getWidth(_family + ',serif');
+        // Return if any of the default fonts' (monospace, serif, sans-serif) sizes 
+        // are different from the font family we're searching for. If they are,
+        // the font should exist.
+        return (getWidth("monospace") !== getWidth(fontFamily + ",monospace"))
+            || (getWidth("sans-serif") !== getWidth(fontFamily + ",sans-serif"))
+            || (getWidth("serif") !== getWidth(fontFamily + ',serif'));
     }
 
     /**
