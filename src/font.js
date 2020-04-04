@@ -198,23 +198,26 @@ class TkFontStyle extends TkStateObject {
         for (let styleType in TkFontStyleType) {
             let styleTypeValue = TkFontStyleType[styleType];
             if (styleTypeValue == normalizedValue) {
-                let styleValid = true;
-
-                if (normalizedValues.length > 1) {
-                    let parsedOblique = parseInt(normalizedValues[1]);
-
-                    if (isNaN(parsedOblique))
-                        styleValid = false;
-                    else
-                        this._obliqueAngle = parsedOblique;
-                }
-
-                if (styleValid)
-                    this._style = styleTypeValue;
-
-                this.isValid = styleValid;
+                this._style = styleTypeValue;
+                this.isValid = true;
             }
         }
     }
 
+    /**
+     * The font's style.
+     * @type {TkFontStyleType}
+     */
+    get style() {
+        return this._style;
+    }
+
+    set style(value) {
+        this._style = value;
+    }
+
+    toString() {
+        return `${(this.style == TkFontStyleType.NORMAL) ? "" : this.style}`;
+    }
+ 
 }
