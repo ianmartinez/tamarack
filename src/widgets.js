@@ -599,7 +599,7 @@ class TkPanel extends TkWidget {
 	 * 
 	 * @param {Any} options Same as TkWidget, minus options.tag.
 	 */
-	constructor(options) {
+	constructor(options = {}) {
 		super(options, { tag: "div" });
 		this.addAttribute("tkpanel");
 	}
@@ -652,7 +652,7 @@ class TkText extends TkWidget {
 	 * @param {Any} options Same as TkWidget, minus options.tag.
 	 * @param {String} options.text The text to set inside the element.
 	 */
-	constructor(tag, options) {
+	constructor(tag, options = {}) {
 		super(options, { tag: tag });
 		this.addAttribute("tktext");
 
@@ -690,7 +690,7 @@ class TkLink extends TkText {
 		super("a", options);
 		this.addAttribute("tklink");
 
-		this.url = options.url ?? "#";
+		this.url = options?.url ?? "#";
 	}
 
 	/**
@@ -718,7 +718,7 @@ class TkImage extends TkWidget {
 	 * @param {String} options.source The image's source.
 	 * @param {String} options.alt The alternate text of the image.
 	 */
-	constructor(options) {
+	constructor(options = {}) {
 		super(options, { tag: "img" });
 		this.addAttribute("tkimage");
 
@@ -770,7 +770,7 @@ class TkLabel extends TkPanel {
 	 * @param {TkLabelLayout} options.layout The layout of the image.
 	 * and text.
 	 */
-	constructor(options) {
+	constructor(options = {}) {
 		super(options);
 		this.addAttribute("tklabel");
 
@@ -842,7 +842,7 @@ class TkButton extends TkWidget {
 	 * @param {TkLabelLayout} options.layout The layout of the button.
 	 * and text.
 	 */
-	constructor(options) {
+	constructor(options = {}) {
 		super(options, { tag: "button" });
 		this.addAttribute("tkbutton");
 
