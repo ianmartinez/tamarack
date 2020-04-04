@@ -11,12 +11,12 @@
  * @enum {String}
  */
 const TkStackDirection = {
-	HORIZONTAL: "tk-stack-h",
-	VERTICAL: "tk-stack-v",
-	HORIZONTAL_REVERSE: "tk-stack-hr",
-	VERTICAL_REVERSE: "tk-stack-vr",
-	FLOW: "tk-stack-flow",
-	FLOW_REVERSE: "tk-stack-flowr"
+	HORIZONTAL: "tkstack-h",
+	VERTICAL: "tkstack-v",
+	HORIZONTAL_REVERSE: "tkstack-hr",
+	VERTICAL_REVERSE: "tkstack-vr",
+	FLOW: "tkstack-flow",
+	FLOW_REVERSE: "tkstack-flowr"
 };
 
 /**
@@ -25,12 +25,12 @@ const TkStackDirection = {
  * @enum {String}
  */
 const TkLabelLayout = {
-	IMAGE_TOP: "tk-label-image-top",
-	IMAGE_BOTTOM: "tk-label-image-bottom",
-	IMAGE_LEFT: "tk-label-image-left",
-	IMAGE_RIGHT: "tk-label-image-right",
-	IMAGE_ONLY: "tk-label-image-only",
-	TEXT_ONLY: "tk-label-text-only",
+	IMAGE_TOP: "tklabel-image-top",
+	IMAGE_BOTTOM: "tklabel-image-bottom",
+	IMAGE_LEFT: "tklabel-image-left",
+	IMAGE_RIGHT: "tklabel-image-right",
+	IMAGE_ONLY: "tklabel-image-only",
+	TEXT_ONLY: "tklabel-text-only",
 };
 
 /**
@@ -90,7 +90,7 @@ class TkWidget {
 		// Add an attribute showing that the html element
 		// is controlled by a TkWidget
 		if (this._element != null)
-			this._element.setAttribute("tk-widget", "");
+			this._element.setAttribute("tkwidget", "");
 	}
 
 	/**
@@ -100,7 +100,7 @@ class TkWidget {
 	static get all() {
 		let widgets = [];
 
-		for (let widgetElement of document.querySelectorAll("[tk-widget]"))
+		for (let widgetElement of document.querySelectorAll("[tkwidget]"))
 			widgets.push(new TkWidget({ from: widgetElement }));
 
 		return widgets;
@@ -601,7 +601,7 @@ class TkPanel extends TkWidget {
 	 */
 	constructor(options) {
 		super(options, { tag: "div" });
-		this.addAttribute("tk-panel");
+		this.addAttribute("tkpanel");
 	}
 
 }
@@ -621,7 +621,7 @@ class TkStack extends TkPanel {
 	 */
 	constructor(options) {
 		super(options);
-		this.addAttribute("tk-stack");
+		this.addAttribute("tkstack");
 
 		this.direction = options.direction ?? TkStackDirection.VERTICAL;
 	}
@@ -654,7 +654,7 @@ class TkText extends TkWidget {
 	 */
 	constructor(tag, options) {
 		super(options, { tag: tag });
-		this.addAttribute("tk-text");
+		this.addAttribute("tktext");
 
 		this.textNode = document.createTextNode(options.text ?? "");
 		this.element.appendChild(this.textNode);
@@ -688,7 +688,7 @@ class TkLink extends TkText {
 	 */
 	constructor(options) {
 		super("a", options);
-		this.addAttribute("tk-link");
+		this.addAttribute("tklink");
 
 		this.url = options.url ?? "#";
 	}
@@ -720,7 +720,7 @@ class TkImage extends TkWidget {
 	 */
 	constructor(options) {
 		super(options, { tag: "img" });
-		this.addAttribute("tk-image");
+		this.addAttribute("tkimage");
 
 		if (options.source !== undefined)
 			this.source = options.source;
@@ -772,7 +772,7 @@ class TkLabel extends TkPanel {
 	 */
 	constructor(options) {
 		super(options);
-		this.addAttribute("tk-label");
+		this.addAttribute("tklabel");
 
 		this.imageWidget = new TkImage({ parent: this });
 		this.textWidget = new TkText("span", { parent: this });
@@ -790,7 +790,7 @@ class TkLabel extends TkPanel {
 		return this.textWidget.text;
 	}
 
-	set text(value) {		
+	set text(value) {
 		this.textWidget.text = value;
 	}
 
@@ -804,7 +804,7 @@ class TkLabel extends TkPanel {
 	}
 
 	set image(value) {
-		if(value != null || value.trim() == "") {
+		if (value != null || value.trim() == "") {
 			this.imageWidget.addAttribute("tk-hide");
 		} else {
 			this.imageWidget.removeAttribute("tk-hide");
@@ -844,7 +844,7 @@ class TkButton extends TkWidget {
 	 */
 	constructor(options) {
 		super(options, { tag: "button" });
-		this.addAttribute("tk-button");
+		this.addAttribute("tkbutton");
 
 		this.role = "button";
 		this.labelWidget = new TkLabel({ parent: this });

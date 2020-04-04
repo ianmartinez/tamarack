@@ -4,13 +4,13 @@
 }
 
 /* TkWidget */
-[tk-widget] {
+[tkwidget] {
     font-family: sans-serif;
     box-sizing: border-box;
 }
 
 /* TkText */
-[tk-text] {
+[tktext] {
     margin-block-start: 0;
     margin-block-end: 0;
     margin-inline-start: 0;
@@ -19,7 +19,7 @@
 }
 
 /* TkStack */
-[tk-stack] {
+[tkstack] {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -27,72 +27,72 @@
     overflow: auto;
 }
 
-[tk-stack] > * {
+[tkstack] > * {
     flex-grow: 1;
 }
 
-[tk-stack-h] {
+[tkstack-h] {
     flex-direction: row !important;
 }
 
-[tk-stack-v] {
+[tkstack-v] {
     flex-direction: column !important;
 }
 
-[tk-stack-hr] {
+[tkstack-hr] {
     flex-direction: row-reverse !important;
 }
 
-[tk-stack-vr] {
+[tkstack-vr] {
     flex-direction: column-reverse !important;
 }
 
-[tk-stack-flow] > *, [tk-stack-flowr] > * {
+[tkstack-flow] > *, [tkstack-flowr] > * {
     flex-grow: 0;
 }
 
-[tk-stack-flow] {
+[tkstack-flow] {
     flex-direction: row !important;
     flex-wrap: wrap !important;
     justify-content: flex-start;
 }
 
-[tk-stack-flowr] {
+[tkstack-flowr] {
     flex-direction: row-reverse !important;
     flex-wrap: wrap !important;
     justify-content: flex-end;
 }
 
 /* TkLabel */
-[tk-label] {
+[tklabel] {
     display: flex;
     align-items: center;
 }
 
-[tk-label] > [tk-image] {
+[tklabel] > [tkimage] {
     margin: 0.25rem;
 }
 
-[tk-label-image-top] {
+[tklabel-image-top] {
     flex-direction: column !important;
 }
 
-[tk-label-image-bottom] {
+[tklabel-image-bottom] {
     flex-direction: column-reverse !important;
 }
 
-[tk-label-image-left] {
+[tklabel-image-left] {
     flex-direction: row !important;
 }
 
-[tk-label-image-right] {
+[tklabel-image-right] {
     flex-direction: row-reverse !important;
 }
 
-[tk-label-image-only] > [tk-text] {
+[tklabel-image-only] > [tk-text] {
     display: none !important;
 }
 
-[tk-label-text-only] > [tk-image] {
+[tklabel-text-only] > [tk-image] {
     display: none !important;
 }
