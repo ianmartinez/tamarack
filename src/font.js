@@ -6,6 +6,11 @@
  */
 
 
+/**
+ * TkFont represents a font with all of its
+ * attributes: size, style, weight, text-decoration,
+ * etc.
+ */
 class TkFont extends TkStateObject {
 
     constructor(options = {}) {
@@ -219,5 +224,5 @@ class TkFontStyle extends TkStateObject {
     toString() {
         return `${(this.style == TkFontStyleType.NORMAL) ? "" : this.style}`;
     }
- 
+
 }
