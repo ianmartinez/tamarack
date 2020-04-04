@@ -27,11 +27,10 @@
          */
 
         // Declare all the widgets
-        let body = new TkWidget({ from: "body" });
-        let hslaText = new TkText("p", { parent: body });
-        let rgbaText = new TkText("p", { parent: body });
-        let hexText = new TkText("p", { parent: body });
-        let namedText = new TkText("p", { parent: body });
+        let hslaText = new TkText("p", { parent: "body" });
+        let rgbaText = new TkText("p", { parent: "body" });
+        let hexText = new TkText("p", { parent: "body" });
+        let namedText = new TkText("p", { parent: "body" });
 
         // The color to cycle through
         let color = new TkColor("hsl(0, 100%, 50%)");

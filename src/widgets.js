@@ -890,4 +890,3 @@ class TkButton extends TkWidget {
 	}
 
 }
-

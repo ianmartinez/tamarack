@@ -18,13 +18,12 @@
          */
 
         // Declare widgets
-        let body = new TkWidget({ from: "body" });
         let buttonStack = new TkStack({
-            parent: body,
+            parent: "body",
             direction: TkStackDirection.FLOW
         });
         let stack = new TkStack({
-            parent: body,
+            parent: "body",
             direction: TkStackDirection.VERTICAL
         });
 
