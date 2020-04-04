@@ -1,10 +1,29 @@
-// Getting detected fonts
-// see https://www.bramstein.com/writing/detecting-system-fonts-without-flash.html
+/**
+ * Fonts are a complex topic, but these classes should 
+ * cover about 90% of use cases.
+ */
+
 
 class TkFont extends TkStateObject {
 
-    constructor(value) {
+    constructor(options = {}) {
+        super();
+
+        // Size
+        if(TkObject.is(options.size, String)) // Size from string value
+            this.size = new TkFontSize(options.size);
+        else // Size from TkFontSize object
+            this.size = options.size ?? new TkFontSize("1rem");
+
+        // Style
+        if(TkObject.is(options.style, String)) // Style from string value
+            this.style = new TkFontStyle(options.style);
+        else // Style from TkFontStyle object
+            this.style = options.style ?? new TkFontStyle("normal");
+
+        this.weight = options.weight ?? 500;
         this.hasIntialized = true;
+        this.isValid = this.size.isValid && this.style.isValid;
     }
 
     static exists(fontFamily) {
@@ -51,6 +70,116 @@ class TkFont extends TkStateObject {
      */
     static get linked() {
         return null;
+    }
+
+    /**
+     * An array of common font families.
+     */
+    static commonFamilies = ["arial", "calibri",
+        "century gothic", "comic sans", "consolas", "courier",
+        "dejavu sans", "dejavu serif", "georgia", "gill sans",
+        "helvetica", "impact", "lucida sans", "myriad pro",
+        "open sans", "palantino", "tahoma", "times new roman",
+        "trebuchet", "verdana", "zapfino"];
+
+}
+
+const TkFontSizeType = {
+    NAMED: "", // x-small, larger, smaller
+    REM: "rem", // 12rem
+    EM: "em", // 12em
+    PX: "px", // 12px
+};
+
+class TkFontSize extends TkStateObject {
+    
+    constructor(value) {
+        super();
+
+        this._fontString = value;
+        this._fontSizeType = TkFontSize.getType(value);
+        this.hasIntialized = true;
+        this.isValid = this._fontSizeType !== null;
+    }
+
+    get sizeType() {
+        return this._fontSizeType;
+    }
+
+    get px() {
+        return "";
+    }
+
+    get px() {
+        return "";
+    }
+
+    static getType(value) {
+        // Regex to match values with numbers
+        let numberRegex = /(?!.{12})\d+(?:\.\d+)?/;
+
+        if(numberRegex.test(value)) { // If is has a number
+            for(let sizeType in TkFontSizeType) { 
+                let sizeTypeValue = TkFontSizeType[sizeType];
+
+                if(sizeTypeValue != TkFontSizeType.NAMED) {
+                    // Combine the number regex with the value of the size type
+                    // and allow a space in between
+                    let sizeRegex = new RegExp(numberRegex.source + "[ ]?" + sizeTypeValue);
+                    if(sizeRegex.test(value))
+                        return sizeTypeValue;
+                }
+            }
+        } else { // If not, assume it's something like "xx-small"
+            return TkFontSizeType.NAMED;
+        }
+
+        return null; // The font size is invalid
+    }
+
+}
+
+const TkFontStyleType = {
+    NORMAL: "normal",
+    ITALIC: "italic",
+    OBLIQUE: "oblique"
+}
+
+class TkFontStyle extends TkStateObject {
+
+    constructor(value) {
+        super();
+
+        this._style = TkFontStyleType.NORMAL;
+        this._obliqueAngle = 0;
+        this.fromString(value);
+        this.hasIntialized = true;
+    }
+
+    fromString(value) {
+        let normalizedValues = value.toLowerCase().trim().split(" ");
+        let normalizedValue =normalizedValues[0];
+        
+        for(let styleType in TkFontStyleType) { 
+            let styleTypeValue = TkFontStyleType[styleType];
+            if(styleTypeValue == normalizedValue) {
+                let styleValid = true;
+
+                if(normalizedValues.length > 1) {
+                    let parsedOblique =  parseInt(normalizedValues[1]);
+
+                    if(isNaN(parsedOblique))
+                        styleValid = false;
+                    else
+                        this._obliqueAngle = parsedOblique;
+                }
+
+                if(styleValid)
+                    this._style = styleTypeValue;
+
+                this.isValid = styleValid;
+            }
+        }
     }
 
 }

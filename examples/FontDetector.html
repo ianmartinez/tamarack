@@ -24,20 +24,15 @@
             direction: TkStackDirection.VERTICAL
         });
 
-        let commonFonts = ["arial", "calibri", 
-        "century gothic", "comic sans", "consolas", "courier", 
-        "dejavu sans", "dejavu serif", "georgia", "gill sans",
-        "helvetica", "impact", "lucida sans", "myriad pro",
-        "open sans", "palantino", "tahoma", "times new roman",
-        "trebuchet", "verdana", "zapfino"];
-        // Add a button for each layout
-        for (let font of commonFonts) {
+        // Add an item to the stack for each common font.
+        // Color it green if detected, or red if not.
+        for (let fontFamily of TkFont.commonFamilies) {
             let fontText = new TkText("p", {
                 parent: stack,
-                text: font
+                text: fontFamily
             });
 
-            fontText.style.color = TkFont.exists(font) ? "green" : "red";
+            fontText.style.color = TkFont.exists(fontFamily) ? "green" : "red";
         }
     </script>
 </body>
