@@ -5,16 +5,19 @@ Tamarack is collection of modern, easy to use JavaScript classes for designing r
 - **color.js:** A class to make it simple to manage nearly every type of CSS color and easily convert between them: hex, hex w/ alpha, named CSS, HSL, HSLA, RGB, RGBA colors. Useful for building color pickers or other things that involve manipulating color.
 - **font.js:** (TODO) A class to make it simple to manage fonts.
 - **widgets.js:** Contains a collection of widgets, or wrappers for HTML elements that inherit from a class called 'TkWidget' that can be entirely manipulated through JavaScript, requiring no HTML boilerplate.
- 
-(The content below DOES NOT reflect the current version, which has been completely redesigned)     
-        
 
-Architecture 
+Widgets 
 -------
-Most of Tamarack is a collection of widgets that provide a wrapper around html elements, such as tk.Button, which wraps around &lt;button&gt; or tk.Image, which wraps around &lt;img&gt;. All of these widgets inherit from tk.Widget, which provides them with basic functionality such as making the element full-screen or adding the widget to another widget. In addition, there are also composite widgets, such as tk.Notebook and tk.Dialog, that represent multiple html elements in one single class, cutting down the need for massive amounts of boilerplate code for simple tasks.
+***widgets.js*** is a collection of widgets which are wrappers around HTML elements, such as TkButton, which wraps around &lt;button&gt; or TkImage, which wraps around &lt;img&gt;. All of these widgets inherit from TkWidget, which provides them with basic functionality such as making the widget full-screen, adding/removing child widgets, attaching/triggering events, and other functionality. In addition, there are also composite widgets that represent multiple html elements in one single class, cutting down the need for massive amounts of boilerplate code for simple tasks. One of these is TkNotebook, which provides a notebook widget with tab pages that can be added and removed.
 
 Examples 
 -------
+**Hello world:**
+```javascript
+let helloWorld = new TkText("p", { parent: "body", text: "Hello World!" });
+```
+
+(The content below DOES NOT reflect the current version, which has been completely redesigned)   
 **Add progress bars:**
 ```javascript
 var view = new tk.View("Progress Demo", { padding: "1rem" });
