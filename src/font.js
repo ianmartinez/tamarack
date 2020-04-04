@@ -61,30 +61,22 @@ class TkFont extends TkStateObject {
      * @type {String[]}
      */
     static get availableFamilies() {
+        return TkFont.availableFrom(...this.commonFamilies);
+    }
+
+    /**
+     * Get the font families that are available 
+     * on this system from a set of font families.
+     * @type {String[]}
+     */
+    static availableFrom(...fontFamilies) {
         let available = [];
 
-        for (let commonFamily of TkFont.commonFamilies)
-            if (TkFont.exists(commonFamily))
-                available.push(commonFamily);
+        for (let fontFamily of fontFamilies)
+            if (TkFont.exists(fontFamily))
+                available.push(fontFamily);
 
         return available;
-    }
-
-    /**
-     * Get all the linked font families in the current document.
-     * @type {String[]}
-     */
-    static get linkedFamilies() {
-        return [];
-    }
-
-    /**
-     * Get both the common font families and the linked
-     * font familes in the current document.
-     * @type {String[]}
-     */
-    static get allFamilies() {
-        return TkFont.availableFamilies.concat(TkFont.linkedFamilies);
     }
 
     /**
