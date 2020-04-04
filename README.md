@@ -14,7 +14,7 @@ Examples
 -------
 **Hello world:**
 ```javascript
-let helloWorld = new TkText("p", { parent: "body", text: "Hello World!" });
+new TkText("p", { parent: "body", text: "Hello World!" });
 ```
 
 (The content below DOES NOT reflect the current version, which has been completely redesigned)   
