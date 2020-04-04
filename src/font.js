@@ -10,13 +10,13 @@ class TkFont extends TkStateObject {
         super();
 
         // Size
-        if(TkObject.is(options.size, String)) // Size from string value
+        if (TkObject.is(options.size, String)) // Size from string value
             this.size = new TkFontSize(options.size);
         else // Size from TkFontSize object
             this.size = options.size ?? new TkFontSize("1rem");
 
         // Style
-        if(TkObject.is(options.style, String)) // Style from string value
+        if (TkObject.is(options.style, String)) // Style from string value
             this.style = new TkFontStyle(options.style);
         else // Style from TkFontStyle object
             this.style = options.style ?? new TkFontStyle("normal");
@@ -56,20 +56,35 @@ class TkFont extends TkStateObject {
     }
 
     /**
-     * Get the common fonts that are available 
+     * Get the common font families that are available 
      * on this system.
-     * @type {TkFont}
+     * @type {String[]}
      */
-    static get common() {
-        return null;
+    static get availableFamilies() {
+        let available = [];
+
+        for (let commonFamily of TkFont.commonFamilies)
+            if (TkFont.exists(commonFamily))
+                available.push(commonFamily);
+
+        return available;
     }
 
     /**
-     * Get all the linked fonts in the current document.
-     * @type {TkFont}
+     * Get all the linked font families in the current document.
+     * @type {String[]}
      */
-    static get linked() {
-        return null;
+    static get linkedFamilies() {
+        return [];
+    }
+
+    /**
+     * Get both the common font families and the linked
+     * font familes in the current document.
+     * @type {String[]}
+     */
+    static get allFamilies() {
+        return TkFont.availableFamilies.concat(TkFont.linkedFamilies);
     }
 
     /**
@@ -92,7 +107,7 @@ const TkFontSizeType = {
 };
 
 class TkFontSize extends TkStateObject {
-    
+
     constructor(value) {
         super();
 
@@ -118,15 +133,15 @@ class TkFontSize extends TkStateObject {
         // Regex to match values with numbers
         let numberRegex = /(?!.{12})\d+(?:\.\d+)?/;
 
-        if(numberRegex.test(value)) { // If is has a number
-            for(let sizeType in TkFontSizeType) { 
+        if (numberRegex.test(value)) { // If is has a number
+            for (let sizeType in TkFontSizeType) {
                 let sizeTypeValue = TkFontSizeType[sizeType];
 
-                if(sizeTypeValue != TkFontSizeType.NAMED) {
+                if (sizeTypeValue != TkFontSizeType.NAMED) {
                     // Combine the number regex with the value of the size type
                     // and allow a space in between
                     let sizeRegex = new RegExp(numberRegex.source + "[ ]?" + sizeTypeValue);
-                    if(sizeRegex.test(value))
+                    if (sizeRegex.test(value))
                         return sizeTypeValue;
                 }
             }
@@ -158,23 +173,23 @@ class TkFontStyle extends TkStateObject {
 
     fromString(value) {
         let normalizedValues = value.toLowerCase().trim().split(" ");
-        let normalizedValue =normalizedValues[0];
-        
-        for(let styleType in TkFontStyleType) { 
+        let normalizedValue = normalizedValues[0];
+
+        for (let styleType in TkFontStyleType) {
             let styleTypeValue = TkFontStyleType[styleType];
-            if(styleTypeValue == normalizedValue) {
+            if (styleTypeValue == normalizedValue) {
                 let styleValid = true;
 
-                if(normalizedValues.length > 1) {
-                    let parsedOblique =  parseInt(normalizedValues[1]);
+                if (normalizedValues.length > 1) {
+                    let parsedOblique = parseInt(normalizedValues[1]);
 
-                    if(isNaN(parsedOblique))
+                    if (isNaN(parsedOblique))
                         styleValid = false;
                     else
                         this._obliqueAngle = parsedOblique;
                 }
 
-                if(styleValid)
+                if (styleValid)
                     this._style = styleTypeValue;
 
                 this.isValid = styleValid;
