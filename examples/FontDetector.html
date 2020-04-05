@@ -32,9 +32,15 @@
                 text: fontFamily
             });
 
-            // Set the text color to green if the font exists,
+            // Set the text color to green and set its font family to
+            // match the font if it exists and set the text color to 
             // red if not.
-            fontText.style.color = TkFont.exists(fontFamily) ? "green" : "red";
+            if(TkFont.exists(fontFamily)) {
+                fontText.style.color = "green";
+                fontText.style.fontFamily = fontFamily;
+            } else {
+                fontText.style.color = "red";
+            }
         }
     </script>
 </body>
