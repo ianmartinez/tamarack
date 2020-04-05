@@ -35,10 +35,10 @@ btnFullscreen.on("click", () => video.isFullscreen = true);
 let notebook = new TkNotebook({ parent: "body" });
 
 let page1 = new TkNoteBookPage({ parent: notebook, title: "Hello" });
-page1.content.add(new TkText("p", { value: "Hello" });
+page1.content.add(new TkText("p", { text: "Hello" });
 
 let page2 = new TkNoteBookPage({ parent: notebook, title: "World" });
-page2.content.add(new TkText("p", { value: "World" });
+page2.content.add(new TkText("p", { text: "World" });
 ```
     
     
