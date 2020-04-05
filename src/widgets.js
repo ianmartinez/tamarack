@@ -804,7 +804,7 @@ class TkLabel extends TkPanel {
 	}
 
 	set image(value) {
-		if (value != null || value.trim() == "") {
+		if (value == null || value.trim() == "") {
 			this.imageWidget.addAttribute("tk-hide");
 		} else {
 			this.imageWidget.removeAttribute("tk-hide");

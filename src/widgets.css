@@ -88,10 +88,15 @@
     flex-direction: row-reverse !important;
 }
 
-[tklabel-image-only] > [tk-text] {
+[tklabel-image-only] > [tktext] {
     display: none !important;
 }
 
-[tklabel-text-only] > [tk-image] {
+[tklabel-text-only] > [tkimage] {
     display: none !important;
+}
+
+/* TkButton */
+[tkbutton] > [tklabel] > [tktext] {
+    padding: 0;
 }

@@ -36,6 +36,7 @@
         let color = new TkColor("hsl(0, 100%, 50%)");
         let increasing = true;
 
+        // Run every 150 milliseconds
         setInterval(() => {
             if (color.h == 360) // When 360 is hit, start decreasing
                 increasing = false;

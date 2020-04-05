@@ -15,7 +15,7 @@
 
     <script>
         /**
-         * Detect common fonts,
+         * Detect common fonts.
          */
 
         // Declare layout widgets
@@ -32,6 +32,8 @@
                 text: fontFamily
             });
 
+            // Set the text color to green if the font exists,
+            // red if not.
             fontText.style.color = TkFont.exists(fontFamily) ? "green" : "red";
         }
     </script>
