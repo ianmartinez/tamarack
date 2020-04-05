@@ -8,7 +8,8 @@
 
 /**
  * TkFont represents a font with all of its
- * attributes: size, style, weight, text-decoration,
+ * attributes: font-size, font-style, font-weight, 
+ * text-decoration.
  * etc.
  */
 class TkFont extends TkStateObject {
@@ -28,23 +29,35 @@ class TkFont extends TkStateObject {
         else // Style from TkFontStyle object
             this._style = options.style ?? new TkFontStyle("normal");
 
-
         // Weight
         if (TkObject.is(options.weight, String) || TkObject.is(options.weight, Number)) // Weight from string/number value
             this._weight = new TkFontWeight(options.weight);
         else // Weight from TkFontWeight object
             this._weight = options.weight ?? new TkFontWeight("normal");
 
+        // TODO: Decoration
+
         this.hasIntialized = true;
-        this.isValid = this._size.isValid && this._style.isValid && this._weight.isValid;
+        this.isValid = this.allValid;
     }
 
+    /**
+     * If all of the fields are valid.
+     * @type {Boolean}
+     */
+    get allValid() {
+        return this._size.isValid && this._style.isValid && this._weight.isValid;
+    }
 
-
+    /**
+     * Search for a font family by name and see if it exists on this system.
+     * 
+     * @param {String} fontFamily The font family to search for.
+     */
     static exists(fontFamily) {
         // Adapted from https://www.samclarke.com/javascript-is-font-available/
         let fontContainer = new TkText("span", {
-            text: "abcdefghijklmnopqrstuvwxyz".repeat(20),
+            text: "abcdefghijklmnopqrstuvwxyz0123456789".repeat(20),
             style: [
                 "position: absolute",
                 "width: auto",
@@ -65,9 +78,9 @@ class TkFont extends TkStateObject {
         // Return if any of the default fonts' (monospace, serif, sans-serif) sizes 
         // are different from the font family we're searching for. If they are,
         // the font should exist.
-        return (getWidth("monospace") !== getWidth(fontFamily + ",monospace"))
-            || (getWidth("sans-serif") !== getWidth(fontFamily + ",sans-serif"))
-            || (getWidth("serif") !== getWidth(fontFamily + ',serif'));
+        return (getWidth("monospace") !== getWidth(`${fontFamily},monospace`))
+            || (getWidth("sans-serif") !== getWidth(`${fontFamily},sans-serif`))
+            || (getWidth("serif") !== getWidth(`${fontFamily},serif`));
     }
 
     /**
