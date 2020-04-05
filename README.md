@@ -16,40 +16,34 @@ Examples
 ```javascript
 new TkText("p", { parent: "body", text: "Hello World!" });
 ```
-
-(The content below DOES NOT reflect the current version, which has been completely redesigned)   
+    
 **Add progress bars:**
 ```javascript
-var view = new tk.View("Progress Demo", { padding: "1rem" });
-view.add(new tk.Progress(10), new tk.Progress(25), new tk.Progress(50), new tk.Progress(100));
+for(let i of [0, 25, 50, 75, 100])
+   new TkProgress({ parent: "body", value: i });
 ```
-![Progress Bars](examples/screenshots/Progress.gif)
-
+     
 **Create a button that makes the video fullscreen when clicked:**
 ```javascript
-var doc = new tkDocument();
-var btnFullscreen = new tkButton("Go Fullscreen");
-btnFullscreen.on("click", function() { 
-   video.makeFullScreen();
-});
-doc.add(btnFullscreen);
+let btnFullscreen = new TkButton({ parent: "body", text: "Go Fullscreen" });
+let video = new TkVideo({ parent: "body" });
+btnFullscreen.on("click", () => video.isFullscreen = true);
 ```
-
+     
 **Create a two page notebook:**
 ```javascript
-var doc = new tkDocument();
-var notebook = new tkNotebook();
+let notebook = new TkNotebook({ parent: "body" });
 
-var page1 = new tkNotebookPage("Page 1", "page1");
-page1.content.addElement(say("Hello"));
+let page1 = new TkNoteBookPage({ parent: notebook, title: "Hello" });
+page1.content.add(new TkText("p", { value: "Hello" });
 
-var page2 = new tkNotebookPage("Page 2", "page2");
-page2.content.addElement(say("World!"));
-
-notebook.addPages(page1,page2);
-doc.add(notebook);
+let page2 = new TkNoteBookPage({ parent: notebook, title: "World" });
+page2.content.add(new TkText("p", { value: "World" });
 ```
-![Notebook](examples/screenshots/Tabs.gif)
+    
+    
+
+(The content below DOES NOT reflect the current version, which has been completely redesigned)    
 
 **Show a yes/no dialog:**
 ```javascript
