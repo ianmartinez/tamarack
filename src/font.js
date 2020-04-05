@@ -18,20 +18,28 @@ class TkFont extends TkStateObject {
 
         // Size
         if (TkObject.is(options.size, String)) // Size from string value
-            this.size = new TkFontSize(options.size);
+            this._size = new TkFontSize(options.size);
         else // Size from TkFontSize object
-            this.size = options.size ?? new TkFontSize("1rem");
+            this._size = options.size ?? new TkFontSize("1rem");
 
         // Style
         if (TkObject.is(options.style, String)) // Style from string value
-            this.style = new TkFontStyle(options.style);
+            this._style = new TkFontStyle(options.style);
         else // Style from TkFontStyle object
-            this.style = options.style ?? new TkFontStyle("normal");
+            this._style = options.style ?? new TkFontStyle("normal");
 
-        this.weight = options.weight ?? 500;
+
+        // Weight
+        if (TkObject.is(options.weight, String) || TkObject.is(options.weight, Number)) // Weight from string/number value
+            this._weight = new TkFontWeight(options.weight);
+        else // Weight from TkFontWeight object
+            this._weight = options.weight ?? new TkFontWeight("normal");
+
         this.hasIntialized = true;
-        this.isValid = this.size.isValid && this.style.isValid;
+        this.isValid = this._size.isValid && this._style.isValid && this._weight.isValid;
     }
+
+
 
     static exists(fontFamily) {
         // Adapted from https://www.samclarke.com/javascript-is-font-available/
@@ -126,12 +134,37 @@ class TkFontSize extends TkStateObject {
         return this._fontSizeType;
     }
 
-    get px() {
+    get named() {
         return "";
     }
 
+    set named(value) {
+
+    }
+
+    get rem() {
+        return 0;
+    }
+
+    set rem(value) {
+
+    }
+
+    get em() {
+        return 0;
+    }
+
+    set em(value) {
+
+    }
+
+
     get px() {
-        return "";
+        return 0;
+    }
+
+    set px(value) {
+
     }
 
     static getType(value) {
@@ -183,10 +216,8 @@ class TkFontStyle extends TkStateObject {
 
         // Set defaults
         this._style = TkFontStyleType.NORMAL;
-        this._obliqueAngle = 0;
         // Parse value string
         this.setString(value);
-
         this.hasIntialized = true;
     }
 
@@ -223,6 +254,68 @@ class TkFontStyle extends TkStateObject {
 
     toString() {
         return `${(this.style == TkFontStyleType.NORMAL) ? "" : this.style}`;
+    }
+
+}
+
+class TkFontWeight extends TkStateObject {
+
+    /**
+     * Create a new TkFontWeight with a given value.
+     * 
+     * @param {Number|String} value Accepts any number between 1 and 1000
+     * or the strings "normal" (400) or "bold" (700).
+     */
+    constructor(value) {
+        super();
+
+        this.setWeight(value);
+    }
+
+    /**
+     * Parse a value and set it as the value of the font weight.
+     * 
+     * @param {Number|String} value Accepts any number between 1 and 1000
+     * or the strings "normal" (400) or "bold" (700).
+     */
+    setWeight(value) {
+        let normalizedValue = value.trim().toLowerCase();
+        let parsedValue = parseInt(value);
+
+        if (normalizedValue == "normal") {
+            this._value = 400;
+            this.isValid = true;
+        } else if (normalizedValue == "bold") {
+            this._value = 700;
+            this.isValid = true;
+        } else if (!isNaN(parsedValue) && TkNumber.in(parsedValue, 1, 1000)) {
+            this._value = parsedValue;
+            this.isValid = true;
+        } else {
+            this._value = 0;
+            this.isValid = false;
+        }
+    }
+
+    /**
+     * The value, from 1-1000 of the font weight.
+     * @type {Number}
+     */
+    get value() {
+        return this._value;
+    }
+
+    set value(value) {
+        if (TkNumber.in(value, 1, 1000)) {
+            this._value = value;
+            this.isValid = true;
+        } else {
+            this.isValid = false;
+        }
+    }
+
+    toString() {
+        return `${this.value}`;
     }
 
 }
