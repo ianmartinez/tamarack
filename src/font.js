@@ -7,10 +7,11 @@
 
 
 /**
- * TkFont represents a font with all of its
- * attributes: font-size, font-style, font-weight, 
- * text-decoration.
- * etc.
+ * TkFont represents a font with the attributes
+ * font-size, font-style, font-weight, text-decoration.
+ * 
+ * It also provides (via static methods) the ability
+ * to detect available fonts on a system.
  */
 class TkFont extends TkStateObject {
 
