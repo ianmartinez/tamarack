@@ -194,4 +194,16 @@ class TkDocument {
         document.addEventListener("DOMContentLoaded", callback);
     }
 
+    static isDarkMode() {
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+
+    /**
+     * Attach an event to run when a switch is detected in the appearance.
+     * Either to light mode or dark mode.
+     * @param {*} callback 
+     */
+    static onColorScheme(callback) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', callback);
+    }
 }
