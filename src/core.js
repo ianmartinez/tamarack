@@ -190,18 +190,26 @@ class TkDocument {
         }
     }
 
+    /**
+     * 
+     * @param {*} callback 
+     */
     static whenLoaded(callback) {
         document.addEventListener("DOMContentLoaded", callback);
     }
 
-    static isDarkMode() {
+    /**
+     * @returns {Boolean} If the system is in dark mode.
+     */
+    static isInDarkMode() {
         return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
 
     /**
      * Attach an event to run when a switch is detected in the appearance.
      * Either to light mode or dark mode.
-     * @param {*} callback 
+     * 
+     * @param {function(MediaQueryListEvent):void} callback The callback to run with this event.
      */
     static onColorScheme(callback) {
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', callback);
