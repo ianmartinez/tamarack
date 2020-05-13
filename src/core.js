@@ -211,7 +211,7 @@ class TkDocument {
      * 
      * @param {function(MediaQueryListEvent):void} callback The callback to run with this event.
      */
-    static onColorScheme(callback) {
+    static onChangeDarkMode(callback) {
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', callback);
     }
 }

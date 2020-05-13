@@ -1,0 +1,44 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <title>Buttons</title>
+</head>
+
+<body>
+    <link href="../src/widgets.css" rel="stylesheet" type="text/css" />
+    <script src="../src/core.js"></script>
+    <script src="../src/widgets.js"></script>
+    <script src="../src/color.js"></script>
+
+    <script>
+        /**
+         * Detect dark mode.
+         */
+
+        // Declare layout widgets       
+        let modeText = new TkText("p", { parent: "body" });
+
+        // Update the view when the system is switch between dark and light mode
+        function updateView() {
+            if(TkDocument.isInDarkMode()) {
+                document.body.style.backgroundColor = "black";
+                document.body.style.color = "white";
+                modeText.text = "Dark Mode";
+            } else {
+                document.body.style.backgroundColor = "white";
+                document.body.style.color = "black";
+                modeText.text = "Light Mode";
+            }
+        }
+
+        // Attach the handler to watch for the change
+        TkDocument.onChangeDarkMode(updateView);
+
+        // Call to update for the current mode
+        updateView();
+    </script>
+</body>
+
+</html>
