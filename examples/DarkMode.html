@@ -21,7 +21,7 @@
 
         // Update the text and document colors when the system is 
         // switched between dark and light mode
-        function updateView() {
+        function updateMode() {
             if (TkDocument.isInDarkMode()) {
                 document.body.style.backgroundColor = "black";
                 document.body.style.color = "white";
@@ -34,10 +34,10 @@
         }
 
         // Attach the handler to watch for the change
-        TkDocument.onChangeDarkMode(updateView);
+        TkDocument.onChangeDarkMode(updateMode);
 
         // Call to update for the current mode
-        updateView();
+        updateMode();
     </script>
 </body>
 
