@@ -17,12 +17,12 @@
          * Detect dark mode.
          */
 
-        // Declare layout widgets       
         let modeText = new TkText("p", { parent: "body" });
 
-        // Update the view when the system is switch between dark and light mode
+        // Update the text and document colors when the system is 
+        // switched between dark and light mode
         function updateView() {
-            if(TkDocument.isInDarkMode()) {
+            if (TkDocument.isInDarkMode()) {
                 document.body.style.backgroundColor = "black";
                 document.body.style.color = "white";
                 modeText.text = "Dark Mode";
