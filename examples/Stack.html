@@ -17,17 +17,21 @@
          * Show a stack of items
          */
 
-        // Declare widgets
+        // Declare the layout button stack and
+        // add it to the body
         let buttonStack = new TkStack({
             parent: "body",
             direction: TkStackDirection.FLOW
         });
-        let stack = new TkStack({
+
+        // Declare the color stack and add it to
+        // the body
+        let colorStack = new TkStack({
             parent: "body",
             direction: TkStackDirection.VERTICAL
         });
 
-        // Add a button for each direction
+        // Add a button for each stack direction
         for (let direction in TkStackDirection) {
             let button = new TkButton({
                 parent: buttonStack,
@@ -35,15 +39,15 @@
                 style: "margin: 0.25rem;"
             });
 
-            button.on("click", () => stack.direction = TkStackDirection[direction]);
+            button.on("click", () => colorStack.direction = TkStackDirection[direction]);
         }
 
         // Loop through hues and add text for
-        // each one to the stack
+        // each one to the colorStack
         for (let i = 0; i <= 360; i++) {
             let itemColor = new TkColor(`hsl(${i}, 100%, 50%)`);
             let stackItem = new TkText("span", {
-                parent: stack,
+                parent: colorStack,
                 style: "font-weight: bold; padding: 0.25rem;"
             });
 
