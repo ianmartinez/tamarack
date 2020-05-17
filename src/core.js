@@ -3,10 +3,28 @@
 */
 
 /**
+ * The sane approach would be to extend EventTarget, but since
+ * Safari is really embracing its role as the new Internet Explorer, 
+ * we can't do that.
+ * 
+ * Instead create a document fragment as a delegate and
+ * attach/dispatch events from that.
+ */
+class TkEmitter {
+    constructor() {
+        let delegate = document.createDocumentFragment();
+        let functions = ["addEventListener", "dispatchEvent", "removeEventListener"];
+        
+        // Map the class functions to the delegate functions
+        functions.forEach(func => this[func] = (...args) => delegate[func](...args));
+    }
+}
+
+/**
  * Represents an object whose state can be tracked by
  * emitting events when it has changed.
  */
-class TkStateObject extends EventTarget {
+class TkStateObject extends TkEmitter {
 
     constructor(options = {}) {
         super();
