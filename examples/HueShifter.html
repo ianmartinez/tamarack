@@ -50,11 +50,11 @@
                 color.h--;
 
             // Set the background color
-            body.style.backgroundColor = color.asHsla();
+            document.body.style.backgroundColor = color.asHsla();
 
             // Find the best color to contrast with the current
             // color and set it as the text color
-            body.style.color = color.isLight() ? "black" : "white";
+            document.body.style.color = color.isLight() ? "black" : "white";
 
             // Display the current color in all the
             // possible formats
