@@ -1076,6 +1076,9 @@ class TkNotebook extends TkPanel {
 				} else {
 					page._active = false;
 				}
+
+				// Trigger the pageadded event
+				this.trigger("pageadded");
 			} else {
 				super.add(item);
 			}
@@ -1098,6 +1101,9 @@ class TkNotebook extends TkPanel {
 
 				// Adjust the active index
 				this.activeIndex = Math.max(0, oldActiveIndex - 1);
+
+				// Trigger the pageremoved event
+				this.trigger("pageremoved");
 			} else {
 				super.remove(item);
 			}
