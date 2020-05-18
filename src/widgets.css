@@ -100,3 +100,61 @@
 [tkbutton] > [tklabel] > [tktext] {
     padding: 0;
 }
+
+/* TkNotebook */
+[tkNotebook] {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #b1b1b1;
+}
+
+[tkNotebook] > [tkNotebookTabArea] {
+    width: 100%;
+    background: linear-gradient(0deg, #f1f1f1, #d8d8d8);
+    padding: 0.25rem;
+    padding-bottom: 0;
+    display: flex;
+    max-width: 100%;
+    box-shadow: inset 0 -1px 0 0 #b1b1b1;
+    overflow-x: scroll;
+    scrollbar-width: none; 
+}
+
+[tkNotebook] > [tkNotebookTabArea]::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+[tkNotebook] > [tkNotebookTabArea] > [tkNotebookPageTab] {    
+    background: #d6d6d6;
+    color: #585858;
+    border: 1px solid #b1b1b1;
+    border-bottom: 1px solid #b1b1b1;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    margin: 0 0.1rem;
+    padding: 0.25rem 0.25rem;
+    white-space: nowrap;
+    outline: none;
+}
+
+[tkNotebook] > [tkNotebookTabArea] > [tkNotebookPageTab].active {
+    border-color: #b1b1b1;
+    background: white;
+    color: black;
+    border-bottom: 1px solid transparent;
+}
+
+[tkNotebook] > [tkNotebookContentArea] {
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    background: white;
+}
+
+[tkNotebook] > [tkNotebookContentArea] > [tkNotebookPageContent] {
+    height: 100%;
+    width: 100%;
+}

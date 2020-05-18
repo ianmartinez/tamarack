@@ -890,3 +890,84 @@ class TkButton extends TkWidget {
 	}
 
 }
+
+/**
+ * A TkNotebookPage is not a widget but represents the
+ * two widgets that make up a notebook page: the tab, 
+ * which is a TkButton, and the content, which is a 
+ * TkPanel.
+ */
+class TkNotebookPage {
+
+	/**
+	 * Create a TkNotebookPage
+	 * 
+	 * @param {Any} options The options object.
+	 * @param {String} options.title The tab's title.
+	 * @param {Any} options.tabOptions The options object for 
+	 * creating the tab button, which is a TkButton.
+	 * @param {Any} options.contentOptions The options object for 
+	 * creating the content panel, which is a TkPanel. 
+	 */
+	constructor(options = {}) {		
+		// Create the tab widget
+		this.tab = new TkButton(options.tabOptions);
+		this.tab.addAttribute("tkNotebookPageTab");
+		this.tab.associatedPage = this;
+
+		// Create the content widget
+		this.content = new TkPanel(options.contentOptions);
+		this.tab.addAttribute("tkNotebookPageContent");
+		this.content.associatedPage = this;
+
+		if (options.title !== undefined)
+			this.title = options.title;	
+	}
+
+	get title() {
+		return this.tab.text;
+	}
+	
+	set title(value) {
+		this.tab.text = value;
+	}
+
+	get hidden() {
+		// TODO
+	}
+
+	set hidden(value) {
+		// TODO
+	}
+	
+	get disabled() {
+		// TODO
+	}
+
+	set disabled(value) {
+		// TODO
+	}
+
+	get image() {
+		return this.tab.image;
+	}
+
+	set image(value) {
+		this.tab.image = value;
+	}
+
+	get activated() {
+		return this.tab.hasClass("active");
+	}
+
+	set activated(value) {
+		if(value) {
+			this.tab.addClass("active");
+			this.content.visible = true;
+		} else {
+			this.tab.removeClass("active");
+			this.content.visible = false;
+		}
+	}
+
+}
