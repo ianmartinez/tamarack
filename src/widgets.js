@@ -900,7 +900,7 @@ class TkButton extends TkWidget {
 class TkNotebookPage {
 
 	/**
-	 * Create a TkNotebookPage
+	 * Create a TkNotebookPage.
 	 * 
 	 * @param {Any} options The options object.
 	 * @param {String} options.title The tab's title.
@@ -1031,8 +1031,27 @@ class TkNotebookPage {
 
 }
 
+/** 
+ *	A widget for managing a set of related pages, each with its own tab button
+ *	and content panel.
+ * 
+ *	It is a root <div> with two <div> children: one which holds tab buttons for each page
+ *	and another, which holds <div> elements that contain the content of each page.
+ */
 class TkNotebook extends TkPanel {
-
+	
+	/**
+	 * Create a TkNotebook.
+	 * 
+	 * @param {Any} options The options object.
+	 * @param {Boolean} options.wrap (default: true) If the page navigation should wrap around.
+	 * @param {Boolean} options.newestPageActive (default: false) If the notebook should 
+	 * jump to new pages when they are added.
+	 * @param {Any} options.tabAreaOptions The options object for creating the tab 
+	 * panel, which is a TkPanel. 
+	 * @param {Any} options.contentAreaOptions The options object for creating the content 
+	 * area panel, which is a TkPanel. 
+	 */
 	constructor(options = {}) {
 		if (options.wrap === undefined)
 			options.wrap = true;
@@ -1047,7 +1066,7 @@ class TkNotebook extends TkPanel {
 		this.tabArea.addAttribute("tknotebook-tabarea");
 		this.add(this.tabArea);
 
-		this.contentArea = new TkPanel(options.contentArea);
+		this.contentArea = new TkPanel(options.contentAreaOptions);
 		this.contentArea.addAttribute("tknotebook-contentarea");
 		this.add(this.contentArea);
 
@@ -1056,6 +1075,12 @@ class TkNotebook extends TkPanel {
 		this.pages = [];
 	}
 
+	/**
+	 * Add pages and items to the notebook. If an item is not a TkNotebookPage, 
+	 * it will be passed on to TkWidget.add().
+	 * 
+	 * @param  {...TkNotebookPage|String|HTMLElement|TkWidget} items The pages/items to add.
+	 */
 	add(...items) {
 		for (let item of items) {
 			if (TkObject.is(item, TkNotebookPage)) {
@@ -1085,6 +1110,12 @@ class TkNotebook extends TkPanel {
 		}
 	}
 
+	/**
+	 * Remove pages and items from the notebook. If an item is not a TkNotebookPage, 
+	 * it will be passed on to TkWidget.remove(). 
+	 * 
+	 * @param  {...TkNotebookPage|String|HTMLElement|TkWidget} items The pages/items to remove.
+	 */
 	remove(...items) {
 		for (let item of items) {
 			if (TkObject.is(item, TkNotebookPage)) {
