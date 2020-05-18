@@ -14,7 +14,7 @@ class TkEmitter {
     constructor() {
         let delegate = document.createDocumentFragment();
         let functions = ["addEventListener", "dispatchEvent", "removeEventListener"];
-        
+
         // Map the class functions to the delegate functions
         functions.forEach(func => this[func] = (...args) => delegate[func](...args));
     }
@@ -230,6 +230,6 @@ class TkDocument {
      * @param {function(MediaQueryListEvent):void} callback The callback to run with this event.
      */
     static onChangeDarkMode(callback) {
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', callback);
+        window.matchMedia('(prefers-color-scheme: dark)').addListener(callback);
     }
 }
