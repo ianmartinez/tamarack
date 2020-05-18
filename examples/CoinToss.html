@@ -13,13 +13,13 @@
 
     <script>
         let tossCoinButton = new TkButton({ parent: "body", text: "Toss Coin" });
-        let tossCoinStack = new TkStack({ parent: "body", direction: TkStackDirection.VERTICAL });
+        let results = new TkStack({ parent: "body", direction: TkStackDirection.VERTICAL });
 
         tossCoinButton.on("click", () => {
             let result = TkArray.random("Heads", "Tails");
             let resultColor = (result == "Heads") ? "maroon" : "midnightblue";
-            let resultText = new TkText("h2", { 
-                parent: tossCoinStack, 
+            let resultText = new TkText("h2", {
+                parent: results,
                 text: result,
                 style: `color: ${resultColor};`
             });
