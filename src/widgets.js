@@ -974,17 +974,23 @@ class TkNotebookPage {
 	}
 
 	/**
-	 * If the tab page is visible
-	 * 
-	 * Do NOT set this directly on a TkPage, instead set the
-	 * active tab in a notebook via TkNotebook.activePage.
+	 * If the tab page is visible.
 	 * @type {Boolean}
 	 */
 	get activated() {
 		return this.tab.hasClass("active");
 	}
-
-	set activated(value) {
+	
+	/**
+	 * If the tab page is visible.
+	 * 
+	 * Do NOT set this directly on a TkNotebookPage, instead set the
+	 * active tab in a notebook via TkNotebook.activePage,
+	 * which will handle the hiding of other pages correctly.
+	 * @type {Boolean}
+	 * @param {Boolean}
+	 */
+	set _activated(value) {
 		if(value) {
 			this.tab.addClass("active");
 			this.content.visible = true;
