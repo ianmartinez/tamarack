@@ -1156,6 +1156,11 @@ class TkNotebook extends TkPanel {
 		return this.pages.length;
 	}
 
+	/**
+	 * Whether or not to wrap around to the first or last page when
+	 * getting the next or previous page.
+	 * @type {Boolean}
+	 */
 	get wrap() {
 		return this._wrap;
 	}
@@ -1164,6 +1169,10 @@ class TkNotebook extends TkPanel {
 		this._wrap = value;
 	}
 
+	/**
+	 * If the notebook should automatically go to a newly added tab.
+	 * @type {Boolean}
+	 */
 	get newestPageActive() {
 		return this._newestPageActive;
 	}
@@ -1172,6 +1181,10 @@ class TkNotebook extends TkPanel {
 		this._newestPageActive = value;
 	}
 
+	/**
+	 * The page index that comes before the current page.
+	 * @type {Number}
+	 */
 	get previousPageIndex() {
 		if (this.activeIndex - 1 < 0 && this.wrap)
 			return this.pages.length - 1;
@@ -1179,6 +1192,10 @@ class TkNotebook extends TkPanel {
 			return Math.max(0, this.activeIndex - 1);
 	}
 
+	/**
+	 * The page index that comes after the current page.
+	 * @type {Number}
+	 */
 	get nextPageIndex() {
 		if (this.activeIndex + 1 >= this.pages.length && this.wrap)
 			return 0;
@@ -1186,20 +1203,34 @@ class TkNotebook extends TkPanel {
 			return Math.min(this.pages.length - 1, this.activeIndex + 1);
 	}
 
+	/**
+	 * Go to the page before the current page.
+	 */
 	goToPrevious() {
 		this.activeIndex = this.previousPageIndex;
 	}
 
+	/**
+	 * Go to the page after the current page.
+	 */
 	goToNext() {
 		this.activeIndex = this.nextPageIndex;
 	}
 
+	/**
+	 * Go to the first page in the notebook.
+	 */
 	goToFirst() {
-		this.activeIndex = 0;
+		if (this.pageCount > 0)
+			this.activeIndex = 0;
 	}
 
+	/**
+	 * Go to the last page in the notebook.
+	 */
 	goToLast() {
-		this.activeIndex = this.pages.length - 1;
+		if (this.pageCount > 0)
+			this.activeIndex = this.pages.length - 1;
 	}
 
 }
