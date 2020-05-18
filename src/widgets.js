@@ -904,13 +904,14 @@ class TkNotebookPage {
 	 * 
 	 * @param {Any} options The options object.
 	 * @param {String} options.title The tab's title.
+	 * @param {TkWidget[]} options.content An array of TkWidgets to be the page's content.
 	 * @param {TkNotebook} options.parent The parent notebook.
 	 * @param {Any} options.tabOptions The options object for 
 	 * creating the tab button, which is a TkButton.
 	 * @param {Any} options.contentOptions The options object for 
 	 * creating the content panel, which is a TkPanel. 
 	 */
-	constructor(options = {}) {		
+	constructor(options = {}) {
 		// Create the tab widget
 		this.tab = new TkButton(options.tabOptions);
 		this.tab.addAttribute("tknotebook-tab");
@@ -918,7 +919,7 @@ class TkNotebookPage {
 
 		// Create the content widget
 		this.content = new TkPanel(options.contentOptions);
-		this.tab.addAttribute("tknotebook-content");
+		this.content.addAttribute("tknotebook-content");
 		this.content.associatedPage = this;
 
 		// Set the tab title, if specified
@@ -929,12 +930,16 @@ class TkNotebookPage {
 		if (options.parent !== undefined)
 			options.parent.add(this);
 
+		// Add the page content, if specfied
+		if (options.content)
+			this.content.add(...options.content);
+
 		// If this page is part of a notebook, make 
 		// it the active tab when it is clicked
 		let page = this;
 		this.tab.on("click", () => {
 			let notebook = this._parent;
-			if(notebook != null) {
+			if (notebook != null) {
 				notebook.active = page;
 			}
 		});
@@ -947,7 +952,7 @@ class TkNotebookPage {
 	get title() {
 		return this.tab.text;
 	}
-	
+
 	set title(value) {
 		this.tab.text = value;
 	}
@@ -963,7 +968,7 @@ class TkNotebookPage {
 	set hidden(value) {
 		// TODO
 	}
-	
+
 	/**
 	 * If the tab button can be clicked to open
 	 * the page.
@@ -988,7 +993,7 @@ class TkNotebookPage {
 	set image(value) {
 		this.tab.image = value;
 	}
-	
+
 	/**
 	 * The notebook that this page belongs to.
 	 * @type {TkNotebook}
@@ -1004,7 +1009,7 @@ class TkNotebookPage {
 	get active() {
 		return this.tab.hasClass("active");
 	}
-	
+
 	/**
 	 * If the tab page is visible.
 	 * 
@@ -1015,68 +1020,94 @@ class TkNotebookPage {
 	 * @param {Boolean} value
 	 */
 	set _active(value) {
-		if(value) {
+		if (value) {
 			this.tab.addClass("active");
-			this.content.visible = true;
+			this.content.addClass("active");
 		} else {
 			this.tab.removeClass("active");
-			this.content.visible = false;
+			this.content.removeClass("active");
 		}
 	}
 
 }
 
 class TkNotebook extends TkPanel {
-	
-	constructor(options = { wrap: true, newestPageActive: false }) {
+
+	constructor(options = {}) {
+		if (options.wrap === undefined)
+			options.wrap = true;
+
+		if (options.newestPageActive === undefined)
+			options.newestPageActive = false;
+
 		super(options, { tag: "div" });
 		this.addAttribute("tknotebook");
 
 		this.tabArea = new TkPanel(options.tabAreaOptions);
+		this.tabArea.addAttribute("tknotebook-tabarea");
+		this.add(this.tabArea);
+
 		this.contentArea = new TkPanel(options.contentArea);
+		this.contentArea.addAttribute("tknotebook-contentarea");
+		this.add(this.contentArea);
+
 		this._wrap = options.wrap;
 		this._newestPageActive = options.newestPageActive;
+		this.pages = [];
 	}
 
-	add(...pages) {
-		pages.forEach((page) => {
-			// Add the page to the notebook
-			this.pages.push(page);
-			this.tabArea.add(page.tab);
-			this.contentArea.add(page.content);
+	add(...items) {
+		for (let item of items) {
+			if (TkObject.is(item, TkNotebookPage)) {
+				let page = item;
 
-			// Set this notebook as the page's parent
-			page._parent = this;
+				// Add the page to the notebook
+				this.pages.push(page);
+				this.tabArea.add(page.tab);
+				this.contentArea.add(page.content);
 
-			// Jump to the page if there is no page active
-			// or if newestPageActive == true
-			if (this.newestPageActive || this.active === undefined) {
-				this.active = page;
+				// Set this notebook as the page's parent
+				page._parent = this;
+
+				// Jump to the page if there is no page active
+				// or if newestPageActive == true
+				if (this.newestPageActive || this.active === null) {
+					this.active = page;
+				} else {
+					page._active = false;
+				}
 			} else {
-				page._active = false;
+				super.add(item);
 			}
-		});
+		}
 	}
 
-	remove(...pages) {
-		pages.forEach((page) => {
-			// Remove the page to the notebook
-			this.pages.splice(this.pages.indexOf(page), 1);
-			this.tabArea.remove(page.tab);
-			this.contentArea.remove(page.content);
+	remove(...items) {
+		for (let item of items) {
+			if (TkObject.is(item, TkNotebookPage)) {
+				let page = item;
+				let oldActiveIndex = this.activeIndex;
 
-			// Set the page's parent to null
-			page._parent = null;
+				// Remove the page to the notebook
+				this.pages.splice(this.pages.indexOf(page), 1);
+				this.tabArea.remove(page.tab);
+				this.contentArea.remove(page.content);
 
-			// Adjust the active index
-			this.activeIndex = Math.max(0, oldActiveIndex - 1);
-		});
+				// Set the page's parent to null
+				page._parent = null;
+
+				// Adjust the active index
+				this.activeIndex = Math.max(0, oldActiveIndex - 1);
+			} else {
+				super.remove(item);
+			}
+		}
 	}
 
 	/**
 	 * Remove all pages from the notebook.
 	 */
-	clear() {		
+	clear() {
 		this.remove(...this.pages);
 	}
 
@@ -1086,12 +1117,12 @@ class TkNotebook extends TkPanel {
 	}
 
 	set active(value) {
-		if(value !== undefined)
+		if (value === undefined || value === null)
 			return;
 
 		// Unselect old page, if it exists.
 		let oldActive = this.active;
-		if(oldActive !== null) {
+		if (oldActive !== null) {
 			oldActive._active = false;
 		}
 
@@ -1106,7 +1137,7 @@ class TkNotebook extends TkPanel {
 		let index = -1;
 
 		this.pages.forEach((page, i) => {
-			if(page.active)
+			if (page.active)
 				index = i;
 		});
 
@@ -1143,22 +1174,22 @@ class TkNotebook extends TkPanel {
 
 	get previousPageIndex() {
 		if (this.activeIndex - 1 < 0 && this.wrap)
-			return this.pages.length-1;
+			return this.pages.length - 1;
 		else
-			return  Math.max(0, this.activeIndex - 1);
+			return Math.max(0, this.activeIndex - 1);
 	}
 
 	get nextPageIndex() {
 		if (this.activeIndex + 1 >= this.pages.length && this.wrap)
 			return 0;
 		else
-			return Math.min(this.pages.length-1, this.activeIndex + 1);	
+			return Math.min(this.pages.length - 1, this.activeIndex + 1);
 	}
 
 	goToPrevious() {
 		this.activeIndex = this.previousPageIndex;
 	}
-	
+
 	goToNext() {
 		this.activeIndex = this.nextPageIndex;
 	}

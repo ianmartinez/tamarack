@@ -152,9 +152,15 @@
     height: 100%;
     flex-grow: 1;
     background: white;
+    padding: 1rem;
 }
 
 [tknotebook] > [tknotebook-contentarea] > [tknotebook-content] {
     height: 100%;
     width: 100%;
+    display: none;
+}
+
+[tknotebook] > [tknotebook-contentarea] > [tknotebook-content].active {
+    display: block;
 }
