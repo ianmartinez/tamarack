@@ -924,6 +924,10 @@ class TkNotebookPage {
 			this.title = options.title;	
 	}
 
+	/**
+	 * The text displayed on the tab button.
+	 * @type {String}
+	 */
 	get title() {
 		return this.tab.text;
 	}
@@ -932,6 +936,10 @@ class TkNotebookPage {
 		this.tab.text = value;
 	}
 
+	/**
+	 * If the page is shown in its parent notebook.
+	 * @type {Boolean}
+	 */
 	get hidden() {
 		// TODO
 	}
@@ -940,6 +948,11 @@ class TkNotebookPage {
 		// TODO
 	}
 	
+	/**
+	 * If the tab button can be clicked to open
+	 * the page.
+	 * @type {Boolean}
+	 */
 	get disabled() {
 		// TODO
 	}
@@ -948,6 +961,10 @@ class TkNotebookPage {
 		// TODO
 	}
 
+	/**
+	 * The source of the tab button's image.
+	 * @type {String}
+	 */
 	get image() {
 		return this.tab.image;
 	}
@@ -956,6 +973,13 @@ class TkNotebookPage {
 		this.tab.image = value;
 	}
 
+	/**
+	 * If the tab page is visible
+	 * 
+	 * Do NOT set this directly on a TkPage, instead set the
+	 * active tab in a notebook via TkNotebook.activePage.
+	 * @type {Boolean}
+	 */
 	get activated() {
 		return this.tab.hasClass("active");
 	}
@@ -971,3 +995,4 @@ class TkNotebookPage {
 	}
 
 }
+
