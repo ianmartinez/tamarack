@@ -904,6 +904,7 @@ class TkNotebookPage {
 	 * 
 	 * @param {Any} options The options object.
 	 * @param {String} options.title The tab's title.
+	 * @param {TkNotebook} options.parent The parent notebook.
 	 * @param {Any} options.tabOptions The options object for 
 	 * creating the tab button, which is a TkButton.
 	 * @param {Any} options.contentOptions The options object for 
@@ -912,16 +913,31 @@ class TkNotebookPage {
 	constructor(options = {}) {		
 		// Create the tab widget
 		this.tab = new TkButton(options.tabOptions);
-		this.tab.addAttribute("tkNotebookPageTab");
+		this.tab.addAttribute("tknotebook-tab");
 		this.tab.associatedPage = this;
 
 		// Create the content widget
 		this.content = new TkPanel(options.contentOptions);
-		this.tab.addAttribute("tkNotebookPageContent");
+		this.tab.addAttribute("tknotebook-content");
 		this.content.associatedPage = this;
 
+		// Set the tab title, if specified
 		if (options.title !== undefined)
-			this.title = options.title;	
+			this.title = options.title;
+
+		// Add this page to a notebook, if specified
+		if (options.parent !== undefined)
+			options.parent.add(this);
+
+		// If this page is part of a notebook, make 
+		// it the active tab when it is clicked
+		let page = this;
+		this.tab.on("click", () => {
+			let notebook = this._parent;
+			if(notebook != null) {
+				notebook.active = page;
+			}
+		});
 	}
 
 	/**
@@ -972,25 +988,33 @@ class TkNotebookPage {
 	set image(value) {
 		this.tab.image = value;
 	}
+	
+	/**
+	 * The notebook that this page belongs to.
+	 * @type {TkNotebook}
+	 */
+	get parent() {
+		return this._parent;
+	}
 
 	/**
 	 * If the tab page is visible.
 	 * @type {Boolean}
 	 */
-	get activated() {
+	get active() {
 		return this.tab.hasClass("active");
 	}
 	
 	/**
 	 * If the tab page is visible.
 	 * 
-	 * Do NOT set this directly on a TkNotebookPage, instead set the
-	 * active tab in a notebook via TkNotebook.activePage,
-	 * which will handle the hiding of other pages correctly.
+	 * _DO NOT_ set this directly on a TkNotebookPage, instead set the
+	 * active tab in a notebook via TkNotebook.active, which will handle 
+	 * the hiding of other pages correctly.
 	 * @type {Boolean}
-	 * @param {Boolean}
+	 * @param {Boolean} value
 	 */
-	set _activated(value) {
+	set _active(value) {
 		if(value) {
 			this.tab.addClass("active");
 			this.content.visible = true;
@@ -1002,3 +1026,149 @@ class TkNotebookPage {
 
 }
 
+class TkNotebook extends TkPanel {
+	
+	constructor(options = { wrap: true, newestPageActive: false }) {
+		super(options, { tag: "div" });
+		this.addAttribute("tknotebook");
+
+		this.tabArea = new TkPanel(options.tabAreaOptions);
+		this.contentArea = new TkPanel(options.contentArea);
+		this._wrap = options.wrap;
+		this._newestPageActive = options.newestPageActive;
+	}
+
+	add(...pages) {
+		pages.forEach((page) => {
+			// Add the page to the notebook
+			this.pages.push(page);
+			this.tabArea.add(page.tab);
+			this.contentArea.add(page.content);
+
+			// Set this notebook as the page's parent
+			page._parent = this;
+
+			// Jump to the page if there is no page active
+			// or if newestPageActive == true
+			if (this.newestPageActive || this.active === undefined) {
+				this.active = page;
+			} else {
+				page._active = false;
+			}
+		});
+	}
+
+	remove(...pages) {
+		pages.forEach((page) => {
+			// Remove the page to the notebook
+			this.pages.splice(this.pages.indexOf(page), 1);
+			this.tabArea.remove(page.tab);
+			this.contentArea.remove(page.content);
+
+			// Set the page's parent to null
+			page._parent = null;
+
+			// Adjust the active index
+			this.activeIndex = Math.max(0, oldActiveIndex - 1);
+		});
+	}
+
+	/**
+	 * Remove all pages from the notebook.
+	 */
+	clear() {		
+		this.remove(...this.pages);
+	}
+
+	get active() {
+		let activeIndex = this.activeIndex;
+		return (activeIndex == -1) ? null : this.pages[this.activeIndex];
+	}
+
+	set active(value) {
+		if(value !== undefined)
+			return;
+
+		// Unselect old page, if it exists.
+		let oldActive = this.active;
+		if(oldActive !== null) {
+			oldActive._active = false;
+		}
+
+		// Select the new tab
+		value._active = true;
+
+		// Trigger the activechanged event
+		this.trigger("activechanged");
+	}
+
+	get activeIndex() {
+		let index = -1;
+
+		this.pages.forEach((page, i) => {
+			if(page.active)
+				index = i;
+		});
+
+		return index;
+	}
+
+	set activeIndex(value) {
+		this.active = this.pages[value];
+	}
+
+	indexOf(page) {
+		return this.pages.indexOf(page);
+	}
+
+	get pageCount() {
+		return this.pages.length;
+	}
+
+	get wrap() {
+		return this._wrap;
+	}
+
+	set wrap(value) {
+		this._wrap = value;
+	}
+
+	get newestPageActive() {
+		return this._newestPageActive;
+	}
+
+	set newestPageActive(value) {
+		this._newestPageActive = value;
+	}
+
+	get previousPageIndex() {
+		if (this.activeIndex - 1 < 0 && this.wrap)
+			return this.pages.length-1;
+		else
+			return  Math.max(0, this.activeIndex - 1);
+	}
+
+	get nextPageIndex() {
+		if (this.activeIndex + 1 >= this.pages.length && this.wrap)
+			return 0;
+		else
+			return Math.min(this.pages.length-1, this.activeIndex + 1);	
+	}
+
+	goToPrevious() {
+		this.activeIndex = this.previousPageIndex;
+	}
+	
+	goToNext() {
+		this.activeIndex = this.nextPageIndex;
+	}
+
+	goToFirst() {
+		this.activeIndex = 0;
+	}
+
+	goToLast() {
+		this.activeIndex = this.pages.length - 1;
+	}
+
+}

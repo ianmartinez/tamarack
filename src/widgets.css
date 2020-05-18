@@ -101,8 +101,8 @@
     padding: 0;
 }
 
-/* TkNotebook */
-[tkNotebook] {
+/* tknotebook */
+[tknotebook] {
     width: 100%;
     height: 100%;
     display: flex;
@@ -110,7 +110,7 @@
     border: 1px solid #b1b1b1;
 }
 
-[tkNotebook] > [tkNotebookTabArea] {
+[tknotebook] > [tknotebook-tabarea] {
     width: 100%;
     background: linear-gradient(0deg, #f1f1f1, #d8d8d8);
     padding: 0.25rem;
@@ -122,12 +122,12 @@
     scrollbar-width: none; 
 }
 
-[tkNotebook] > [tkNotebookTabArea]::-webkit-scrollbar {
+[tknotebook] > [tknotebook-tabarea]::-webkit-scrollbar {
     width: 0;
     height: 0;
 }
 
-[tkNotebook] > [tkNotebookTabArea] > [tkNotebookPageTab] {    
+[tknotebook] > [tknotebook-tabarea] > [tknotebook-tab] {    
     background: #d6d6d6;
     color: #585858;
     border: 1px solid #b1b1b1;
@@ -140,21 +140,21 @@
     outline: none;
 }
 
-[tkNotebook] > [tkNotebookTabArea] > [tkNotebookPageTab].active {
+[tknotebook] > [tknotebook-tabarea] > [tknotebook-tab].active {
     border-color: #b1b1b1;
     background: white;
     color: black;
     border-bottom: 1px solid transparent;
 }
 
-[tkNotebook] > [tkNotebookContentArea] {
+[tknotebook] > [tknotebook-contentarea] {
     width: 100%;
     height: 100%;
     flex-grow: 1;
     background: white;
 }
 
-[tkNotebook] > [tkNotebookContentArea] > [tkNotebookPageContent] {
+[tknotebook] > [tknotebook-contentarea] > [tknotebook-content] {
     height: 100%;
     width: 100%;
 }

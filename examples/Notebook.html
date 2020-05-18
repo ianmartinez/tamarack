@@ -15,29 +15,29 @@
         // Declare widgets
         let selectedPageText = new TkText("h2", { parent: "body" });
         let buttonStack = new TkStack({ parent: "body", style: "padding: 0.25rem;" });
-        let previousButton = new TkButton({ parent: buttonStack, text: "<" });
-        let nextButton = new TkButton({ parent: buttonStack, text: ">" });
-        let addButton = new TkButton({ parent: buttonStack, text: "Add" });
-        let removeButton = new TkButton({ parent: buttonStack, text: "Remove" });
+        let previousPageButton = new TkButton({ parent: buttonStack, text: "<" });
+        let nextPageButton = new TkButton({ parent: buttonStack, text: ">" });
+        let addPageButton = new TkButton({ parent: buttonStack, text: "Add" });
+        let removePageButton = new TkButton({ parent: buttonStack, text: "Remove" });
         let notebook = new TkButton({ parent: body });
 
         // Keep track of the pages added
         let page = 0;
 
         // Attach button event handlers
-        previousButton.on("click", () => notebook.goToPrevious());
-        nextButton.on("click", () => notebook.goToNext());
-        addButton.on("click", () => {
+        previousPageButton.on("click", () => notebook.goToPrevious());
+        nextPageButton.on("click", () => notebook.goToNext());
+        addPageButton.on("click", () => {
             notebook.add(new TkNotebookPage({ title: `Page ${++pageCount}` }));
         });
-        removeButton.on("click", () => {
-            if(notebook.currentPage != null)
+        removePageButton.on("click", () => {
+            if (notebook.currentPage != null)
                 notebook.remove(notebook.currentPage);
         });
 
         // Update the selected page text when the current page is changed
         notebook.on("changePage", (page) => {
-            if(page != null)
+            if (page != null)
                 selectedPageText.text = selectedPageText;
             else
                 selectedPageText.text = "";
