@@ -92,6 +92,7 @@ class TkObject {
     static isArray(obj) {
         return (obj.constructor === Array);
     }
+
 }
 
 /**
@@ -127,6 +128,10 @@ class TkArray {
             callback(array[i], i);
     }
 
+	static random(...array) {
+		return array[TkNumber.random(0, array.length - 1)];
+    }
+    
 }
 
 /**
@@ -143,6 +148,18 @@ class TkNumber {
     static in(number, from, to) {
         return (number >= from && number <= to);
     }
+
+    static random(min, max) {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+	static randomDecimal(min, max) {
+		return Math.random() < 0.5 ? 
+			((1-Math.random()) * (max-min) + min) : (Math.random() * (max-min) + min);
+	}
 
 }
 
@@ -232,4 +249,5 @@ class TkDocument {
     static onChangeDarkMode(callback) {
         window.matchMedia('(prefers-color-scheme: dark)').addListener(callback);
     }
+
 }

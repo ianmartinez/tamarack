@@ -1,0 +1,30 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <title>Coin Toss</title>
+</head>
+
+<body>
+    <link href="../src/widgets.css" rel="stylesheet" type="text/css" />
+    <script src="../src/core.js"></script>
+    <script src="../src/widgets.js"></script>
+
+    <script>
+        let tossCoinButton = new TkButton({ parent: "body", text: "Toss Coin" });
+        let tossCoinStack = new TkStack({ parent: "body", direction: TkStackDirection.VERTICAL });
+
+        tossCoinButton.on("click", () => {
+            let result = TkArray.random("Heads", "Tails");
+            let resultColor = (result == "Heads") ? "maroon" : "midnightblue";
+            let resultText = new TkText("h1", { 
+                parent: tossCoinStack, 
+                text: result,
+                style: `color: ${resultColor};`
+            });
+        });
+    </script>
+</body>
+
+</html>
