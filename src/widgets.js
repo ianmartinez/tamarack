@@ -1039,7 +1039,7 @@ class TkNotebookPage {
  *	and another, which holds <div> elements that contain the content of each page.
  */
 class TkNotebook extends TkPanel {
-	
+
 	/**
 	 * Create a TkNotebook.
 	 * 
@@ -1121,6 +1121,7 @@ class TkNotebook extends TkPanel {
 			if (TkObject.is(item, TkNotebookPage)) {
 				let page = item;
 				let oldActiveIndex = this.activeIndex;
+				let oldCount = this.pageCount;
 
 				// Remove the page to the notebook
 				this.pages.splice(this.pages.indexOf(page), 1);
@@ -1135,6 +1136,10 @@ class TkNotebook extends TkPanel {
 
 				// Trigger the pageremoved event
 				this.trigger("pageremoved");
+
+				// Trigger active changed event if the active index changed 
+				if ((oldActiveIndex != this.activeIndex))
+					this.trigger("activechanged");
 			} else {
 				super.remove(item);
 			}
@@ -1148,6 +1153,10 @@ class TkNotebook extends TkPanel {
 		this.remove(...this.pages);
 	}
 
+	/**
+	 * The active page in the notebook. 
+	 * @type {TkNotebookPage}
+	 */
 	get active() {
 		let activeIndex = this.activeIndex;
 		return (activeIndex == -1) ? null : this.pages[this.activeIndex];
@@ -1170,6 +1179,10 @@ class TkNotebook extends TkPanel {
 		this.trigger("activechanged");
 	}
 
+	/**
+	 * The index of the active page in the notebook.
+	 * @type {Number}
+	 */
 	get activeIndex() {
 		let index = -1;
 
@@ -1185,10 +1198,19 @@ class TkNotebook extends TkPanel {
 		this.active = this.pages[value];
 	}
 
+	/**
+	 * Get the index of a page in the notebook.
+	 * 
+	 * @param {TkNotebookPage} page The page to look for.
+	 */
 	indexOf(page) {
 		return this.pages.indexOf(page);
 	}
 
+	/**
+	 * The number of pages in the notebook.
+	 * @type {Number}
+	 */
 	get pageCount() {
 		return this.pages.length;
 	}
