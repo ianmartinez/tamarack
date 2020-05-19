@@ -6,8 +6,7 @@
 /**
  * An enum representing the direction 
  * to place the child elements in a 
- * TkStack.
- * 
+ * TkStack. 
  * @enum {String}
  */
 const TkStackDirection = {
@@ -1121,7 +1120,6 @@ class TkNotebook extends TkPanel {
 			if (TkObject.is(item, TkNotebookPage)) {
 				let page = item;
 				let oldActiveIndex = this.activeIndex;
-				let oldCount = this.pageCount;
 
 				// Remove the page to the notebook
 				this.pages.splice(this.pages.indexOf(page), 1);
