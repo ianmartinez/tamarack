@@ -21,7 +21,7 @@
  * TkColor also extends TkStateObject, which means it it emits events
  * when its state has changed (i.e. when the user enters an invalid color
  * that's then passed to the setString() function). When it enters an invalid
- * state (isValid == false), the "becameInvalid" event is emitted, but the last
+ * state (isValid == false), the "becameinvalid" event is emitted, but the last
  * valid color is still preserved because none of the invalid inputs were actually
  * committed.
  * 

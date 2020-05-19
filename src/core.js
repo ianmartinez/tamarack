@@ -22,21 +22,32 @@ class TkEmitter {
 
 /**
  * Represents an object whose state can be tracked by
- * emitting events when it has changed.
+ * emitting events when its validity has changed.
  */
 class TkStateObject extends TkEmitter {
 
+    /**
+     * Create a TkStateObject.
+     * 
+     * @param {Any} options The options object.
+     * @param {Boolean} options.hasIntialized If the object has been fully initialized.
+     * @param {Boolean} options.isValid If the object is in a valid state.
+     */
     constructor(options = {}) {
         super();
 
         this._hasIntialized = options.hasIntialized ?? false;
         this._isValid = options.isValid ?? false;
 
-        this.becameInvalid = new Event("becameInvalid");
-        this.becameValid = new Event("becameValid");
-        this.onInitialize = new Event("onInitialize");
+        this.becameInvalid = new Event("becameinvalid");
+        this.becameValid = new Event("becamevalid");
+        this.onInitialize = new Event("oninitialize");
     }
 
+    /**
+     * If the object has been fully initialized.
+     * @type {Boolean}
+     */
     get hasIntialized() {
         return this._hasIntialized;
     }
@@ -46,6 +57,10 @@ class TkStateObject extends TkEmitter {
         this.dispatchEvent(this.onInitialize);
     }
 
+    /**
+     * If the object is in a valid state.
+     * @type {Boolean}
+     */
     get isValid() {
         return this._isValid;
     }
@@ -66,8 +81,19 @@ class TkStateObject extends TkEmitter {
 
 }
 
+/**
+ * A class of static functions dealing with JavaScript objects.
+ */
 class TkObject {
 
+    /**
+     * Check if an object is an instance of a type.
+     * 
+     * @param {Any} obj The object whose type is being checked.
+     * @param {Any} type The type to check.
+     * 
+     * @returns {Boolean} If the object is an instance of the type.
+     */
     static is(obj, type) {
         let normalizedType = type.name.toLowerCase();
 
@@ -81,14 +107,35 @@ class TkObject {
         }
     }
 
+    /**
+     * If an object is a boolean.
+     * 
+     * @param {Any} obj The object to check.
+     * 
+     * @returns {Boolean} If the object is a boolean.
+     */
     static isBool(obj) {
         return typeof (obj) === "boolean" || obj instanceof Boolean;
     }
 
+    /**
+     * If an object is a string.
+     * 
+     * @param {Any} obj The object to check.
+     * 
+     * @returns {Boolean} If the object is a string.
+     */
     static isString(obj) {
         return typeof (obj) === "string" || obj instanceof String;
     }
 
+    /**
+     * If an object is an array.
+     * 
+     * @param {Any} obj The object to check.
+     * 
+     * @returns {Boolean} If the object is an array.
+     */
     static isArray(obj) {
         return (obj.constructor === Array);
     }
@@ -101,6 +148,13 @@ class TkObject {
  */
 class TkArray {
 
+    /**
+     * Check if all elements in an array are equal.
+     * 
+     * @param {Any[]} array The array to check.
+     * 
+     * @returns {Boolean} If all items are the same.
+     */
     static areElementsEqual(array) {
         for (var i = 0; i < array.length; i++)
             for (var j = 0; j < array.length; j++)
@@ -110,24 +164,57 @@ class TkArray {
         return true;
     }
 
+    /**
+     * Remove an element from an array.
+     * 
+     * @param {Any[]} array The array to remove an element from.
+     * @param {Any} element The element to remove.
+     */
     static remove(array, element) {
         array.splice(array.indexOf(element), 1);
     }
 
+    /**
+     * Remove an element at an index from an array.
+     * 
+     * @param {Any[]} array The array to remove an element from.
+     * @param {Number} index The index of the element to remove.
+     */
     static removeAt(array, index) {
         array.splice(index, 1);
     }
 
+    /**
+     * Loop over an array from 0 to the last index.
+     * 
+     * @param {Any[]} array The array to loop over.
+     * @param {Function(Any, Number)} callback A callback that it passed each element in the 
+     * array, along with its index.
+     */
     static ascend(array, callback) {
         for (let i = 0; i < array.length; i++)
             callback(array[i], i);
     }
 
+    /**
+     * Loop over an array from the last down to 0.
+     * 
+     * @param {Any[]} array The array to loop over.
+     * @param {Function(Any, Number)} callback A callback that it passed each element in the 
+     * array, along with its index.
+     */
     static descend(array, callback) {
         for (let i = array.length - 1; i >= 0; i--)
             callback(array[i], i);
     }
 
+    /**
+     * Pick a random element from an array.
+     * 
+     * @param  {...Any} array The array to use.
+     * 
+     * @returns {Any} A random element of the array.
+     */
 	static random(...array) {
 		return array[TkNumber.random(0, array.length - 1)];
     }
@@ -140,22 +227,56 @@ class TkArray {
  */
 class TkNumber {
 
+    /**
+     * Get a number rounded to a fixed number of decimals.
+     * 
+     * @param {Number} number The number to round.
+     * @param {Number} digits The number of digits after the decimal point.
+     * @param {Number} base (default: 10) The base of the number.
+     * 
+     * @returns {Number} The rounded number.
+     */
     static fixed(number, digits, base = 10) {
         var pow = Math.pow(base, digits);
         return Math.round(number * pow) / pow;
     }
 
+    /**
+     * Check if a number is in a range, inclusive.
+     * 
+     * @param {Number} number The number to check.
+     * @param {Number} from The lower bound.
+     * @param {Number} to The upper bound.
+     * 
+     * @returns {Boolean} If the number is in range.
+     */
     static in(number, from, to) {
         return (number >= from && number <= to);
     }
 
+    /**
+     * Pick a random number in a range, inclusive.
+     * 
+     * @param {Number} min The minimum number.
+     * @param {Number} max The maximum number.
+     * 
+     * @returns {Number} A random number.
+     */
     static random(min, max) {
 		min = Math.ceil(min);
 		max = Math.floor(max);
 
 		return Math.floor(Math.random() * (max - min + 1)) + min;
-	}
-
+    }
+    
+    /**
+     * Pick a random number in a range, inclusive and with decimals.
+     * 
+     * @param {Number} min The minimum number.
+     * @param {Number} max The maximum number.
+     * 
+     * @returns {Number} A random number with decimals.
+     */
 	static randomDecimal(min, max) {
 		return Math.random() < 0.5 ? 
 			((1-Math.random()) * (max-min) + min) : (Math.random() * (max-min) + min);
@@ -163,24 +284,29 @@ class TkNumber {
 
 }
 
+/**
+ * A static class containing functions to simplify document manipulation.
+ */
 class TkDocument {
 
-    static get title() {
-        return document.title;
-    }
-
-    static set title(value) {
-        document.title = value;
-    }
-
+    /**
+     * The source of the document's icon.
+     * @type {String}
+     */
     static get icon() {
+        // TODO
         return "";
     }
 
     static set icon(value) {
-
+        // TODO
     }
 
+    /**
+     * If the document is currently fullscreen.
+     * 
+     * @type {Boolean}
+     */
     static get isFullscreen() {
         return (TkDocument.fullscreenElement === document.documentElement);
     }
@@ -189,6 +315,9 @@ class TkDocument {
         TkDocument.fullscreenElement = (value) ? document.documentElement : null;
     }
 
+    /**
+     * Switch between fullscreen and regular states.
+     */
     static toggleFullscreen() {
         if (this.isFullscreen)
             TkDocument.fullscreenElement = null;
@@ -196,6 +325,11 @@ class TkDocument {
             TkDocument.fullscreenElement = document.documentElement;
     }
 
+    /**
+     * The fullscreen element of the document.
+     * 
+     * @type {HTMLElement}
+     */
     static get fullscreenElement() {
         if (document.fullscreenElement)
             return document.fullscreenElement;
@@ -226,8 +360,9 @@ class TkDocument {
     }
 
     /**
-     * 
-     * @param {*} callback 
+     * Call a function when the document has loaded.
+     *       
+     * @param {Function} callback The function to call when the document has loaded.
      */
     static whenLoaded(callback) {
         document.addEventListener("DOMContentLoaded", callback);
