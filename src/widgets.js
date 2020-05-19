@@ -1291,3 +1291,24 @@ class TkNotebook extends TkPanel {
 	}
 
 }
+
+class TkCanvas extends TkWidget {
+
+	constructor(options = {}) {
+		super(options, { tag: "canvas" });
+		if (options.width !== undefined)
+			this.setAttribute("width", options.width);
+
+		if (options.height !== undefined)
+			this.setAttribute("height", options.height);
+	}
+
+	getContext(...context) {
+		return this.e.getContext(...context);
+	}
+
+	asImage() {
+		return this.e.toDataURL("image/png");
+	}
+
+}
