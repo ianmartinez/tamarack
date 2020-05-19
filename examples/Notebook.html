@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Hello World</title>
+    <title>Notebook</title>
 </head>
 
 <body>
@@ -39,11 +39,8 @@
         });
 
         // Update the selected page text when the current page is changed
-        notebook.on("changepage", (page) => {
-            if (page != null)
-                selectedPageText.text = selectedPageText;
-            else
-                selectedPageText.text = "";
+        notebook.on("changepage", (page) => {            
+            selectedPageText.text = (page != null) ? selectedPageText.text : "";
         });
     </script>
 </body>
