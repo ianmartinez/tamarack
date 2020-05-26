@@ -23,55 +23,28 @@ for(let i of [0, 25, 50, 75, 100])
    new TkProgress({ parent: "body", value: i });
 ```
      
-**Create a button that makes the video fullscreen when clicked:**
+**Create a button that makes a video fullscreen when clicked:**
 ```javascript
-let btnFullscreen = new TkButton({ parent: "body", text: "Go Fullscreen" });
+let fullscreenButton = new TkButton({ parent: "body", text: "Go Fullscreen" });
 let video = new TkVideo({ parent: "body" });
-btnFullscreen.on("click", () => video.isFullscreen = true);
+fullscreenButton.on("click", () => video.isFullscreen = true);
 ```
      
 **Create a two page notebook:**
 ```javascript
 let notebook = new TkNotebook({ parent: "body" });
 
-let page1 = new TkNoteBookPage({ parent: notebook, title: "Hello" });
-page1.content.add(new TkText("p", { text: "Hello" });
+let page1 = new TkNoteBookPage({ 
+   parent: notebook, 
+   title: "Hello",
+   content: [new TkText("p", { text: "Hello" })]
+});
 
-let page2 = new TkNoteBookPage({ parent: notebook, title: "World" });
-page2.content.add(new TkText("p", { text: "World" });
-```
-    
-    
-
-(The content below DOES NOT reflect the current version, which has been completely redesigned)    
-
-**Show a yes/no dialog:**
-```javascript
-var doc = new tkDocument("Dialog Demo");
-doc.padding = "1rem";
-
-var dialogButton = new tkButton("Show Dialog");
-doc.add(dialogButton);
-
-dialogButton.on("click", function() {
-	tkDialog.show("Welcome to tamarack! Do you like this demo?", "Some Dialog", [tkDialogResult.YES, tkDialogResult.NO], (dialogResult) => {
-		if (dialogResult == tkDialogResult.YES)
-			tkDialog.show("Thanks!");
-		else
-			tkDialog.show("Well then...");
-	});
+let page2 = new TkNoteBookPage({ 
+   parent: notebook, 
+   title: "World",
+   content: [new TkText("p", { text: "World" })]
 });
 ```
-![Dialog](examples/screenshots/SimpleDialog.gif) 
 
-**Set the background from a color dialog:**
-```javascript
-var doc = new tkDocument();
-var dlgColor = new tkColorDialog();
-
-dlgColor.show((dialogResult) => {
-    if (dialogResult == tkDialogResult.OK)
-        doc.setBackgroundColor(dlgColor.color.getHslaString());
-});
-```
-![Color Dialog](examples/screenshots/ColorDialog.gif)
+See more examples [here](https://ianmtz.com/Tamarack)
