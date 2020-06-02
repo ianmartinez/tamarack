@@ -36,7 +36,7 @@
  *      someColor.asRgba(); // Returns rgba(178, 34, 34, 1)
  */
 class TkColor extends TkStateObject {
-    
+
     /**
      * Initialize a new TkColor object with a given color string.
      * 
@@ -711,7 +711,7 @@ let _TkRegisteredColors = new Map();
 /**
  * A list of named CSS colors and their corresponding hex codes.
  */
-let  _TkCssColors = {
+let _TkCssColors = {
     "aliceblue": "#f0f8ff", "antiquewhite": "#faebd7", "aqua": "#00ffff", "aquamarine": "#7fffd4", "azure": "#f0ffff",
     "beige": "#f5f5dc", "bisque": "#ffe4c4", "black": "#000000", "blanchedalmond": "#ffebcd", "blue": "#0000ff", "blueviolet": "#8a2be2",
     "brown": "#a52a2a", "burlywood": "#deb887", "cadetblue": "#5f9ea0", "chartreuse": "#7fff00", "chocolate": "#d2691e", "coral": "#ff7f50",

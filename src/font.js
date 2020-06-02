@@ -12,9 +12,22 @@
  * 
  * It also provides (via static methods) the ability
  * to detect available fonts on a system.
+ * 
+ * ***
+ * TkFont and related classes are incomplete, so don't use them
+ * in production.
+ * ***
  */
 class TkFont extends TkStateObject {
 
+    /**
+     * Create an new TkFont instance.
+     * 
+     * @param {Any} options The options object.
+     * @param {TkFontSize} options.size The size of the font.  
+     * @param {TkFontStyle} options.style The style of the font.
+     * @param {TkFontWeight} options.weight The weight of the font.
+     */
     constructor(options = {}) {
         super();
 
@@ -57,6 +70,8 @@ class TkFont extends TkStateObject {
      */
     static exists(fontFamily) {
         // Adapted from https://www.samclarke.com/javascript-is-font-available/
+
+        // Create an invisible (to the user) container to test each font size in
         let fontContainer = new TkText("span", {
             text: "abcdefghijklmnopqrstuvwxyz0123456789".repeat(20),
             style: [
@@ -67,6 +82,7 @@ class TkFont extends TkStateObject {
             ].join(" !important;")
         });
 
+        // Function to get the width of the font
         let getWidth = (fontName) => {
             fontContainer.style.fontFamily = fontName;
             fontContainer.parent = "body";

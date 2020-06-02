@@ -1,0 +1,39 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <title>Change Favicon</title>
+</head>
+
+<body>
+    <link href="../src/widgets.css" rel="stylesheet" type="text/css" />
+    <script src="../src/core.js"></script>
+    <script src="../src/widgets.js"></script>
+    <script src="../src/color.js"></script>
+
+    <script>
+        /**
+         * Change the favicon to a random color every second.
+         */
+
+        let faviconColorText = new TkText("h2", { parent: "body" });
+
+        setInterval(() => {
+            // Create a canvas and fill it with a random color
+            let canvas = new TkCanvas({ width: 16, height: 16 });
+            let context = canvas.getContext("2d");
+            context.fillStyle = `rgb(${TkNumber.random(0, 255)}, ${TkNumber.random(0, 255)}, ${TkNumber.random(0, 255)})`;
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Convert the canvas to an image and set it as the favicon
+            TkDocument.icon = canvas.toImage();
+
+            // Update the faviconColorText
+            faviconColorText.text = `Favicon Color: ${context.fillStyle}`;
+            faviconColorText.style.color = context.fillStyle;
+        }, 1000);
+    </script>
+</body>
+
+</html>

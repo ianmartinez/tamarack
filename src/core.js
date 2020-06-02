@@ -215,10 +215,10 @@ class TkArray {
      * 
      * @returns {Any} A random element of the array.
      */
-	static random(...array) {
-		return array[TkNumber.random(0, array.length - 1)];
+    static random(...array) {
+        return array[TkNumber.random(0, array.length - 1)];
     }
-    
+
 }
 
 /**
@@ -263,12 +263,12 @@ class TkNumber {
      * @returns {Number} A random number.
      */
     static random(min, max) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
+        min = Math.ceil(min);
+        max = Math.floor(max);
 
-		return Math.floor(Math.random() * (max - min + 1)) + min;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-    
+
     /**
      * Pick a random number in a range, inclusive and with decimals.
      * 
@@ -277,10 +277,10 @@ class TkNumber {
      * 
      * @returns {Number} A random number with decimals.
      */
-	static randomDecimal(min, max) {
-		return Math.random() < 0.5 ? 
-			((1-Math.random()) * (max-min) + min) : (Math.random() * (max-min) + min);
-	}
+    static randomDecimal(min, max) {
+        return Math.random() < 0.5 ?
+            ((1 - Math.random()) * (max - min) + min) : (Math.random() * (max - min) + min);
+    }
 
 }
 
@@ -290,16 +290,53 @@ class TkNumber {
 class TkDocument {
 
     /**
-     * The source of the document's icon.
+     * Get the <head> element of the document.
+     * @type {HTMLElement}
+     */
+    static get headElement() {
+        return document.querySelector("head");
+    }
+
+    /**
+     * Get the favicon element of the document, if it exists.
+     * @type {HTMLElement}
+     */
+    static get iconElement() {
+        return document.querySelector("link[rel='icon']");
+    }
+
+    /**
+     * The source of the document's icon. Set to null to make
+     * transparent.
      * @type {String}
      */
     static get icon() {
-        // TODO
-        return "";
+        let iconElement = TkDocument.iconElement;
+        return (iconElement != null) ? iconElement.getAttribute("href") : "";
     }
 
     static set icon(value) {
-        // TODO
+        // Interpret a null value as a transparent image.
+        //
+        // This is needed because Chrome caches the old favicon
+        // even *after* the browser's cache is cleared,
+        // so this provides an easy way to reset it.
+        if (value === null) {
+            value = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oFFAADATTAuQQAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAEklEQVQ4y2NgGAWjYBSMAggAAAQQAAGFP6pyAAAAAElFTkSuQmCC";
+        }
+
+        // Find the favicon element if it exists
+        let iconElement = TkDocument.iconElement;
+
+        if (iconElement != null) { // The favicon exists, so change it
+            iconElement.setAttribute("href", value);
+        } else { // The favicon doesn't already exist, so make a new one
+            let headElement = TkDocument.headElement;
+            iconElement = document.createElement("link");
+            iconElement.setAttribute("rel", "icon");
+            iconElement.setAttribute("href", value);
+            headElement.appendChild(iconElement);
+        }
     }
 
     /**
