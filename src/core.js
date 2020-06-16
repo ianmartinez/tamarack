@@ -409,7 +409,7 @@ class TkDocument {
      * @returns {Boolean} If the system is in dark mode.
      */
     static isInDarkMode() {
-        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
     }
 
     /**
@@ -419,7 +419,7 @@ class TkDocument {
      * @param {function(MediaQueryListEvent):void} callback The callback to run with this event.
      */
     static onChangeDarkMode(callback) {
-        window.matchMedia('(prefers-color-scheme: dark)').addListener(callback);
+        window.matchMedia("(prefers-color-scheme: dark)").addListener(callback);
     }
 
 }
