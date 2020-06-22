@@ -48,7 +48,7 @@ class TkWidget {
      * @param {Any} [options.attributes] The attributes to set for the element, in the format of 
      * {"attribute1": "value1", "attribute2": "value2"}.
      * @param {String} [options.className] The value of class attribute of the element to set.
-     * @param {String} [options.style] The value of style attribute of the element to set.		
+     * @param {String} [options.style] The value of style attribute of the element to set.
      */
     constructor(options = {}, additionalOptions = null) {
         if (additionalOptions !== null)
