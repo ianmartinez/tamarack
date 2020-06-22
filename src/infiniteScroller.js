@@ -7,8 +7,16 @@
 /**
  * A simple infinite scroller.
  * 
+ * Infinite scrolling is something that appears in virtually every website
+ * nowadays, but it's actually quite a chore to implement. 
+ * 
+ * All you need to use it is specify 3 things:
+ *  - placeholder: The item that will put in the place of an item that is currently loading
+ *  - fetch: A callback to fetch a set of items when TkInfiniteScroller needs them.
+ *  - renderItem: A callback to render an item once it has been fetched.
+ * 
  * Adapted from https://developers.google.com/web/updates/2016/07/infinite-scroller to
- * work within the TkWidget framework.
+ * work cleanly within tamarack.
  */
 class TkInfiniteScroller extends TkPanel {
 
@@ -64,7 +72,7 @@ class TkInfiniteScroller extends TkPanel {
 
         // Start loading content when the document is ready
         TkDocument.whenLoaded(() => {
-            
+
             // Trigger initial load
             this.onResize();
         });

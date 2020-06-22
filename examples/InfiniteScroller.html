@@ -17,14 +17,19 @@
         // Remove any excess margin
         document.body.style.margin = 0;
 
-        let itemPos = 0;
+        // Create a placeholder to show while the content is loading
         let placeholder = new TkText("h1", { text: "I'm a placeholder" });
+
+        // Create an infite scroller and place it in the <body>
         let infiniteScroller = new TkInfiniteScroller({ parent: "body", placeholder: placeholder });
 
-        // Fetch data with a simulated 2 second delay
+        // The current item we're fetching
+        let itemPos = 0;
+
+        // Callback for when the scroller needs to fetch new data
         infiniteScroller.fetch = (count) => {
             return new Promise((resolve, reject) => {
-                // Fake a deley for 1 second
+                // Fake a delay for 1 second to simulate an AJAX call
                 setTimeout(() => {
                     let items = [];
 
@@ -39,16 +44,15 @@
             });
         };
 
-        // When a new item comes in, render it
+        // Callback for when the scroller has fetched an item and it needs to render it
         infiniteScroller.renderItem = (item, widget) => {
-            if(widget) { // Existing item
+            if (widget) { // Existing item
                 widget.text = item.name;
                 return widget;
             } else {
                 return new TkText("h1", { text: item.name, style: "color: blue;" });
             }
         };
-
     </script>
 </body>
 
