@@ -523,8 +523,20 @@ class TkWidget {
         return this.getAttribute("role") ?? "";
     }
 
-    set role(role) {
-        this.setAttribute("role", role);
+    set role(value) {
+        this.setAttribute("role", value);
+    }
+
+    /**
+     * Get the id of the widget's element.
+     * @type {String}
+     */
+    get id() {
+        return this.e.id;
+    }
+
+    set id(value) {
+        this.e.id = value;
     }
 
     /**
@@ -1318,8 +1330,8 @@ class TkSwitcher extends TkPanel {
     }
 
     /**
-     * The active widget in the switcher. 
-     * @type {TkWidget}
+     * The active item in the switcher. 
+     * @type {...String|HTMLElement|TkWidget}
      */
     get active() {
         let activeIndex = this.activeIndex;
@@ -1337,14 +1349,21 @@ class TkSwitcher extends TkPanel {
         }
 
         // Show the new widget
-        value.removeAttribute("tk-hide");
+        if (TkObject.is(value, TkWidget)) { // TkWidget
+            value.removeAttribute("tk-hide");
+        } else if (TkObject.is(value, String)) { // Selector
+            let item = document.querySelector(value);
+            item.removeAttribute("tk-hide");
+        } else if (TkObject.is(value, HTMLElement)) {  // HTMLElement
+            value.removeAttribute("tk-hide");
+        }
 
         // Trigger the activechanged event
         this.trigger("activechanged");
     }
 
     /**
-     * The index of the active widget in the switcher.
+     * The index of the active item in the switcher.
      * @type {Number}
      */
     get activeIndex() {
@@ -1363,20 +1382,36 @@ class TkSwitcher extends TkPanel {
     }
 
     /**
-     * Get the index of a widget in the switcher.
+     * Get the index of a item in the switcher.
      * 
-     * @param {TkWidget} widget The widget to look for.
+     * @param {...String|HTMLElement|TkWidget} item The item to look for.
      */
-    indexOf(widget) {
-        return this.children.indexOf(widget);
+    indexOf(item) {
+        // Find the element to search for
+        let searchItem = undefined;
+        if (TkObject.is(item, TkWidget)) { // TkWidget
+            searchItem = item.element;
+        } else if (TkObject.is(item, String)) { // Selector
+            searchItem = document.querySelector(item);
+        } else if (TkObject.is(item, HTMLElement)) {  // HTMLElement
+            searchItem = item;
+        }
+
+        for (let i = 0; i < this.childElements.length; i++) {
+            if (this.childElements[i] == searchItem) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     /**
-     * The number of widgets in the switcher.
+     * The number of items in the switcher.
      * @type {Number}
      */
     get pageCount() {
-        return this.children.length;
+        return this.childElements.length;
     }
 
 }
