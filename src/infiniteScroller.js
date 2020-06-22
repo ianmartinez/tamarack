@@ -10,10 +10,10 @@
  * Adapted from https://developers.google.com/web/updates/2016/07/infinite-scroller to
  * work within the TkWidget framework.
  */
-class TkInfiniteScroller extends TkWidget {
+class TkInfiniteScroller extends TkPanel {
 
     constructor(options = {}) {
-        super(options, { tag: "ul" });
+        super(options);
         this.addAttribute("tkinfinitescroller");
 
         // Internal panel to force scroller to scroll to
@@ -59,11 +59,12 @@ class TkInfiniteScroller extends TkWidget {
         // Set the fetch callback
         this._fetchCallback = options.fetch ?? (() => { });
 
-        // Start loading content when the document is ready
         this.on("scroll", this.onScroll.bind(this));
         window.addEventListener("resize", this.onResize.bind(this));
 
+        // Start loading content when the document is ready
         TkDocument.whenLoaded(() => {
+            
             // Trigger initial load
             this.onResize();
         });
