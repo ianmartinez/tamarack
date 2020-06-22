@@ -1,0 +1,33 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <title>Panel Switcher</title>
+</head>
+
+<body>
+    <link href="../src/widgets.css" rel="stylesheet" type="text/css" />
+    <script src="../src/core.js"></script>
+    <script src="../src/widgets.js"></script>
+
+    <script>
+        // Declare widgets
+        let buttonStack = new TkStack({ parent: "body", direction: TkStackDirection.FLOW });
+        let switcher = new TkSwitcher({ parent: "body" });
+        let selectedIndexText = new TkText("h2", { parent: "body", style: "margin: 1rem 0;" });
+
+        for (let i = 1; i <= 10; i++) {
+            let switcherText = new TkText("h2", { parent: switcher, text: `Item ${i}` });
+            let switcherButton = new TkButton({ parent: buttonStack, text: `Item ${i}` });
+            switcherButton.on("click", () => { switcher.active = switcherText; });
+        }
+
+        // Update the selected panel text when the current panel is changed
+        switcher.on("activechanged", () => {
+            selectedIndexText.text = (switcher.active != null) ? `Active index: ${switcher.activeIndex}` : "";
+        });
+    </script>
+</body>
+
+</html>

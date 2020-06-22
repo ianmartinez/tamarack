@@ -1495,7 +1495,7 @@ tk.Layout = class extends tk.Widget {
 	}
 	
 	get panels() {
-
+		
 	}
 
 	set panels(panels) {

@@ -1293,6 +1293,95 @@ class TkNotebook extends TkPanel {
 }
 
 /**
+ * A lightweight counterpart to TkNotebook
+ * for when you have a set of widgets and
+ * you only want one visible at a time.
+ */
+class TkSwitcher extends TkPanel {
+
+    constructor(options = {}) {
+        super(options);
+        this.addAttribute("tkswitcher");
+    }
+
+    /**
+     * Add items to the switcher.
+     * 
+     * @param  {...String|HTMLElement|TkWidget} items The items to add.
+     */
+    add(...items) {
+        for (let item of items) {
+            // Hide new items.
+            item.addAttribute("tk-hide");
+            super.add(item);
+        }
+    }
+
+    /**
+     * The active widget in the switcher. 
+     * @type {TkWidget}
+     */
+    get active() {
+        let activeIndex = this.activeIndex;
+        return (activeIndex == -1) ? null : this.children[this.activeIndex];
+    }
+
+    set active(value) {
+        if (value === undefined || value === null)
+            return;
+
+        // Unselect old widget, if it exists.
+        let oldActive = this.active;
+        if (oldActive !== null) {
+            oldActive.addAttribute("tk-hide");
+        }
+
+        // Show the new widget
+        value.removeAttribute("tk-hide");
+
+        // Trigger the activechanged event
+        this.trigger("activechanged");
+    }
+
+    /**
+     * The index of the active widget in the switcher.
+     * @type {Number}
+     */
+    get activeIndex() {
+        let index = -1;
+
+        this.children.forEach((widget, i) => {
+            if (!widget.hasAttribute("tk-hide"))
+                index = i;
+        });
+
+        return index;
+    }
+
+    set activeIndex(value) {
+        this.active = this.children[value];
+    }
+
+    /**
+     * Get the index of a widget in the switcher.
+     * 
+     * @param {TkWidget} widget The widget to look for.
+     */
+    indexOf(widget) {
+        return this.children.indexOf(widget);
+    }
+
+    /**
+     * The number of widgets in the switcher.
+     * @type {Number}
+     */
+    get pageCount() {
+        return this.children.length;
+    }
+
+}
+
+/**
  * A widget representing a <button> element.
  * Allows setting the text and an image.
  */
