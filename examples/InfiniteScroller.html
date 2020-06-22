@@ -14,8 +14,11 @@
     <script src="../src/infiniteScroller.js"></script>
 
     <script>
+        // Remove any excess margin
+        document.body.style.margin = 0;
+
         let itemPos = 0;
-        let placeholder = new TkText("h1", { text: "I'm a placeholder." });
+        let placeholder = new TkText("h1", { text: "I'm a placeholder" });
         let infiniteScroller = new TkInfiniteScroller({ parent: "body", placeholder: placeholder });
 
         // Fetch data with a simulated 2 second delay
