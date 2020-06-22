@@ -7,9 +7,11 @@
 /**
  * A simple infinite scroller.
  */
-class TkInfiniteScroller extends TkWidget {
+class TkInfiniteScroller extends TkPanel {
 
     constructor(options = {}) {
+        super(options);
+
         // Set placeholder
         this._placeholderWidget = null;        
         if (options.placeholder !== undefined) {
@@ -35,7 +37,7 @@ class TkInfiniteScroller extends TkWidget {
     set placeholder(value) {
         if (TkObject.is(value, TkWidget)) { // TkWidget
             this._placeholderWidget = value;
-        } else (TkObject.is(value, String)) { // Selector or HTMLElement
+        } else { // Selector or HTMLElement
             this._placeholderWidget = new TkWidget({ from: value });
         }
     }
@@ -67,5 +69,7 @@ class TkInfiniteScroller extends TkWidget {
     set fetch(value) {
         this._fetchCallback = value;
     }
+
+
 
 }

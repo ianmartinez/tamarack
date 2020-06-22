@@ -697,7 +697,7 @@ class TkLink extends TkText {
      * @param {String} options.text The text to set inside the element.
      * @param {String} options.url The url of the link.
      */
-    constructor(options) {
+    constructor(options = {}) {
         super("a", options);
         this.addAttribute("tklink");
 

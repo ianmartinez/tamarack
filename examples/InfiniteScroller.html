@@ -14,6 +14,17 @@
     <script src="../src/infiniteScroller.js"></script>
 
     <script>
+        let placeholder = new TkText("h1", { text: "I'm a placeholder." });
+        let infiniteScroller = new TkInfiniteScroller({ parent: "body", placeholder: placeholder });
+        infiniteScroller.fetch = (count) => {
+            console.log(`Fetching ${count} items...`);
+        };
+        infiniteScroller.renderItem = (item, widget) => {
+            console.log("Rendering:")
+            console.log(item);
+            console.log(widget);
+        };
+
     </script>
 </body>
 
