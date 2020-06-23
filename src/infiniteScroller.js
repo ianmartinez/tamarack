@@ -30,6 +30,8 @@ class TkInfiniteScroller extends TkPanel {
             style: "position: absolute; width: 1px; height: 1px;"
         });
 
+        this.scrollPos = 0;
+
         // Internal variables
         this._anchorItem = { index: 0, offset: 0 };
         this._firstAttachedItem = 0;
@@ -143,6 +145,8 @@ class TkInfiniteScroller extends TkPanel {
     }
 
     onScroll() {
+        this.scrollPos = this.e.scrollTop;
+
         let delta = this.e.scrollTop - this._anchorScrollTop;
         // Special case, if we get to very top, always scroll to top.
         if (this.e.scrollTop == 0) {
