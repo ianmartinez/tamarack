@@ -402,7 +402,11 @@ class TkDocument {
      * @param {Function} callback The function to call when the document has loaded.
      */
     static whenLoaded(callback) {
-        document.addEventListener("DOMContentLoaded", callback);
+        if(document.readyState !== "loading") {
+            callback();
+        } else {
+            document.addEventListener("DOMContentLoaded", callback);
+        }
     }
 
     /**
