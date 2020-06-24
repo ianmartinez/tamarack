@@ -357,6 +357,23 @@ class TkWidget {
     }
 
     /**
+     * If the element is visible or not.
+     * 
+     * @type {Boolean}
+     */
+    get visible() {
+        return this.getComputed("display") != "none";
+    }
+
+    set visible(value) {
+        if(value) 
+            this.removeAttribute("tk-hide");
+        else
+            this.addAttribute("tk-hide");
+    }
+
+
+    /**
      * The class name string of the widget's element.
      * 
      * @type {String}
