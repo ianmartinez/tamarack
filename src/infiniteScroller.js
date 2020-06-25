@@ -263,7 +263,6 @@ class TkInfiniteScroller extends TkPanel {
             this._cachedItems[i].top = -1;
             this.add(widget);
             this._cachedItems[i].widget = widget;
-            this.onResize();
         }
 
         // Remove all unused widgets
