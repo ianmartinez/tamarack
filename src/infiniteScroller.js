@@ -216,7 +216,6 @@ class TkInfiniteScroller extends TkPanel {
         this._firstAttachedItem = Math.max(0, start);
         this._lastAttachedItem = end;
         this.attachContent();
-        this.onResize();
     }
 
     /**
@@ -359,6 +358,7 @@ class TkInfiniteScroller extends TkPanel {
         }
 
         this.attachContent();
+        this.onResize();
     }
 
     /**
