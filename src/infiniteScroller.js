@@ -243,7 +243,7 @@ class TkInfiniteScroller extends TkPanel {
             this._cachedItems[i].widget = null;
         }
 
-        // Create widgets.
+        // Create widgets
         for (i = this._firstAttachedItem; i < this._lastAttachedItem; i++) {
             while (this._cachedItems.length <= i)
                 this.addItem();
@@ -358,7 +358,6 @@ class TkInfiniteScroller extends TkPanel {
         }
 
         this.attachContent();
-        this.onResize();
     }
 
     /**
