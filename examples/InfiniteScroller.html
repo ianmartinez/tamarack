@@ -20,39 +20,38 @@
         // Create a placeholder to show while the content is loading
         let placeholder = new TkText("h1", { text: "I'm a placeholder" });
 
-        // Create an infite scroller and place it in the <body>
-        let infiniteScroller = new TkInfiniteScroller({ parent: "body", placeholder: placeholder });
-
         // The current item we're fetching
         let itemPos = 0;
 
-        // Callback for when the scroller needs to fetch new data
-        infiniteScroller.fetch = (count) => {
-            return new Promise((resolve, reject) => {
-                // Fake a delay for 1 second to simulate an AJAX call
-                setTimeout(() => {
-                    let items = [];
+        // Create an infite scroller and place it in the <body>
+        let infiniteScroller = new TkInfiniteScroller({
+            parent: "body",
+            placeholder: placeholder,
+            fetch: (count) => { // When the scroller needs to fetch new data
+                return new Promise((resolve, reject) => {
+                    // Fake a delay for 1 second to simulate an AJAX call
+                    setTimeout(() => {
+                        let items = [];
 
-                    for (let i = 0; i < Math.abs(count); i++) {
-                        items[i] = new Promise((resolve) => {
-                            resolve({ id: itemPos, name: `Item ${++itemPos}` });
-                        });
-                    }
+                        for (let i = 0; i < Math.abs(count); i++) {
+                            items[i] = new Promise((resolve) => {
+                                resolve({ id: itemPos, name: `Item ${++itemPos}` });
+                            });
+                        }
 
-                    resolve(Promise.all(items));
-                }, 1000);
-            });
-        };
-
-        // Callback for when the scroller has fetched an item and it needs to render it
-        infiniteScroller.renderItem = (item, widget) => {
-            if (widget) { // Existing item
-                widget.text = item.name;
-                return widget;
-            } else {
-                return new TkText("h1", { text: item.name, style: "color: blue;" });
+                        resolve(Promise.all(items));
+                    }, 1000);
+                });
+            },
+            renderItem: (item, widget) => { // When the scroller has fetched an item and it needs to render it
+                if (widget) { // Existing item
+                    widget.text = item.name;
+                    return widget;
+                } else {
+                    return new TkText("h1", { text: item.name, style: "color: blue;" });
+                }
             }
-        };
+        });
     </script>
 </body>
 

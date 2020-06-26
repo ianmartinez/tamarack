@@ -70,18 +70,26 @@ class TkInfiniteScroller extends TkPanel {
         this._fetchCallback = options.fetch ?? (() => { });
 
         this.on("scroll", this.onScroll.bind(this));
-        window.addEventListener("resize", this.onResize.bind(this));
+        this._resizeListener = this.onResize.bind(this);
+        window.addEventListener("resize", this._resizeListener);
 
         // Start loading content when the document is ready
-        TkDocument.whenLoaded(() => {
-
+        this._loadedListener = (() => {
             // Trigger initial load
             this.onResize();
-        });
+        }).bind(this);
+        
+        TkDocument.whenLoaded(this._loadedListener);
     }
 
     clonePlaceholder() {
         return new TkWidget({ from: this._placeholderWidget.e.cloneNode(true) });
+    }
+
+    delete() {
+        document.removeEventListener("DOMContentLoaded", this._loadedListener);
+        window.removeEventListener("resize", this._resizeListener);
+        super.delete();
     }
 
     /**
