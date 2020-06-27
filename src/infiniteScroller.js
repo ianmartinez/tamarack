@@ -44,11 +44,11 @@ class TkInfiniteScroller extends TkPanel {
         this._placeholders = [];
         this._anchorScrollTop = 0;
         // Number of items to instantiate beyond current view in the scroll direction
-        this._runwayItems = 50;
+        this._runwayItems = options.runwayItems ?? 50;
         // Number of items to instantiate beyond current view in the opposite direction
-        this._runwayItemsOpposite = 10;
+        this._runwayItemsOpposite = options.runwayItemsOpposite ?? 10;
         // The number of pixels of additional length to allow scrolling to.
-        this._runwayExtraLength = 2000;
+        this._runwayExtraLength = options.runwayExtraLength ?? 800;
         this._runwayEnd = 0;
 
         // Set placeholder
@@ -78,7 +78,7 @@ class TkInfiniteScroller extends TkPanel {
             // Trigger initial load
             this.onResize();
         }).bind(this);
-        
+
         TkDocument.whenLoaded(this._loadedListener);
     }
 
@@ -90,6 +90,48 @@ class TkInfiniteScroller extends TkPanel {
         document.removeEventListener("DOMContentLoaded", this._loadedListener);
         window.removeEventListener("resize", this._resizeListener);
         super.delete();
+    }
+
+    /**
+     * Number of items to instantiate beyond current 
+     * view in the scroll direction.
+     * 
+     * @type {Number}
+     */
+    get runwayItems() {
+        return this._runwayItems;
+    }
+
+    set runwayItems(value) {
+        this._runwayItems = value;
+    }
+
+
+    /**
+     * Number of items to instantiate beyond current 
+     * view in the opposite direction.
+     * 
+     * @type {Number}
+     */
+    get runwayItemsOpposite() {
+        return this._runwayItemsOpposite;
+    }
+
+    set runwayItemsOpposite(value) {
+        this._runwayItemsOpposite = value;
+    }
+
+    /**
+     * The number of pixels of additional length to allow scrolling to.
+     * 
+     * @type {Number}
+     */
+    get runwayExtraLength() {
+        return this._runwayExtraLength;
+    }
+
+    set runwayExtraLength(value) {
+        this._runwayExtraLength = value;
     }
 
     /**
