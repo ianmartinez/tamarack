@@ -127,6 +127,26 @@ class TkWidget {
     }
 
     /**
+     * Find the first child element of this widget's element
+     * that matches a selector.
+     * 
+     * @param {String} selector The selector to query.
+     */
+    querySelector(selector) {
+        return this.e.querySelector(selector);
+    }
+
+    /**
+     * Find the all child elements of this widget's element
+     * that match a selector.
+     * 
+     * @param {String} selector The selector to query.
+     */
+    querySelectorAll(selector) {
+        return this.e.querySelectorAll(selector);
+    }
+
+    /**
      * Shorthand for TkWidget.element The element of the widget.
      * @type {HTMLElement}
      */
