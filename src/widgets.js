@@ -132,7 +132,7 @@ class TkWidget {
      * 
      * @param {String} selector The selector to query.
      */
-    querySelector(selector) {
+    select(selector) {
         return this.e.querySelector(selector);
     }
 
@@ -142,7 +142,7 @@ class TkWidget {
      * 
      * @param {String} selector The selector to query.
      */
-    querySelectorAll(selector) {
+    selectAll(selector) {
         return this.e.querySelectorAll(selector);
     }
 
