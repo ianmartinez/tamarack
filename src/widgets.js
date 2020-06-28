@@ -386,7 +386,7 @@ class TkWidget {
     }
 
     set visible(value) {
-        if(value) 
+        if (value)
             this.removeAttribute("tk-hide");
         else
             this.addAttribute("tk-hide");
