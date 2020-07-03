@@ -1538,6 +1538,12 @@ class TkCanvas extends TkWidget {
  */
 class TkList extends TkStack {
 
+    /**
+     * Create a TkList.
+     * 
+     * @param {Any} options The options object.
+     * @param {Boolean} options.wrap (default: true) If the selection should wrap around.
+     */
     constructor(options = {}) {
         super(options);
         this.addAttribute("tklist");
@@ -1550,24 +1556,24 @@ class TkList extends TkStack {
 
         this.e.tabIndex = 0;
         this.on("keydown", (widget, event) => {
-            let itemCount = this.children.length;
+            let itemCount = widget.children.length;
             if (itemCount == 0)
                 return;
 
-            let selectedIndex = this.selectedIndex;
+            let selectedIndex = widget.selectedIndex;
             switch (event.code) {
                 case "ArrowUp":
                     if (selectedIndex > 0)
-                        this.selectedIndex--;
-                    else if (this._wrap)
-                        this.selectedIndex = itemCount - 1;
+                        widget.selectedIndex--;
+                    else if (widget._wrap)
+                        widget.selectedIndex = itemCount - 1;
 
                     break;
                 case "ArrowDown":
                     if (selectedIndex < itemCount - 1)
-                        this.selectedIndex++;
-                    else if (this._wrap)
-                        this.selectedIndex = 0;
+                        widget.selectedIndex++;
+                    else if (widget._wrap)
+                        widget.selectedIndex = 0;
 
                     break;
             }
@@ -1590,6 +1596,11 @@ class TkList extends TkStack {
         }
     }
 
+    /**
+     * The selected item in the list. Always returns a TkWidget, but when setting 
+     * the value, it can also accept CSS selectors or HTMLElements.
+     * @type {TkWidget|String|HTMLElement}
+     */
     get selectedItem() {
         let selectedIndex = this.selectedIndex;
         return (selectedIndex == -1) ? null : this.children[this.selectedIndex];
@@ -1619,6 +1630,10 @@ class TkList extends TkStack {
         this.trigger("selectedchanged");
     }
 
+    /**
+     * The index of the selected item in the list.
+     * @type {Number}
+     */
     get selectedIndex() {
         let index = -1;
 
@@ -1634,6 +1649,11 @@ class TkList extends TkStack {
         this.selectedItem = this.children[value];
     }
 
+    /**
+     * If the list selection should wrap around when selecting
+     * by arrow keys and reaching either the start or end of the list.
+     * @type {Boolean}
+     */
     get wrap() {
         return this._wrap;
     }
