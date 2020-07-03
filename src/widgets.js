@@ -332,7 +332,9 @@ class TkWidget {
     }
 
     /**
-     * Remove an event handler added with the on() function.
+     * Remove an event handler added with the on() function. 
+     * If only the name is specified, than *all* event handlers with
+     * the given event name will be removed.
      * 
      * @param {String} eventName The name of the event.
      * @param {function(TkWidget, Event)?} callback The callback. If null, all callbacks
@@ -341,20 +343,20 @@ class TkWidget {
     off(eventName, callback) {
         let matchingEvents = [];
 
-        for(let event of this.events) {
-            if(callback !== undefined) { // Removing a specific event by name *and* callback
-                if(eventName === event.name && event.callback === callback) {
+        for (let event of this.events) {
+            if (callback !== undefined) { // Removing a specific event by name *and* callback
+                if (eventName === event.name && event.callback === callback) {
                     matchingEvents.push(event);
                     continue;
                 }
             } else { // Removing all events by name
-                if(eventName === event.name) {
+                if (eventName === event.name) {
                     matchingEvents.push(event);
                 }
             }
         }
 
-        for(let matchingEvent of matchingEvents) {
+        for (let matchingEvent of matchingEvents) {
             this.e.removeEventListener(eventName, matchingEvent.adjustedCallback);
             this.events.splice(this.events.indexOf(matchingEvent), 1);
         }
@@ -1530,6 +1532,9 @@ class TkCanvas extends TkWidget {
 
 }
 
+/**
+ * A list of items to be selected from.
+ */
 class TkList extends TkStack {
 
     constructor(options = {}) {
@@ -1537,7 +1542,7 @@ class TkList extends TkStack {
         this.addAttribute("tklist");
 
         let thisList = this;
-        this.selectItemHandler = (item) => { 
+        this.selectItemHandler = (item) => {
             thisList.selectedItem = item;
         };
     }
@@ -1545,7 +1550,7 @@ class TkList extends TkStack {
     add(...items) {
         super.add(...items);
 
-        for(let item of items) {
+        for (let item of items) {
             item.on("click", this.selectItemHandler);
         }
     }
@@ -1553,7 +1558,7 @@ class TkList extends TkStack {
     remove(...items) {
         super.add(...items);
 
-        for(let item of items) {
+        for (let item of items) {
             item.off("click", this.selectItemHandler);
         }
     }
