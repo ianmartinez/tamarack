@@ -182,6 +182,10 @@
     will-change: transform;
 }
 
+[tklist] * {
+    cursor: pointer;
+}
+
 [tklist] .selected {
-    background-color: gray;
+    background-color: rgba(0, 0, 0, 0.25);
 }

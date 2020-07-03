@@ -318,8 +318,9 @@ class TkWidget {
      * @param {String} eventName The name of the event.
      * @param {function(TkWidget, Event)} callback The function to run when the event
      * is triggered. This function is passed target widget.
+     * @param {Boolean?} useCapture If this event will use capture.
      */
-    on(eventName, callback) {
+    on(eventName, callback, useCapture = false) {
         let widget = this;
         let eventOptions = {
             name: eventName,
@@ -328,7 +329,7 @@ class TkWidget {
         };
         this.events.push(eventOptions);
 
-        this.e.addEventListener(eventName, eventOptions.adjustedCallback);
+        this.e.addEventListener(eventName, eventOptions.adjustedCallback, useCapture);
     }
 
     /**
@@ -1540,11 +1541,37 @@ class TkList extends TkStack {
     constructor(options = {}) {
         super(options);
         this.addAttribute("tklist");
+        this._wrap = options.wrap ?? true;
 
         let thisList = this;
         this.selectItemHandler = (item) => {
             thisList.selectedItem = item;
         };
+
+        this.e.tabIndex = 0;
+        this.on("keydown", (widget, event) => {
+            let itemCount = this.children.length;
+            if (itemCount == 0)
+                return;
+
+            let selectedIndex = this.selectedIndex;
+            switch (event.code) {
+                case "ArrowUp":
+                    if (selectedIndex > 0)
+                        this.selectedIndex--;
+                    else if (this._wrap)
+                        this.selectedIndex = itemCount - 1;
+
+                    break;
+                case "ArrowDown":
+                    if (selectedIndex < itemCount - 1)
+                        this.selectedIndex++;
+                    else if (this._wrap)
+                        this.selectedIndex = 0;
+
+                    break;
+            }
+        }, true);
     }
 
     add(...items) {
@@ -1605,6 +1632,14 @@ class TkList extends TkStack {
 
     set selectedIndex(value) {
         this.selectedItem = this.children[value];
+    }
+
+    get wrap() {
+        return this._wrap;
+    }
+
+    set wrap(value) {
+        this._wrap = value;
     }
 
 }
