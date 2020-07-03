@@ -8,9 +8,9 @@
 </head>
 
 <body>
-    <link href="../src/widgets.css" rel="stylesheet" type="text/css" />
+    <link href="../src/views.css" rel="stylesheet" type="text/css" />
     <script src="../src/core.js"></script>
-    <script src="../src/widgets.js"></script>
+    <script src="../src/views.js"></script>
     <script src="../src/infiniteScroller.js"></script>
 
     <script>
@@ -43,10 +43,10 @@
                     }, 1000);
                 });
             },
-            renderItem: (item, widget) => { // When the scroller has fetched an item and it needs to render it
-                if (widget) { // Existing item
-                    widget.text = item.name;
-                    return widget;
+            renderItem: (item, view) => { // When the scroller has fetched an item and it needs to render it
+                if (view) { // Existing item
+                    view.text = item.name;
+                    return view;
                 } else {
                     return new TkText("h1", { text: item.name, style: "color: blue;" });
                 }

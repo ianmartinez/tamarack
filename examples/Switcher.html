@@ -8,12 +8,12 @@
 </head>
 
 <body>
-    <link href="../src/widgets.css" rel="stylesheet" type="text/css" />
+    <link href="../src/views.css" rel="stylesheet" type="text/css" />
     <script src="../src/core.js"></script>
-    <script src="../src/widgets.js"></script>
+    <script src="../src/views.js"></script>
 
     <script>
-        // Declare widgets
+        // Declare views
         let buttonStack = new TkStack({ parent: "body", direction: TkStackDirection.FLOW });
         let switcher = new TkSwitcher({ parent: "body" });
         let selectedIndexText = new TkText("h2", { parent: "body", style: "margin: 1rem 0;" });

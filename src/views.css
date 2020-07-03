@@ -3,8 +3,8 @@
     display: none !important;
 }
 
-/* TkWidget */
-[tkwidget] {
+/* TkView */
+[tkview] {
     box-sizing: border-box;
 }
 

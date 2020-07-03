@@ -36,14 +36,14 @@ const TkLabelLayout = {
  * Represents an HTML element and exposes additional 
  * functionality that makes manipulating elements easier.
  */
-class TkWidget {
+class TkView {
 
     /**
-     * Create a TkWidget, either from an existing element or representing a new one.
+     * Create a TkView, either from an existing element or representing a new one.
      * 
-     * @param {String|HTMLElement|TkWidget} [options.parent] The widget's parent.
-     * @param {String|HTMLElement|TkWidget} [options.from] If representing an existing element, where to find it, 
-     * be it from a CSS selector (String), and existing element (HTMLElement), or another TkWidget.
+     * @param {String|HTMLElement|TkView} [options.parent] The view's parent.
+     * @param {String|HTMLElement|TkView} [options.from] If representing an existing element, where to find it, 
+     * be it from a CSS selector (String), and existing element (HTMLElement), or another TkView.
      * @param {String} [options.tag] If representing a new element, the tag of the element to create.
      * @param {Any} [options.attributes] The attributes to set for the element, in the format of 
      * {"attribute1": "value1", "attribute2": "value2"}.
@@ -55,8 +55,8 @@ class TkWidget {
             Object.assign(options, additionalOptions);
 
         this._element = null;
-        this._childWidgets = [];
-        this._parentWidget = null;
+        this._childViews = [];
+        this._parentView = null;
 
         // Set the element
         if (options.from !== undefined) { // From an existing element
@@ -64,7 +64,7 @@ class TkWidget {
                 this._element = document.querySelector(options.from);
             } else if (TkObject.is(options.from, HTMLElement)) { // HTMLElement
                 this._element = options.from;
-            } else if (TkObject.is(options.from, TkWidget)) { // Other TkWidget
+            } else if (TkObject.is(options.from, TkView)) { // Other TkView
                 this._element = options.from.element;
             }
         } else if (options.tag !== undefined) { // Creating a new element
@@ -87,9 +87,9 @@ class TkWidget {
             this.setAttribute("style", options.style);
 
         // Add an attribute showing that the html element
-        // is controlled by a TkWidget
+        // is controlled by a TkView
         if (this._element != null)
-            this._element.setAttribute("tkwidget", "");
+            this._element.setAttribute("tkview", "");
 
 
         // Store events
@@ -97,20 +97,20 @@ class TkWidget {
     }
 
     /**
-     * Get all the TkWidgets currently in the DOM.
-     * @type {TkWidget[]}
+     * Get all the TkViews currently in the DOM.
+     * @type {TkView[]}
      */
     static get all() {
-        let widgets = [];
+        let views = [];
 
-        for (let widgetElement of document.querySelectorAll("[tkwidget]"))
-            widgets.push(new TkWidget({ from: widgetElement }));
+        for (let viewElement of document.querySelectorAll("[tkview]"))
+            views.push(new TkView({ from: viewElement }));
 
-        return widgets;
+        return views;
     }
 
     /**
-     * The element of the widget.
+     * The element of the view.
      * @type {HTMLElement}
      */
     get element() {
@@ -119,19 +119,19 @@ class TkWidget {
 
     set element(value) {
         // If there's a parent, set that as 
-        // the new parent widget
+        // the new parent view
         if (value.parentElement)
-            this._parentWidget = new TkWidget({ from: value.parentElement });
+            this._parentView = new TkView({ from: value.parentElement });
 
         // Point to the new element
         this._element = value;
 
-        // Rebuild child widget array
-        this._childWidgets = this.childElementsAsWidgets;
+        // Rebuild child view array
+        this._childViews = this.childElementsAsViews;
     }
 
     /**
-     * Find the first child element of this widget's element
+     * Find the first child element of this view's element
      * that matches a selector.
      * 
      * @param {String} selector The selector to query.
@@ -141,7 +141,7 @@ class TkWidget {
     }
 
     /**
-     * Find the all child elements of this widget's element
+     * Find the all child elements of this view's element
      * that match a selector.
      * 
      * @param {String} selector The selector to query.
@@ -151,7 +151,7 @@ class TkWidget {
     }
 
     /**
-     * Shorthand for TkWidget.element The element of the widget.
+     * Shorthand for TkView.element The element of the view.
      * @type {HTMLElement}
      */
     get e() {
@@ -163,7 +163,7 @@ class TkWidget {
     }
 
     /**
-     * The tag name of the widget's element.
+     * The tag name of the view's element.
      * @type {String}
      */
     get tag() {
@@ -174,8 +174,8 @@ class TkWidget {
      * Remove this element from its parent.
      */
     delete() {
-        if (this._parentWidget)
-            this._parentWidget.remove(this);
+        if (this._parentView)
+            this._parentView.remove(this);
         else
             this.e.remove();
     }
@@ -189,50 +189,50 @@ class TkWidget {
     }
 
     /**
-     * An array of child elements of the widget's element, represented
-     * as TkWidgets.
-     * @type {TkWidget[]}
+     * An array of child elements of the view's element, represented
+     * as TkViews.
+     * @type {TkView[]}
      */
-    get childElementsAsWidgets() {
+    get childElementsAsViews() {
         let childElements = [];
 
         for (let childElement of this.e.children)
-            childElements.push(new TkWidget({ from: childElement }));
+            childElements.push(new TkView({ from: childElement }));
 
         return childElements;
     }
 
     /**
-     * An array of child widgets to the widget's element.
-     * @type {TkWidget[]}
+     * An array of child views to the view's element.
+     * @type {TkView[]}
      */
     get children() {
-        let childWidgets = [];
+        let childViews = [];
 
         for (let childElement of this.e.children) {
-            // Find the widget representing this child, if it exists.
-            let matchingWidget = this._childWidgets.find(widget => widget.e == childElement);
+            // Find the view representing this child, if it exists.
+            let matchingView = this._childViews.find(view => view.e == childElement);
 
-            // If it does, add it to the array. If not, create a new TkWidget and 
+            // If it does, add it to the array. If not, create a new TkView and 
             // add it to the array.
-            childWidgets.push(matchingWidget ?? new TkWidget({ from: childElement }));
+            childViews.push(matchingView ?? new TkView({ from: childElement }));
         }
 
-        return childWidgets;
+        return childViews;
     }
 
     /**
-     * The parent element of the widget's element, represented as a TkWidget.
-     * It always returns a TkWidget, but when setting its value, it will also 
+     * The parent element of the view's element, represented as a TkView.
+     * It always returns a TkView, but when setting its value, it will also 
      * accept plain HTMLElements and CSS selectors.
-     * @type {TkWidget}
+     * @type {TkView}
      */
     get parent() {
-        if (this._parentWidget != null) {
-            return this._parentWidget;
+        if (this._parentView != null) {
+            return this._parentView;
         } else {
             let parentElement = this.e.parentElement;
-            return (parentElement != null) ? new TkWidget({ from: parentElement }) : null;
+            return (parentElement != null) ? new TkView({ from: parentElement }) : null;
         }
     }
 
@@ -241,7 +241,7 @@ class TkWidget {
         this.delete();
 
         // Set the new parent
-        if (TkObject.is(value, TkWidget)) { // Other TkWidget
+        if (TkObject.is(value, TkView)) { // Other TkView
             value.add(this);
         } else if (TkObject.is(value, String)) { // Selector
             document.querySelector(value)?.appendChild(this.e);
@@ -251,18 +251,18 @@ class TkWidget {
     }
 
     /**
-     * Add child items to this widget. The child items can be
-     * other TkWidgets, HTMLElements, or CSS selectors representing
+     * Add child items to this view. The child items can be
+     * other TkViews, HTMLElements, or CSS selectors representing
      * HTMLElements.
      * 
-     * @param  {...String|HTMLElement|TkWidget} items The items to add.
+     * @param  {...String|HTMLElement|TkView} items The items to add.
      */
     add(...items) {
         for (let item of items) {
-            if (TkObject.is(item, TkWidget)) { // Other TkWidget
+            if (TkObject.is(item, TkView)) { // Other TkView
                 this.e.appendChild(item.e);
-                item._parentWidget = this;
-                this._childWidgets.push(item);
+                item._parentView = this;
+                this._childViews.push(item);
             } else if (TkObject.is(item, String)) { // Selector
                 let selectedItem = document.querySelector(item);
                 if (selectedItem)
@@ -274,19 +274,19 @@ class TkWidget {
     }
 
     /**
-     * Remove child items from this widget. The child items can be
-     * other TkWidgets, HTMLElements, or CSS selectors representing
+     * Remove child items from this view. The child items can be
+     * other TkViews, HTMLElements, or CSS selectors representing
      * HTMLElements.
      * 
-     * @param  {...String|HTMLElement|TkWidget} items The items to remove.
+     * @param  {...String|HTMLElement|TkView} items The items to remove.
      */
     remove(...items) {
         for (let item of items) {
-            if (TkObject.is(item, TkWidget)) { // Other TkWidget
+            if (TkObject.is(item, TkView)) { // Other TkView
                 if (this.e.contains(item.e))
                     this.e.removeChild(item.e);
-                item._parentWidget = null;
-                TkArray.remove(this._childWidgets, item);
+                item._parentView = null;
+                TkArray.remove(this._childViews, item);
             } else if (TkObject.is(item, String)) { // Selector
                 let selectedItem = document.querySelector(item);
                 if (selectedItem)
@@ -300,11 +300,11 @@ class TkWidget {
     }
 
     /**
-     * Remove all children from this widget.
+     * Remove all children from this view.
      */
     clear() {
-        // Remove widgets
-        this.remove(...this._childWidgets);
+        // Remove views
+        this.remove(...this._childViews);
 
         // Remove left over elements
         while (this.element.firstChild)
@@ -313,19 +313,19 @@ class TkWidget {
 
     /**
      * Attach an event handler to an event on the element of
-     * the widget.
+     * the view.
      * 
      * @param {String} eventName The name of the event.
-     * @param {function(TkWidget, Event)} callback The function to run when the event
-     * is triggered. This function is passed target widget.
+     * @param {function(TkView, Event)} callback The function to run when the event
+     * is triggered. This function is passed target view.
      * @param {Boolean?} useCapture If this event will use capture.
      */
     on(eventName, callback, useCapture = false) {
-        let widget = this;
+        let view = this;
         let eventOptions = {
             name: eventName,
             callback: callback,
-            adjustedCallback: (event) => callback(widget, event)
+            adjustedCallback: (event) => callback(view, event)
         };
         this.events.push(eventOptions);
 
@@ -338,7 +338,7 @@ class TkWidget {
      * the given event name will be removed.
      * 
      * @param {String} eventName The name of the event.
-     * @param {function(TkWidget, Event)?} callback The callback. If null, all callbacks
+     * @param {function(TkView, Event)?} callback The callback. If null, all callbacks
      * with the event name will be removed
      */
     off(eventName, callback) {
@@ -364,7 +364,7 @@ class TkWidget {
     }
 
     /**
-     * Trigger and event on the element of the widget.
+     * Trigger and event on the element of the view.
      * 
      * @param {String} eventName The name of the event to trigger.
      */
@@ -373,20 +373,20 @@ class TkWidget {
     }
 
     /**
-     * Iterate over each child widget, ascending.
+     * Iterate over each child view, ascending.
      * 
-     * @param {function(TkWidget, Number)} callback The function to
-     * run on each child TkWidget, passed the widget and its index.
+     * @param {function(TkView, Number)} callback The function to
+     * run on each child TkView, passed the view and its index.
      */
     ascendChildren(callback) {
         TkArray.ascend(this.children, callback);
     }
 
     /**
-     * Iterate over each child widget, descending.
+     * Iterate over each child view, descending.
      * 
-     * @param {function(TkWidget, Number)} callback The function to
-     * run on each child TkWidget, passed the widget and its index.
+     * @param {function(TkView, Number)} callback The function to
+     * run on each child TkView, passed the view and its index.
      */
     descendChildren(callback) {
         TkArray.descend(this.children, callback);
@@ -410,7 +410,7 @@ class TkWidget {
 
     /**
      * @returns {Boolean} If the active element in the document is the
-     * widget's element.
+     * view's element.
      */
     hasFocus() {
         return (document.activeElement == this.e);
@@ -434,7 +434,7 @@ class TkWidget {
 
 
     /**
-     * The class name string of the widget's element.
+     * The class name string of the view's element.
      * 
      * @type {String}
      */
@@ -447,7 +447,7 @@ class TkWidget {
     }
 
     /**
-     * Add classes to the class list of the widget's element.
+     * Add classes to the class list of the view's element.
      * 
      * @param  {...String} classes The classes to add.
      */
@@ -459,7 +459,7 @@ class TkWidget {
     }
 
     /**
-     * Remove classes from the class list of the widget's element.
+     * Remove classes from the class list of the view's element.
      * 
      * @param  {...String} classes The classes to remove.
      */
@@ -468,7 +468,7 @@ class TkWidget {
             this.e.classList.remove(className));
     }
     /**
-     * Toggle classes in the class list of the widget's element.
+     * Toggle classes in the class list of the view's element.
      * 
      * @param  {...String} classes The classes to toggle.
      */
@@ -479,7 +479,7 @@ class TkWidget {
 
     /**
      * Find the name of the class at a specific index in the class
-     * list of the widget's element.
+     * list of the view's element.
      * 
      * @param {Number} index The index of the class.
      * 
@@ -490,7 +490,7 @@ class TkWidget {
     }
 
     /**
-     * Check if the class list of the widget's element contains
+     * Check if the class list of the view's element contains
      * a class with a given name.
      * 
      * @param {String} className The name of the class to search for.
@@ -502,7 +502,7 @@ class TkWidget {
     }
 
     /**
-     * Check if the widget's element has an attribute.
+     * Check if the view's element has an attribute.
      * 
      * @param {String} attribute The attribute's name.
      * 
@@ -513,7 +513,7 @@ class TkWidget {
     }
 
     /**
-     * Get the value of an attribute of the widget's element.
+     * Get the value of an attribute of the view's element.
      * 
      * @param {String} attribute The attribute's name.
      * 
@@ -525,7 +525,7 @@ class TkWidget {
 
 
     /**
-     * Set the value of an attribute of the widget's element.
+     * Set the value of an attribute of the view's element.
      * 
      * @param {String} attribute The attribute's name.
      * @param {String} value The attribute's value.
@@ -535,7 +535,7 @@ class TkWidget {
     }
 
     /**
-     * Remove attributes from the widget's element.
+     * Remove attributes from the view's element.
      * 
      * @param {String} attributes The attributes' names.
      */
@@ -545,7 +545,7 @@ class TkWidget {
     }
 
     /**
-     * Add attributes to the widget's element.
+     * Add attributes to the view's element.
      * 
      * @param {String} attributes The attributes' names.
      * 
@@ -558,7 +558,7 @@ class TkWidget {
 
     /**
      * Remove the old attributes found in an enum from the 
-     * widget's element and add new attribute it its place.
+     * view's element and add new attribute it its place.
      * 
      * @param {Any} enumObject The enum to use.
      * @param {String} value The value from the enum to set as the attribute.
@@ -571,7 +571,7 @@ class TkWidget {
     }
 
     /**
-     * Find the attribute in the widget's element that matches
+     * Find the attribute in the view's element that matches
      * an item in an enum.
      * 
      * @param {Any} enumObject The enum to search through.
@@ -593,7 +593,7 @@ class TkWidget {
     }
 
     /**
-     * Get the "role" attribute of the widget's element.
+     * Get the "role" attribute of the view's element.
      * @type {String}
      */
     get role() {
@@ -605,7 +605,7 @@ class TkWidget {
     }
 
     /**
-     * Get the id of the widget's element.
+     * Get the id of the view's element.
      * @type {String}
      */
     get id() {
@@ -617,7 +617,7 @@ class TkWidget {
     }
 
     /**
-     * The inner HTML of the widget's element.
+     * The inner HTML of the view's element.
      * @type {String}
      */
     get innerHtml() {
@@ -629,7 +629,7 @@ class TkWidget {
     }
 
     /**
-     * The outer HTML of the widget's element.
+     * The outer HTML of the view's element.
      * @type {String}
      */
     get outerHtml() {
@@ -641,7 +641,7 @@ class TkWidget {
     }
 
     /**
-     * The inner text of the widget's element.
+     * The inner text of the view's element.
      * @type {String}
      */
     get innerText() {
@@ -654,7 +654,7 @@ class TkWidget {
 
     /**
      * If the document's current fullscreen element is 
-     * the widget's element.
+     * the view's element.
      * @type {Boolean}
      */
     get isFullscreen() {
@@ -666,7 +666,7 @@ class TkWidget {
     }
 
     /**
-     * Toggle the fullscreen state of the widget's element.
+     * Toggle the fullscreen state of the view's element.
      */
     toggleFullscreen() {
         if (this.isFullscreen)
@@ -678,14 +678,14 @@ class TkWidget {
 }
 
 /**
- * A widget holding <div> element.
+ * A view holding <div> element.
  */
-class TkPanel extends TkWidget {
+class TkPanel extends TkView {
 
     /**
      * Create a TkPanel.
      * 
-     * @param {Any} options Same as TkWidget, minus options.tag.
+     * @param {Any} options Same as TkView, minus options.tag.
      */
     constructor(options = {}) {
         super(options, { tag: "div" });
@@ -695,7 +695,7 @@ class TkPanel extends TkWidget {
 }
 
 /**
- * A widget holding a <div> element that
+ * A view holding a <div> element that
  * places child elements either vertically
  * or horizontally in a "stack".
  */
@@ -704,7 +704,7 @@ class TkStack extends TkPanel {
     /**
      * Create a TkStack.
      * 
-     * @param {Any} options Same as TkWidget, minus options.tag.
+     * @param {Any} options Same as TkView, minus options.tag.
      * @param {String} options.direction The direction of the child elements.
      */
     constructor(options) {
@@ -729,15 +729,15 @@ class TkStack extends TkPanel {
 }
 
 /**
- * A widget representing a text element (<p>, <h1>, <span>, and so on...).
+ * A view representing a text element (<p>, <h1>, <span>, and so on...).
  */
-class TkText extends TkWidget {
+class TkText extends TkView {
 
     /**
      * Create a TkText.
      * 
      * @param {String} tag The tag of the text element.
-     * @param {Any} options Same as TkWidget, minus options.tag.
+     * @param {Any} options Same as TkView, minus options.tag.
      * @param {String} options.text The text to set inside the element.
      */
     constructor(tag, options = {}) {
@@ -763,14 +763,14 @@ class TkText extends TkWidget {
 }
 
 /**
- * A widget representing an <a> element.
+ * A view representing an <a> element.
  */
 class TkLink extends TkText {
 
     /**
      * Create a TkLink.
      * 
-     * @param {Any} options Same as TkWidget, minus options.tag.
+     * @param {Any} options Same as TkView, minus options.tag.
      * @param {String} options.text The text to set inside the element.
      * @param {String} options.url The url of the link.
      */
@@ -795,14 +795,14 @@ class TkLink extends TkText {
 }
 
 /**
- * A widget representing an <img> element.
+ * A view representing an <img> element.
  */
-class TkImage extends TkWidget {
+class TkImage extends TkView {
 
     /*** 
      * Create a TkImage.
      * 
-     * @param {Any} options Same as TkWidget, minus options.tag.
+     * @param {Any} options Same as TkView, minus options.tag.
      * @param {String} options.source The image's source.
      * @param {String} options.alt The alternate text of the image.
      */
@@ -844,7 +844,7 @@ class TkImage extends TkWidget {
 }
 
 /**
- * A widget representing a root <div> with two children:
+ * A view representing a root <div> with two children:
  * an <img> and a <span>.
  */
 class TkLabel extends TkPanel {
@@ -852,7 +852,7 @@ class TkLabel extends TkPanel {
     /**
      * Create a TkLabel.
      * 
-     * @param {Any} options Same as TkWidget, minus options.tag.
+     * @param {Any} options Same as TkView, minus options.tag.
      * @param {String} options.text The text of the label.
      * @param {String} options.image The image source of the label.
      * @param {TkLabelLayout} options.layout The layout of the image.
@@ -862,8 +862,8 @@ class TkLabel extends TkPanel {
         super(options);
         this.addAttribute("tklabel");
 
-        this.imageWidget = new TkImage({ parent: this });
-        this.textWidget = new TkText("span", { parent: this });
+        this.imageView = new TkImage({ parent: this });
+        this.textView = new TkText("span", { parent: this });
         this.layout = TkLabelLayout.IMAGE_LEFT;
         this.text = options.text ?? "";
         this.image = options.image ?? "";
@@ -871,34 +871,34 @@ class TkLabel extends TkPanel {
     }
 
     /**
-     * The text inside the text widget.
+     * The text inside the text view.
      * @type {String}
      */
     get text() {
-        return this.textWidget.text;
+        return this.textView.text;
     }
 
     set text(value) {
-        this.textWidget.text = value;
+        this.textView.text = value;
     }
 
     /**
      * The source of the image in the image
-     * widget.
+     * view.
      * @type {String}
      */
     get image() {
-        return this.imageWidget.source;
+        return this.imageView.source;
     }
 
     set image(value) {
         if (value == null || value.trim() == "") {
-            this.imageWidget.addAttribute("tk-hide");
+            this.imageView.addAttribute("tk-hide");
         } else {
-            this.imageWidget.removeAttribute("tk-hide");
+            this.imageView.removeAttribute("tk-hide");
         }
 
-        this.imageWidget.source = value;
+        this.imageView.source = value;
     }
 
     /**
@@ -916,15 +916,15 @@ class TkLabel extends TkPanel {
 }
 
 /**
- * A widget representing a <button> element.
+ * A view representing a <button> element.
  * Allows setting the text and an image.
  */
-class TkButton extends TkWidget {
+class TkButton extends TkView {
 
     /**
      * Create a TkButton.
      * 
-     * @param {Any} options Same as TkWidget, minus options.tag.
+     * @param {Any} options Same as TkView, minus options.tag.
      * @param {String} options.text The text of the button.
      * @param {String} options.image The image source of the button's image.
      * @param {TkLabelLayout} options.layout The layout of the button.
@@ -935,7 +935,7 @@ class TkButton extends TkWidget {
         this.addAttribute("tkbutton");
 
         this.role = "button";
-        this.labelWidget = new TkLabel({ parent: this });
+        this.labelView = new TkLabel({ parent: this });
         this.text = options.text ?? "";
         this.image = options.image ?? "";
         this.layout = options.layout ?? TkLabelLayout.IMAGE_LEFT;
@@ -946,11 +946,11 @@ class TkButton extends TkWidget {
      * @type {String}
      */
     get text() {
-        return this.labelWidget.text;
+        return this.labelView.text;
     }
 
     set text(value) {
-        this.labelWidget.text = value;
+        this.labelView.text = value;
     }
 
     /**
@@ -958,11 +958,11 @@ class TkButton extends TkWidget {
      * @type {String}
      */
     get image() {
-        return this.labelWidget.image;
+        return this.labelView.image;
     }
 
     set image(value) {
-        this.labelWidget.image = value;
+        this.labelView.image = value;
     }
 
     /**
@@ -970,18 +970,18 @@ class TkButton extends TkWidget {
      * @type {TkLabelLayout}
      */
     get layout() {
-        return this.labelWidget.layout;
+        return this.labelView.layout;
     }
 
     set layout(value) {
-        this.labelWidget.layout = value;
+        this.labelView.layout = value;
     }
 
 }
 
 /**
- * A TkNotebookPage is not a widget but represents the
- * two widgets that make up a notebook page: the tab, 
+ * A TkNotebookPage is not a view but represents the
+ * two views that make up a notebook page: the tab, 
  * which is a TkButton, and the content, which is a 
  * TkPanel.
  */
@@ -992,7 +992,7 @@ class TkNotebookPage {
      * 
      * @param {Any} options The options object.
      * @param {String} options.title The tab's title.
-     * @param {TkWidget[]} options.content An array of TkWidgets to be the page's content.
+     * @param {TkView[]} options.content An array of TkViews to be the page's content.
      * @param {TkNotebook} options.parent The parent notebook.
      * @param {Any} options.tabOptions The options object for 
      * creating the tab button, which is a TkButton.
@@ -1000,12 +1000,12 @@ class TkNotebookPage {
      * creating the content panel, which is a TkPanel. 
      */
     constructor(options = {}) {
-        // Create the tab widget
+        // Create the tab view
         this.tab = new TkButton(options.tabOptions);
         this.tab.addAttribute("tknotebook-tab");
         this.tab.associatedPage = this;
 
-        // Create the content widget
+        // Create the content view
         this.content = new TkPanel(options.contentOptions);
         this.content.addAttribute("tknotebook-content");
         this.content.associatedPage = this;
@@ -1120,7 +1120,7 @@ class TkNotebookPage {
 }
 
 /** 
- *	A widget for managing a set of related pages, each with its own tab button
+ *	A view for managing a set of related pages, each with its own tab button
  *	and content panel.
  * 
  *	It is a root <div> with two <div> children: one which holds tab buttons for each page
@@ -1165,9 +1165,9 @@ class TkNotebook extends TkPanel {
 
     /**
      * Add pages and items to the notebook. If an item is not a TkNotebookPage, 
-     * it will be passed on to TkWidget.add().
+     * it will be passed on to TkView.add().
      * 
-     * @param  {...TkNotebookPage|String|HTMLElement|TkWidget} items The pages/items to add.
+     * @param  {...TkNotebookPage|String|HTMLElement|TkView} items The pages/items to add.
      */
     add(...items) {
         for (let item of items) {
@@ -1200,9 +1200,9 @@ class TkNotebook extends TkPanel {
 
     /**
      * Remove pages and items from the notebook. If an item is not a TkNotebookPage, 
-     * it will be passed on to TkWidget.remove(). 
+     * it will be passed on to TkView.remove(). 
      * 
-     * @param  {...TkNotebookPage|String|HTMLElement|TkWidget} items The pages/items to remove.
+     * @param  {...TkNotebookPage|String|HTMLElement|TkView} items The pages/items to remove.
      */
     remove(...items) {
         for (let item of items) {
@@ -1383,7 +1383,7 @@ class TkNotebook extends TkPanel {
 
 /**
  * A lightweight counterpart to TkNotebook
- * for when you have a set of widgets and
+ * for when you have a set of views and
  * you only want one visible at a time.
  */
 class TkSwitcher extends TkPanel {
@@ -1396,7 +1396,7 @@ class TkSwitcher extends TkPanel {
     /**
      * Add items to the switcher.
      * 
-     * @param  {...String|HTMLElement|TkWidget} items The items to add.
+     * @param  {...String|HTMLElement|TkView} items The items to add.
      */
     add(...items) {
         for (let item of items) {
@@ -1408,7 +1408,7 @@ class TkSwitcher extends TkPanel {
 
     /**
      * The active item in the switcher. 
-     * @type {...String|HTMLElement|TkWidget}
+     * @type {...String|HTMLElement|TkView}
      */
     get active() {
         let activeIndex = this.activeIndex;
@@ -1419,14 +1419,14 @@ class TkSwitcher extends TkPanel {
         if (value === undefined || value === null)
             return;
 
-        // Unselect old widget, if it exists.
+        // Unselect old view, if it exists.
         let oldActive = this.active;
         if (oldActive !== null) {
             oldActive.addAttribute("tk-hide");
         }
 
-        // Show the new widget
-        if (TkObject.is(value, TkWidget)) { // TkWidget
+        // Show the new view
+        if (TkObject.is(value, TkView)) { // TkView
             value.removeAttribute("tk-hide");
         } else if (TkObject.is(value, String)) { // Selector
             let item = document.querySelector(value);
@@ -1446,8 +1446,8 @@ class TkSwitcher extends TkPanel {
     get activeIndex() {
         let index = -1;
 
-        this.children.forEach((widget, i) => {
-            if (!widget.hasAttribute("tk-hide"))
+        this.children.forEach((view, i) => {
+            if (!view.hasAttribute("tk-hide"))
                 index = i;
         });
 
@@ -1461,12 +1461,12 @@ class TkSwitcher extends TkPanel {
     /**
      * Get the index of a item in the switcher.
      * 
-     * @param {...String|HTMLElement|TkWidget} item The item to look for.
+     * @param {...String|HTMLElement|TkView} item The item to look for.
      */
     indexOf(item) {
         // Find the element to search for
         let searchItem = undefined;
-        if (TkObject.is(item, TkWidget)) { // TkWidget
+        if (TkObject.is(item, TkView)) { // TkView
             searchItem = item.element;
         } else if (TkObject.is(item, String)) { // Selector
             searchItem = document.querySelector(item);
@@ -1494,9 +1494,9 @@ class TkSwitcher extends TkPanel {
 }
 
 /**
- * A widget representing a <canvas> element.
+ * A view representing a <canvas> element.
  */
-class TkCanvas extends TkWidget {
+class TkCanvas extends TkView {
 
     constructor(options = {}) {
         super(options, { tag: "canvas" });
@@ -1555,25 +1555,25 @@ class TkList extends TkStack {
         };
 
         this.e.tabIndex = 0;
-        this.on("keydown", (widget, event) => {
-            let itemCount = widget.children.length;
+        this.on("keydown", (view, event) => {
+            let itemCount = view.children.length;
             if (itemCount == 0)
                 return;
 
-            let selectedIndex = widget.selectedIndex;
+            let selectedIndex = view.selectedIndex;
             switch (event.code) {
                 case "ArrowUp":
                     if (selectedIndex > 0)
-                        widget.selectedIndex--;
-                    else if (widget._wrap)
-                        widget.selectedIndex = itemCount - 1;
+                        view.selectedIndex--;
+                    else if (view._wrap)
+                        view.selectedIndex = itemCount - 1;
 
                     break;
                 case "ArrowDown":
                     if (selectedIndex < itemCount - 1)
-                        widget.selectedIndex++;
-                    else if (widget._wrap)
-                        widget.selectedIndex = 0;
+                        view.selectedIndex++;
+                    else if (view._wrap)
+                        view.selectedIndex = 0;
 
                     break;
             }
@@ -1597,9 +1597,9 @@ class TkList extends TkStack {
     }
 
     /**
-     * The selected item in the list. Always returns a TkWidget, but when setting 
+     * The selected item in the list. Always returns a TkView, but when setting 
      * the value, it can also accept CSS selectors or HTMLElements.
-     * @type {TkWidget|String|HTMLElement}
+     * @type {TkView|String|HTMLElement}
      */
     get selectedItem() {
         let selectedIndex = this.selectedIndex;
@@ -1610,14 +1610,14 @@ class TkList extends TkStack {
         if (value === undefined || value === null)
             return;
 
-        // Unselect old widget, if it exists.
+        // Unselect old view, if it exists.
         let oldSelected = this.selectedItem;
         if (oldSelected !== null) {
             oldSelected.removeClass("selected");
         }
 
         // Select the new item
-        if (TkObject.is(value, TkWidget)) { // TkWidget
+        if (TkObject.is(value, TkView)) { // TkView
             value.addClass("selected");
         } else if (TkObject.is(value, String)) { // Selector
             let item = document.querySelector(value);
@@ -1637,8 +1637,8 @@ class TkList extends TkStack {
     get selectedIndex() {
         let index = -1;
 
-        this.children.forEach((widget, i) => {
-            if (widget.hasClass("selected"))
+        this.children.forEach((view, i) => {
+            if (view.hasClass("selected"))
                 index = i;
         });
 

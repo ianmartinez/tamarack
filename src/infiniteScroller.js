@@ -1,7 +1,7 @@
 /**
  * Requires: 
  *  tamarack/core
- *  tamarack/widgets
+ *  tamarack/views
  */
 
 /**
@@ -52,13 +52,13 @@ class TkInfiniteScroller extends TkPanel {
         this._runwayEnd = 0;
 
         // Set placeholder
-        this._placeholderWidget = null;
+        this._placeholderView = null;
         if (options.placeholder !== undefined) {
             this.placeholder = options.placeholder;
         }
 
         // Set template
-        this._templateWidget = null;
+        this._templateView = null;
         if (options.template !== undefined) {
             this.template = options.template;
         }
@@ -83,7 +83,7 @@ class TkInfiniteScroller extends TkPanel {
     }
 
     clonePlaceholder() {
-        return new TkWidget({ from: this._placeholderWidget.e.cloneNode(true) });
+        return new TkView({ from: this._placeholderView.e.cloneNode(true) });
     }
 
     delete() {
@@ -137,7 +137,7 @@ class TkInfiniteScroller extends TkPanel {
     /**
      * The placeholder to show in place of content
      * that is being loaded.
-     * @type {...String|HTMLElement|TkWidget}
+     * @type {...String|HTMLElement|TkView}
      */
     get placeholder() {
         // Try to get an existing placeholder
@@ -153,21 +153,21 @@ class TkInfiniteScroller extends TkPanel {
     }
 
     set placeholder(value) {
-        if (TkObject.is(value, TkWidget)) { // TkWidget
-            this._placeholderWidget = value;
+        if (TkObject.is(value, TkView)) { // TkView
+            this._placeholderView = value;
         } else { // Selector or HTMLElement
-            this._placeholderWidget = new TkWidget({ from: value });
+            this._placeholderView = new TkView({ from: value });
         }
 
         // Reset placeholders
         this._placeholders = [];
 
         // Add placeholder attribute
-        this._placeholderWidget.addAttribute("tkplaceholder");
+        this._placeholderView.addAttribute("tkplaceholder");
     }
 
     /**
-     * Refresh the bounds of the widget to respond to the
+     * Refresh the bounds of the view to respond to the
      * window being resized.
      */
     onResize() {
@@ -274,7 +274,7 @@ class TkInfiniteScroller extends TkPanel {
      */
     attachContent() {
         let i;
-        let unusedWidgets = [];
+        let unusedViews = [];
         for (i = 0; i < this._cachedItems.length; i++) {
             // Skip the items which should be visible.
             if (i == this._firstAttachedItem) {
@@ -282,50 +282,50 @@ class TkInfiniteScroller extends TkPanel {
                 continue;
             }
 
-            if (this._cachedItems[i].widget) {
-                if (this._cachedItems[i].widget.hasAttribute("tkplaceholder")) {
-                    this._placeholders.push(this._cachedItems[i].widget);
+            if (this._cachedItems[i].view) {
+                if (this._cachedItems[i].view.hasAttribute("tkplaceholder")) {
+                    this._placeholders.push(this._cachedItems[i].view);
                     this._placeholders[this._placeholders.length - 1].addAttribute("tk-hide");
                 } else {
-                    unusedWidgets.push(this._cachedItems[i].widget);
+                    unusedViews.push(this._cachedItems[i].view);
                 }
             }
-            this._cachedItems[i].widget = null;
+            this._cachedItems[i].view = null;
         }
 
-        // Create widgets
+        // Create views
         for (i = this._firstAttachedItem; i < this._lastAttachedItem; i++) {
             while (this._cachedItems.length <= i)
                 this.addItem();
-            if (this._cachedItems[i].widget) {
+            if (this._cachedItems[i].view) {
                 // If it's a placeholder but we have data, replace it.
-                if (this._cachedItems[i].widget.hasAttribute("tkplaceholder") && this._cachedItems[i].data) {
-                    this._cachedItems[i].widget.addAttribute("tk-hide");
-                    this._placeholders.push(this._cachedItems[i].widget);
-                    this._cachedItems[i].widget = null;
+                if (this._cachedItems[i].view.hasAttribute("tkplaceholder") && this._cachedItems[i].data) {
+                    this._cachedItems[i].view.addAttribute("tk-hide");
+                    this._placeholders.push(this._cachedItems[i].view);
+                    this._cachedItems[i].view = null;
                 } else {
                     continue;
                 }
             }
-            let widget = this._cachedItems[i].data
-                ? this.renderItem(this._cachedItems[i].data, unusedWidgets.pop()) : this.placeholder;
-            widget.style.position = "absolute";
+            let view = this._cachedItems[i].data
+                ? this.renderItem(this._cachedItems[i].data, unusedViews.pop()) : this.placeholder;
+            view.style.position = "absolute";
             this._cachedItems[i].top = -1;
-            this.add(widget);
-            this._cachedItems[i].widget = widget;
+            this.add(view);
+            this._cachedItems[i].view = view;
         }
 
-        // Remove all unused widgets
-        while (unusedWidgets.length) {
-            this.remove(unusedWidgets.pop());
+        // Remove all unused views
+        while (unusedViews.length) {
+            this.remove(unusedViews.pop());
         }
 
-        // Get the height of all widgets which haven't been measured yet.
+        // Get the height of all views which haven't been measured yet.
         for (i = this._firstAttachedItem; i < this._lastAttachedItem; i++) {
             // Only cache the height if we have the real contents, not a placeholder.
             if (this._cachedItems[i].data && !this._cachedItems[i].height) {
-                this._cachedItems[i].height = this._cachedItems[i].widget.e.offsetHeight;
-                this._cachedItems[i].width = this._cachedItems[i].widget.e.offsetWidth;
+                this._cachedItems[i].height = this._cachedItems[i].view.e.offsetHeight;
+                this._cachedItems[i].width = this._cachedItems[i].view.e.offsetWidth;
             }
         }
 
@@ -337,7 +337,7 @@ class TkInfiniteScroller extends TkPanel {
         }
         this._anchorScrollTop += this._anchorItem.offset;
 
-        // Position all widgets.
+        // Position all views.
         let curPos = this._anchorScrollTop - this._anchorItem.offset;
         i = this._anchorItem.index;
         while (i > this._firstAttachedItem) {
@@ -350,7 +350,7 @@ class TkInfiniteScroller extends TkPanel {
         }
 
         for (i = this._firstAttachedItem; i < this._lastAttachedItem; i++) {
-            this._cachedItems[i].widget.style.transform = `translateY(${curPos}px)`;
+            this._cachedItems[i].view.style.transform = `translateY(${curPos}px)`;
             this._cachedItems[i].top = curPos;
             curPos += this._cachedItems[i].height || this._placeholderHeight;
         }
@@ -384,7 +384,7 @@ class TkInfiniteScroller extends TkPanel {
     addItem() {
         this._cachedItems.push({
             data: null,
-            widget: null,
+            view: null,
             height: 0,
             width: 0,
             top: 0
@@ -413,8 +413,8 @@ class TkInfiniteScroller extends TkPanel {
     /**
      * A callback for when an item is recieved after a fetch() is done.
      * It is passed the item that was fetched as the first parameter and
-     * a widget to render it into. Return the rendered widget.
-     * @type {function(Object, TkWidget):TkWidget} 
+     * a view to render it into. Return the rendered view.
+     * @type {function(Object, TkView):TkView} 
      */
     get renderItem() {
         return this._renderItemCallback;
