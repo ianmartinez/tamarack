@@ -90,6 +90,10 @@ class TkWidget {
         // is controlled by a TkWidget
         if (this._element != null)
             this._element.setAttribute("tkwidget", "");
+
+
+        // Store events
+        this.events = [];
     }
 
     /**
@@ -311,16 +315,49 @@ class TkWidget {
      * Attach an event handler to an event on the element of
      * the widget.
      * 
-     * @param {String} eventName The name of the even.
-     * @param {function(TkWidget)} callback The function to run when the event
+     * @param {String} eventName The name of the event.
+     * @param {function(TkWidget, Event)} callback The function to run when the event
      * is triggered. This function is passed target widget.
      */
     on(eventName, callback) {
         let widget = this;
+        let eventOptions = {
+            name: eventName,
+            callback: callback,
+            adjustedCallback: (event) => callback(widget, event)
+        };
+        this.events.push(eventOptions);
 
-        this.e.addEventListener(eventName, () => {
-            callback(widget);
-        });
+        this.e.addEventListener(eventName, eventOptions.adjustedCallback);
+    }
+
+    /**
+     * Remove an event handler added with the on() function.
+     * 
+     * @param {String} eventName The name of the event.
+     * @param {function(TkWidget, Event)?} callback The callback. If null, all callbacks
+     * with the event name will be removed
+     */
+    off(eventName, callback) {
+        let matchingEvents = [];
+
+        for(let event of this.events) {
+            if(callback !== undefined) { // Removing a specific event by name *and* callback
+                if(eventName === event.name && event.callback === callback) {
+                    matchingEvents.push(event);
+                    continue;
+                }
+            } else { // Removing all events by name
+                if(eventName === event.name) {
+                    matchingEvents.push(event);
+                }
+            }
+        }
+
+        for(let matchingEvent of matchingEvents) {
+            this.e.removeEventListener(eventName, matchingEvent.adjustedCallback);
+            this.events.splice(this.events.indexOf(matchingEvent), 1);
+        }
     }
 
     /**
@@ -1454,8 +1491,7 @@ class TkSwitcher extends TkPanel {
 }
 
 /**
- * A widget representing a <button> element.
- * Allows setting the text and an image.
+ * A widget representing a <canvas> element.
  */
 class TkCanvas extends TkWidget {
 
@@ -1490,6 +1526,80 @@ class TkCanvas extends TkWidget {
 
     set height(value) {
         this.setAttribute("height", value);
+    }
+
+}
+
+class TkList extends TkStack {
+
+    constructor(options = {}) {
+        super(options);
+        this.addAttribute("tklist");
+
+        let thisList = this;
+        this.selectItemHandler = (item) => { 
+            thisList.selectedItem = item;
+        };
+    }
+
+    add(...items) {
+        super.add(...items);
+
+        for(let item of items) {
+            item.on("click", this.selectItemHandler);
+        }
+    }
+
+    remove(...items) {
+        super.add(...items);
+
+        for(let item of items) {
+            item.off("click", this.selectItemHandler);
+        }
+    }
+
+    get selectedItem() {
+        let selectedIndex = this.selectedIndex;
+        return (selectedIndex == -1) ? null : this.children[this.selectedIndex];
+    }
+
+    set selectedItem(value) {
+        if (value === undefined || value === null)
+            return;
+
+        // Unselect old widget, if it exists.
+        let oldSelected = this.selectedItem;
+        if (oldSelected !== null) {
+            oldSelected.removeClass("selected");
+        }
+
+        // Select the new item
+        if (TkObject.is(value, TkWidget)) { // TkWidget
+            value.addClass("selected");
+        } else if (TkObject.is(value, String)) { // Selector
+            let item = document.querySelector(value);
+            item.classList.add("selected");
+        } else if (TkObject.is(value, HTMLElement)) {  // HTMLElement
+            value.classList.add("selected");
+        }
+
+        // Trigger the activechanged event
+        this.trigger("selectedchanged");
+    }
+
+    get selectedIndex() {
+        let index = -1;
+
+        this.children.forEach((widget, i) => {
+            if (widget.hasClass("selected"))
+                index = i;
+        });
+
+        return index;
+    }
+
+    set selectedIndex(value) {
+        this.selectedItem = this.children[value];
     }
 
 }

@@ -181,3 +181,7 @@
     contain: layout;
     will-change: transform;
 }
+
+[tklist] .selected {
+    background-color: gray;
+}
