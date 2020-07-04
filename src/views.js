@@ -59,7 +59,7 @@ class TkView {
         this._element = null;
         this._childViews = [];
         this._parentView = null;
-        
+
         // If no tag is specified, default to <div>
         let tag = options.tag ?? "div";
 
@@ -72,7 +72,7 @@ class TkView {
             } else if (TkObject.is(options.from, TkView)) { // Other TkView
                 this._element = options.from.element;
             }
-        } else  { // Create a new element if no tag is specified
+        } else { // Create a new element if no tag is specified
             this._element = document.createElement(tag);
         }
 
@@ -85,7 +85,7 @@ class TkView {
             this.className = options.className;
 
         // Add the CSS classes, if specified 
-        if(options.classes !== undefined)
+        if (options.classes !== undefined)
             this.addClass(...options.classes);
 
         // Add any attributes, if specified
@@ -105,7 +105,7 @@ class TkView {
         this.events = [];
 
         // Add children, if specified
-        if(options.children !== undefined)
+        if (options.children !== undefined)
             this.add(...options.children);
     }
 
@@ -403,6 +403,66 @@ class TkView {
      */
     descendChildren(callback) {
         TkArray.descend(this.children, callback);
+    }
+
+    /**
+     * Move an view up among the children of its parent.
+     * @returns {Boolean} If the view's element was moved.
+     */
+    moveUp() {
+        if (this.e.parentNode && this.e.previousElementSibling) {
+            this.e.parentNode.insertBefore(this.e, this.e.previousElementSibling);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Move an view down among the children of its parent.
+     * @returns {Boolean} If the view's element was moved.
+     */
+    moveDown() {
+        if (this.e.parentNode && this.e.nextElementSibling) {
+            this.e.parentNode.insertBefore(this.e.nextElementSibling, this.e);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Move an view to the top among the children of its parent.
+     * @returns {Boolean} If the view's element was moved.
+     */
+    moveToTop() {
+        let parent = this.e.parentNode;
+
+        if (parent && parent.firstChild && parent.firstChild !== this.e) {
+            parent.removeChild(this.e);
+            parent.insertBefore(this.e, parent.firstChild);
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Move an view to the bottom among the children of its parent.
+     * @returns {Boolean} If the view's element was moved.
+     */
+    moveToBottom() {
+        let parent = this.e.parentNode;
+
+        if (parent && parent.lastChild !== this.e) {
+            parent.removeChild(this.e);
+            parent.appendChild(this.e);
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
