@@ -681,28 +681,11 @@ class TkView {
 }
 
 /**
- * A view holding <div> element.
- */
-class TkPanel extends TkView {
-
-    /**
-     * Create a TkPanel.
-     * 
-     * @param {Any} options Same as TkView, minus options.tag.
-     */
-    constructor(options = {}) {
-        super(options, { tag: "div" });
-        this.addAttribute("tkpanel");
-    }
-
-}
-
-/**
  * A view holding a <div> element that
  * places child elements either vertically
  * or horizontally in a "stack".
  */
-class TkStack extends TkPanel {
+class TkStack extends TkView {
 
     /**
      * Create a TkStack.
@@ -850,7 +833,7 @@ class TkImage extends TkView {
  * A view representing a root <div> with two children:
  * an <img> and a <span>.
  */
-class TkLabel extends TkPanel {
+class TkLabel extends TkView {
 
     /**
      * Create a TkLabel.
@@ -986,7 +969,7 @@ class TkButton extends TkView {
  * A TkNotebookPage is not a view but represents the
  * two views that make up a notebook page: the tab, 
  * which is a TkButton, and the content, which is a 
- * TkPanel.
+ * TkView.
  */
 class TkNotebookPage {
 
@@ -1000,7 +983,7 @@ class TkNotebookPage {
      * @param {Any} options.tabOptions The options object for 
      * creating the tab button, which is a TkButton.
      * @param {Any} options.contentOptions The options object for 
-     * creating the content panel, which is a TkPanel. 
+     * creating the content panel, which is a TkView. 
      */
     constructor(options = {}) {
         // Create the tab view
@@ -1009,7 +992,7 @@ class TkNotebookPage {
         this.tab.associatedPage = this;
 
         // Create the content view
-        this.content = new TkPanel(options.contentOptions);
+        this.content = new TkView(options.contentOptions);
         this.content.addAttribute("tknotebook-content");
         this.content.associatedPage = this;
 
@@ -1129,7 +1112,7 @@ class TkNotebookPage {
  *	It is a root <div> with two <div> children: one which holds tab buttons for each page
  *	and another, which holds <div> elements that contain the content of each page.
  */
-class TkNotebook extends TkPanel {
+class TkNotebook extends TkView {
 
     /**
      * Create a TkNotebook.
@@ -1139,9 +1122,9 @@ class TkNotebook extends TkPanel {
      * @param {Boolean} options.newestPageActive (default: false) If the notebook should 
      * jump to new pages when they are added.
      * @param {Any} options.tabAreaOptions The options object for creating the tab 
-     * panel, which is a TkPanel. 
+     * panel, which is a TkView. 
      * @param {Any} options.contentAreaOptions The options object for creating the content 
-     * area panel, which is a TkPanel. 
+     * area panel, which is a TkView. 
      */
     constructor(options = {}) {
         if (options.wrap === undefined)
@@ -1153,11 +1136,11 @@ class TkNotebook extends TkPanel {
         super(options, { tag: "div" });
         this.addAttribute("tknotebook");
 
-        this.tabArea = new TkPanel(options.tabAreaOptions);
+        this.tabArea = new TkView(options.tabAreaOptions);
         this.tabArea.addAttribute("tknotebook-tabarea");
         this.add(this.tabArea);
 
-        this.contentArea = new TkPanel(options.contentAreaOptions);
+        this.contentArea = new TkView(options.contentAreaOptions);
         this.contentArea.addAttribute("tknotebook-contentarea");
         this.add(this.contentArea);
 
@@ -1389,7 +1372,7 @@ class TkNotebook extends TkPanel {
  * for when you have a set of views and
  * you only want one visible at a time.
  */
-class TkSwitcher extends TkPanel {
+class TkSwitcher extends TkView {
 
     constructor(options = {}) {
         super(options);

@@ -18,14 +18,14 @@
  * Adapted from https://developers.google.com/web/updates/2016/07/infinite-scroller to
  * work cleanly within tamarack.
  */
-class TkInfiniteScroller extends TkPanel {
+class TkInfiniteScroller extends TkView {
 
     constructor(options = {}) {
         super(options);
         this.addAttribute("tkinfinitescroller");
 
         // Internal panel to force scroller to scroll to
-        this._runway = new TkPanel({
+        this._runway = new TkView({
             parent: this,
             style: "position: absolute; width: 1px; height: 1px;"
         });
