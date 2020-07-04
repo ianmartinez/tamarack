@@ -47,8 +47,10 @@ class TkView {
      * @param {String} [options.tag] If representing a new element, the tag of the element to create.
      * @param {Any} [options.attributes] The attributes to set for the element, in the format of 
      * {"attribute1": "value1", "attribute2": "value2"}.
+     * @param {String[]} [options.classes] An array of CSS classes for the view.
      * @param {String} [options.className] The value of class attribute of the element to set.
      * @param {String} [options.style] The value of style attribute of the element to set.
+     * @param {{String|HTMLElement|TkView}[]} [options.children] An array of children of this view.
      */
     constructor(options = {}, additionalOptions = null) {
         if (additionalOptions !== null)
@@ -82,21 +84,29 @@ class TkView {
         if (options.className !== undefined)
             this.className = options.className;
 
+        // Add the CSS classes, if specified 
+        if(options.classes !== undefined)
+            this.addClass(...options.classes);
+
+        // Add any attributes, if specified
         if (options.attributes !== undefined)
             for (let attributeName of Object.keys(options.attributes))
                 this.setAttribute(attributeName, options.attributes[attributeName]);
 
+        // Add the style attribute from options.style, if specified
         if (options.style !== undefined)
             this.setAttribute("style", options.style);
 
-        // Add an attribute showing that the html element
+        // Add an attribute showing that the HTML element
         // is controlled by a TkView
-        if (this._element != null)
-            this._element.setAttribute("tkview", "");
-
+        this._element.setAttribute("tkview", "");
 
         // Store events
         this.events = [];
+
+        // Add children, if specified
+        if(options.children !== undefined)
+            this.add(...options.children);
     }
 
     /**
