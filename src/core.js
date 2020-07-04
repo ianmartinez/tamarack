@@ -219,6 +219,20 @@ class TkArray {
         return array[TkNumber.random(0, array.length - 1)];
     }
 
+    /**
+     * Move an item from one position in an array to
+     * another.
+     * 
+     * @param {Any[]} array The array to modify.
+     * @param {Number} fromIndex The index of the item to move.
+     * @param {Number} toIndex The index of the item's destination.
+     */
+    static move(array, fromIndex, toIndex) {
+        let element = array[fromIndex];
+        array.splice(fromIndex, 1);
+        array.splice(toIndex, 0, element);
+    }
+
 }
 
 /**
