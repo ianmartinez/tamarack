@@ -57,6 +57,9 @@ class TkView {
         this._element = null;
         this._childViews = [];
         this._parentView = null;
+        
+        // If no tag is specified, default to <div>
+        let tag = options.tag ?? "div";
 
         // Set the element
         if (options.from !== undefined) { // From an existing element
@@ -67,8 +70,8 @@ class TkView {
             } else if (TkObject.is(options.from, TkView)) { // Other TkView
                 this._element = options.from.element;
             }
-        } else if (options.tag !== undefined) { // Creating a new element
-            this._element = document.createElement(options.tag);
+        } else  { // Create a new element if no tag is specified
+            this._element = document.createElement(tag);
         }
 
         // Set the parent, if specified
