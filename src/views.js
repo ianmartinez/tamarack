@@ -89,9 +89,16 @@ class TkView {
             this.addClass(...options.classes);
 
         // Add any attributes, if specified
-        if (options.attributes !== undefined)
-            for (let attributeName of Object.keys(options.attributes))
-                this.setAttribute(attributeName, options.attributes[attributeName]);
+        if (options.attributes !== undefined) {
+            for (let attributeName of Object.keys(options.attributes)) {
+                let value = options.attributes[attributeName];
+                
+                if (value == null)
+                    this.addAttribute(attributeName);
+                else
+                    this.setAttribute(attributeName, value);
+            }
+        }
 
         // Add the style attribute from options.style, if specified
         if (options.style !== undefined)

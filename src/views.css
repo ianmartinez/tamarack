@@ -170,16 +170,30 @@
 }
 
 [tkinfinitescroller] {
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+ 
+[tkinfinitescroller] [tkinfinitescroller-scrollplane] {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
     overflow-y: scroll;
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
     contain: layout;
     will-change: transform;
+}
+
+[tkinfinitescroller] [tkinfinitescroller-runway] {
+    position: absolute; 
+    width: 1px; 
+    height: 1px;
 }
 
 [tklist] * {

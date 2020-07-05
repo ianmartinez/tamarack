@@ -24,10 +24,16 @@ class TkInfiniteScroller extends TkView {
         super(options);
         this.addAttribute("tkinfinitescroller");
 
+        // Actual scroller plane
+        this.scrollplane = new TkView({
+            parent: this,
+            attributes: { "tkinfinitescroller-scrollplane": null }
+        });
+
         // Internal panel to force scroller to scroll to
         this._runway = new TkView({
-            parent: this,
-            style: "position: absolute; width: 1px; height: 1px;"
+            parent: this.scrollplane,
+            attributes: { "tkinfinitescroller-runway": null }
         });
 
         this.scrollPos = 0;
@@ -69,7 +75,7 @@ class TkInfiniteScroller extends TkView {
         // Set the fetch callback
         this._fetchCallback = options.fetch ?? (() => { });
 
-        this.on("scroll", this.onScroll.bind(this));
+        this.scrollplane.on("scroll", this.onScroll.bind(this));
         this._resizeListener = this.onResize.bind(this);
         window.addEventListener("resize", this._resizeListener);
 
@@ -105,7 +111,6 @@ class TkInfiniteScroller extends TkView {
     set runwayItems(value) {
         this._runwayItems = value;
     }
-
 
     /**
      * Number of items to instantiate beyond current 
@@ -175,14 +180,14 @@ class TkInfiniteScroller extends TkView {
         let placeholder = this.clonePlaceholder();
         placeholder.style.position = "absolute";
         placeholder.removeAttribute("tk-hide");
-        this.add(placeholder);
+        this.scrollplane.add(placeholder);
 
         // Re-measure placeholder clone
         this._placeholderHeight = placeholder.e.offsetHeight;
         this._placeholderWidth = placeholder.e.offsetWidth;
 
         // Remove placeholder clone
-        this.remove(placeholder);
+        this.scrollplane.remove(placeholder);
 
         // Reset dimensions of cached items
         for (let item of this._cachedItems) {
@@ -195,18 +200,18 @@ class TkInfiniteScroller extends TkView {
     }
 
     onScroll() {
-        this.scrollPos = this.e.scrollTop;
+        this.scrollPos = this.scrollplane.e.scrollTop;
 
-        let delta = this.e.scrollTop - this._anchorScrollTop;
+        let delta = this.scrollplane.e.scrollTop - this._anchorScrollTop;
         // Special case, if we get to very top, always scroll to top.
-        if (this.e.scrollTop == 0) {
+        if (this.scrollplane.e.scrollTop == 0) {
             this._anchorItem = { index: 0, offset: 0 };
         } else {
             this._anchorItem = this.calculateAnchoredItem(this._anchorItem, delta);
         }
 
-        this._anchorScrollTop = this.e.scrollTop;
-        let lastScreenItem = this.calculateAnchoredItem(this._anchorItem, this.e.offsetHeight);
+        this._anchorScrollTop = this.scrollplane.e.scrollTop;
+        let lastScreenItem = this.calculateAnchoredItem(this._anchorItem, this.scrollplane.e.offsetHeight);
         if (delta < 0)
             this.fill(this._anchorItem.index - this._runwayItems, lastScreenItem.index + this._runwayItemsOpposite);
         else
@@ -311,13 +316,13 @@ class TkInfiniteScroller extends TkView {
                 ? this.renderItem(this._cachedItems[i].data, unusedViews.pop()) : this.placeholder;
             view.style.position = "absolute";
             this._cachedItems[i].top = -1;
-            this.add(view);
+            this.scrollplane.add(view);
             this._cachedItems[i].view = view;
         }
 
         // Remove all unused views
         while (unusedViews.length) {
-            this.remove(unusedViews.pop());
+            this.scrollplane.remove(unusedViews.pop());
         }
 
         // Get the height of all views which haven't been measured yet.
@@ -357,7 +362,7 @@ class TkInfiniteScroller extends TkView {
 
         this._runwayEnd = Math.max(this._runwayEnd, curPos + this._runwayExtraLength);
         this._runway.style.transform = `translate(0, ${this._runwayEnd}px`;
-        this.e.scrollTop = this._anchorScrollTop;
+        this.scrollplane.e.scrollTop = this._anchorScrollTop;
 
         this.getAdditionalContent();
     }
