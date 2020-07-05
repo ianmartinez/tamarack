@@ -47,6 +47,8 @@ class TkView {
      * @param {String} [options.tag] If representing a new element, the tag of the element to create.
      * @param {Any} [options.attributes] The attributes to set for the element, in the format of 
      * {"attribute1": "value1", "attribute2": "value2"}.
+     * @param {Any} [options.events] The events to set for the element, in the format of 
+     * {"event1": callback, "event2": callback}.
      * @param {String[]} [options.classes] An array of CSS classes for the view.
      * @param {String} [options.className] The value of class attribute of the element to set.
      * @param {String} [options.style] The value of style attribute of the element to set.
@@ -100,6 +102,17 @@ class TkView {
             }
         }
 
+        // Store events
+        this.events = [];
+
+        // Add event handlers, if specified
+        if (options.events !== undefined) {
+            for (let eventName of Object.keys(options.events)) {
+                let callback = options.events[eventName];
+                this.on(eventName, callback);
+            }
+        }
+
         // Add the style attribute from options.style, if specified
         if (options.style !== undefined)
             this.setAttribute("style", options.style);
@@ -107,9 +120,6 @@ class TkView {
         // Add an attribute showing that the HTML element
         // is controlled by a TkView
         this._element.setAttribute("tkview", "");
-
-        // Store events
-        this.events = [];
 
         // Add children, if specified
         if (options.children !== undefined)
