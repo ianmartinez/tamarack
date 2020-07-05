@@ -4,18 +4,22 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Infinite Scroller</title>
+    <title>Infinite Scroll</title>
 </head>
 
 <body>
     <link href="../src/views.css" rel="stylesheet" type="text/css" />
     <script src="../src/core.js"></script>
     <script src="../src/views.js"></script>
-    <script src="../src/infiniteScroller.js"></script>
+    <script src="../src/infiniteScroll.js"></script>
 
     <script>
         // Remove any excess margin
         document.body.style.margin = 0;
+
+        // Resize the body to fill the whole area of the view
+        document.body.style.width = "100vw";
+        document.body.style.height = "100vh";
 
         // Create a placeholder to show while the content is loading
         let placeholder = new TkText("h1", { text: "I'm a placeholder" });
@@ -24,10 +28,10 @@
         let itemPos = 0;
 
         // Create an infite scroller and place it in the <body>
-        let infiniteScroller = new TkInfiniteScroller({
+        let infiniteScroll = new TkInfiniteScroll({
             parent: "body",
             placeholder: placeholder,
-            fetch: (count) => { // When the scroller needs to fetch new data
+            fetch: (count) => { // When the infinite scroll needs to fetch new data
                 return new Promise((resolve, reject) => {
                     // Fake a delay for 1 second to simulate an AJAX call
                     setTimeout(() => {
@@ -43,7 +47,7 @@
                     }, 1000);
                 });
             },
-            renderItem: (item, view) => { // When the scroller has fetched an item and it needs to render it
+            renderItem: (item, view) => { // When the infinite scroll has fetched an item and it needs to render it
                 if (view) { // Existing item
                     view.text = item.name;
                     return view;

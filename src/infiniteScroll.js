@@ -5,35 +5,40 @@
  */
 
 /**
- * A simple infinite scroller.
+ * A simple infinite scroll view.
  * 
  * Infinite scrolling is something that appears in virtually every website
- * nowadays, but it's actually quite a chore to implement. 
+ * nowadays, but it's actually quite a chore to implement. This class simplifies
+ * it into a simple TkView that you can extend for just about anything that requires
+ * such functionality.
  * 
  * All you need to use it is specify 3 things:
- *  - placeholder: The item that will put in the place of an item that is currently loading
- *  - fetch: A callback to fetch a set of items when TkInfiniteScroller needs them.
- *  - renderItem: A callback to render an item once it has been fetched.
+ *  - placeholder: The item that will put in the place of an item that is currently loading.
+ *  - fetch: A callback to fetch a set of items when TkInfiniteScroll needs them. Use
+ *  this for Ajax calls.
+ *  - renderItem: A callback to render an item once it has been fetched (i.e. when the Ajax call
+ *  returns). 
  * 
  * Adapted from https://developers.google.com/web/updates/2016/07/infinite-scroller to
- * work cleanly within tamarack.
+ * work cleanly within tamarack and add additional functionality, such as relative positioning
+ * and use ES6 classes instead of pre-ES6 Object.prototype.someNonsense = ...
  */
-class TkInfiniteScroller extends TkView {
+class TkInfiniteScroll extends TkView {
 
     constructor(options = {}) {
         super(options);
-        this.addAttribute("tkinfinitescroller");
+        this.addAttribute("tkinfinitescroll");
 
-        // Actual scroller plane
+        // Actual scroll plane
         this.scrollplane = new TkView({
             parent: this,
-            attributes: { "tkinfinitescroller-scrollplane": null }
+            attributes: { "tkinfinitescroll-scrollplane": null }
         });
 
         // Internal panel to force scroller to scroll to
         this._runway = new TkView({
             parent: this.scrollplane,
-            attributes: { "tkinfinitescroller-runway": null }
+            attributes: { "tkinfinitescroll-runway": null }
         });
 
         this.scrollPos = 0;
