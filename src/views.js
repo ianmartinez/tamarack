@@ -74,13 +74,17 @@ class TkView {
             } else if (TkObject.is(options.from, TkView)) { // Other TkView
                 this._element = options.from.element;
             }
-        } else { // Create a new element if no tag is specified
+        } else if(options.hasOwnProperty("from")) { // Error if specified but invalid value
+            throw "ERROR: Source (options.from) was specified but has a value of undefined";
+        } else { // Create a new element if no source is specified
             this._element = document.createElement(tag);
         }
 
         // Set the parent, if specified
         if (options.parent !== undefined)
             this.parent = options.parent;
+        else if(options.hasOwnProperty("parent")) // Error if specified but invalid value
+            throw "ERROR: Parent (options.parent) was specified but has a value of undefined";
 
         // Add the className, if specified
         if (options.className !== undefined)
@@ -1627,6 +1631,8 @@ class TkList extends TkStack {
             thisList.selectedItem = item;
         };
 
+        // Move up and down in the list with
+        // the arrow keys
         this.e.tabIndex = 0;
         this.on("keydown", (view, event) => {
             let itemCount = view.children.length;
