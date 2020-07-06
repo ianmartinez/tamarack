@@ -203,3 +203,8 @@
 [tklist] .selected {
     background-color: rgba(0, 0, 0, 0.15);
 }
+
+/* Templates */
+[template] {
+    display: none !important;
+}

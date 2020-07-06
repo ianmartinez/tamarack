@@ -94,7 +94,7 @@ class TkView {
         if (options.attributes !== undefined) {
             for (let attributeName of Object.keys(options.attributes)) {
                 let value = options.attributes[attributeName];
-                
+
                 if (value == null)
                     this.addAttribute(attributeName);
                 else
@@ -1733,6 +1733,61 @@ class TkList extends TkStack {
 
     set wrap(value) {
         this._wrap = value;
+    }
+
+}
+
+/**
+ * Create a TkView from an existing node in the DOM with the attribute
+ * [template={some-template-name}]. Fields representing views are automatically
+ * generated for child elements with the attribute [view-name={someViewName}] and
+ * can be accessed as this.someViewName.
+ */
+class TkTemplate extends TkView {
+
+    /**
+     * Create a new TkTemplate from an existing DOM node.
+     * 
+     * @param {String} name The name in the [template={name}] attribute.
+     * @param {Any} options The options object to pass to the parent class (TkView.
+     */
+    constructor(name, options = {}) {
+        super(options, { from: document.querySelector(`[template=${name}]`).cloneNode(true) });
+        this.name = name;
+
+        // Get its named views
+        let namedViews = this.e.querySelectorAll(`[view-name]`);
+        this.namedViews = [];
+
+        for (let view of namedViews) {
+            let viewName = view.getAttribute("view-name");
+            let generatedView = new TkView({ from: view });
+            this.namedViews.push({ name: viewName, element: generatedView });
+            view.removeAttribute("view-name");
+
+            // If disableFieldGeneration != false, then
+            // the view can be accessed through this.{viewName}
+            if (!options.disableFieldGeneration) {
+                this[viewName] = generatedView;
+            }
+        }
+
+        this.removeAttribute("template");
+    }
+
+    /**
+     * Get a view from the template by name.
+     * 
+     * @param {String} name The name of the view to find.
+     * @returns The view if a matching name was found, null if not.
+     */
+    viewFor(name) {
+        for (let view of this.namedViews) {
+            if (view.name === name)
+                return view.element;
+        }
+
+        return null;
     }
 
 }

@@ -1,0 +1,59 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Templates</title>
+
+    <link href="../src/views.css" rel="stylesheet" type="text/css" />
+    <script src="../src/core.js"></script>
+    <script src="../src/views.js"></script>
+</head>
+
+<body>
+    <div template="captioned-list" style="padding: 0.5rem;">
+        <h1 view-name="title"></h1>
+
+        <ul view-name="list">
+
+        </ul>
+    </div>
+
+    <script>
+        // A simple class inheriting from a TkTemplate
+        class CaptionedList extends TkTemplate {
+
+            constructor(options = {}) {
+                super("captioned-list", options);
+            }
+
+            get listLength() {
+                return this.list.children.length;
+            }
+
+        }
+
+        // The number of items to add to the next list
+        let itemCount = 1;
+
+        // Stacks
+        let buttonStack = new TkStack({ parent: "body", direction: TkStackDirection.FLOW });
+        let listStack = new TkStack({ parent: "body", direction: TkStackDirection.FLOW  });
+
+        // A button to create a new list from the template
+        let newListButton = new TkButton({ parent: buttonStack, text: "New from template" });
+        newListButton.on("click", () => {
+            let captionedList = new CaptionedList({ parent: listStack });
+
+            for (let i = 1; i <= itemCount; i++) {
+                captionedList.list.add(new TkText("li", {text: `Item ${i}`}));
+            }
+
+            captionedList.title.innerText = `A list with ${captionedList.listLength} items`;
+            itemCount++;
+        });
+    </script>
+</body>
+
+</html>
