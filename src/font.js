@@ -106,7 +106,7 @@ class TkFont extends TkStateObject {
      * @type {String[]}
      */
     static get availableFamilies() {
-        return TkFont.availableFrom(...this.commonFamilies);
+        return TkFont.availableFrom(...TkCommonFontFamilies);
     }
 
     /**
@@ -124,17 +124,17 @@ class TkFont extends TkStateObject {
         return available;
     }
 
-    /**
-     * An array of common font families.
-     */
-    static commonFamilies = ["arial", "calibri",
-        "century gothic", "comic sans", "consolas", "courier",
-        "dejavu sans", "dejavu serif", "georgia", "gill sans",
-        "helvetica", "impact", "lucida sans", "myriad pro",
-        "open sans", "palantino", "tahoma", "times new roman",
-        "trebuchet", "verdana", "zapfino"];
-
 }
+
+/**
+ * An array of common font families.
+ */
+const TkCommonFontFamilies = ["arial", "calibri",
+    "century gothic", "comic sans", "consolas", "courier",
+    "dejavu sans", "dejavu serif", "georgia", "gill sans",
+    "helvetica", "impact", "lucida sans", "myriad pro",
+    "open sans", "palantino", "tahoma", "times new roman",
+    "trebuchet", "verdana", "zapfino"];
 
 /**
  * Enum for the type of font size.

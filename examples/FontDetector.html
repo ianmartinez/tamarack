@@ -27,7 +27,7 @@
 
         // Add an item to the stack for each common font.
         // Color it green if detected, or red if not.
-        for (let fontFamily of TkFont.commonFamilies) {
+        for (let fontFamily of TkCommonFontFamilies) {
             let fontText = new TkText("p", {
                 parent: stack,
                 text: fontFamily
