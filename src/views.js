@@ -1746,7 +1746,7 @@ class TkList extends TkStack {
 class TkTemplate extends TkView {
 
     /**
-     * Create a new TkTemplate from an existing DOM node.
+     * Create a new TkView from an existing DOM node.
      * 
      * @param {String} name The name in the [template={name}] attribute.
      * @param {Any} options The options object to pass to the parent class (TkView.
