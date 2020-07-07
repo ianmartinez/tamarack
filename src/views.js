@@ -74,7 +74,7 @@ class TkView {
             } else if (TkObject.is(options.from, TkView)) { // Other TkView
                 this._element = options.from.element;
             }
-        } else if(options.hasOwnProperty("from")) { // Error if specified but invalid value
+        } else if (options.hasOwnProperty("from")) { // Error if specified but invalid value
             throw "ERROR: Source (options.from) was specified but has a value of undefined";
         } else { // Create a new element if no source is specified
             this._element = document.createElement(tag);
@@ -83,7 +83,7 @@ class TkView {
         // Set the parent, if specified
         if (options.parent !== undefined)
             this.parent = options.parent;
-        else if(options.hasOwnProperty("parent")) // Error if specified but invalid value
+        else if (options.hasOwnProperty("parent")) // Error if specified but invalid value
             throw "ERROR: Parent (options.parent) was specified but has a value of undefined";
 
         // Add the className, if specified
@@ -1739,6 +1739,17 @@ class TkList extends TkStack {
 
     set wrap(value) {
         this._wrap = value;
+    }
+
+}
+
+class TkProgress extends TkView {
+
+    constructor(options = {}) {
+        super(options, { tag: "div" });
+        this.addAttribute("tkprogress")
+
+        this.bar = new TkView({ parent: this, attributes: { "tkprogress-progressbar": null } });
     }
 
 }
