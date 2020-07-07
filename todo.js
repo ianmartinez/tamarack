@@ -38,3 +38,21 @@
       }
 
   }
+
+
+/**
+ * ::: views.js :::
+ */
+
+class TkSwitch extends TkView {}
+class TkInput extends TkView {}
+class TkForm extends TkView {}
+class TkSlider extends TkView {}
+class TkSpinner extends TkView {}
+class TkColorPicker extends TkView {}
+class TkColorDialog extends TkView {}
+class TkColorButton extends TkView {}
+class TkFontPicker extends TkView {}
+class TkFontDialog extends TkView {}
+class TkFontButton extends TkView {}
+
