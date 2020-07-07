@@ -80,6 +80,10 @@ class TkView {
             this._element = document.createElement(tag);
         }
 
+        // Add an attribute showing that the HTML element
+        // is controlled by a TkView
+        this._element.setAttribute("tkview", "");
+
         // Set the parent, if specified
         if (options.parent !== undefined)
             this.parent = options.parent;
@@ -106,6 +110,11 @@ class TkView {
             }
         }
 
+        // The view name option internally used by tamarack
+        if (options.viewName !== undefined) {
+            this.addAttribute(options.viewName);
+        }
+
         // Store events
         this.events = [];
 
@@ -118,16 +127,14 @@ class TkView {
         }
 
         // Add the style attribute from options.style, if specified
-        if (options.style !== undefined)
+        if (options.style !== undefined) {
             this.setAttribute("style", options.style);
-
-        // Add an attribute showing that the HTML element
-        // is controlled by a TkView
-        this._element.setAttribute("tkview", "");
+        }
 
         // Add children, if specified
-        if (options.children !== undefined)
+        if (options.children !== undefined) {
             this.add(...options.children);
+        }
     }
 
     /**
@@ -468,7 +475,6 @@ class TkView {
         return false;
     }
 
-
     /**
      * Move an view to the bottom among the children of its parent.
      * @returns {Boolean} If the view's element was moved.
@@ -785,8 +791,7 @@ class TkStack extends TkView {
      * @param {String} options.direction The direction of the child elements.
      */
     constructor(options) {
-        super(options);
-        this.addAttribute("tkstack");
+        super(options, { viewName: "tkstack" });
 
         this.direction = options.direction ?? TkStackDirection.VERTICAL;
     }
@@ -818,8 +823,7 @@ class TkText extends TkView {
      * @param {String} options.text The text to set inside the element.
      */
     constructor(tag, options = {}) {
-        super(options, { tag: tag });
-        this.addAttribute("tktext");
+        super(options, { tag: tag, viewName: "tktext" });
 
         this.textNode = document.createTextNode(options.text ?? "");
         this.element.appendChild(this.textNode);
@@ -852,8 +856,8 @@ class TkLink extends TkText {
      * @param {String} options.url The url of the link.
      */
     constructor(options = {}) {
+        options.viewName = "tklink";
         super("a", options);
-        this.addAttribute("tklink");
 
         this.url = options?.url ?? "#";
     }
@@ -884,8 +888,7 @@ class TkImage extends TkView {
      * @param {String} options.alt The alternate text of the image.
      */
     constructor(options = {}) {
-        super(options, { tag: "img" });
-        this.addAttribute("tkimage");
+        super(options, { tag: "img", viewName: "tkimage" });
 
         if (options.source !== undefined)
             this.source = options.source;
@@ -936,9 +939,7 @@ class TkLabel extends TkView {
      * and text.
      */
     constructor(options = {}) {
-        super(options);
-        this.addAttribute("tklabel");
-
+        super(options, { viewName: "tklabel" });
         this.imageView = new TkImage({ parent: this });
         this.textView = new TkText("span", { parent: this });
         this.layout = TkLabelLayout.IMAGE_LEFT;
@@ -1008,8 +1009,7 @@ class TkButton extends TkView {
      * and text.
      */
     constructor(options = {}) {
-        super(options, { tag: "button" });
-        this.addAttribute("tkbutton");
+        super(options, { tag: "button", viewName: "tkbutton" });
 
         this.role = "button";
         this.labelView = new TkLabel({ parent: this });
@@ -1078,13 +1078,13 @@ class TkNotebookPage {
      */
     constructor(options = {}) {
         // Create the tab view
+        options.tabOptions.viewName = "tknotebook-tab";
         this.tab = new TkButton(options.tabOptions);
-        this.tab.addAttribute("tknotebook-tab");
         this.tab.associatedPage = this;
 
         // Create the content view
+        options.contentAreaOptions.viewName = "tknotebook-content";
         this.content = new TkView(options.contentOptions);
-        this.content.addAttribute("tknotebook-content");
         this.content.associatedPage = this;
 
         // Set the tab title, if specified
@@ -1224,15 +1224,12 @@ class TkNotebook extends TkView {
         if (options.newestPageActive === undefined)
             options.newestPageActive = false;
 
-        super(options, { tag: "div" });
-        this.addAttribute("tknotebook");
+        super(options, { tag: "div", viewName: "tknotebook" });
 
-        this.tabArea = new TkView(options.tabAreaOptions);
-        this.tabArea.addAttribute("tknotebook-tabarea");
+        this.tabArea = new TkView(options.tabAreaOptions, { viewName: "tknotebook-tabarea" });
         this.add(this.tabArea);
 
-        this.contentArea = new TkView(options.contentAreaOptions);
-        this.contentArea.addAttribute("tknotebook-contentarea");
+        this.contentArea = new TkView(options.contentAreaOptions, { viewName: "tknotebook-contentarea" });
         this.add(this.contentArea);
 
         this._wrap = options.wrap;
@@ -1466,8 +1463,7 @@ class TkNotebook extends TkView {
 class TkSwitcher extends TkView {
 
     constructor(options = {}) {
-        super(options);
-        this.addAttribute("tkswitcher");
+        super(options, { viewName: "tkswitcher" });
     }
 
     /**
@@ -1622,8 +1618,8 @@ class TkList extends TkStack {
      * @param {Boolean} options.wrap (default: true) If the selection should wrap around.
      */
     constructor(options = {}) {
+        options.viewName = "tklist";
         super(options);
-        this.addAttribute("tklist");
         this._wrap = options.wrap ?? true;
 
         let thisList = this;
@@ -1746,10 +1742,46 @@ class TkList extends TkStack {
 class TkProgress extends TkView {
 
     constructor(options = {}) {
-        super(options, { tag: "div" });
-        this.addAttribute("tkprogress")
+        super(options, { tag: "div", viewName: "tkprogress" });
 
-        this.bar = new TkView({ parent: this, attributes: { "tkprogress-progressbar": null } });
+        this.bar = new TkView({ parent: this, viewName: "tkprogress-progressbar" });
+        this.value = new TkText({ parent: this.bar, viewName: "tkprogress-progressvalue" });
+    }
+
+    get max() {
+        return null;
+    }
+
+    set max(value) {
+
+    }
+
+    get min() {
+        return null;
+    }
+
+    set min(value) {
+
+    }
+
+    get useThresholds() {
+        return null;
+    }
+
+    set useThresholds(value) {
+
+    }
+
+    get currentThreshold() {
+        return null;
+    }
+
+    get showValue() {
+        return null;
+    }
+
+    set showValue(value) {
+
     }
 
 }

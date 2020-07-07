@@ -1,0 +1,24 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Progress</title>
+</head>
+
+<body>
+    <link href="../src/views.css" rel="stylesheet" type="text/css" />
+    <script src="../src/core.js"></script>
+    <script src="../src/views.js"></script>
+
+    <script>
+        let stack = new TkStack({ parent: "body", direction: TkStackDirection.FLOW });
+
+        for (let i = 0; i <= 100; i += 10) {
+            stack.add(new TkProgress({ parent: stack, value: i }));
+        }
+    </script>
+</body>
+
+</html>
