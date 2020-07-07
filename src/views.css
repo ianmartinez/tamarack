@@ -204,7 +204,28 @@
     background-color: rgba(0, 0, 0, 0.15);
 }
 
-/* Templates */
+/* TkProgress */
+[tkprogress] {
+    display: inline-block;
+    height: 1.5rem;
+    padding: 0.15rem;
+    margin: 0.25rem;
+    background: rgb(242, 242, 242);
+    border: 1px solid rgb(218, 218, 218);
+    border-radius: 0.25rem;
+    width: 100%;
+}
+
+[tkprogress] [tkprogress-bar] {
+    height: 100%;
+    width: 50%;
+    display: block;
+    border-radius: 0.25rem;
+    background: rgb(45, 151, 237);
+    border: 1px solid rgb(27, 113, 204);
+}
+
+/* TkTemplate */
 [template] {
     display: none !important;
 }
