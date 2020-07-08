@@ -29,7 +29,7 @@
             let button = new TkButton({
                 parent: stack,
                 text: layout,
-                image: "test.png",
+                icon: new TkImage({ source: "test.png" }),
                 layout: TkLabelLayout[layout],
                 style: "margin: 0.25rem;",
                 events: { click: () => alert(`Clicked "${layout}"`) }

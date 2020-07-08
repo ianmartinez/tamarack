@@ -24,11 +24,11 @@ const TkStackDirection = {
  * @enum {String}
  */
 const TkLabelLayout = {
-    IMAGE_TOP: "tklabel-image-top",
-    IMAGE_BOTTOM: "tklabel-image-bottom",
-    IMAGE_LEFT: "tklabel-image-left",
-    IMAGE_RIGHT: "tklabel-image-right",
-    IMAGE_ONLY: "tklabel-image-only",
+    ICON_TOP: "tklabel-icon-top",
+    ICON_BOTTOM: "tklabel-icon-bottom",
+    ICON_LEFT: "tklabel-icon-left",
+    ICON_RIGHT: "tklabel-icon-right",
+    ICON_ONLY: "tklabel-icon-only",
     TEXT_ONLY: "tklabel-text-only",
 };
 
@@ -940,31 +940,36 @@ class TkLabel extends TkView {
      * 
      * @param {Any} options Same as TkView, minus options.tag.
      * @param {String} options.text The text of the label.
-     * @param {String} options.image The image source of the label.
-     * @param {TkLabelLayout} options.layout The layout of the image.
-     * @param {Boolean} options.hideEmptyImage If the image should be hidden if 
+     * @param {String} options.icon The icon of the button.
+     * @param {TkLabelLayout} options.layout The layout of the icon.
+     * @param {Boolean} options.hideEmptyIcon If the icon should be hidden if 
      * its source is empty.
      */
     constructor(options = {}) {
         super(options);
         this.addViewName("tklabel");
 
-        this.imageView = new TkImage({ parent: this });
+        this.iconView = options.icon ?? new TkView();
+        this.iconView.addViewName("tklabel-icon");
+        this.add(this.iconView);
         this.textView = new TkText("span", { parent: this });
-        this.layout = TkLabelLayout.IMAGE_LEFT;
         this.text = options.text ?? "";
-        this.image = options.image ?? "";
-        this.layout = options.layout ?? TkLabelLayout.IMAGE_LEFT;
-        this.hideEmptyImage = options.hideEmptyImage ?? true;
+        this.layout = options.layout ?? TkLabelLayout.ICON_LEFT;
+
+        if (options.icon === undefined || options.icon === null) {
+            this.showIcon = false;
+        }
     }
 
-    refreshVisibility() {
-        let value = this.imageView.currentSrc;
-        if (this._hideEmptyImage && (value == null || value.trim() == "")) {
-            this.imageView.addAttribute("tk-hide");
-        } else {
-            this.imageView.removeAttribute("tk-hide");
-        }
+    get showIcon() {
+        return this.iconView.hasAttribute("tk-hide");
+    }
+
+    set showIcon(value) {
+        if (value)
+            this.iconView.removeAttribute("tk-hide");
+        else
+            this.iconView.addAttribute("tk-hide");
     }
 
     /**
@@ -980,49 +985,22 @@ class TkLabel extends TkView {
     }
 
     /**
-     * The source of the image in the image
-     * view.
-     * @type {String}
-     */
-    get image() {
-        return this.imageView.source;
-    }
-
-    set image(value) {
-        this.imageView.source = value;
-        this.refreshVisibility();
-    }
-
-    /**
-     * The layout of the image and text.
+     * The layout of the icon and text.
      * @type {TkLabelLayout}
      */
     get layout() {
-        return this.getAttributeFromEnum(TkLabelLayout, TkLabelLayout.IMAGE_LEFT);
+        return this.getAttributeFromEnum(TkLabelLayout, TkLabelLayout.ICON_LEFT);
     }
 
     set layout(value) {
         this.addAttributeFromEnum(TkLabelLayout, value);
     }
 
-    /**
-     * If the image should be hidden if its source is empty.
-     * @type {Boolean}
-     */
-    get hideEmptyImage() {
-        return this._hideEmptyImage;
-    }
-
-    set hideEmptyImage(value) {
-        this._hideEmptyImage = value;
-        this.refreshVisibility();
-    }
-
 }
 
 /**
  * A view representing a <button> element.
- * Allows setting the text and an image.
+ * Allows setting the text and an icon.
  */
 class TkButton extends TkView {
 
@@ -1031,7 +1009,7 @@ class TkButton extends TkView {
      * 
      * @param {Any} options Same as TkView, minus options.tag.
      * @param {String} options.text The text of the button.
-     * @param {String} options.image The image source of the button's image.
+     * @param {String} options.icon The icon of the button.
      * @param {TkLabelLayout} options.layout The layout of the button.
      * and text.
      */
@@ -1040,10 +1018,9 @@ class TkButton extends TkView {
         this.addViewName("tkbutton");
 
         this.role = "button";
-        this.labelView = new TkLabel({ parent: this });
+        this.labelView = new TkLabel({ parent: this, icon: options.icon });
         this.text = options.text ?? "";
-        this.image = options.image ?? "";
-        this.layout = options.layout ?? TkLabelLayout.IMAGE_LEFT;
+        this.layout = options.layout ?? TkLabelLayout.ICON_LEFT;
     }
 
     /**
@@ -1056,18 +1033,6 @@ class TkButton extends TkView {
 
     set text(value) {
         this.labelView.text = value;
-    }
-
-    /**
-     * The source of the button's image.
-     * @type {String}
-     */
-    get image() {
-        return this.labelView.image;
-    }
-
-    set image(value) {
-        this.labelView.image = value;
     }
 
     /**

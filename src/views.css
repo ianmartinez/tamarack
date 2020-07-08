@@ -68,32 +68,32 @@
     align-items: center;
 }
 
-[tklabel] > [tkimage] {
+[tklabel] > [tklabel-icon] {
     margin: 0.25rem;
 }
 
-[tklabel] > [tkimage][src=""] {
+[tklabel] > [tklabel-icon][src=""] {
     /* Stop Safari from rendering borders on empty images */
     content: "";
 }
 
-[tklabel-image-top] {
+[tklabel-icon-top] {
     flex-direction: column !important;
 }
 
-[tklabel-image-bottom] {
+[tklabel-icon-bottom] {
     flex-direction: column-reverse !important;
 }
 
-[tklabel-image-left] {
+[tklabel-icon-left] {
     flex-direction: row !important;
 }
 
-[tklabel-image-right] {
+[tklabel-icon-right] {
     flex-direction: row-reverse !important;
 }
 
-[tklabel-image-only] > [tktext] {
+[tklabel-icon-only] > [tktext] {
     display: none !important;
 }
 

@@ -187,12 +187,13 @@ class TkColorChooser extends TkStack {
         for (let color of TkColor.hueOrderedCssColors) {
             let cssColorItem = new TkLabel({
                 text: color.name,
-                hideEmptyImage: false
+                icon: new TkView({
+                    classes: ["cssColor"],
+                    style: `background: ${color.raw}`
+                })
             });
-            cssColorItem.imageView.addClass("cssColor");
-            cssColorItem.imageView.e.style.background = color.raw;
-            cssColorItem.dataValue = color;
 
+            cssColorItem.dataValue = color;
             this.cssColorList.add(cssColorItem);
         }
         this.cssColorList.on("selectedchanged", this.colorChangeHandler);
@@ -263,7 +264,7 @@ class TkColorChooser extends TkStack {
                 }
             }
         }
-        
+
         // Only update if the value is actually different (ignoring name),
         // because some CSS colors (aqua/cyan, gray/grey) have the same value
         if ((this._lastSelectedCssItem !== null && matchingCssItem !== null)
