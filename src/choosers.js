@@ -41,6 +41,7 @@ class TkColorPreview extends TkView {
     set color(value) {
         this.colorView.e.style.backgroundColor = value.asHsla();
     }
+
 }
 
 class TkColorChooser extends TkStack {
@@ -111,7 +112,7 @@ class TkColorChooser extends TkStack {
         };
 
         // Update color when the notebook pages are changed
-        this.colorSystemNotebook.on("activechanged", () => { 
+        this.colorSystemNotebook.on("activechanged", () => {
             colorChooser.colorChangeHandler();
             colorChooser.cssColorList.scrollToSelected();
         });
@@ -250,7 +251,7 @@ class TkColorChooser extends TkStack {
         this.rSlider.value = r;
         this.gSlider.value = g;
         this.bSlider.value = b;
-        let cssColorName = this.color.asCssName();
+        let cssColorName = this.color.asCssName(false);
         let matchingCssItem = null;
         if (cssColorName !== "") {
             for (let item of this.cssColorList.children) {

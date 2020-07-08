@@ -398,7 +398,7 @@ class TkColor extends TkStateObject {
      * 
      * @returns {String} The CSS hsla() value of this color.
      */
-    asHsla(digits = 0, digitsA = 0) {
+    asHsla(digits = 0, digitsA = 2) {
         return `hsla(${TkNumber.fixed(this._h, digits)}, ${TkNumber.fixed(this._s, digits)}%, ${TkNumber.fixed(this._l, digits)}%, ${TkNumber.fixed(this._a, digitsA)})`;
     }
 
