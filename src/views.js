@@ -1753,6 +1753,65 @@ class TkList extends TkStack {
 
 }
 
+class TkSlider extends TkView {
+
+    constructor(options) {
+        super(options, { tag: "input" });
+        this.addViewName("tkslider");
+        this.setAttribute("type", "range");
+
+        if (options.min !== undefined)
+            this.min = options.min;
+
+        if (options.max !== undefined)
+            this.max = options.max;
+
+        if (options.value !== undefined)
+            this.value = options.value;
+
+        if (options.step !== undefined)
+            this.step = options.step;
+    }
+
+    get min() {
+        return this.e.min;
+    }
+
+    set min(value) {
+        this.e.min = value;
+    }
+
+    get max() {
+        return this.e.max;
+    }
+
+    set max(value) {
+        this.e.max = value;
+    }
+
+    get value() {
+        return this.e.value;
+    }
+
+    set value(value) {
+        this.e.value = value;
+    }
+
+    get step() {
+        return this.e.step;
+    }
+
+    set step(value) {
+        this.e.step = value;
+    }
+
+    get valueAsNumber() {
+        return this.e.valueAsNumber;
+    }
+
+}
+
+/* TODO */
 class TkProgress extends TkView {
 
     constructor(options = {}) {
@@ -1801,6 +1860,16 @@ class TkProgress extends TkView {
     set showValue(value) {
 
     }
+
+}
+
+/**
+ * TODO
+ * 
+ * Note: First version of tamarack had a mostly complete
+ * version of this.
+ */
+class TkTextEdit extends TkView {
 
 }
 

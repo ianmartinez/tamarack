@@ -739,3 +739,14 @@ let _TkCssColors = {
     "tan": "#d2b48c", "teal": "#008080", "thistle": "#d8bfd8", "tomato": "#ff6347", "turquoise": "#40e0d0", "violet": "#ee82ee",
     "wheat": "#f5deb3", "white": "#ffffff", "whitesmoke": "#f5f5f5", "yellow": "#ffff00", "yellowgreen": "#9acd32"
 };
+
+class TkGradient {
+
+    static linear(angle, colors) {
+        let gradient = `linear-gradient(${angle}deg`;
+        for (let i = 0; i < colors.length; i++)
+            gradient += (`, ${colors[i]} ${TkNumber.toPercentStr(i, colors.length)}`);
+        return gradient + ")";
+    }
+
+}
