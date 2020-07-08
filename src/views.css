@@ -236,7 +236,15 @@
     height: 25px;
 }
 
-/* TkColorSlider */
+/* TkColorChooser */
+[tkcolorchooser] {
+    align-items: flex-start;
+}
+
+[tkcolorchooser] > div {
+    margin: 0.25rem;
+}
+
 [tkcolorslider] {
     -webkit-appearance: none !important;
     width: 100%;
@@ -281,4 +289,20 @@
     border-radius: 2px;
     margin-bottom: 10px;
     height: 2rem;
+}
+
+[tkcolorpreview] {	
+    background-image: url("transparency.png");
+    border-radius: 2px;
+    margin: 0px auto;
+}
+
+[tkcolorpreview-colorview] {
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+    position: relative;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: black;
 }

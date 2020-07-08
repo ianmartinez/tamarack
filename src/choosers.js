@@ -1,6 +1,6 @@
 class TkColorSlider extends TkStack {
 
-    constructor(options) {
+    constructor(options = {}) {
         super(options);
         this.addViewName("tkcolorslider-container");
         this.direction = TkStackDirection.HORIZONTAL;
@@ -25,11 +25,30 @@ class TkColorSlider extends TkStack {
 
 }
 
-class TkColorChooser extends TkView {
+class TkColorPreview extends TkView {
 
-    constructor(options) {
+    constructor(options = {}) {
+        super(options);
+        this.addViewName("tkcolorpreview");
+        this.colorView = new TkView({ parent: this });
+        this.colorView.addViewName("tkcolorpreview-colorview");
+    }
+
+    get color() {
+        return new TkColor(this.colorView.e.style.backgroundColor);
+    }
+
+    set color(value) {
+        this.colorView.e.style.backgroundColor = value.asHsla();
+    }
+}
+
+class TkColorChooser extends TkStack {
+
+    constructor(options = {}) {
         super(options);
         this.addViewName("tkcolorchooser");
+        this.direction = TkStackDirection.HORIZONTAL;
 
         this.hslaSliderStack = new TkStack({
             parent: this,
@@ -91,8 +110,20 @@ class TkColorChooser extends TkView {
         });
         this.aSlider.sliderInput.on("change", this.sliderHandler);
 
-        // Color
-        this._color = new TkColor("black");
+        // Preview
+        this.previewView = new TkColorPreview({ parent: this });
+
+        // Set color from options, if specified, or default to black
+        if (options.color !== undefined) {
+            if (TkObject.is(options.color, TkColor))
+                this._color = options.color.clone();
+            else if (TkObject.isString(options.color))
+                this._color = new TkColor(options.color);
+        } else {
+            this._color = new TkColor("black");
+        }
+
+        // Draw slider backgrounds with current color
         this.updateColor();
     }
 
@@ -138,7 +169,7 @@ class TkColorChooser extends TkView {
             alpha.push(`hsla(${this.hSlider.value}, ${this.sSlider.value}%, ${this.lSlider.value}%, ${i})`);
         this.aSlider.sliderInput.e.style.background = TkGradient.linear(90, alpha);
 
-        // TODO: update preview color
+        this.previewView.color = this._color;
     }
 
 }
