@@ -263,7 +263,8 @@
 [tkcolorchooser] .cssColor {
     width: 1rem;
     height: 1rem;
-    border: 1px solid rgba(0,0,0,0.5);
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 0.25rem;
 }
 
 [tkcolorslider-container] {
@@ -284,7 +285,7 @@
     background-color: transparent;
     margin: auto; 
     border-radius: 0.25rem;
-    box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.3), inset 0px 0px 0px 1px rgba(0,0,0,0.3);
+    box-shadow: inset 0px 15px 22px 0px rgba(255, 255, 255, 0.3), inset 0px 0px 0px 1px rgba(0, 0, 0, 0.3);
     outline: none;
 }
   
@@ -298,21 +299,21 @@
     width: 1rem;
     height: 2rem;
     background-color: transparent;
-    border: 1px solid rgba(0,0,0,0.5);
-    box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.6), inset 0px 0px 0px 1px rgba(255,255,255,0.8);
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0px 15px 22px 0px rgba(255, 255, 255, 0.6), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.8);
     border-radius: 0.25rem;
 }
 
 [tkcolorslider]::-webkit-slider-thumb:hover {
-    background-color: rgba(255,255,255,0.1);
-    border: 1px solid rgba(0,0,0,0.4);
-    box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.8), inset 0px 0px 0px 1px rgba(255,255,255,0.9);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0px 15px 22px 0px rgba(255, 255, 255, 0.8), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.9);
 }
 
 [tkcolorslider]::-webkit-slider-thumb:active {
-    background-color: rgba(255,255,255,0.1);
-    border: 1px solid rgba(0,0,0,0.6);
-    box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.8), 0px 0px 3px rgba(0,0,0,0.8);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0px 15px 22px 0px rgba(255, 255, 255, 0.8), 0px 0px 3px rgba(0, 0, 0, 0.8);
 }
 
 [tkcolorpreview] {	
