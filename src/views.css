@@ -257,7 +257,7 @@
 
 [tkcolorchooser] .colorList {
     height: 250px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 [tkcolorchooser] .cssColor {

@@ -1676,13 +1676,15 @@ class TkList extends TkStack {
                     else if (view._wrap)
                         view.selectedIndex = itemCount - 1;
 
+                    event.preventDefault();
                     break;
                 case "ArrowDown":
                     if (selectedIndex < itemCount - 1)
                         view.selectedIndex++;
                     else if (view._wrap)
                         view.selectedIndex = 0;
-
+                        
+                    event.preventDefault();
                     break;
             }
         }, true);
