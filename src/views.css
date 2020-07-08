@@ -72,6 +72,11 @@
     margin: 0.25rem;
 }
 
+[tklabel] > [tkimage][src=""] {
+    /* Stop Safari from rendering borders on empty images */
+    content: "";
+}
+
 [tklabel-image-top] {
     flex-direction: column !important;
 }
