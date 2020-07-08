@@ -943,7 +943,8 @@ class TkLabel extends TkView {
      * @param {String} options.text The text of the label.
      * @param {String} options.image The image source of the label.
      * @param {TkLabelLayout} options.layout The layout of the image.
-     * and text.
+     * @param {Boolean} options.hideEmptyImage If the image should be hidden if 
+     * its source is empty.
      */
     constructor(options = {}) {
         super(options);
@@ -955,6 +956,16 @@ class TkLabel extends TkView {
         this.text = options.text ?? "";
         this.image = options.image ?? "";
         this.layout = options.layout ?? TkLabelLayout.IMAGE_LEFT;
+        this.hideEmptyImage = options.hideEmptyImage ?? true;
+    }
+
+    refreshVisibility() {
+        let value = this.imageView.currentSrc;
+        if (this._hideEmptyImage && (value == null || value.trim() == "")) {
+            this.imageView.addAttribute("tk-hide");
+        } else {
+            this.imageView.removeAttribute("tk-hide");
+        }
     }
 
     /**
@@ -979,13 +990,8 @@ class TkLabel extends TkView {
     }
 
     set image(value) {
-        if (value == null || value.trim() == "") {
-            this.imageView.addAttribute("tk-hide");
-        } else {
-            this.imageView.removeAttribute("tk-hide");
-        }
-
         this.imageView.source = value;
+        this.refreshVisibility();
     }
 
     /**
@@ -998,6 +1004,19 @@ class TkLabel extends TkView {
 
     set layout(value) {
         this.addAttributeFromEnum(TkLabelLayout, value);
+    }
+
+    /**
+     * If the image should be hidden if its source is empty.
+     * @type {Boolean}
+     */
+    get hideEmptyImage() {
+        return this._hideEmptyImage;
+    }
+    
+    set hideEmptyImage(value) {
+        this._hideEmptyImage = value;
+        this.refreshVisibility();
     }
 
 }
@@ -1753,12 +1772,53 @@ class TkList extends TkStack {
 
 }
 
-class TkSlider extends TkView {
-
-    constructor(options) {
+class TkInput extends TkView {
+    
+    constructor(options = {}) {
         super(options, { tag: "input" });
+    }
+
+    get type() {
+		this.getAttribute("type");
+	}
+
+	set type(value) {
+		this.setAttribute("type", value);
+	}
+
+	get name() {
+		this.getAttribute("name");
+	}
+
+	set name(value) {
+		this.setAttribute("name", value);
+	}
+	
+	get readOnly() {
+		return this.e.readonly;
+	}
+	
+	set readOnly(value) {
+		this.e.readonly = value;
+    }
+    
+    get value() {
+        return this.e.value;
+    }
+
+    set value(value) {
+        this.e.value = value;
+    }
+
+}
+
+class TkSlider extends TkInput {
+
+    constructor(options = {}) {
+        super(options);
         this.addViewName("tkslider");
-        this.setAttribute("type", "range");
+
+        this.type = "range";
 
         if (options.min !== undefined)
             this.min = options.min;
@@ -1787,14 +1847,6 @@ class TkSlider extends TkView {
 
     set max(value) {
         this.e.max = value;
-    }
-
-    get value() {
-        return this.e.value;
-    }
-
-    set value(value) {
-        this.e.value = value;
     }
 
     get step() {

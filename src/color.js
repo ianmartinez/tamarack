@@ -297,7 +297,7 @@ class TkColor extends TkStateObject {
      */
     setCssName(name) {
         let formattedName = name.toLowerCase();
-        this.setHex(_TkCssColors[formattedName] ?? "");
+        this.setHex(TkCssColors[formattedName] ?? "");
     }
 
     /**
@@ -314,8 +314,8 @@ class TkColor extends TkStateObject {
     asCssName(ignoreAlpha = true) {
         let hexValue = ignoreAlpha ? this.asSolidHex() : this.asHex();
 
-        for (let cssColor in _TkCssColors)
-            if (_TkCssColors[cssColor] == hexValue)
+        for (let cssColor in TkCssColors)
+            if (TkCssColors[cssColor] == hexValue)
                 return cssColor;
 
         return "";
@@ -697,6 +697,39 @@ class TkColor extends TkStateObject {
             return hex;
     }
 
+
+    /**
+     * Get a list of CSS colors as TkColor objects with their names.
+     * 
+     * @returns {{ name: String, color: TkColor, raw: String }} A list of CSS colors, as TkColors.
+     */
+    static get cssColors() {
+        let cssColors = [];
+
+        for (let colorName of Object.keys(TkCssColors)) {
+            let colorValue = TkCssColors[colorName];
+            cssColors.push({ name: colorName, color: new TkColor(colorValue), raw: colorValue });
+        }
+
+        return cssColors;
+    }
+
+    /**
+     * Get a list of CSS colors as TkColor objects with their names, ordered by hue (color.h),
+     * with grays, blacks, and whites on top (i.e. color.s == 0).
+     * 
+     * @returns {{ name: String, color: TkColor, raw: String }} A list of CSS colors, as TkColors.
+     */
+    static get hueOrderedCssColors() {
+        function weighColor(color) {
+            return (color.h) + (color.s == 0 ? color.l - 360 : 0);
+        }
+
+        return TkColor.cssColors.sort((a, b) => {
+            return weighColor(a.color) - weighColor(b.color);
+        });
+    }
+
 }
 
 /**
@@ -707,11 +740,10 @@ class TkColor extends TkStateObject {
  */
 let _TkRegisteredColors = new Map();
 
-
 /**
  * A list of named CSS colors and their corresponding hex codes.
  */
-let _TkCssColors = {
+let TkCssColors = {
     "aliceblue": "#f0f8ff", "antiquewhite": "#faebd7", "aqua": "#00ffff", "aquamarine": "#7fffd4", "azure": "#f0ffff",
     "beige": "#f5f5dc", "bisque": "#ffe4c4", "black": "#000000", "blanchedalmond": "#ffebcd", "blue": "#0000ff", "blueviolet": "#8a2be2",
     "brown": "#a52a2a", "burlywood": "#deb887", "cadetblue": "#5f9ea0", "chartreuse": "#7fff00", "chocolate": "#d2691e", "coral": "#ff7f50",

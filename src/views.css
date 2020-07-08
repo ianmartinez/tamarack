@@ -245,17 +245,48 @@
     margin: 0.25rem;
 }
 
+[tkcolorchooser] [tknotebook] {
+    margin-bottom: 1rem;
+}
+
+[tkcolorchooser] .colorSystemWidth {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: calc(100% - 2rem);
+}
+
+[tkcolorchooser] .colorList {
+    height: 250px;
+    overflow-y: scroll;
+}
+
+[tkcolorchooser] .cssColor {
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid rgba(0,0,0,0.5);
+}
+
+[tkcolorslider-container] {
+    background-image: url("transparency.png");
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+    height: 2rem;
+}
+
+[tkcolorslider-container]:last-child {
+    margin-bottom: 0;
+}
+
 [tkcolorslider] {
     -webkit-appearance: none !important;
     width: 100%;
     height: 100%;
     background-color: transparent;
     margin: auto; 
-    border-radius: 2px;
-    margin-bottom: 10px;
+    border-radius: 0.25rem;
     box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.3), inset 0px 0px 0px 1px rgba(0,0,0,0.3);
     outline: none;
-  }
+}
   
 [tkcolorslider]:hover {
     background-color: white;
@@ -264,12 +295,12 @@
 
 [tkcolorslider]::-webkit-slider-thumb {
     -webkit-appearance: none !important;
-    width: 13px;
+    width: 1rem;
     height: 2rem;
     background-color: transparent;
     border: 1px solid rgba(0,0,0,0.5);
     box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.6), inset 0px 0px 0px 1px rgba(255,255,255,0.8);
-    border-radius: 2px;
+    border-radius: 0.25rem;
 }
 
 [tkcolorslider]::-webkit-slider-thumb:hover {
@@ -284,25 +315,17 @@
     box-shadow: inset 0px 15px 22px 0px rgba(255,255,255,.8), 0px 0px 3px rgba(0,0,0,0.8);
 }
 
-[tkcolorslider-container] {
-    background-image: url("transparency.png");
-    border-radius: 2px;
-    margin-bottom: 10px;
-    height: 2rem;
-}
-
 [tkcolorpreview] {	
     background-image: url("transparency.png");
-    border-radius: 2px;
-    margin: 0px auto;
+    border-radius: 0.25rem;
 }
 
 [tkcolorpreview-colorview] {
-    width: 120px;
-    height: 120px;
+    width: 64px;
+    height: 64px;
     cursor: pointer;
     position: relative;
-    border-radius: 2px;
+    border-radius: 0.25rem;
     border: 1px solid rgba(0, 0, 0, 0.3);
     background-color: black;
 }

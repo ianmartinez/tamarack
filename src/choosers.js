@@ -50,25 +50,65 @@ class TkColorChooser extends TkStack {
         this.addViewName("tkcolorchooser");
         this.direction = TkStackDirection.HORIZONTAL;
 
-        this.hslaSliderStack = new TkStack({
+        // Set up stacks
+        this.editStack = new TkStack({
             parent: this,
+            direction: TkStackDirection.VERTICAL
+        });
+
+        // Set up notebook
+        this.colorSystemNotebook = new TkNotebook({ parent: this.editStack });
+        this.hslaPage = new TkNotebookPage({ title: "HSLA" });
+        this.rgbaPage = new TkNotebookPage({ title: "RGBA" });
+        this.cssPage = new TkNotebookPage({ title: "CSS" });
+        this.colorSystemNotebook.add(this.hslaPage, this.rgbaPage, this.cssPage);
+
+        // Set up stacks
+        this.hslaSliderStack = new TkStack({
+            parent: this.hslaPage.content,
+            direction: TkStackDirection.VERTICAL
+        });
+
+        this.rgbaSliderStack = new TkStack({
+            parent: this.rgbaPage.content,
+            direction: TkStackDirection.VERTICAL
+        });
+
+        this.cssStack = new TkStack({
+            parent: this.cssPage.content,
             direction: TkStackDirection.VERTICAL
         });
 
         // Handler for each slider
         let colorChooser = this;
         this.isUpdating = false;
-        this.sliderHandler = () => {
+        this.colorChangeHandler = () => {
             if (colorChooser.isUpdating)
                 return;
 
-            let h = colorChooser.hSlider.value;
-            let s = colorChooser.sSlider.value;
-            let l = colorChooser.lSlider.value;
             let a = colorChooser.aSlider.value;
 
-            colorChooser.color = new TkColor(`hsla(${h}, ${s}%, ${l}%, ${a})`);
+            let activePage = this.colorSystemNotebook.active;
+            if (activePage == this.hslaPage) {
+                let h = colorChooser.hSlider.value;
+                let s = colorChooser.sSlider.value;
+                let l = colorChooser.lSlider.value;
+                colorChooser.color = new TkColor(`hsla(${h}, ${s}%, ${l}%, ${a})`);
+            } else if (activePage == this.rgbaPage) {
+                let r = colorChooser.rSlider.value;
+                let g = colorChooser.gSlider.value;
+                let b = colorChooser.bSlider.value;
+                colorChooser.color = new TkColor(`rgba(${r}, ${g}, ${b}, ${a})`);
+            } else if (activePage == this.cssPage) {
+                let selectedCssItem = this.cssColorList.selectedItem;
+
+                if (selectedCssItem != null)
+                    colorChooser.color = selectedCssItem.dataValue.color;
+            }
         };
+
+        // Update color when the notebook pages are changed
+        this.colorSystemNotebook.on("activechanged", this.colorChangeHandler);
 
         // Hue
         this.hSlider = new TkColorSlider({
@@ -78,7 +118,7 @@ class TkColorChooser extends TkStack {
             step: 1,
             value: 0
         });
-        this.hSlider.sliderInput.on("change", this.sliderHandler);
+        this.hSlider.sliderInput.on("change", this.colorChangeHandler);
 
         // Saturation
         this.sSlider = new TkColorSlider({
@@ -88,7 +128,7 @@ class TkColorChooser extends TkStack {
             step: 1,
             value: 50
         });
-        this.sSlider.sliderInput.on("change", this.sliderHandler);
+        this.sSlider.sliderInput.on("change", this.colorChangeHandler);
 
         // Lightness
         this.lSlider = new TkColorSlider({
@@ -98,17 +138,66 @@ class TkColorChooser extends TkStack {
             step: 1,
             value: 50
         });
-        this.lSlider.sliderInput.on("change", this.sliderHandler);
+        this.lSlider.sliderInput.on("change", this.colorChangeHandler);
+
+        // Red
+        this.rSlider = new TkColorSlider({
+            parent: this.rgbaSliderStack,
+            min: 0,
+            max: 255,
+            step: 1,
+            value: 0
+        });
+        this.rSlider.sliderInput.on("change", this.colorChangeHandler);
+
+        // Green
+        this.gSlider = new TkColorSlider({
+            parent: this.rgbaSliderStack,
+            min: 0,
+            max: 255,
+            step: 1,
+            value: 0
+        });
+        this.gSlider.sliderInput.on("change", this.colorChangeHandler);
+
+        // Blue
+        this.bSlider = new TkColorSlider({
+            parent: this.rgbaSliderStack,
+            min: 0,
+            max: 255,
+            step: 1,
+            value: 0
+        });
+        this.bSlider.sliderInput.on("change", this.colorChangeHandler);
+
+        // CSS color list
+        this.cssColorList = new TkList({
+            parent: this.cssStack,
+            classes: ["colorList"]
+        });
+        for (let color of TkColor.hueOrderedCssColors) {
+            let cssColorItem = new TkLabel({
+                text: color.name,
+                hideEmptyImage: false
+            });
+            cssColorItem.imageView.addClass("cssColor");
+            cssColorItem.imageView.e.style.background = color.raw;
+            cssColorItem.dataValue = color;
+
+            this.cssColorList.add(cssColorItem);
+        }
+        this.cssColorList.on("selectedchanged", this.colorChangeHandler);
 
         // Alpha
         this.aSlider = new TkColorSlider({
-            parent: this.hslaSliderStack,
+            parent: this.editStack,
             min: 0,
             max: 1,
             step: 0.01,
             value: 1
         });
-        this.aSlider.sliderInput.on("change", this.sliderHandler);
+        this.aSlider.sliderInput.on("change", this.colorChangeHandler);
+        this.aSlider.addClass("colorSystemWidth");
 
         // Preview
         this.previewView = new TkColorPreview({ parent: this });
@@ -137,38 +226,74 @@ class TkColorChooser extends TkStack {
     }
 
     updateColor() {
+        let h = this._color.h;
+        let s = this._color.s;
+        let l = this._color.l;
+
+        let r = this._color.r;
+        let g = this._color.g;
+        let b = this._color.b;
+
+        let a = this._color.a;
+
         // Update sliders to match color
         this.isUpdating = true;
-        this.hSlider.value = this._color.h;
-        this.sSlider.value = this._color.s;
-        this.lSlider.value = this._color.l;
-        this.aSlider.value = this._color.a;
+        this.hSlider.value = h;
+        this.sSlider.value = s;
+        this.lSlider.value = l;
+        this.rSlider.value = r;
+        this.gSlider.value = g;
+        this.bSlider.value = b;
+        this.aSlider.value = a;
         this.isUpdating = false;
 
-        // Draw hue slider background
-        let hue = [];
-        for (var i = 0; i <= 360; i++)
-            hue.push(`hsla(${i}, ${this.sSlider.value}%, ${this.lSlider.value}%, ${this.aSlider.value})`);
-        this.hSlider.sliderInput.e.style.background = TkGradient.linear(90, hue);
+        let activePage = this.colorSystemNotebook.active;
+        if (activePage == this.hslaPage) {
+            // Draw hue slider background
+            let hue = [];
+            for (var i = 0; i <= 360; i++)
+                hue.push(`hsla(${i}, ${s}%, ${l}%, ${a})`);
+            this.hSlider.sliderInput.e.style.background = TkGradient.linear(90, hue);
 
-        // Draw saturation slider background
-        let saturation = [];
-        for (var i = 0; i <= 100; i++)
-            saturation.push(`hsla(${this.hSlider.value}, ${i}%, ${this.lSlider.value}%, ${this.aSlider.value})`);
-        this.sSlider.sliderInput.e.style.background = TkGradient.linear(90, saturation);
+            // Draw saturation slider background
+            let saturation = [];
+            for (var i = 0; i <= 100; i++)
+                saturation.push(`hsla(${h}, ${i}%, ${l}%, ${a})`);
+            this.sSlider.sliderInput.e.style.background = TkGradient.linear(90, saturation);
 
-        // Draw lightness slider background
-        let lightness = [];
-        for (var i = 0; i <= 100; i++)
-            lightness.push(`hsla(${this.hSlider.value}, ${this.sSlider.value}%, ${i}%, ${this.aSlider.value})`);
-        this.lSlider.sliderInput.e.style.background = TkGradient.linear(90, lightness);
+            // Draw lightness slider background
+            let lightness = [];
+            for (var i = 0; i <= 100; i++)
+                lightness.push(`hsla(${h}, ${s}%, ${i}%, ${a})`);
+            this.lSlider.sliderInput.e.style.background = TkGradient.linear(90, lightness);
+        } else if (activePage == this.rgbaPage) {
+            // Draw red slider background
+            let red = [];
+            for (var i = 0; i <= 255; i++)
+                red.push(`rgba(${i}, 0, 0, ${a})`);
+            this.rSlider.sliderInput.e.style.background = TkGradient.linear(90, red);
+
+            // Draw green slider background
+            let green = [];
+            for (var i = 0; i <= 255; i++)
+                green.push(`rgba(0, ${i}, 0, ${a})`);
+            this.gSlider.sliderInput.e.style.background = TkGradient.linear(90, green);
+
+            // Draw blue slider background
+            let blue = [];
+            for (var i = 0; i <= 255; i++)
+                blue.push(`rgba(0, 0, ${i}, ${a})`);
+            this.bSlider.sliderInput.e.style.background = TkGradient.linear(90, blue);
+        }
+
 
         // Draw alpha slider background
         let alpha = [];
         for (var i = 0; i <= 1; i += 0.01)
-            alpha.push(`hsla(${this.hSlider.value}, ${this.sSlider.value}%, ${this.lSlider.value}%, ${i})`);
+            alpha.push(`hsla(${h}, ${s}%, ${l}%, ${i})`);
         this.aSlider.sliderInput.e.style.background = TkGradient.linear(90, alpha);
 
+        // Update preview color
         this.previewView.color = this._color;
     }
 
