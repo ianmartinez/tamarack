@@ -200,6 +200,10 @@
     cursor: pointer;
 }
 
+[tklist] > * {
+    flex-shrink: 0;
+}
+
 [tklist] .selected {
     background-color: rgba(0, 0, 0, 0.15);
 }
