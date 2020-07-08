@@ -83,6 +83,7 @@ class TkColorChooser extends TkStack {
         // Handler for each slider
         let colorChooser = this;
         this.isUpdating = false;
+        this._lastSelectedCssItem = null;
         this.colorChangeHandler = () => {
             if (colorChooser.isUpdating)
                 return;
@@ -105,6 +106,7 @@ class TkColorChooser extends TkStack {
             } else if (activePage == this.cssPage) {
                 this.aSlider.visible = false;
                 let selectedCssItem = this.cssColorList.selectedItem;
+                this._lastSelectedCssItem = selectedCssItem;
 
                 if (selectedCssItem != null)
                     colorChooser.color = selectedCssItem.dataValue.color;
@@ -261,6 +263,14 @@ class TkColorChooser extends TkStack {
                 }
             }
         }
+        
+        // Only update if the value is actually different (ignoring name),
+        // because some CSS colors (aqua/cyan, gray/grey) have the same value
+        if ((this._lastSelectedCssItem !== null && matchingCssItem !== null)
+            && (this._lastSelectedCssItem.dataValue.raw === matchingCssItem.dataValue.raw)) {
+            matchingCssItem = this._lastSelectedCssItem;
+        }
+
         this.cssColorList.selectedItem = matchingCssItem;
         this.aSlider.value = a;
         this.isUpdating = false;
