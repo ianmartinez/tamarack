@@ -774,12 +774,24 @@ let TkCssColors = {
     "wheat": "#f5deb3", "white": "#ffffff", "whitesmoke": "#f5f5f5", "yellow": "#ffff00", "yellowgreen": "#9acd32"
 };
 
+/**
+ * A class of static functions to create gradients programatically.
+ */
 class TkGradient {
 
+    /**
+     * Create a linear-gradient at a given angle and with
+     * an array of colors.
+     * 
+     * @param {Number} angle The linear-gradient's angle.
+     * @param {String[]} colors An array of color strings.
+     */
     static linear(angle, colors) {
         let gradient = `linear-gradient(${angle}deg`;
+
         for (let i = 0; i < colors.length; i++)
             gradient += (`, ${colors[i]} ${TkNumber.toPercentStr(i, colors.length)}`);
+
         return gradient + ")";
     }
 
