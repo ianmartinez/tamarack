@@ -394,11 +394,12 @@ class TkColor extends TkStateObject {
      * Get the color as an hsla() string that can be used by CSS.
      * 
      * @param {Number} digits (optional) The number of digits to round each value to, defaults to 0.
+     * @param {Number} digitsA (optional) The number of digits to round the alpha to, defaults to 2.
      * 
      * @returns {String} The CSS hsla() value of this color.
      */
-    asHsla(digits = 0) {
-        return `hsla(${TkNumber.fixed(this._h, digits)}, ${TkNumber.fixed(this._s, digits)}%, ${TkNumber.fixed(this._l, digits)}%, ${TkNumber.fixed(this._a, digits)})`;
+    asHsla(digits = 0, digitsA = 0) {
+        return `hsla(${TkNumber.fixed(this._h, digits)}, ${TkNumber.fixed(this._s, digits)}%, ${TkNumber.fixed(this._l, digits)}%, ${TkNumber.fixed(this._a, digitsA)})`;
     }
 
     /**
@@ -440,11 +441,12 @@ class TkColor extends TkStateObject {
      * Get the color as an rgba() string that can be used by CSS.
      * 
      * @param {Number} digits (optional) The number of digits to round each value to, defaults to 0.
+     * @param {Number} digitsA (optional) The number of digits to round the alpha to, defaults to 2.
      * 
      * @returns {String} The rgba() string representing this color.
      */
-    asRgba(digits = 0) {
-        return `rgba(${TkNumber.fixed(this._r, digits)}, ${TkNumber.fixed(this._g, digits)}, ${TkNumber.fixed(this._b, digits)}, ${TkNumber.fixed(this._a, digits)})`;
+    asRgba(digits = 0, digitsA = 2) {
+        return `rgba(${TkNumber.fixed(this._r, digits)}, ${TkNumber.fixed(this._g, digits)}, ${TkNumber.fixed(this._b, digits)}, ${TkNumber.fixed(this._a, digitsA)})`;
     }
 
     /**
