@@ -536,7 +536,6 @@ class TkView {
             this.addAttribute("tk-hide");
     }
 
-
     /**
      * The class name string of the view's element.
      * 
@@ -1669,8 +1668,6 @@ class TkList extends TkStack {
                 return;
 
             let selectedIndex = view.selectedIndex;
-            let selectedItem = view.selectedItem;
-            let scrollOptions = {block: "center", inline: "nearest"};
             switch (event.code) {
                 case "ArrowUp":
                     if (selectedIndex > 0)
@@ -1678,7 +1675,7 @@ class TkList extends TkStack {
                     else if (view._wrap)
                         view.selectedIndex = itemCount - 1;
 
-                        selectedItem.e.scrollIntoView(scrollOptions);
+                    view.scrollToSelected();
                     event.preventDefault();
                     break;
                 case "ArrowDown":
@@ -1687,7 +1684,7 @@ class TkList extends TkStack {
                     else if (view._wrap)
                         view.selectedIndex = 0;
 
-                        selectedItem.e.scrollIntoView(scrollOptions);
+                    view.scrollToSelected();
                     event.preventDefault();
                     break;
             }
@@ -1721,14 +1718,14 @@ class TkList extends TkStack {
     }
 
     set selectedItem(value) {
-        if (value === undefined || value === null)
-            return;
-
         // Unselect old view, if it exists.
         let oldSelected = this.selectedItem;
         if (oldSelected !== null) {
             oldSelected.removeClass("selected");
         }
+
+        if (value === undefined || value === null)
+            return;
 
         // Select the new item
         if (TkObject.is(value, TkView)) { // TkView
@@ -1760,7 +1757,10 @@ class TkList extends TkStack {
     }
 
     set selectedIndex(value) {
-        this.selectedItem = this.children[value];
+        if (value === -1)
+            this.selectedItem = null;
+        else
+            this.selectedItem = this.children[value];
     }
 
     /**
@@ -1774,6 +1774,21 @@ class TkList extends TkStack {
 
     set wrap(value) {
         this._wrap = value;
+    }
+
+    /**
+     * Scroll to the selected item in the list.
+     * If no item is selected, scroll to the top of the list.
+     */
+    scrollToSelected() {
+        let selectedItem = this.selectedItem;
+
+        if (selectedItem !== null) {
+            let scrollOptions = { block: "center", inline: "nearest" };
+            selectedItem.e.scrollIntoView(scrollOptions);
+        } else {
+            this.e.scrollTop = 0;
+        }
     }
 
 }

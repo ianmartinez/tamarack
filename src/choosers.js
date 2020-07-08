@@ -90,16 +90,19 @@ class TkColorChooser extends TkStack {
 
             let activePage = this.colorSystemNotebook.active;
             if (activePage == this.hslaPage) {
+                this.aSlider.visible = true;
                 let h = colorChooser.hSlider.value;
                 let s = colorChooser.sSlider.value;
                 let l = colorChooser.lSlider.value;
                 colorChooser.color = new TkColor(`hsla(${h}, ${s}%, ${l}%, ${a})`);
             } else if (activePage == this.rgbaPage) {
+                this.aSlider.visible = true;
                 let r = colorChooser.rSlider.value;
                 let g = colorChooser.gSlider.value;
                 let b = colorChooser.bSlider.value;
                 colorChooser.color = new TkColor(`rgba(${r}, ${g}, ${b}, ${a})`);
             } else if (activePage == this.cssPage) {
+                this.aSlider.visible = false;
                 let selectedCssItem = this.cssColorList.selectedItem;
 
                 if (selectedCssItem != null)
@@ -108,7 +111,10 @@ class TkColorChooser extends TkStack {
         };
 
         // Update color when the notebook pages are changed
-        this.colorSystemNotebook.on("activechanged", this.colorChangeHandler);
+        this.colorSystemNotebook.on("activechanged", () => { 
+            colorChooser.colorChangeHandler();
+            colorChooser.cssColorList.scrollToSelected();
+        });
 
         // Hue
         this.hSlider = new TkColorSlider({
@@ -244,9 +250,21 @@ class TkColorChooser extends TkStack {
         this.rSlider.value = r;
         this.gSlider.value = g;
         this.bSlider.value = b;
+        let cssColorName = this.color.asCssName();
+        let matchingCssItem = null;
+        if (cssColorName !== "") {
+            for (let item of this.cssColorList.children) {
+                if (item.dataValue.name === cssColorName) {
+                    matchingCssItem = item;
+                    continue;
+                }
+            }
+        }
+        this.cssColorList.selectedItem = matchingCssItem;
         this.aSlider.value = a;
         this.isUpdating = false;
 
+        // Draw slider backgrounds
         let activePage = this.colorSystemNotebook.active;
         if (activePage == this.hslaPage) {
             // Draw hue slider background
@@ -285,7 +303,6 @@ class TkColorChooser extends TkStack {
                 blue.push(`rgba(0, 0, ${i}, ${a})`);
             this.bSlider.sliderInput.e.style.background = TkGradient.linear(90, blue);
         }
-
 
         // Draw alpha slider background
         let alpha = [];
