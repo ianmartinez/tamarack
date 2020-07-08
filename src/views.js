@@ -1013,7 +1013,7 @@ class TkLabel extends TkView {
     get hideEmptyImage() {
         return this._hideEmptyImage;
     }
-    
+
     set hideEmptyImage(value) {
         this._hideEmptyImage = value;
         this.refreshVisibility();
@@ -1669,6 +1669,8 @@ class TkList extends TkStack {
                 return;
 
             let selectedIndex = view.selectedIndex;
+            let selectedItem = view.selectedItem;
+            let scrollOptions = {block: "center", inline: "nearest"};
             switch (event.code) {
                 case "ArrowUp":
                     if (selectedIndex > 0)
@@ -1676,6 +1678,7 @@ class TkList extends TkStack {
                     else if (view._wrap)
                         view.selectedIndex = itemCount - 1;
 
+                        selectedItem.e.scrollIntoView(scrollOptions);
                     event.preventDefault();
                     break;
                 case "ArrowDown":
@@ -1683,7 +1686,8 @@ class TkList extends TkStack {
                         view.selectedIndex++;
                     else if (view._wrap)
                         view.selectedIndex = 0;
-                        
+
+                        selectedItem.e.scrollIntoView(scrollOptions);
                     event.preventDefault();
                     break;
             }
@@ -1775,35 +1779,35 @@ class TkList extends TkStack {
 }
 
 class TkInput extends TkView {
-    
+
     constructor(options = {}) {
         super(options, { tag: "input" });
     }
 
     get type() {
-		this.getAttribute("type");
-	}
-
-	set type(value) {
-		this.setAttribute("type", value);
-	}
-
-	get name() {
-		this.getAttribute("name");
-	}
-
-	set name(value) {
-		this.setAttribute("name", value);
-	}
-	
-	get readOnly() {
-		return this.e.readonly;
-	}
-	
-	set readOnly(value) {
-		this.e.readonly = value;
+        this.getAttribute("type");
     }
-    
+
+    set type(value) {
+        this.setAttribute("type", value);
+    }
+
+    get name() {
+        this.getAttribute("name");
+    }
+
+    set name(value) {
+        this.setAttribute("name", value);
+    }
+
+    get readOnly() {
+        return this.e.readonly;
+    }
+
+    set readOnly(value) {
+        this.e.readonly = value;
+    }
+
     get value() {
         return this.e.value;
     }
