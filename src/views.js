@@ -1847,6 +1847,33 @@ class TkSlider extends TkInput {
 
         if (options.step !== undefined)
             this.step = options.step;
+
+        this.on("click", (slider) => slider.e.focus());
+        this.on("keydown", (slider, event) => {
+            let value = Number.parseFloat(slider.value);
+            let max = Number.parseFloat(slider.max);
+            let min = Number.parseFloat(slider.min);
+            let step = Number.parseFloat(slider.step);
+
+            switch (event.code) {
+                case "ArrowLeft":
+                    if (value > min) {
+                        slider.value = Math.max(min, value - step);
+                        this.trigger("change");
+                    }
+
+                    event.preventDefault();
+                    break;
+                case "ArrowRight":
+                    if (value < max) {
+                        slider.value = Math.min(max, value + step);
+                        this.trigger("change");
+                    }
+
+                    event.preventDefault();
+                    break;
+            }
+        }, true);
     }
 
     get min() {

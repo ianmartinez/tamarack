@@ -214,8 +214,8 @@ class TkColorChooser extends TkStack {
         this.rgbaLabel = new TkField({ parent: this.infoStack, title: "RGBA:" });
         this.grayLabel = new TkField({ parent: this.infoStack, title: "Gray:" });
         this.luminanceLabel = new TkField({ parent: this.infoStack, title: "Luminance:" });
-        this.darkLabel = new TkField({ parent: this.infoStack, title: "Dark:" });
-        this.darkLabel.content.addClass("colorText");
+        this.darknessLabel = new TkField({ parent: this.infoStack, title: "Darkness:" });
+        this.darknessLabel.content.addClass("colorText");
 
         // Alpha
         this.aSlider = new TkColorSlider({
@@ -400,13 +400,13 @@ class TkColorChooser extends TkStack {
         this.luminanceLabel.content.text = TkNumber.fixed(this._color.getLuminance(), 4);
 
         let isDark = this._color.isDark();
-        this.darkLabel.content.e.style.color = this._color.asRgba();
+        this.darknessLabel.content.e.style.color = this._color.asRgba();
         if(isDark) {
-            this.darkLabel.content.e.style.backgroundColor = "white";
-            this.darkLabel.content.text = "Dark";
+            this.darknessLabel.content.e.style.backgroundColor = "white";
+            this.darknessLabel.content.text = "Dark";
         } else {
-            this.darkLabel.content.e.style.backgroundColor = "black";
-            this.darkLabel.content.text = "Light";
+            this.darknessLabel.content.e.style.backgroundColor = "black";
+            this.darknessLabel.content.text = "Light";
         }
     }
 
