@@ -5,6 +5,7 @@
  *  - Allow hiding unwanted pages
  *  - Color shades tab
  *  - Palettes
+ *  - Set page order
  */
 
 class TkColorSlider extends TkStack {
