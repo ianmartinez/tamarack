@@ -242,7 +242,9 @@ class TkColorChooser extends TkStack {
         });
 
         // Preview
-        this.previewView = new TkColorPreview({ parent: this });
+        this.preview = new TkColorPreview({ parent: this });
+        if(options.preview !== undefined)
+            this.preview.visible = options.preview;
 
         // Set color from options, if specified, or default to black
         if (options.color !== undefined) {
@@ -379,7 +381,7 @@ class TkColorChooser extends TkStack {
         this.aSlider.sliderInput.e.style.background = TkGradient.linear(90, alpha);
 
         // Update preview color
-        this.previewView.color = this._color;
+        this.preview.color = this._color;
     }
 
     updateInfo() {
