@@ -1,3 +1,12 @@
+/**
+ * TODO: 
+ *  - Add docs
+ *  - Allow disabling of alpha channel
+ *  - Allow hiding unwanted pages
+ *  - Color shades tab
+ *  - Palettes
+ */
+
 class TkColorSlider extends TkStack {
 
     constructor(options = {}) {
