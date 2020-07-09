@@ -49,17 +49,22 @@ class TkColor extends TkStateObject {
     constructor(value, alpha) {
         super();
 
-        this._h = 0;
-        this._s = 0;
-        this._l = 0;
+        this._h = -1;
+        this._s = -1;
+        this._l = -1;
 
-        this._r = 0;
-        this._g = 0;
-        this._b = 0;
+        this._r = -1;
+        this._g = -1;
+        this._b = -1;
 
-        this._a = 1;
+        this._a = -1;
 
         this.setString(value);
+
+        if (this._h === -1 || this._s === -1 || this._l === -1
+            || this._a === -1 || this._r === -1 || this._g === -1 || this._b === -1) {
+            this.isValid = false;
+        }
 
         // Override alpha value from this.setString() if specified
         // and in a valid range

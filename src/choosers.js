@@ -59,19 +59,19 @@ class TkColorChooser extends TkStack {
 
         // Set up notebook
         this.colorSystemNotebook = new TkNotebook({ parent: this.editStack });
-        this.hslaPage = new TkNotebookPage({ title: "HSLA" });
-        this.rgbaPage = new TkNotebookPage({ title: "RGBA" });
+        this.hslPage = new TkNotebookPage({ title: "HSL" });
+        this.rgbPage = new TkNotebookPage({ title: "RGB" });
         this.cssPage = new TkNotebookPage({ title: "CSS" });
-        this.colorSystemNotebook.add(this.hslaPage, this.rgbaPage, this.cssPage);
+        this.colorSystemNotebook.add(this.hslPage, this.rgbPage, this.cssPage);
 
         // Set up stacks
-        this.hslaSliderStack = new TkStack({
-            parent: this.hslaPage.content,
+        this.hslSliderStack = new TkStack({
+            parent: this.hslPage.content,
             direction: TkStackDirection.VERTICAL
         });
 
-        this.rgbaSliderStack = new TkStack({
-            parent: this.rgbaPage.content,
+        this.rgbSliderStack = new TkStack({
+            parent: this.rgbPage.content,
             direction: TkStackDirection.VERTICAL
         });
 
@@ -91,13 +91,13 @@ class TkColorChooser extends TkStack {
             let a = colorChooser.aSlider.value;
 
             let activePage = this.colorSystemNotebook.active;
-            if (activePage == this.hslaPage) {
+            if (activePage == this.hslPage) {
                 this.aSlider.visible = true;
                 let h = colorChooser.hSlider.value;
                 let s = colorChooser.sSlider.value;
                 let l = colorChooser.lSlider.value;
                 colorChooser.color = new TkColor(`hsla(${h}, ${s}%, ${l}%, ${a})`);
-            } else if (activePage == this.rgbaPage) {
+            } else if (activePage == this.rgbPage) {
                 this.aSlider.visible = true;
                 let r = colorChooser.rSlider.value;
                 let g = colorChooser.gSlider.value;
@@ -108,7 +108,7 @@ class TkColorChooser extends TkStack {
                 let selectedCssItem = this.cssColorList.selectedItem;
                 this._lastSelectedCssItem = selectedCssItem;
 
-                if (selectedCssItem != null)
+                if (selectedCssItem !== null)
                     colorChooser.color = selectedCssItem.dataValue.color;
             }
         };
@@ -121,7 +121,7 @@ class TkColorChooser extends TkStack {
 
         // Hue
         this.hSlider = new TkColorSlider({
-            parent: this.hslaSliderStack,
+            parent: this.hslSliderStack,
             min: 0,
             max: 360,
             step: 1,
@@ -131,7 +131,7 @@ class TkColorChooser extends TkStack {
 
         // Saturation
         this.sSlider = new TkColorSlider({
-            parent: this.hslaSliderStack,
+            parent: this.hslSliderStack,
             min: 0,
             max: 100,
             step: 1,
@@ -141,7 +141,7 @@ class TkColorChooser extends TkStack {
 
         // Lightness
         this.lSlider = new TkColorSlider({
-            parent: this.hslaSliderStack,
+            parent: this.hslSliderStack,
             min: 0,
             max: 100,
             step: 1,
@@ -151,7 +151,7 @@ class TkColorChooser extends TkStack {
 
         // Red
         this.rSlider = new TkColorSlider({
-            parent: this.rgbaSliderStack,
+            parent: this.rgbSliderStack,
             min: 0,
             max: 255,
             step: 1,
@@ -161,7 +161,7 @@ class TkColorChooser extends TkStack {
 
         // Green
         this.gSlider = new TkColorSlider({
-            parent: this.rgbaSliderStack,
+            parent: this.rgbSliderStack,
             min: 0,
             max: 255,
             step: 1,
@@ -171,7 +171,7 @@ class TkColorChooser extends TkStack {
 
         // Blue
         this.bSlider = new TkColorSlider({
-            parent: this.rgbaSliderStack,
+            parent: this.rgbSliderStack,
             min: 0,
             max: 255,
             step: 1,
@@ -208,6 +208,19 @@ class TkColorChooser extends TkStack {
         });
         this.aSlider.sliderInput.on("change", this.colorChangeHandler);
         this.aSlider.addClass("colorSystemWidth");
+
+        // Text input
+        this.textInput = new TkInput({ parent: this.editStack, type: "text", classes: ["colorSystemWidth"] });
+        this.textInput.on("input", () => {
+            let color = new TkColor(colorChooser.textInput.value);
+
+            if (color.isValid)
+                colorChooser.color = color;
+        });
+
+        this.textInput.on("blur", () => {
+            colorChooser.updateColor();
+        });
 
         // Preview
         this.previewView = new TkColorPreview({ parent: this });
@@ -254,6 +267,7 @@ class TkColorChooser extends TkStack {
         this.rSlider.value = r;
         this.gSlider.value = g;
         this.bSlider.value = b;
+
         let cssColorName = this.color.asCssName(false);
         let matchingCssItem = null;
         if (cssColorName !== "") {
@@ -265,11 +279,18 @@ class TkColorChooser extends TkStack {
             }
         }
 
+        let activePage = this.colorSystemNotebook.active;
+
         // Only update if the value is actually different (ignoring name),
         // because some CSS colors (aqua/cyan, gray/grey) have the same value
         if ((this._lastSelectedCssItem !== null && matchingCssItem !== null)
             && (this._lastSelectedCssItem.dataValue.raw === matchingCssItem.dataValue.raw)) {
             matchingCssItem = this._lastSelectedCssItem;
+
+            // Update text input
+            if (activePage == this.cssPage && !this.textInput.hasFocus()) {
+                this.textInput.value = matchingCssItem.dataValue.raw;
+            }
         }
 
         this.cssColorList.selectedItem = matchingCssItem;
@@ -277,8 +298,7 @@ class TkColorChooser extends TkStack {
         this.isUpdating = false;
 
         // Draw slider backgrounds
-        let activePage = this.colorSystemNotebook.active;
-        if (activePage == this.hslaPage) {
+        if (activePage == this.hslPage) {
             // Draw hue slider background
             let hue = [];
             for (var i = 0; i <= 360; i++)
@@ -296,7 +316,14 @@ class TkColorChooser extends TkStack {
             for (var i = 0; i <= 100; i++)
                 lightness.push(`hsla(${h}, ${s}%, ${i}%, ${a})`);
             this.lSlider.sliderInput.e.style.background = TkGradient.linear(90, lightness);
-        } else if (activePage == this.rgbaPage) {
+
+            // Update text input
+            if (!this.textInput.hasFocus()) {
+                this.isUpdating = true;
+                this.textInput.value = this._color.asHsla();
+                this.isUpdating = false;
+            }
+        } else if (activePage == this.rgbPage) {
             // Draw red slider background
             let red = [];
             for (var i = 0; i <= 255; i++)
@@ -314,6 +341,13 @@ class TkColorChooser extends TkStack {
             for (var i = 0; i <= 255; i++)
                 blue.push(`rgba(0, 0, ${i}, ${a})`);
             this.bSlider.sliderInput.e.style.background = TkGradient.linear(90, blue);
+
+            // Update text input
+            if (!this.textInput.hasFocus()) {
+                this.isUpdating = true;
+                this.textInput.value = this._color.asRgba();
+                this.isUpdating = false;
+            }
         }
 
         // Draw alpha slider background

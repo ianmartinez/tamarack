@@ -1762,6 +1762,18 @@ class TkInput extends TkView {
 
     constructor(options = {}) {
         super(options, { tag: "input" });
+
+        if(options.type !== undefined)
+            this.type = options.type;
+
+        if(options.name !== undefined) 
+            this.name = options.name;
+
+        if(options.readOnly !== undefined)
+            this.readOnly = options.readOnly;
+
+        if(options.value !== undefined)
+            this.value = options.value;
     }
 
     get type() {
