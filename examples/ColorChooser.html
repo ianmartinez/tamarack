@@ -14,8 +14,33 @@
     <script src="../src/color.js"></script>
     <script src="../src/choosers.js"></script>
 
+    <style>
+        body {
+            max-width: 500px;
+        }
+
+        [tkcolorchooser] {
+            margin-bottom: 2rem;
+        }
+
+        .demo {
+            border-radius: 0.25rem;
+            padding: 1rem;
+        }
+    </style>
+
     <script>
-        let chooser = new TkColorChooser({ parent: "body", color: "lime" });
+        let chooser = new TkColorChooser({ parent: "body", color: "seagreen" });
+        let demo = new TkText("h2", { parent: "body", classes: ["demo"] });
+
+        function updateColor() {
+            demo.text = chooser.color.asHex();
+            demo.e.style.backgroundColor = chooser.color.asHex();
+            demo.e.style.color = chooser.color.isDark() ? "white" : "black";
+        }
+
+        chooser.on("colorchanged", () => updateColor());
+        updateColor();
     </script>
 </body>
 

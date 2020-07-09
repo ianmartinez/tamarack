@@ -265,6 +265,7 @@ class TkColorChooser extends TkStack {
     set color(value) {
         this._color = value;
         this.updateColor();
+        this.trigger("colorchanged");
     }
 
     updateColor() {
