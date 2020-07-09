@@ -62,7 +62,8 @@ class TkColorChooser extends TkStack {
         this.hslPage = new TkNotebookPage({ title: "HSL" });
         this.rgbPage = new TkNotebookPage({ title: "RGB" });
         this.cssPage = new TkNotebookPage({ title: "CSS" });
-        this.colorSystemNotebook.add(this.hslPage, this.rgbPage, this.cssPage);
+        this.infoPage = new TkNotebookPage({ title: "Info" });
+        this.colorSystemNotebook.add(this.hslPage, this.rgbPage, this.cssPage, this.infoPage);
 
         // Set up stacks
         this.hslSliderStack = new TkStack({
@@ -77,6 +78,11 @@ class TkColorChooser extends TkStack {
 
         this.cssStack = new TkStack({
             parent: this.cssPage.content,
+            direction: TkStackDirection.VERTICAL
+        });
+
+        this.infoStack = new TkStack({
+            parent: this.infoPage.content,
             direction: TkStackDirection.VERTICAL
         });
 
@@ -110,6 +116,9 @@ class TkColorChooser extends TkStack {
 
                 if (selectedCssItem !== null)
                     colorChooser.color = selectedCssItem.dataValue.color;
+            } else if (activePage == this.infoPage) {
+                this.aSlider.visible = false;
+                this.updateInfo();
             }
         };
 
@@ -197,6 +206,16 @@ class TkColorChooser extends TkStack {
             this.cssColorList.add(cssColorItem);
         }
         this.cssColorList.on("selectedchanged", this.colorChangeHandler);
+
+        // Info page
+        this.cssNameLabel = new TkField({ parent: this.infoStack, title: "CSS Name:" });
+        this.hexLabel = new TkField({ parent: this.infoStack, title: "HEX:" });
+        this.hslaLabel = new TkField({ parent: this.infoStack, title: "HSLA:" });
+        this.rgbaLabel = new TkField({ parent: this.infoStack, title: "RGBA:" });
+        this.grayLabel = new TkField({ parent: this.infoStack, title: "Gray:" });
+        this.luminanceLabel = new TkField({ parent: this.infoStack, title: "Luminance:" });
+        this.darkLabel = new TkField({ parent: this.infoStack, title: "Dark:" });
+        this.darkLabel.content.addClass("colorText");
 
         // Alpha
         this.aSlider = new TkColorSlider({
@@ -348,6 +367,8 @@ class TkColorChooser extends TkStack {
                 this.textInput.value = this._color.asRgba();
                 this.isUpdating = false;
             }
+        } else if(activePage == this.infoPage) {
+            this.updateInfo();
         }
 
         // Draw alpha slider background
@@ -358,6 +379,32 @@ class TkColorChooser extends TkStack {
 
         // Update preview color
         this.previewView.color = this._color;
+    }
+
+    updateInfo() {
+        let cssColor = this._color.asCssName();
+        if(cssColor.length > 0) {
+            this.cssNameLabel.content.text = cssColor;
+            this.cssNameLabel.visible = true;
+        } else {
+            this.cssNameLabel.visible = false;
+        }
+
+        this.hexLabel.content.text = this._color.asHex();
+        this.hslaLabel.content.text = this._color.asHsla();
+        this.rgbaLabel.content.text = this._color.asRgba();
+        this.grayLabel.content.text = this._color.isGray() ? "true" : "false";
+        this.luminanceLabel.content.text = TkNumber.fixed(this._color.getLuminance(), 4);
+
+        let isDark = this._color.isDark();
+        this.darkLabel.content.e.style.color = this._color.asRgba();
+        if(isDark) {
+            this.darkLabel.content.e.style.backgroundColor = "white";
+            this.darkLabel.content.text = "Dark";
+        } else {
+            this.darkLabel.content.e.style.backgroundColor = "black";
+            this.darkLabel.content.text = "Light";
+        }
     }
 
 }

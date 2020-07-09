@@ -500,7 +500,7 @@ class TkColor extends TkStateObject {
      * @returns {Boolean} If this color is gray (i.e. has no saturation).
      */
     isGray() {
-        return (TkArray.areElementsEqual([this._r, this._g, this._b]));
+        return this.s == 0;
     }
 
     /**

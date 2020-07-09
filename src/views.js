@@ -1049,6 +1049,24 @@ class TkButton extends TkView {
 
 }
 
+class TkField extends TkView {
+
+    constructor(options = {}) {
+        super(options);
+        this.addViewName("tkfield");
+
+        this.title = new TkText("span", { parent: this });
+        this.title.addViewName("tkfield-title");
+
+        if (options.title !== undefined)
+            this.title.text = options.title;
+
+        this.content = options.content ?? new TkText("span", { parent: this });
+        this.content.addViewName("tkfield-content");
+    }
+
+}
+
 /**
  * A TkNotebookPage is not a view but represents the
  * two views that make up a notebook page: the tab, 
@@ -1763,16 +1781,16 @@ class TkInput extends TkView {
     constructor(options = {}) {
         super(options, { tag: "input" });
 
-        if(options.type !== undefined)
+        if (options.type !== undefined)
             this.type = options.type;
 
-        if(options.name !== undefined) 
+        if (options.name !== undefined)
             this.name = options.name;
 
-        if(options.readOnly !== undefined)
+        if (options.readOnly !== undefined)
             this.readOnly = options.readOnly;
 
-        if(options.value !== undefined)
+        if (options.value !== undefined)
             this.value = options.value;
     }
 
