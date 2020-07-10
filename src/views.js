@@ -20,7 +20,7 @@ const TkStackDirection = {
 
 /**
  * An enum representing the labout of
- * the text and image in a TkLabel.
+ * the text and icon in a TkLabel.
  * @enum {String}
  */
 const TkLabelLayout = {
@@ -72,7 +72,7 @@ class TkView {
             } else if (TkObject.is(options.from, HTMLElement)) { // HTMLElement
                 this._element = options.from;
             } else if (TkObject.is(options.from, TkView)) { // Other TkView
-                this._element = options.from.element;
+                this._element = options.from.e;
             }
         } else if (options.hasOwnProperty("from")) { // Error if specified but invalid value
             throw "ERROR: Source (options.from) was specified but has a value of undefined";
@@ -158,11 +158,11 @@ class TkView {
      * The element of the view.
      * @type {HTMLElement}
      */
-    get element() {
+    get e() {
         return this._element;
     }
 
-    set element(value) {
+    set e(value) {
         // If there's a parent, set that as 
         // the new parent view
         if (value.parentElement)
@@ -193,18 +193,6 @@ class TkView {
      */
     selectAll(selector) {
         return this.e.querySelectorAll(selector);
-    }
-
-    /**
-     * Shorthand for TkView.element The element of the view.
-     * @type {HTMLElement}
-     */
-    get e() {
-        return this._element;
-    }
-
-    set e(value) {
-        this.element = value;
     }
 
     /**
@@ -352,8 +340,8 @@ class TkView {
         this.remove(...this._childViews);
 
         // Remove left over elements
-        while (this.element.firstChild)
-            this.element.removeChild(this.element.firstChild);
+        while (this.e.firstChild)
+            this.e.removeChild(this.e.firstChild);
     }
 
     /**
@@ -831,7 +819,7 @@ class TkText extends TkView {
         this.addViewName("tktext");
 
         this.textNode = document.createTextNode(options.text ?? "");
-        this.element.appendChild(this.textNode);
+        this.e.appendChild(this.textNode);
     }
 
     /**
@@ -1555,7 +1543,7 @@ class TkSwitcher extends TkView {
         // Find the element to search for
         let searchItem = undefined;
         if (TkObject.is(item, TkView)) { // TkView
-            searchItem = item.element;
+            searchItem = item.e;
         } else if (TkObject.is(item, String)) { // Selector
             searchItem = document.querySelector(item);
         } else if (TkObject.is(item, HTMLElement)) {  // HTMLElement
@@ -2019,7 +2007,7 @@ class TkTemplate extends TkView {
     viewFor(name) {
         for (let view of this.namedViews) {
             if (view.name === name)
-                return view.element;
+                return view.e;
         }
 
         return null;
