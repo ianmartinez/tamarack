@@ -7,7 +7,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <link href="../src/views.css" rel="stylesheet" type="text/css" />
     <script src="../src/core.js"></script>
     <script src="../src/views.js"></script>
@@ -33,6 +33,11 @@
     </style>
 
     <script>
+        /**
+         * Display a color chooser and change the background of an
+         * element when its color is changed.
+         */
+
         let chooser = new TkColorChooser({ parent: "body", color: "seagreen", preview: false });
         let demo = new TkText("h2", { parent: "body", classes: ["demo"] });
 

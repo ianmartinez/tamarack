@@ -7,7 +7,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <link href="../src/views.css" rel="stylesheet" type="text/css" />
     <script src="../src/core.js"></script>
     <script src="../src/views.js"></script>
@@ -15,6 +15,10 @@
 
 <body>
     <script>
+        /**
+         * Toss a coin and display the result.
+         */
+
         let tossCoinButton = new TkButton({ parent: "body", text: "Toss Coin" });
         let results = new TkStack({ parent: "body", direction: TkStackDirection.VERTICAL });
 
