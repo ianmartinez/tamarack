@@ -1623,6 +1623,10 @@ class TkCanvas extends TkView {
 
 /**
  * A list of items to be selected from.
+ * 
+ * TODO:
+ *  - Multiple selection
+ *  - Allow user re-ordering of items (dragging/arrow keys)
  */
 class TkList extends TkStack {
 
