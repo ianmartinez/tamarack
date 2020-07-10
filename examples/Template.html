@@ -3,8 +3,10 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
     <title>Templates</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="../src/views.css" rel="stylesheet" type="text/css" />
     <script src="../src/core.js"></script>
@@ -39,7 +41,7 @@
 
         // Stacks
         let buttonStack = new TkStack({ parent: "body", direction: TkStackDirection.FLOW });
-        let listStack = new TkStack({ parent: "body", direction: TkStackDirection.FLOW  });
+        let listStack = new TkStack({ parent: "body", direction: TkStackDirection.FLOW });
 
         // A button to create a new list from the template
         let newListButton = new TkButton({ parent: buttonStack, text: "New from template" });
@@ -47,7 +49,7 @@
             let captionedList = new CaptionedList({ parent: listStack });
 
             for (let i = 1; i <= itemCount; i++) {
-                captionedList.list.add(new TkText("li", {text: `Item ${i}`}));
+                captionedList.list.add(new TkText("li", { text: `Item ${i}` }));
             }
 
             captionedList.title.innerText = `A list with ${captionedList.listLength} items`;
