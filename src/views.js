@@ -91,8 +91,10 @@ class TkView {
             throw "ERROR: Parent (options.parent) was specified but has a value of undefined";
 
         // Add the className, if specified
-        if (options.className !== undefined)
+        if (options.className !== undefined) {
+            console.log("options.className is deprecated, use options.classes: ['class1', 'class2', ...] instead");
             this.className = options.className;
+        }
 
         // Add the CSS classes, if specified 
         if (options.classes !== undefined)
@@ -528,12 +530,15 @@ class TkView {
      * The class name string of the view's element.
      * 
      * @type {String}
+     * @deprecated Use TkView.addClass(), TkView.removeClass(), TkView.hasClass(), etc...
      */
     get className() {
+        console.log("get TkView.className() is deprecated");
         return this.e.className;
     }
 
     set className(value) {
+        console.log("set TkView.className(value) is deprecated");
         this.e.className = value;
     }
 
