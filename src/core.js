@@ -11,6 +11,7 @@
  * attach/dispatch events from that.
  */
 class TkEmitter {
+
     constructor() {
         let delegate = document.createDocumentFragment();
         let functions = ["addEventListener", "dispatchEvent", "removeEventListener"];
@@ -18,6 +19,7 @@ class TkEmitter {
         // Map the class functions to the delegate functions
         functions.forEach(func => this[func] = (...args) => delegate[func](...args));
     }
+
 }
 
 /**
@@ -296,14 +298,33 @@ class TkNumber {
             ((1 - Math.random()) * (max - min) + min) : (Math.random() * (max - min) + min);
     }
 
+    /**
+     * Get the percentage that a value is of a max value.
+     * 
+     * @param {Number} value The value.
+     * @param {Number} max The max value.
+     */
     static toPercent(value, max) {
         return ((value * 100) / max);
     }
 
+    /**
+     * Get the percentage as a string (i.e. with a %).
+     * 
+     * @param {Number} value The value.
+     * @param {Number} max The max value.
+     */
     static toPercentStr(value, max) {
         return `${this.toPercent(value, max)}%`;
     }
 
+
+    /**
+     * Get value from a percentage.
+     * 
+     * @param {Number} value The value.
+     * @param {Number} max The max value.
+     */
     static fromPercent(value, max) {
         return ((value * max) / 100);
     }
