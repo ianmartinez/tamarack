@@ -533,7 +533,7 @@ class TkView {
         this.clearClasses();
 
         // Add new ones
-        if(TkObject.is(value, DOMTokenList)) { // A bare element.classList
+        if (TkObject.is(value, DOMTokenList)) { // A bare element.classList
             value.forEach((className) => this.e.classList.add(className));
         } else { // A bare array
             this.addClass(...value);
@@ -649,12 +649,34 @@ class TkView {
      * Add attributes to the view's element.
      * 
      * @param {String} attributes The attributes' names.
-     * 
-     * @returns {Attr} The new attribute.
      */
     addAttribute(...attributes) {
         for (let attribute of attributes)
             this.e.setAttributeNode(document.createAttribute(attribute));
+    }
+
+    /**
+     * Add an attributes if they don't exist, remove them if they do.
+     * 
+     * @param  {...String} attributes The attributes' names.
+     */
+    toggleAttribute(...attributes) {
+        for (let attribute of attributes)
+            this.e.toggleAttribute(attribute);
+    }
+
+    /**
+     * Add a set of attributes if a condition is true, remove them
+     * if it is not.
+     * 
+     * @param {Boolean} condition If the attribute should be added (true) or removed (false).
+     * @param  {...String} attributes The attributes' names.
+     */
+    attributeIf(condition, ...attributes) {
+        if (condition)
+            this.addAttribute(...attributes);
+        else
+            this.removeAttribute(...attributes);
     }
 
     /**
@@ -960,14 +982,11 @@ class TkLabel extends TkView {
     }
 
     get showIcon() {
-        return this.iconView.hasAttribute("tk-hide");
+        return this.iconView.visible;
     }
 
     set showIcon(value) {
-        if (value)
-            this.iconView.removeAttribute("tk-hide");
-        else
-            this.iconView.addAttribute("tk-hide");
+        this.iconView.visible = value;
     }
 
     /**
