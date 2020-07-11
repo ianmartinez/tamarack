@@ -106,7 +106,7 @@ class TkView {
             }
         }
 
-        // Store events
+        // Store events created with TkView.on()
         this.events = [];
 
         // Add event handlers, if specified
@@ -128,7 +128,7 @@ class TkView {
         }
 
         // Fill, if specified
-        if(options.fill)
+        if (options.fill)
             this.addAttribute("tk-fill");
     }
 
@@ -211,6 +211,28 @@ class TkView {
             this._parentView.remove(this);
         else
             this.e.remove();
+    }
+
+    /**
+     * Replace an existing child view with a new
+     * 
+     * @param {TkView} oldChild The old child view.
+     * @param {TkView} newChild The new child view.
+     */
+    replace(oldChild, newChild) {
+        if (!oldChild || !newChild)
+            throw "Both the old child view and new child view must be specified";
+
+        // Replace existing child
+        oldChild.e.replaceWith(newChild.e);
+
+        // Update child view data of this view
+        for (let i = 0; i < this._childViews.length; i++) {
+            if (this._childViews[i] == oldChild) {
+                this._childViews[i] == newChild;
+                continue;
+            }
+        }
     }
 
     /**
@@ -538,7 +560,7 @@ class TkView {
         this.clearClasses();
 
         // Add new ones
-        if (TkObject.is(value, DOMTokenList)) { // A bare element.classList
+        if (TkObject.is(value, DOMTokenList)) { // An element.classList
             value.forEach((className) => this.e.classList.add(className));
         } else { // A bare array
             this.addClass(...value);
@@ -873,37 +895,6 @@ class TkText extends TkView {
 
 }
 
-/**
- * A view representing an <a> element.
- */
-class TkLink extends TkText {
-
-    /**
-     * Create a TkLink.
-     * 
-     * @param {Any} options Same as TkView, minus options.tag.
-     * @param {String} options.text The text to set inside the element.
-     * @param {String} options.url The url of the link.
-     */
-    constructor(options = {}) {
-        super("a", options);
-        this.addViewName("tklink");
-
-        this.url = options?.url ?? "#";
-    }
-
-    /**
-     * @type {String} The URL (href) of the <a> element.
-     */
-    get url() {
-        return this.getAttribute("href");
-    }
-
-    set url(value) {
-        this.setAttribute("href", value);
-    }
-
-}
 
 /**
  * A view representing an <img> element.
@@ -974,8 +965,8 @@ class TkLabel extends TkView {
         super(options);
         this.addViewName("tklabel");
 
-        this.icon = options.icon ?? new TkView();
-        this.icon.addViewName("tklabel-icon");
+        this._icon = options.icon ?? new TkView();
+        this._icon.addViewName("tklabel-icon");
         this.add(this.icon);
         this.textView = new TkText("span", { parent: this });
         this.text = options.text ?? "";
@@ -986,6 +977,31 @@ class TkLabel extends TkView {
         }
     }
 
+    /**
+     * The icon of the label.
+     * @type {TkView}
+     */
+    get icon() {
+        return this._icon;
+    }
+
+    set icon(value) {
+        let newIcon = value;
+
+        if (value) {
+            this.replace(this._icon, newIcon);
+        } else {
+            newIcon = new TkView();
+            this.replace(this._icon, newIcon);
+        }
+
+        this._icon = newIcon;
+    }
+
+    /**
+     * If the icon is visible.
+     * @type {Boolean}
+     */
     get showIcon() {
         return this.icon.visible;
     }
@@ -1016,6 +1032,38 @@ class TkLabel extends TkView {
 
     set layout(value) {
         this.addAttributeFromEnum(TkLabelLayout, value);
+    }
+
+}
+
+/**
+ * A view representing an <a> element.
+ */
+class TkLink extends TkLabel {
+
+    /**
+     * Create a TkLink.
+     * 
+     * @param {Any} options Same as TkLabel.
+     * @param {String} options.url The url of the link.
+     */
+    constructor(options = {}) {
+        options.tag = "a";
+        super(options);
+        this.addViewName("tklink");
+
+        this.url = options?.url ?? "#";
+    }
+
+    /**
+     * @type {String} The URL (href) of the <a> element.
+     */
+    get url() {
+        return this.getAttribute("href");
+    }
+
+    set url(value) {
+        this.setAttribute("href", value);
     }
 
 }
