@@ -295,7 +295,7 @@ class TkNumber {
         return Math.random() < 0.5 ?
             ((1 - Math.random()) * (max - min) + min) : (Math.random() * (max - min) + min);
     }
-    
+
     static toPercent(value, max) {
         return ((value * 100) / max);
     }
@@ -314,6 +314,15 @@ class TkNumber {
  * A static class containing functions to simplify document manipulation.
  */
 class TkDocument {
+
+    /**
+     * Clear every child from the document.body.
+     */
+    static clear() {
+        // Remove left over elements
+        while (document.body.firstChild)
+            document.body.removeChild(document.body.firstChild);
+    }
 
     /**
      * Get the <head> element of the document.
