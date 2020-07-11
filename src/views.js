@@ -1035,7 +1035,7 @@ class TkButton extends TkView {
         this.addViewName("tkbutton");
 
         this.role = "button";
-        this.labelView = new TkLabel({ parent: this, icon: options.icon });
+        this.label = new TkLabel({ parent: this, icon: options.icon });
         this.text = options.text ?? "";
         this.layout = options.layout ?? TkLabelLayout.ICON_LEFT;
     }
@@ -1045,11 +1045,23 @@ class TkButton extends TkView {
      * @type {String}
      */
     get text() {
-        return this.labelView.text;
+        return this.label.text;
     }
 
     set text(value) {
-        this.labelView.text = value;
+        this.label.text = value;
+    }
+
+    /**
+     * The icon of the button.
+     * @type {TkView}
+     */
+    get icon() {
+        return this.label.icon;
+    }
+
+    set icon(value) {
+        this.label.icon = value;
     }
 
     /**
@@ -1057,11 +1069,11 @@ class TkButton extends TkView {
      * @type {TkLabelLayout}
      */
     get layout() {
-        return this.labelView.layout;
+        return this.label.layout;
     }
 
     set layout(value) {
-        this.labelView.layout = value;
+        this.label.layout = value;
     }
 
 }
