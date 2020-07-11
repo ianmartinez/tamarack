@@ -93,7 +93,8 @@ class TkColorChooser extends TkStack {
 
         this.infoStack = new TkStack({
             parent: this.infoPage.content,
-            direction: TkStackDirection.VERTICAL
+            direction: TkStackDirection.VERTICAL,
+            fill: true
         });
 
         // Handler for each slider
