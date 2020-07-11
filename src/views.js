@@ -969,9 +969,9 @@ class TkLabel extends TkView {
         super(options);
         this.addViewName("tklabel");
 
-        this.iconView = options.icon ?? new TkView();
-        this.iconView.addViewName("tklabel-icon");
-        this.add(this.iconView);
+        this.icon = options.icon ?? new TkView();
+        this.icon.addViewName("tklabel-icon");
+        this.add(this.icon);
         this.textView = new TkText("span", { parent: this });
         this.text = options.text ?? "";
         this.layout = options.layout ?? TkLabelLayout.ICON_LEFT;
@@ -982,11 +982,11 @@ class TkLabel extends TkView {
     }
 
     get showIcon() {
-        return this.iconView.visible;
+        return this.icon.visible;
     }
 
     set showIcon(value) {
-        this.iconView.visible = value;
+        this.icon.visible = value;
     }
 
     /**
