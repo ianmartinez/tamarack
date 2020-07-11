@@ -3,6 +3,17 @@
     display: none !important;
 }
 
+/* Sizing */
+[tk-auto-size] {
+    width: auto !important;
+    height: auto !important;
+}
+
+[tk-fill] {
+    width: 100% !important;
+    height: 100% !important;
+}
+
 /* TkView */
 [tkview] {
     box-sizing: border-box;
@@ -21,8 +32,8 @@
 [tkstack] {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
     overflow: auto;
 }
 

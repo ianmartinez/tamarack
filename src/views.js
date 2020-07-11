@@ -52,6 +52,7 @@ class TkView {
      * @param {String[]} [options.classes] An array of CSS classes for the view.
      * @param {String} [options.style] The value of style attribute of the element to set.
      * @param {{String|HTMLElement|TkView}[]} [options.children] An array of children of this view.
+     * @param {Boolean?} options.fill (default: false) If the view should fill its parent.
      */
     constructor(options = {}, additionalOptions = null) {
         if (additionalOptions !== null)
@@ -125,6 +126,10 @@ class TkView {
         if (options.children !== undefined) {
             this.add(...options.children);
         }
+
+        // Fill, if specified
+        if(options.fill)
+            this.addAttribute("tk-fill");
     }
 
     /**
