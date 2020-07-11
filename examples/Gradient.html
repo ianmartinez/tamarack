@@ -25,6 +25,13 @@
         [tkcolorchooser] {
             max-width: 500px;
         }
+
+        [tkfield] {
+            align-self: flex-start;
+            background: white;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+        }
     </style>
 
     <script>
@@ -33,18 +40,25 @@
          * element when its color is changed.
          */
         let stack = new TkStack({ parent: "body", direction: TkStackDirection.VERTICAL });
-        let chooser1 = new TkColorChooser({ parent: stack, color: "blue", preview: false });
-        let chooser2 = new TkColorChooser({ parent: stack, color: "red", preview: false });
-        let angleField = new TkField({parent: stack, title: "Angle:", content: new TkInput({  
-            type: "number",
-            attributes: { min: "0", max: "360", value: "0" }
-        })});
+        let chooser1 = new TkColorChooser({ parent: stack, color: "darkseagreen", preview: false });
+        let chooser2 = new TkColorChooser({ parent: stack, color: "deepskyblue", preview: false });
+        let angleField = new TkField({
+            parent: stack,
+            title: "Angle:",
+            content: new TkInput({
+                type: "number",
+                attributes: { min: "0", max: "360", value: "0" }
+            })
+        });
 
         function updateBackground() {
+            document.body.style.background =
+                TkGradient.linear(angleField.content.e.valueAsNumber, [chooser1.color.asHex(), chooser2.color.asHex()]);
         }
 
         chooser1.on("colorchanged", () => updateBackground());
         chooser2.on("colorchanged", () => updateBackground());
+        angleField.content.on("input", () => updateBackground());
         updateBackground();
     </script>
 </body>

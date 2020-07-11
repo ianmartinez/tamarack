@@ -1095,7 +1095,8 @@ class TkField extends TkView {
         if (options.title !== undefined)
             this.title.text = options.title;
 
-        this.content = options.content ?? new TkText("span", { parent: this });
+        this.content = options.content ?? new TkText("span");
+        this.add(this.content);
         this.content.addViewName("tkfield-content");
     }
 
