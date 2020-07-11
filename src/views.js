@@ -50,7 +50,6 @@ class TkView {
      * @param {Any} [options.events] The events to set for the element, in the format of 
      * {"event1": callback, "event2": callback}.
      * @param {String[]} [options.classes] An array of CSS classes for the view.
-     * @param {String} [options.className] The value of class attribute of the element to set.
      * @param {String} [options.style] The value of style attribute of the element to set.
      * @param {{String|HTMLElement|TkView}[]} [options.children] An array of children of this view.
      */
@@ -89,12 +88,6 @@ class TkView {
             this.parent = options.parent;
         else if (options.hasOwnProperty("parent")) // Error if specified but invalid value
             throw "ERROR: Parent (options.parent) was specified but has a value of undefined";
-
-        // Add the className, if specified
-        if (options.className !== undefined) {
-            console.log("options.className is deprecated, use options.classes: ['class1', 'class2', ...] instead");
-            this.className = options.className;
-        }
 
         // Add the CSS classes, if specified 
         if (options.classes !== undefined)
@@ -527,19 +520,31 @@ class TkView {
     }
 
     /**
-     * The class name string of the view's element.
-     * 
-     * @type {String}
-     * @deprecated Use TkView.addClass(), TkView.removeClass(), TkView.hasClass(), etc...
+     * The CSS classes of the view's element. The setter 
+     * will also accept a string array of class names.
+     * @type {DOMTokenList}
      */
-    get className() {
-        console.log("get TkView.className() is deprecated");
-        return this.e.className;
+    get classes() {
+        return this.e.classList;
     }
 
-    set className(value) {
-        console.log("set TkView.className(value) is deprecated");
-        this.e.className = value;
+    set classes(value) {
+        // Remove old classes
+        this.clearClasses();
+
+        // Add new ones
+        if(TkObject.is(value, DOMTokenList)) { // A bare element.classList
+            value.forEach((className) => this.e.classList.add(className));
+        } else { // A bare array
+            this.addClass(...value);
+        }
+    }
+
+    /**
+     * Remove all classes from the view's element.
+     */
+    clearClasses() {
+        this.e.removeAttribute("class");
     }
 
     /**
