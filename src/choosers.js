@@ -1,6 +1,5 @@
 /**
  * TODO: 
- *  - Add docs
  *  - Allow disabling of alpha channel
  *  - Allow hiding unwanted pages
  *  - Color shades tab
@@ -8,54 +7,18 @@
  *  - Set page order
  */
 
-class TkColorSlider extends TkStack {
-
-    constructor(options = {}) {
-        super(options);
-        this.addViewName("tkcolorslider-container");
-        this.direction = TkStackDirection.HORIZONTAL;
-
-        this.sliderInput = new TkSlider({
-            parent: this,
-            min: options.min,
-            max: options.max,
-            step: options.step,
-            value: options.value
-        });
-        this.sliderInput.addViewName("tkcolorslider");
-    }
-
-    get value() {
-        return this.sliderInput.valueAsNumber;
-    }
-
-    set value(value) {
-        return this.sliderInput.value = value;
-    }
-
-}
-
-class TkColorPreview extends TkView {
-
-    constructor(options = {}) {
-        super(options);
-        this.addViewName("tkcolorpreview");
-        this.colorView = new TkView({ parent: this });
-        this.colorView.addViewName("tkcolorpreview-colorview");
-    }
-
-    get color() {
-        return new TkColor(this.colorView.e.style.backgroundColor);
-    }
-
-    set color(value) {
-        this.colorView.e.style.backgroundColor = value.asHsla();
-    }
-
-}
-
+/**
+ * A color chooser that allows you to choose colors in any CSS format.
+ */
 class TkColorChooser extends TkStack {
 
+    /**
+     * Create a new TkColorChooser.
+     * 
+     * @param {Ang} options Same as TkStack.
+     * @param {TkColor?|String?} (defaults to black) options.color The initial color of the color chooser.
+     * @param {Boolean?} options.preview (defaults to true) If a preview of the color should be shown to the side.
+     */
     constructor(options = {}) {
         super(options);
         this.addViewName("tkcolorchooser");
@@ -254,7 +217,7 @@ class TkColorChooser extends TkStack {
 
         // Preview
         this.preview = new TkColorPreview({ parent: this });
-        if(options.preview !== undefined)
+        if (options.preview !== undefined)
             this.preview.visible = options.preview;
 
         // Set color from options, if specified, or default to black
@@ -271,6 +234,10 @@ class TkColorChooser extends TkStack {
         this.updateColor();
     }
 
+    /**
+     * The current color of the color chooser.
+     * @type {TkColor}
+     */
     get color() {
         return this._color;
     }
@@ -281,7 +248,13 @@ class TkColorChooser extends TkStack {
         this.trigger("colorchanged");
     }
 
+    /**
+     * Update the all of the views in the color chooser to match the 
+     * new color.
+     */
     updateColor() {
+        let activePage = this.colorSystemNotebook.active;
+
         let h = this._color.h;
         let s = this._color.s;
         let l = this._color.l;
@@ -301,6 +274,7 @@ class TkColorChooser extends TkStack {
         this.gSlider.value = g;
         this.bSlider.value = b;
 
+        // Get the first CSS color matching this color
         let cssColorName = this.color.asCssName(false);
         let matchingCssItem = null;
         if (cssColorName !== "") {
@@ -311,8 +285,6 @@ class TkColorChooser extends TkStack {
                 }
             }
         }
-
-        let activePage = this.colorSystemNotebook.active;
 
         // Only update if the value is actually different (ignoring name),
         // because some CSS colors (aqua/cyan, gray/grey) have the same value
@@ -381,7 +353,7 @@ class TkColorChooser extends TkStack {
                 this.textInput.value = this._color.asRgba();
                 this.isUpdating = false;
             }
-        } else if(activePage == this.infoPage) {
+        } else if (activePage == this.infoPage) {
             this.updateInfo();
         }
 
@@ -395,9 +367,12 @@ class TkColorChooser extends TkStack {
         this.preview.color = this._color;
     }
 
+    /**
+     * Update the color info page.
+     */
     updateInfo() {
         let cssColor = this._color.asCssName();
-        if(cssColor.length > 0) {
+        if (cssColor.length > 0) {
             this.cssNameLabel.content.text = cssColor;
             this.cssNameLabel.visible = true;
         } else {
@@ -412,13 +387,65 @@ class TkColorChooser extends TkStack {
 
         let isDark = this._color.isDark();
         this.darknessLabel.content.e.style.color = this._color.asRgba();
-        if(isDark) {
+        if (isDark) {
             this.darknessLabel.content.e.style.backgroundColor = "white";
             this.darknessLabel.content.text = "Dark";
         } else {
             this.darknessLabel.content.e.style.backgroundColor = "black";
             this.darknessLabel.content.text = "Light";
         }
+    }
+
+}
+
+/**
+ * A slider view used inside a TkColorChooser.
+ */
+class TkColorSlider extends TkStack {
+
+    constructor(options = {}) {
+        super(options);
+        this.addViewName("tkcolorslider-container");
+        this.direction = TkStackDirection.HORIZONTAL;
+
+        this.sliderInput = new TkSlider({
+            parent: this,
+            min: options.min,
+            max: options.max,
+            step: options.step,
+            value: options.value
+        });
+        this.sliderInput.addViewName("tkcolorslider");
+    }
+
+    get value() {
+        return this.sliderInput.valueAsNumber;
+    }
+
+    set value(value) {
+        return this.sliderInput.value = value;
+    }
+
+}
+
+/**
+ * The color preview view used inside a TkColorChooser.
+ */
+class TkColorPreview extends TkView {
+
+    constructor(options = {}) {
+        super(options);
+        this.addViewName("tkcolorpreview");
+        this.colorView = new TkView({ parent: this });
+        this.colorView.addViewName("tkcolorpreview-colorview");
+    }
+
+    get color() {
+        return new TkColor(this.colorView.e.style.backgroundColor);
+    }
+
+    set color(value) {
+        this.colorView.e.style.backgroundColor = value.asHsla();
     }
 
 }
