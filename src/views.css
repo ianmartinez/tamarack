@@ -235,12 +235,18 @@
     height: 1px;
 }
 
+[tklist] {
+    overflow-y: auto;
+    justify-content: flex-start;
+}
+
 [tklist] * {
     cursor: pointer;
 }
 
 [tklist] > * {
     flex-shrink: 0;
+    flex-grow: 0;
 }
 
 [tklist] .selected {
@@ -380,6 +386,7 @@
 [tkcolorpreview] {	
     background-image: url("transparency.png");
     border-radius: 0.25rem;
+    flex-grow: 0;
 }
 
 [tkcolorpreview-colorview] {

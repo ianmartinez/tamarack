@@ -53,6 +53,7 @@ class TkView {
      * @param {String} [options.style] The value of style attribute of the element to set.
      * @param {{String|HTMLElement|TkView}[]} [options.children] An array of children of this view.
      * @param {Boolean?} options.fill (default: false) If the view should fill its parent.
+     * @param {Boolean?} options.visible (default: true) If the view is visible.
      */
     constructor(options = {}, additionalOptions = null) {
         if (additionalOptions !== null)
@@ -130,6 +131,10 @@ class TkView {
         // Fill, if specified
         if (options.fill)
             this.addAttribute("tk-fill");
+
+        // Set visibility, if specified
+        if (options.visible !== undefined)
+            this.visible = options.visible;
     }
 
     /**
@@ -367,24 +372,28 @@ class TkView {
     }
 
     /**
-     * Attach an event handler to an event on the element of
+     * Attach an event handler to evenst on the element of
      * the view.
      * 
-     * @param {String} eventName The name of the event.
+     * @param {String} eventName The names of the events (delimited by " ").
      * @param {function(TkView, Event)} callback The function to run when the event
      * is triggered. This function is passed target view.
      * @param {Boolean?} useCapture If this event will use capture.
      */
     on(eventName, callback, useCapture = false) {
+        let eventNames = eventName.split(" ");
         let view = this;
-        let eventOptions = {
-            name: eventName,
-            callback: callback,
-            adjustedCallback: (event) => callback(view, event)
-        };
-        this.events.push(eventOptions);
 
-        this.e.addEventListener(eventName, eventOptions.adjustedCallback, useCapture);
+        for (let eventName of eventNames) {
+            let eventOptions = {
+                name: eventName,
+                callback: callback,
+                adjustedCallback: (event) => callback(view, event)
+            };
+            this.events.push(eventOptions);
+
+            this.e.addEventListener(eventName, eventOptions.adjustedCallback, useCapture);
+        }
     }
 
     /**
@@ -422,9 +431,12 @@ class TkView {
      * Trigger and event on the element of the view.
      * 
      * @param {String} eventName The name of the event to trigger.
+     * @param {Object?} data The data of the event (event.detail).
      */
-    trigger(eventName) {
-        return this.e.dispatchEvent(new Event(eventName));
+    trigger(eventName, data) {
+        let event = (data === undefined)
+            ? new Event(eventName) : new CustomEvent(eventName, { detail: data });
+        return this.e.dispatchEvent(event);
     }
 
     /**
@@ -1766,14 +1778,46 @@ class TkList extends TkStack {
 
         for (let item of items) {
             item.on("click", this.selectItemHandler);
+            this.trigger("itemadded", item);
         }
     }
 
     remove(...items) {
-        super.add(...items);
+        let selectedItem = this.selectedItem;
 
         for (let item of items) {
+            super.remove(item);
             item.off("click", this.selectItemHandler);
+
+            if (selectedItem == item) {
+                this.trigger("selectedchanged");
+            }
+
+            this.trigger("itemremoved", item);
+        }
+    }
+
+    moveToTop(item) {
+        if(item.moveToTop()) {
+            this.trigger("itemmoved", item);
+        }
+    }
+
+    moveUp(item) {
+        if(item.moveUp()) {
+            this.trigger("itemmoved", item);
+        }
+    }
+
+    moveDown(item) {
+        if(item.moveDown()) {
+            this.trigger("itemmoved", item);
+        }
+    }
+
+    moveToBottom(item) {
+        if(item.moveToBottom()) {
+            this.trigger("itemmoved", item);
         }
     }
 
@@ -1807,8 +1851,11 @@ class TkList extends TkStack {
             value.classList.add("selected");
         }
 
-        // Trigger the activechanged event
+        // Trigger the selectedchanged event
         this.trigger("selectedchanged");
+
+        // Trigger the indexchanged event
+        this.trigger("indexchanged");
     }
 
     /**

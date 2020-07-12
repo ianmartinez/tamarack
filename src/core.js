@@ -303,9 +303,11 @@ class TkNumber {
      * 
      * @param {Number} value The value.
      * @param {Number} max The max value.
+     * @param {Number?} digits If specified, round to the number of digits after the decimal point.
      */
-    static toPercent(value, max) {
-        return ((value * 100) / max);
+    static toPercent(value, max, digits = null) {
+        let result = ((value * 100) / max);
+        return (digits === null) ? result : TkNumber.fixed(result, digits);
     }
 
     /**
@@ -313,9 +315,10 @@ class TkNumber {
      * 
      * @param {Number} value The value.
      * @param {Number} max The max value.
+     * @param {Number?} digits If specified, round to the number of digits after the decimal point.
      */
-    static toPercentStr(value, max) {
-        return `${this.toPercent(value, max)}%`;
+    static toPercentStr(value, max, digits = null) {
+        return `${this.toPercent(value, max, digits)}%`;
     }
 
 

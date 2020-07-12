@@ -33,20 +33,70 @@
             background: rgba(255, 255, 255, 0.5);
             padding: 0.25rem;
             border-radius: 0.25rem;
+            justify-content: flex-start;
+        }
+
+        .color-list {
+            height: 15rem;
+            margin: 0.5rem 0;
+            padding: 0.25rem;
+            border: 1px solid gray;
+            border-radius: 0.25rem;
+        }
+
+        .color-item {
+            height: 2rem;
+        }
+
+        .color-icon {
+            width: 1rem;
+            height: 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            border-radius: 0.25rem;
+            margin-right: 0.25rem;
+        }
+
+        .gradient-preview {
+            width: calc(100% - 0.5rem);
+            height: 7rem;
+            border-radius: 0.25rem;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            margin: 0.25rem;
+            margin-top: 1rem;
         }
     </style>
 
     <script>
         /**
-         * Display a color chooser and change the background of an
-         * element when its color is changed.
+         * A simple ui for building a CSS gradient.
          */
-        let stack = new TkStack({ parent: "body", direction: TkStackDirection.VERTICAL });
-        let gradientField = new TkField({ parent: stack, title: "Gradient:", content: new TkText("span") });
-        let chooser1 = new TkColorChooser({ parent: stack, color: "darkseagreen", preview: false });
-        let chooser2 = new TkColorChooser({ parent: stack, color: "deepskyblue", preview: false });
+
+
+        /**
+         * An item in the color colorList.
+         */
+        class ColorItem extends TkLabel {
+            constructor(options = {}) {
+                super(options);
+                this.addClass("color-item")
+                this.icon = new TkView({ classes: ["color-icon"] });
+                this.color = options.color ?? "#ffffff";
+            }
+
+            get color() {
+                return this._colorData;
+            }
+
+            set color(value) {
+                this._colorData = value;
+                this.text = this._colorData;
+                this.icon.e.style.background = this._colorData;
+            }
+        }
+
+        // Field to change the gradient's angle
         let angleField = new TkField({
-            parent: stack,
+            parent: "body",
             title: "Angle:",
             content: new TkInput({
                 type: "number",
@@ -54,16 +104,98 @@
             })
         });
 
+        // Color list to edit colors
+        let colorListButtons = new TkStack({ parent: "body", direction: TkStackDirection.FLOW });
+        let stack = new TkStack({ parent: "body", direction: TkStackDirection.HORIZONTAL });
+        let colorList = new TkList({ parent: stack, classes: ["color-list"] });
+        let colorChooser = new TkColorChooser({ parent: stack, visible: false });
+
+        // Result
+        let cssField = new TkField({ parent: "body", title: "CSS:", content: new TkText("span") });
+        let gradientPreview = new TkView({ parent: "body", classes: ["gradient-preview"] });
+
+        // Buttons to edit selected color
+        colorListButtons.add(
+            new TkButton({
+                text: "Add",
+                events: { click: () => colorList.add(new ColorItem()) }
+            }),
+            new TkButton({
+                text: "Remove",
+                events: {
+                    click: () => {
+                        if (colorList.selectedItem)
+                            colorList.remove(colorList.selectedItem);
+                    }
+                }
+            }),
+            new TkButton({
+                text: "Move to top",
+                events: {
+                    click: () => {
+                        if (colorList.selectedItem)
+                            colorList.moveToTop(colorList.selectedItem);
+                    }
+                }
+            }),
+            new TkButton({
+                text: "Move up",
+                events: {
+                    click: () => {
+                        if (colorList.selectedItem)
+                            colorList.moveUp(colorList.selectedItem);
+                    }
+                }
+            }),
+            new TkButton({
+                text: "Move down",
+                events: {
+                    click: () => {
+                        if (colorList.selectedItem)
+                            colorList.moveDown(colorList.selectedItem);
+                    }
+                }
+            }),
+            new TkButton({
+                text: "Move to bottom",
+                events: {
+                    click: () => {
+                        if (colorList.selectedItem)
+                            colorList.moveToBottom(colorList.selectedItem);
+                    }
+                }
+            })
+        );
+
         function updateBackground() {
-            let gradient = TkGradient.linear(angleField.content.e.valueAsNumber, [chooser1.color.asHex(), chooser2.color.asHex()]);
-            document.body.style.background = gradient;
-            gradientField.content.text = gradient;
-                
+            if (colorList.children.length <= 1) {
+                document.body.style.background = "#ffffff";
+                cssField.content.text = "";
+            } else {
+                let gradient = TkGradient.linear(angleField.content.e.valueAsNumber,
+                    colorList.children.map((item) => item.color));
+                gradientPreview.style.background = gradient;
+                cssField.content.text = gradient;
+            }
         }
 
-        chooser1.on("colorchanged", () => updateBackground());
-        chooser2.on("colorchanged", () => updateBackground());
-        angleField.content.on("input", () => updateBackground());
+        colorChooser.on("colorchanged", () => {
+            colorList.selectedItem.color = colorChooser.color.asHex();
+            updateBackground();
+        });
+
+        colorList.on("selectedchanged itemadded itemmoved", () => {
+            if (colorList.selectedIndex !== -1) {
+                colorChooser.visible = true;
+                colorChooser.color = new TkColor(colorList.selectedItem.color);
+            } else {
+                colorChooser.visible = false;
+            }
+
+            updateBackground();
+        });
+
+        angleField.content.on("input", updateBackground);
         updateBackground();
     </script>
 </body>
