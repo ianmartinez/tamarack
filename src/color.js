@@ -658,11 +658,14 @@ class TkColor extends TkStateObject {
                 : /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
 
         let result = hexRegex.exec(hex);
+        let alpha = 1;
+        if (result[4])
+            alpha = Math.round(parseInt(result[4], 16))/255.0;
         return result ? {
             r: Math.round(parseInt(result[1], 16)),
             g: Math.round(parseInt(result[2], 16)),
             b: Math.round(parseInt(result[3], 16)),
-            a: result[4] ?? 1
+            a: alpha
         } : { r: -1, g: -1, b: -1, a: -1 };
     }
 
