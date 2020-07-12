@@ -795,7 +795,7 @@ class TkGradient {
         let gradient = `linear-gradient(${angle}deg`;
 
         for (let i = 0; i < colors.length; i++)
-            gradient += (`, ${colors[i]} ${TkNumber.toPercentStr(i, colors.length)}`);
+            gradient += (`, ${colors[i]} ${TkNumber.toPercentStr(i, colors.length - 1)}`);
 
         return gradient + ")";
     }
