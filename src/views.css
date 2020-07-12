@@ -132,10 +132,6 @@
     line-height: 1rem;
 }
 
-[tkfield]:nth-child(even) {
-    background: rgba(0, 0, 0, 0.07);
-}
-
 [tkfield-title] {
     font-weight: bold;
     margin-right: 0.25rem;
@@ -326,6 +322,10 @@
     padding: 0.25rem;
     border-radius: 0.25rem;
     font-weight: bold;
+}
+
+[tkcolorchooser] [tkfield]:nth-child(even) {
+    background: rgba(0, 0, 0, 0.07);
 }
 
 [tkcolorslider-container] {

@@ -18,8 +18,10 @@
 <body>
     <style>
         body {
-            height: 100vh;
-            width: 100vw;
+            height: calc(100vh - 1rem);
+            width: calc(100vw - 1rem);
+            margin: 0;
+            padding: 0.5rem;
         }
 
         [tkcolorchooser] {
@@ -28,7 +30,7 @@
 
         [tkfield] {
             align-self: flex-start;
-            background: white;
+            background: rgba(255, 255, 255, 0.5);
             padding: 0.25rem;
             border-radius: 0.25rem;
         }
@@ -40,6 +42,7 @@
          * element when its color is changed.
          */
         let stack = new TkStack({ parent: "body", direction: TkStackDirection.VERTICAL });
+        let gradientField = new TkField({ parent: stack, title: "Gradient:", content: new TkText("span") });
         let chooser1 = new TkColorChooser({ parent: stack, color: "darkseagreen", preview: false });
         let chooser2 = new TkColorChooser({ parent: stack, color: "deepskyblue", preview: false });
         let angleField = new TkField({
@@ -52,8 +55,10 @@
         });
 
         function updateBackground() {
-            document.body.style.background =
-                TkGradient.linear(angleField.content.e.valueAsNumber, [chooser1.color.asHex(), chooser2.color.asHex()]);
+            let gradient = TkGradient.linear(angleField.content.e.valueAsNumber, [chooser1.color.asHex(), chooser2.color.asHex()]);
+            document.body.style.background = gradient;
+            gradientField.content.text = gradient;
+                
         }
 
         chooser1.on("colorchanged", () => updateBackground());
