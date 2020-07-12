@@ -25,7 +25,8 @@
         }
 
         [tkcolorchooser] {
-            max-width: 500px;
+            width: 500px;
+            max-width: 100%;
         }
 
         [tkfield] {
@@ -36,8 +37,13 @@
             justify-content: flex-start;
         }
 
+        .color-edit-stack {
+            flex-wrap: wrap;
+        }
+
         .color-list {
             height: 15rem;
+            width: 250px;
             margin: 0.5rem 0;
             padding: 0.25rem;
             border: 1px solid gray;
@@ -106,9 +112,13 @@
 
         // Color list to edit colors
         let colorListButtons = new TkStack({ parent: "body", direction: TkStackDirection.FLOW });
-        let stack = new TkStack({ parent: "body", direction: TkStackDirection.HORIZONTAL });
-        let colorList = new TkList({ parent: stack, classes: ["color-list"] });
-        let colorChooser = new TkColorChooser({ parent: stack, visible: false });
+        let colorEditStack = new TkStack({
+            parent: "body",
+            direction: TkStackDirection.HORIZONTAL, 
+            classes: ["color-edit-stack"]
+        });
+        let colorList = new TkList({ parent: colorEditStack, classes: ["color-list"] });
+        let colorChooser = new TkColorChooser({ parent: colorEditStack, visible: false });
 
         // Result
         let cssField = new TkField({ parent: "body", title: "CSS:", content: new TkText("span") });
