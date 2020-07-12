@@ -140,28 +140,16 @@
         });
 
         let moveToTopButton = new TkButton({ parent: buttonStack, text: "Move to top" });
-        moveToTopButton.on("click", () => {
-            if (colorList.selectedItem)
-                colorList.moveToTop(colorList.selectedItem);
-        });
+        moveToTopButton.on("click", () => colorList.selectedItem?.moveToTop());
 
         let moveUpButton = new TkButton({ parent: buttonStack, text: "Move up" });
-        moveUpButton.on("click", () => {
-            if (colorList.selectedItem)
-                colorList.moveUp(colorList.selectedItem);
-        });
+        moveUpButton.on("click", () => colorList.selectedItem?.moveUp());
 
         let moveDownButton = new TkButton({ parent: buttonStack, text: "Move down" });
-        moveDownButton.on("click", () => {
-            if (colorList.selectedItem)
-                colorList.moveDown(colorList.selectedItem);
-        });
+        moveDownButton.on("click", () => colorList.selectedItem?.moveDown());
 
         let moveToBottomButton = new TkButton({ parent: buttonStack, text: "Move to bottom" });
-        moveToBottomButton.on("click", () => {
-            if (colorList.selectedItem)
-                colorList.moveToBottom(colorList.selectedItem);
-        });
+        moveToBottomButton.on("click", () => colorList.selectedItem?.moveToBottom());
 
         // Update the preview and the CSS code
         function updatePreview() {
@@ -190,7 +178,7 @@
 
         // Update the color being edited in the color chooser when the list is
         // changed
-        colorList.on("selectedchanged itemadded itemmoved", () => {
+        colorList.on("selectedchanged itemadded childmoved", () => {
             if (colorList.selectedIndex !== -1) {
                 colorChooser.visible = true;
                 colorChooser.color = new TkColor(colorList.selectedItem.color);

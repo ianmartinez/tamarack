@@ -464,8 +464,11 @@ class TkView {
      * @returns {Boolean} If the view's element was moved.
      */
     moveUp() {
-        if (this.e.parentNode && this.e.previousElementSibling) {
-            this.e.parentNode.insertBefore(this.e, this.e.previousElementSibling);
+        let parent = this.parent;
+
+        if (parent && this.e.previousElementSibling) {
+            parent.e.insertBefore(this.e, this.e.previousElementSibling);
+            parent.trigger("childmoved", this);
             return true;
         }
 
@@ -477,8 +480,11 @@ class TkView {
      * @returns {Boolean} If the view's element was moved.
      */
     moveDown() {
-        if (this.e.parentNode && this.e.nextElementSibling) {
-            this.e.parentNode.insertBefore(this.e.nextElementSibling, this.e);
+        let parent = this.parent;
+
+        if (parent && this.e.nextElementSibling) {
+            parent.e.insertBefore(this.e.nextElementSibling, this.e);
+            parent.trigger("childmoved", this);
             return true;
         }
 
@@ -490,11 +496,12 @@ class TkView {
      * @returns {Boolean} If the view's element was moved.
      */
     moveToTop() {
-        let parent = this.e.parentNode;
+        let parent = this.parent;
 
-        if (parent && parent.firstChild && parent.firstChild !== this.e) {
-            parent.removeChild(this.e);
-            parent.insertBefore(this.e, parent.firstChild);
+        if (parent && parent.e.firstChild && parent.e.firstChild !== this.e) {
+            parent.e.removeChild(this.e);
+            parent.e.insertBefore(this.e, parent.e.firstChild);
+            parent.trigger("childmoved", this);
             return true;
         }
 
@@ -506,12 +513,12 @@ class TkView {
      * @returns {Boolean} If the view's element was moved.
      */
     moveToBottom() {
-        let parent = this.e.parentNode;
+        let parent = this.parent;
 
-        if (parent && parent.lastChild !== this.e) {
-            parent.removeChild(this.e);
-            parent.appendChild(this.e);
-
+        if (parent && parent.e.lastChild !== this.e) {
+            parent.e.removeChild(this.e);
+            parent.e.appendChild(this.e);
+            parent.trigger("childmoved", this);
             return true;
         }
 
@@ -1794,30 +1801,6 @@ class TkList extends TkStack {
             }
 
             this.trigger("itemremoved", item);
-        }
-    }
-
-    moveToTop(item) {
-        if(item.moveToTop()) {
-            this.trigger("itemmoved", item);
-        }
-    }
-
-    moveUp(item) {
-        if(item.moveUp()) {
-            this.trigger("itemmoved", item);
-        }
-    }
-
-    moveDown(item) {
-        if(item.moveDown()) {
-            this.trigger("itemmoved", item);
-        }
-    }
-
-    moveToBottom(item) {
-        if(item.moveToBottom()) {
-            this.trigger("itemmoved", item);
         }
     }
 
