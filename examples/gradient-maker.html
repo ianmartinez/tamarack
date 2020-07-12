@@ -165,9 +165,15 @@
 
         // Update the preview and the CSS code
         function updatePreview() {
-            if (colorList.children.length <= 1) {
+            let colorCount = colorList.children.length;
+
+            if (colorCount === 0) {
                 gradientPreview.style.background = "#ffffff";
                 cssField.content.text = "";
+            } else if(colorCount === 1) {
+                let color = colorList.children[0].color;
+                gradientPreview.style.background = color;
+                cssField.content.text = color;
             } else {
                 let gradient = TkGradient.linear(angleField.content.e.valueAsNumber,
                     colorList.children.map((item) => item.color));
