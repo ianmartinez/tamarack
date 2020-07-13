@@ -1,0 +1,1 @@
+/*  Handles views managing toolbars and menus */
