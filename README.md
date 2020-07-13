@@ -4,11 +4,11 @@ Tamarack is collection of modern, easy to use JavaScript classes for designing r
 - **core.js:** Contains functionality used by all of the other scripts
 - **color.js:** A class to make it simple to manage nearly every type of CSS color and easily convert between them: hex, hex w/ alpha, named CSS, HSL, HSLA, RGB, RGBA colors. Useful for building color pickers or other things that involve manipulating color.
 - **font.js:** A class to make it simple to manage fonts.
-- **views.js:** Contains a collection of views, or wrappers for HTML elements that inherit from a class called 'TkView' that can be entirely manipulated through JavaScript, requiring no HTML boilerplate.
+- **view.js:** Contains a collection of views, or wrappers for HTML elements that inherit from a class called 'TkView' that can be entirely manipulated through JavaScript, requiring no HTML boilerplate.
 
 Views 
 -------
-***views.js*** is a collection of views which are wrappers around HTML elements, such as TkButton, which wraps around &lt;button&gt; or TkImage, which wraps around &lt;img&gt;. All of these widgets inherit from TkView, which provides them with basic functionality such as making the view full-screen, adding/removing child views, attaching/triggering events, and other functionality. In addition, there are also composite views that represent multiple html elements in one single class, cutting down the need for massive amounts of boilerplate code for simple tasks. One of these is TkNotebook, which provides a notebook widget with tab pages that can be added and removed.
+***view.js*** is a collection of views which are wrappers around HTML elements, such as TkButton, which wraps around &lt;button&gt; or TkImage, which wraps around &lt;img&gt;. All of these widgets inherit from TkView, which provides them with basic functionality such as making the view full-screen, adding/removing child views, attaching/triggering events, and other functionality. In addition, there are also composite views that represent multiple html elements in one single class, cutting down the need for massive amounts of boilerplate code for simple tasks. One of these is TkNotebook, which provides a notebook widget with tab pages that can be added and removed.
 
 Examples 
 -------

@@ -41,7 +41,7 @@
 
 
 /**
- * ::: views.js :::
+ * ::: view.js :::
  */
 
 class TkSwitch extends TkView {}
