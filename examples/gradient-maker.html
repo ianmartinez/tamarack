@@ -49,27 +49,11 @@
             height: 15rem;
             width: 250px;
             margin: 0.5rem 0;
-            padding: 0.25rem;
-            border: 1px solid gray;
-            border-radius: 0.25rem;
-        }
-
-        .color-item {
-            height: 2rem;
-        }
-
-        .color-icon {
-            width: 1rem;
-            height: 1rem;
-            border: 1px solid rgba(0, 0, 0, 0.5);
-            border-radius: 0.25rem;
-            margin-right: 0.25rem;
         }
 
         .gradient-preview {
             width: calc(100% - 0.5rem);
             height: 7rem;
-            border-radius: 0.25rem;
             border: 1px solid rgba(0, 0, 0, 0.5);
             margin: 0.25rem;
             margin-top: 1rem;
@@ -83,28 +67,6 @@
          * and removing colors.
          */
 
-        /**
-         * An item in the color list.
-         */
-        class ColorItem extends TkLabel {
-            constructor(options = {}) {
-                super(options);
-                this.addClass("color-item")
-                this.icon = new TkView({ classes: ["color-icon"] });
-                this.color = options.color ?? "#ffffff";
-            }
-
-            get color() {
-                return this._colorData;
-            }
-
-            set color(value) {
-                this._colorData = value;
-                this.text = this._colorData;
-                this.icon.e.style.background = this._colorData;
-            }
-        }
-
         // Field to change the gradient's angle
         let angleField = new TkField({
             parent: "body",
@@ -115,7 +77,7 @@
         // Buttons to edit the colors
         let buttonStack = new TkStack({ parent: "body", direction: TkStackDirection.FLOW, classes: ["color-list-buttons"] });
         let addButton = new TkButton({ parent: buttonStack, text: "Add" });
-        addButton.on("click", () => colorList.add(new ColorItem()));
+        addButton.on("click", () => colorList.add(new TkColorItem()));
 
         let removeButton = new TkButton({ parent: buttonStack, text: "Remove" });
         removeButton.on("click", () => colorList.selectedItem?.delete());

@@ -168,15 +168,13 @@ class TkColorChooser extends TkStack {
             classes: ["colorList"]
         });
         for (let color of TkColor.hueOrderedCssColors) {
-            let cssColorItem = new TkLabel({
-                text: color.name,
-                icon: new TkView({
-                    classes: ["cssColor"],
-                    style: `background: ${color.raw}`
-                })
+            let cssColorItem = new TkColorItem({ 
+                color: color.raw, 
+                text: color.name, 
+                textMatchesColor: false,
+                data: color 
             });
 
-            cssColorItem.data = color;
             this.cssColorList.add(cssColorItem);
         }
         this.cssColorList.on("selectedchanged", this.colorChangeHandler);
@@ -446,6 +444,62 @@ class TkColorPreview extends TkView {
 
     set color(value) {
         this.colorView.e.style.backgroundColor = value.asHsla();
+    }
+
+}
+
+/**
+ * A color in a list of colors. Used in TkColorChooser.
+ */
+class TkColorItem extends TkLabel {
+
+    /**
+     * 
+     * @param {Any} options The options object (same as TkLabel, minus the icon option).
+     * @param {String} options.color The color of the item.
+     * @param {Boolean} options.textMatchesColor If the text should automatically
+     * update to match the color value.
+     */
+    constructor(options = {}) {
+        super(options);
+        this.addViewName("tkcoloritem");
+        this.icon = new TkView({ classes: ["color-icon"] });
+        this._textMatchesColor = options.textMatchesColor ?? true;
+        this.color = options.color ?? "#ffffff";
+    }
+
+    /**
+     * The color value that is associated with this item.
+     * @{String}
+     */
+    get color() {
+        return this._colorData;
+    }
+
+    set color(value) {
+        this._colorData = value;
+        this.icon.e.style.background = this._colorData;
+
+        if(this.textMatchesColor)
+            this.text = this._colorData;
+    }
+
+    /**
+     * If the text should automatically change to display
+     * whenever color is set.
+     * @type {Boolean}
+     */
+    get textMatchesColor() {
+        return this._textMatchesColor;
+    }
+
+    set textMatchesColor(value) {
+        this._textMatchesColor = value;
+        
+        let currentBackground = this.icon.e.style.background;
+        if(value && currentBackground.length > 0) {
+            this.content.text = this.icon.e.style.background;
+        }
     }
 
 }

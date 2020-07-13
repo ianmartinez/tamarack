@@ -54,6 +54,7 @@ class TkView {
      * @param {{String|HTMLElement|TkView}[]} [options.children] An array of children of this view.
      * @param {Boolean?} options.fill (default: false) If the view should fill its parent.
      * @param {Boolean?} options.visible (default: true) If the view is visible.
+     * @param {Any} options.data The data associated with this view.
      */
     constructor(options = {}, additionalOptions = null) {
         if (additionalOptions !== null)
@@ -135,6 +136,11 @@ class TkView {
         // Set visibility, if specified
         if (options.visible !== undefined)
             this.visible = options.visible;
+
+
+        // Set data, if specified
+        if (options.data !== undefined)
+            this.data = options.data;
     }
 
     /**
@@ -1048,6 +1054,7 @@ class TkLabel extends TkView {
             newIcon = new TkView();
             this.replace(this._icon, newIcon);
         }
+        this._icon.addViewName("tklabel-icon");
 
         this._icon = newIcon;
     }
