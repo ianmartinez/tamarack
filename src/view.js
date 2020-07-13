@@ -1850,7 +1850,7 @@ class TkList extends TkStack {
      */
     get selectedItem() {
         let selectedIndex = this.selectedIndex;
-        return (selectedIndex == -1) ? null : this.children[this.selectedIndex];
+        return (selectedIndex == -1) ? null : this.children[selectedIndex];
     }
 
     set selectedItem(value) {
