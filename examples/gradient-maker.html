@@ -134,7 +134,7 @@
 
         // Update the color being edited in the color chooser when the list is
         // changed
-        colorList.on("selectedchanged itemadded childmoved", () => {
+        colorList.on("selectedchanged childadded childremoved childmoved", () => {
             if (colorList.selectedIndex !== -1) {
                 colorChooser.visible = true;
                 colorChooser.color = new TkColor(colorList.selectedItem.color);
