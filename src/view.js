@@ -845,10 +845,8 @@ class TkView {
     }
 
     /**
-     * A simple way of storing data associated with a view. 
-     * For more complicated instances, use a TkController 
-     * for data binding.
-     * 
+     * A simple way of storing data associated with a view.
+     * Triggers "datachanged" when the data is set.
      * @type {Any}
      */
     get data() {
