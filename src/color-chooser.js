@@ -89,7 +89,7 @@ class TkColorChooser extends TkStack {
                 this._lastSelectedCssItem = selectedCssItem;
 
                 if (selectedCssItem !== null)
-                    colorChooser.color = selectedCssItem.dataValue.color;
+                    colorChooser.color = selectedCssItem.data.color;
             } else if (activePage == this.infoPage) {
                 this.aSlider.visible = false;
                 this.updateInfo();
@@ -176,7 +176,7 @@ class TkColorChooser extends TkStack {
                 })
             });
 
-            cssColorItem.dataValue = color;
+            cssColorItem.data = color;
             this.cssColorList.add(cssColorItem);
         }
         this.cssColorList.on("selectedchanged", this.colorChangeHandler);
@@ -279,7 +279,7 @@ class TkColorChooser extends TkStack {
         let matchingCssItem = null;
         if (cssColorName !== "") {
             for (let item of this.cssColorList.children) {
-                if (item.dataValue.name === cssColorName) {
+                if (item.data.name === cssColorName) {
                     matchingCssItem = item;
                     continue;
                 }
@@ -289,12 +289,12 @@ class TkColorChooser extends TkStack {
         // Only update if the value is actually different (ignoring name),
         // because some CSS colors (aqua/cyan, gray/grey) have the same value
         if ((this._lastSelectedCssItem !== null && matchingCssItem !== null)
-            && (this._lastSelectedCssItem.dataValue.raw === matchingCssItem.dataValue.raw)) {
+            && (this._lastSelectedCssItem.data.raw === matchingCssItem.data.raw)) {
             matchingCssItem = this._lastSelectedCssItem;
 
             // Update text input
             if (activePage == this.cssPage && !this.textInput.hasFocus()) {
-                this.textInput.value = matchingCssItem.dataValue.raw;
+                this.textInput.value = matchingCssItem.data.raw;
             }
         }
 

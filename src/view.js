@@ -844,6 +844,22 @@ class TkView {
             TkDocument.fullscreenElement = this.e;
     }
 
+    /**
+     * A simple way of storing data associated with a view. 
+     * For more complicated instances, use a TkController 
+     * for data binding.
+     * 
+     * @type {Any}
+     */
+    get data() {
+        return this._data;
+    }
+
+    set data(value) {
+        this._data = value;
+        this.trigger("datachanged", this._data);
+    }
+
 }
 
 /**
