@@ -323,12 +323,15 @@ class TkView {
                 this.e.appendChild(item.e);
                 item._parentView = this;
                 this._childViews.push(item);
+                this.trigger("childadded", item);
             } else if (TkObject.is(item, String)) { // Selector
                 let selectedItem = document.querySelector(item);
                 if (selectedItem)
                     this.e.appendChild(selectedItem);
+                this.trigger("childadded", selectedItem);
             } else if (TkObject.is(item, HTMLElement)) { // HTMLElement
                 this.e.appendChild(item);
+                this.trigger("childadded", item);
             }
         }
     }
@@ -347,14 +350,17 @@ class TkView {
                     this.e.removeChild(item.e);
                 item._parentView = null;
                 TkArray.remove(this._childViews, item);
+                this.trigger("childremoved", item);
             } else if (TkObject.is(item, String)) { // Selector
                 let selectedItem = document.querySelector(item);
                 if (selectedItem)
                     if (this.e.contains(selectedItem))
                         this.e.removeChild(selectedItem);
+                this.trigger("childremoved", selectedItem);
             } else if (TkObject.is(item, HTMLElement)) { // HTMLElement
                 if (this.e.contains(item))
                     this.e.removeChild(item);
+                this.trigger("childremoved", item);
             }
         }
     }
@@ -367,8 +373,11 @@ class TkView {
         this.remove(...this._childViews);
 
         // Remove left over elements
-        while (this.e.firstChild)
-            this.e.removeChild(this.e.firstChild);
+        while (this.e.firstChild) {
+            let firstChild = this.e.firstChild;
+            this.e.removeChild(firstChild);
+            this.trigger("childremoved", firstChild);
+        }
     }
 
     /**
@@ -391,7 +400,6 @@ class TkView {
                 adjustedCallback: (event) => callback(view, event)
             };
             this.events.push(eventOptions);
-
             this.e.addEventListener(eventName, eventOptions.adjustedCallback, useCapture);
         }
     }
@@ -1812,7 +1820,6 @@ class TkList extends TkStack {
 
         for (let item of items) {
             item.on("click", this.selectItemHandler);
-            this.trigger("itemadded", item);
         }
     }
 
@@ -1826,8 +1833,6 @@ class TkList extends TkStack {
             if (selectedItem == item) {
                 this.trigger("selectedchanged");
             }
-
-            this.trigger("itemremoved", item);
         }
     }
 

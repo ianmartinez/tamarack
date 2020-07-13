@@ -112,29 +112,13 @@
             content: new TkStepper({ min: "0", max: "360", value: "180" })
         });
 
-        // Color list to edit colors
-        let buttonStack = new TkStack({ parent: "body", direction: TkStackDirection.FLOW, classes: ["color-list-buttons"] });
-        let colorEditStack = new TkStack({
-            parent: "body",
-            direction: TkStackDirection.HORIZONTAL,
-            classes: ["color-edit-stack"]
-        });
-        let colorList = new TkList({ parent: colorEditStack, classes: ["color-list"] });
-        let colorChooser = new TkColorChooser({ parent: colorEditStack, visible: false });
-
-        // Results
-        let cssField = new TkField({ parent: "body", title: "CSS:", content: new TkText("span") });
-        let gradientPreview = new TkView({ parent: "body", classes: ["gradient-preview"] });
-
         // Buttons to edit the colors
+        let buttonStack = new TkStack({ parent: "body", direction: TkStackDirection.FLOW, classes: ["color-list-buttons"] });
         let addButton = new TkButton({ parent: buttonStack, text: "Add" });
         addButton.on("click", () => colorList.add(new ColorItem()));
 
         let removeButton = new TkButton({ parent: buttonStack, text: "Remove" });
-        removeButton.on("click", () => {
-            if (colorList.selectedItem)
-                colorList.remove(colorList.selectedItem);
-        });
+        removeButton.on("click", () => colorList.selectedItem?.delete());
 
         let moveToTopButton = new TkButton({ parent: buttonStack, text: "Move to top" });
         moveToTopButton.on("click", () => colorList.selectedItem?.moveToTop());
@@ -147,6 +131,19 @@
 
         let moveToBottomButton = new TkButton({ parent: buttonStack, text: "Move to bottom" });
         moveToBottomButton.on("click", () => colorList.selectedItem?.moveToBottom());
+
+        // Color list to edit colors
+        let colorEditStack = new TkStack({
+            parent: "body",
+            direction: TkStackDirection.HORIZONTAL,
+            classes: ["color-edit-stack"]
+        });
+        let colorList = new TkList({ parent: colorEditStack, classes: ["color-list"] });
+        let colorChooser = new TkColorChooser({ parent: colorEditStack, visible: false });
+
+        // Results
+        let cssField = new TkField({ parent: "body", title: "CSS:", content: new TkText("span") });
+        let gradientPreview = new TkView({ parent: "body", classes: ["gradient-preview"] });
 
         // Update the preview and the CSS code
         function updatePreview() {
