@@ -109,10 +109,7 @@
         let angleField = new TkField({
             parent: "body",
             title: "Angle:",
-            content: new TkInput({
-                type: "number",
-                attributes: { min: "0", max: "360", value: "180" }
-            })
+            content: new TkStepper({ min: "0", max: "360", value: "180" })
         });
 
         // Color list to edit colors

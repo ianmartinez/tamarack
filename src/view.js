@@ -895,6 +895,13 @@ class TkStack extends TkView {
 }
 
 /**
+ * TODO: Split views between resizable columns/rows
+ */
+class TkSplitView extends TkView {
+
+}
+
+/**
  * A view representing a text element (<p>, <h1>, <span>, and so on...).
  */
 class TkText extends TkView {
@@ -1923,6 +1930,18 @@ class TkInput extends TkView {
 
         if (options.value !== undefined)
             this.value = options.value;
+
+        if (options.min !== undefined)
+            this.min = options.min;
+
+        if (options.max !== undefined)
+            this.max = options.max;
+
+        if (options.value !== undefined)
+            this.value = options.value;
+
+        if (options.step !== undefined)
+            this.step = options.step;
     }
 
     get type() {
@@ -1957,6 +1976,34 @@ class TkInput extends TkView {
         this.e.value = value;
     }
 
+    get valueAsNumber() {
+        return this.e.valueAsNumber;
+    }
+
+    get min() {
+        return this.e.min;
+    }
+
+    set min(value) {
+        this.e.min = value;
+    }
+
+    get max() {
+        return this.e.max;
+    }
+
+    set max(value) {
+        this.e.max = value;
+    }
+
+    get step() {
+        return this.e.step;
+    }
+
+    set step(value) {
+        this.e.step = value;
+    }
+
 }
 
 class TkSlider extends TkInput {
@@ -1966,18 +2013,6 @@ class TkSlider extends TkInput {
         this.addViewName("tkslider");
 
         this.type = "range";
-
-        if (options.min !== undefined)
-            this.min = options.min;
-
-        if (options.max !== undefined)
-            this.max = options.max;
-
-        if (options.value !== undefined)
-            this.value = options.value;
-
-        if (options.step !== undefined)
-            this.step = options.step;
 
         this.on("click", (slider) => slider.e.focus());
         this.on("keydown", (slider, event) => {
@@ -2007,33 +2042,23 @@ class TkSlider extends TkInput {
         }, true);
     }
 
-    get min() {
-        return this.e.min;
+}
+
+/**
+ * An input for numbers.
+ */
+class TkStepper extends TkInput {
+
+    constructor(options = {}) {
+        super(options);
+        this.addViewName("tkstepper");
+        this.type = "number";
     }
 
-    set min(value) {
-        this.e.min = value;
-    }
+}
 
-    get max() {
-        return this.e.max;
-    }
-
-    set max(value) {
-        this.e.max = value;
-    }
-
-    get step() {
-        return this.e.step;
-    }
-
-    set step(value) {
-        this.e.step = value;
-    }
-
-    get valueAsNumber() {
-        return this.e.valueAsNumber;
-    }
+/* TODO */
+class TkSwitch extends TkView {
 
 }
 
