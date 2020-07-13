@@ -897,7 +897,14 @@ class TkStack extends TkView {
 /**
  * TODO: Split views between resizable columns/rows
  */
-class TkSplitView extends TkView {
+class TkSplit extends TkView {
+
+}
+
+/**
+ * TODO: A group box with a TkLabel title
+ */
+class TkGroup extends TkView {
 
 }
 
@@ -934,7 +941,6 @@ class TkText extends TkView {
     }
 
 }
-
 
 /**
  * A view representing an <img> element.
