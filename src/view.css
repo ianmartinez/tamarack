@@ -241,6 +241,7 @@
     outline: none;
     border-radius: 0;
     border: 1px solid #b3b3b3;
+    background: white;
 }
 
 [tklist]:focus-within {
