@@ -1,4 +1,7 @@
 :root {
+    /* Common */
+    --tk-border-radius: 0.2rem;
+
     /* App */
     --tkapp-background: rgb(245, 245, 245);
 
@@ -318,7 +321,7 @@
     width: 1rem;
     height: 1rem;
     border: 1px solid var(--tk-transparent-border);
-    border-radius: 0.25rem;
+    border-radius: var(--tk-border-radius);
     margin-right: 0.25rem;
 }
 
@@ -330,7 +333,7 @@
     margin: 0.25rem;
     background: rgb(242, 242, 242);
     border: 1px solid rgb(218, 218, 218);
-    border-radius: 0.25rem;
+    border-radius: var(--tk-border-radius);
     width: 100%;
 }
 
@@ -338,7 +341,7 @@
     height: 100%;
     width: 50%;
     display: block;
-    border-radius: 0.25rem;
+    border-radius: var(--tk-border-radius);
     background: linear-gradient(0deg, var(--tkprogress-bar-fill-1), var(--tkprogress-bar-fill-2));
     border: 1px solid var(--tkprogress-bar-border);
 }
@@ -356,7 +359,7 @@
 
 /* TkStepper */
 [tkstepper] {
-    border-radius: 0.25rem;
+    border-radius: var(--tk-border-radius);
     border: 1px solid var(--tkview-border);
     background: var(--tkview-fill);
     padding: 0.15rem;
@@ -373,7 +376,7 @@
 
 [tkcolorchooser] input[type=text] {
     height: 1.75rem;
-    border-radius: 0.25rem;
+    border-radius: var(--tk-border-radius);
     border: 1px solid var(--tkview-border);
     background: var(--tkview-fill);
     padding: 0.25rem;
@@ -398,7 +401,7 @@
 
 [tkcolorchooser] .colorText {
     padding: 0.25rem;
-    border-radius: 0.25rem;
+    border-radius: var(--tk-border-radius);
     font-weight: bold;
 }
 
@@ -407,8 +410,8 @@
 }
 
 [tkcolorslider-container] {
-    background-image: url("transparency.png");
-    border-radius: 0.25rem;
+    background-image: var(--tkimg-transparent-fill);
+    border-radius: var(--tk-border-radius);
     margin-bottom: 0.5rem;
     height: 30px;
 }
@@ -423,7 +426,7 @@
     height: 100%;
     background-color: transparent;
     margin: auto; 
-    border-radius: 0.25rem;
+    border-radius: var(--tk-border-radius);
     box-shadow: inset 0px 15px 22px 0px var(--tkcolorslider-highlight), inset 0px 0px 0px 1px var(--tkcolorslider-border);
     outline: none;
 }
@@ -440,7 +443,7 @@
     background: linear-gradient(180deg, var(--tkcolorslider-thumb-fill-1), var(--tkcolorslider-thumb-fill-2));
     border: 1px solid var(--tkcolorslider-thumb-border);
     box-shadow: inset 0px 0px 0px 1px var(--tkcolorslider-highlight);
-    border-radius: 0.25rem;
+    border-radius: var(--tk-border-radius);
 }
 
 [tkcolorslider]::-webkit-slider-thumb:hover {
@@ -457,7 +460,7 @@
 
 [tkcolorpreview] {	
     background-image: var(--tkimg-transparent-fill);
-    border-radius: 0.25rem;
+    border-radius: var(--tk-border-radius);
     flex-grow: 0;
 }
 
@@ -466,7 +469,7 @@
     height: 64px;
     cursor: pointer;
     position: relative;
-    border-radius: 0.25rem;
+    border-radius: var(--tk-border-radius);
     border: 1px solid var(--tk-transparent-border);
     background-color: black;
 }
