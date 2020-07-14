@@ -1,3 +1,52 @@
+:root {
+    /* App */
+    --tkapp-background: rgb(245, 245, 245);
+
+    /* TkView */
+    --tkview-border: rgb(195, 195, 195);
+    --tkview-fill: rgb(255, 255, 255);
+    --tkview-text: rgb(0, 0, 0);
+    --tkview-border-inactive: rgb(206, 206, 206);
+    --tkview-fill-inactive: rgb(237, 237, 237);
+    --tkview-text-inactive: rgb(89, 89, 89);
+    --tkview-focus-border: rgb(0, 110, 255);
+
+    /* TkList */
+    --tklist-selected-fill: rgba(0, 0, 0, 0.1);
+    --tklist-selected-border: rgba(0, 0, 0, 0.1);
+
+    /* TkProgress */
+    --tkprogress-bar-fill-1: rgb(45, 151, 237);
+    --tkprogress-bar-fill-2: rgb(45, 151, 237);
+    --tkprogress-bar-border: rgb(27, 113, 204);
+
+    /* TkColorChooser */
+    --tkcolorslider-border: rgba(0, 0, 0, 0.3);
+    --tkcolorslider-highlight: rgba(255, 255, 255, 0.3);
+    --tkcolorslider-thumb-border: rgba(0, 0, 0, 0.6);
+    --tkcolorslider-thumb-highlight: rgba(255, 255, 255, 0.6);
+    --tkcolorslider-thumb-fill-1: rgba(255, 255, 255, 0.5);
+    --tkcolorslider-thumb-fill-2: rgba(255, 255, 255, 0.35);
+    
+    --tkcolorslider-thumb-hover-border: rgba(0, 0, 0, 0.8);
+    --tkcolorslider-thumb-hover-highlight: rgba(255, 255, 255, 0.8);
+    --tkcolorslider-thumb-hover-fill-1: rgba(255, 255, 255, 0.6);
+    --tkcolorslider-thumb-hover-fill-2: rgba(255, 255, 255, 0.45);
+
+    --tkcolorslider-thumb-active-border: rgba(0, 0, 0, 0.8);
+    --tkcolorslider-thumb-active-highlight: rgba(255, 255, 255, 0.8);
+    --tkcolorslider-thumb-active-fill-1: rgba(255, 255, 255, 0.8);
+    --tkcolorslider-thumb-active-fill-2: rgba(255, 255, 255, 0.65);
+    --tkcolorslider-thumb-active-shadow: rgba(0, 0, 0, 0.8);
+
+    /* Misc */
+    --tk-transparent-border: rgba(0, 0, 0, 0.5);
+    --tk-even-child-fill: rgba(0, 0, 0, 0.07);
+
+    /* Images */
+    --tkimg-transparent-fill: url("transparency.png");
+}
+
 /* Display */
 [tk-hide] {
     display: none !important;
@@ -156,7 +205,7 @@
     padding-bottom: 0;
     display: flex;
     max-width: 100%;
-    box-shadow: inset 0 -1px 0 0 #c3c3c3;
+    box-shadow: inset 0 -1px 0 0 var(--tkview-border);
     overflow-x: scroll;
     scrollbar-width: none;
     border-top-left-radius: 0.25rem;
@@ -169,10 +218,10 @@
 }
 
 [tknotebook] > [tknotebook-tabarea] > [tknotebook-tab] {    
-    background: #ececec;
-    color: #585858;
-    border: 1px solid #cecece;
-    border-bottom: 1px solid #c3c3c3;
+    background: var(--tkview-fill-inactive);
+    color: var(--tkview-text-inactive);
+    border: 1px solid var(--tkview-border-inactive);
+    border-bottom: 1px solid var(--tkview-border);
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
     margin: 0 0.1rem;
@@ -182,9 +231,9 @@
 }
 
 [tknotebook] > [tknotebook-tabarea] > [tknotebook-tab].active {
-    border-color: #b1b1b1;
-    background: white;
-    color: black;
+    border-color: var(--tkview-border);
+    background: var(--tkview-fill);
+    color: var(--tkview-text);
     border-bottom: 1px solid transparent;
 }
 
@@ -192,8 +241,8 @@
     width: 100%;
     height: 100%;
     flex-grow: 1;
-    background: white;
-    border: 1px solid #c3c3c3;
+    background: var(--tkview-fill);
+    border: 1px solid var(--tkview-border);
     border-top: 0px solid transparent;
     padding: 0.75rem;
 }
@@ -240,12 +289,12 @@
     justify-content: flex-start;
     outline: none;
     border-radius: 0;
-    border: 1px solid #b3b3b3;
-    background: white;
+    border: 1px solid var(--tkview-border);
+    background: var(--tkview-fill);
 }
 
 [tklist]:focus-within {
-    border: 1px solid rgb(0, 110, 255);
+    border: 1px solid var(--tkview-focus-border);
 }
 
 [tklist] * {
@@ -260,15 +309,15 @@
 }
 
 [tklist] .selected {    
-    background-color: rgba(0, 0, 0, 0.1);
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+    background-color: var(--tklist-selected-fill);
+    box-shadow: inset 0 0 0 1px var(--tklist-selected-border);
 }
 
 /* TkColorItem */
 [tkcoloritem] .color-icon {
     width: 1rem;
     height: 1rem;
-    border: 1px solid rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--tk-transparent-border);
     border-radius: 0.25rem;
     margin-right: 0.25rem;
 }
@@ -290,8 +339,8 @@
     width: 50%;
     display: block;
     border-radius: 0.25rem;
-    background: rgb(45, 151, 237);
-    border: 1px solid rgb(27, 113, 204);
+    background: linear-gradient(0deg, var(--tkprogress-bar-fill-1), var(--tkprogress-bar-fill-2));
+    border: 1px solid var(--tkprogress-bar-border);
 }
 
 /* TkTemplate */
@@ -308,7 +357,8 @@
 /* TkStepper */
 [tkstepper] {
     border-radius: 0.25rem;
-    border: 1px solid #b3b3b3;
+    border: 1px solid var(--tkview-border);
+    background: var(--tkview-fill);
     padding: 0.15rem;
 }
 
@@ -324,7 +374,8 @@
 [tkcolorchooser] input[type=text] {
     height: 1.75rem;
     border-radius: 0.25rem;
-    border: 1px solid #a7a7a7;
+    border: 1px solid var(--tkview-border);
+    background: var(--tkview-fill);
     padding: 0.25rem;
     margin-bottom: 0.5rem;
 }
@@ -352,7 +403,7 @@
 }
 
 [tkcolorchooser] [tkfield]:nth-child(even) {
-    background: rgba(0, 0, 0, 0.07);
+    background: var(--tk-even-child-fill);
 }
 
 [tkcolorslider-container] {
@@ -373,7 +424,7 @@
     background-color: transparent;
     margin: auto; 
     border-radius: 0.25rem;
-    box-shadow: inset 0px 15px 22px 0px rgba(255, 255, 255, 0.3), inset 0px 0px 0px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0px 15px 22px 0px var(--tkcolorslider-highlight), inset 0px 0px 0px 1px var(--tkcolorslider-border);
     outline: none;
 }
   
@@ -386,26 +437,26 @@
     -webkit-appearance: none !important;
     width: 1rem;
     height: 30px;
-    background-color: transparent;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    box-shadow: inset 0px 15px 22px 0px rgba(255, 255, 255, 0.6), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.8);
+    background: linear-gradient(180deg, var(--tkcolorslider-thumb-fill-1), var(--tkcolorslider-thumb-fill-2));
+    border: 1px solid var(--tkcolorslider-thumb-border);
+    box-shadow: inset 0px 0px 0px 1px var(--tkcolorslider-highlight);
     border-radius: 0.25rem;
 }
 
 [tkcolorslider]::-webkit-slider-thumb:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.4);
-    box-shadow: inset 0px 15px 22px 0px rgba(255, 255, 255, 0.8), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.9);
+    background: linear-gradient(180deg, var(--tkcolorslider-thumb-hover-fill-1), var(--tkcolorslider-thumb-hover-fill-2));
+    border: 1px solid var(--tkcolorslider-thumb-hover-border);
+    box-shadow: inset 0px 0px 0px 1px var(--tkcolorslider-thumb-hover-highlight);
 }
 
 [tkcolorslider]::-webkit-slider-thumb:active {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.6);
-    box-shadow: inset 0px 15px 22px 0px rgba(255, 255, 255, 0.8), 0px 0px 3px rgba(0, 0, 0, 0.8);
+    background: linear-gradient(180deg, var(--tkcolorslider-thumb-active-fill-1), var(--tkcolorslider-thumb-active-fill-2));
+    border: 1px solid var(--tkcolorslider-thumb-active-border);
+    box-shadow: inset 0px 0px 0px 1px var(--tkcolorslider-thumb-active-highlight), 0px 0px 3px var(--tkcolorslider-thumb-active-shadow);
 }
 
 [tkcolorpreview] {	
-    background-image: url("transparency.png");
+    background-image: var(--tkimg-transparent-fill);
     border-radius: 0.25rem;
     flex-grow: 0;
 }
@@ -416,6 +467,11 @@
     cursor: pointer;
     position: relative;
     border-radius: 0.25rem;
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--tk-transparent-border);
     background-color: black;
+}
+
+/* Helper classes */
+.tktransparent-area {
+    background: var(--tkimg-transparent-fill);
 }
