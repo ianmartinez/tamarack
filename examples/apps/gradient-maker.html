@@ -89,22 +89,22 @@
 
         // Add toolbar buttons to edit colors
         let toolbar = new TkToolbar({ parent: "body" });
-        let addButton = new TkButton({ parent: toolbar, text: "Add color", icon: new TkIcon({ name: "add" }) });
+        let addButton = new TkButton({ parent: toolbar, text: "Add", icon: new TkIcon({ name: "add" }) });
         addButton.on("click", () => colorList.add(new TkColorItem()));
 
-        let removeButton = new TkButton({ parent: toolbar, text: "Remove color", icon: new TkIcon({ name: "remove" }) });
+        let removeButton = new TkButton({ parent: toolbar, text: "Remove", icon: new TkIcon({ name: "remove" }) });
         removeButton.on("click", () => colorList.selectedItem?.delete());
 
-        let moveToStartButton = new TkButton({ parent: toolbar, text: "Move color to start", icon: new TkIcon({ name: "play-skip-back" }) });
+        let moveToStartButton = new TkButton({ parent: toolbar, text: "Move to start", icon: new TkIcon({ name: "play-skip-back" }) });
         moveToStartButton.on("click", () => colorList.selectedItem?.moveToTop());
 
-        let moveBackButton = new TkButton({ parent: toolbar, text: "Move color backward", icon: new TkIcon({ name: "play-back" }) });
+        let moveBackButton = new TkButton({ parent: toolbar, text: "Move backward", icon: new TkIcon({ name: "play-back" }) });
         moveBackButton.on("click", () => colorList.selectedItem?.moveUp());
 
-        let moveForwardButton = new TkButton({ parent: toolbar, text: "Move color forward", icon: new TkIcon({ name: "play-forward" }) });
+        let moveForwardButton = new TkButton({ parent: toolbar, text: "Move forward", icon: new TkIcon({ name: "play-forward" }) });
         moveForwardButton.on("click", () => colorList.selectedItem?.moveDown());
 
-        let moveToEndButton = new TkButton({ parent: toolbar, text: "Move color to end", icon: new TkIcon({ name: "play-skip-forward" }) });
+        let moveToEndButton = new TkButton({ parent: toolbar, text: "Move to end", icon: new TkIcon({ name: "play-skip-forward" }) });
         moveToEndButton.on("click", () => colorList.selectedItem?.moveToBottom());
 
         // Field to change the gradient's angle
