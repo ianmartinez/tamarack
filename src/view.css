@@ -147,27 +147,33 @@
     content: "";
 }
 
-[tklabel-icon-top] {
+[tklabel-icon-top],
+[tktoolbar-icon-top] [tkbutton] [tklabel] {
     flex-direction: column !important;
 }
 
-[tklabel-icon-bottom] {
+[tklabel-icon-bottom],
+[tktoolbar-icon-bottom] [tkbutton] [tklabel] {
     flex-direction: column-reverse !important;
 }
 
-[tklabel-icon-left] {
+[tklabel-icon-left],
+[tktoolbar-icon-left] [tkbutton] [tklabel] {
     flex-direction: row !important;
 }
 
-[tklabel-icon-right] {
+[tklabel-icon-right],
+[tktoolbar-icon-right] {
     flex-direction: row-reverse !important;
 }
 
-[tklabel-icon-only] > [tktext] {
+[tklabel-icon-only] > [tktext],
+[tktoolbar-icon-only] > [tklabel] > [tktext] {
     display: none !important;
 }
 
-[tklabel-text-only] > [tkimage] {
+[tklabel-text-only] > [tklabel-icon],
+[tktoolbar-text-only] > [tklabel] >  [tklabel-icon] {
     display: none !important;
 }
 
@@ -474,6 +480,30 @@
     border-radius: var(--tk-border-radius);
     border: 1px solid var(--tk-transparent-border);
     background-color: black;
+}
+
+/* TkToolbar */
+[tktoolbar] {    
+    background: #e4e4e4;
+    border-bottom: 1px solid #d0d0d0;
+    margin-bottom: 0.5rem;
+}
+
+[tktoolbar] [tkbutton] {
+    border: 1px solid rgb(202, 202, 202);
+    background: rgba(255, 255, 255, 0.5);
+    margin: 0.25rem;
+    padding: 0.25rem;
+    border-radius: var(--tk-border-radius);
+    cursor: pointer;
+}
+
+[tktoolbar] [tkicon] {
+    font-size: 1.25rem;
+}
+
+[tktoolbar] [tkbutton] [tktext] {
+    color: rgb(102, 102, 102);
 }
 
 /* Helper classes */
