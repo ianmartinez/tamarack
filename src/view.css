@@ -168,12 +168,12 @@
 }
 
 [tklabel-icon-only] > [tktext],
-[tktoolbar-icon-only] > [tklabel] > [tktext] {
+[tktoolbar-icon-only] [tklabel] > [tktext] {
     display: none !important;
 }
 
 [tklabel-text-only] > [tklabel-icon],
-[tktoolbar-text-only] > [tklabel] >  [tklabel-icon] {
+[tktoolbar-text-only] [tklabel] [tklabel-icon] {
     display: none !important;
 }
 
