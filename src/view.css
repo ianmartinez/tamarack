@@ -19,6 +19,8 @@
     --tklist-selected-border: rgba(0, 0, 0, 0.1);
 
     /* TkProgress */
+    --tkprogress-fill: rgb(242, 242, 242);
+    --tkprogress-border: rgb(218, 218, 218);
     --tkprogress-bar-fill-1: rgb(45, 151, 237);
     --tkprogress-bar-fill-2: rgb(45, 151, 237);
     --tkprogress-bar-border: rgb(27, 113, 204);
@@ -331,8 +333,8 @@
     height: 1.5rem;
     padding: 0.15rem;
     margin: 0.25rem;
-    background: rgb(242, 242, 242);
-    border: 1px solid rgb(218, 218, 218);
+    background: var(--tkprogress-fill);
+    border: 1px solid var(--tkprogress-border);
     border-radius: var(--tk-border-radius);
     width: 100%;
 }
