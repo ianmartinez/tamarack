@@ -68,6 +68,7 @@ html {
 }
 
 @media (prefers-color-scheme: dark) {
+    /* To enable automatic dark mode support, call TkApp.init() */
     html[tkapp] {
         /* App */
         --tkapp-background: rgb(34, 34, 34);
@@ -94,11 +95,13 @@ html {
         --tkprogress-bar-border: rgb(27, 113, 204);
 
         /* TkColorChooser */
-        --tkcolorslider-border: rgba(255, 255, 255, 0.25);
-        --tkcolorslider-highlight: rgba(255, 255, 255, 0.2);
+        --tkcolorslider-border: rgba(255, 255, 255, 0.35);
+        --tkcolorslider-highlight: rgba(255, 255, 255, 0.3);
+        --tkcolorslider-thumb-border: rgba(0, 0, 0, 0.8);
+        --tkcolorslider-thumb-highlight: rgba(255, 255, 255, 0.75);
 
         /* TkToolbar */
-        --tktoolbar-fill-1: rgb(67, 67, 67);
+        --tktoolbar-fill-1: rgb(58, 58, 58);
         --tktoolbar-fill-2: rgb(51, 51, 51);
         --tktoolbar-border: rgb(61, 61, 61);
 
@@ -532,7 +535,7 @@ html {
     height: 30px;
     background: linear-gradient(180deg, var(--tkcolorslider-thumb-fill-1), var(--tkcolorslider-thumb-fill-2));
     border: 1px solid var(--tkcolorslider-thumb-border);
-    box-shadow: inset 0px 0px 0px 1px var(--tkcolorslider-highlight);
+    box-shadow: inset 0px 0px 0px 1px var(--tkcolorslider-thumb-highlight);
     border-radius: var(--tk-border-radius);
 }
 
