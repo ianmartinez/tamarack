@@ -12,7 +12,7 @@
     --tkview-border-inactive: rgb(206, 206, 206);
     --tkview-fill-inactive: rgb(237, 237, 237);
     --tkview-text-inactive: rgb(89, 89, 89);
-    --tkview-focus-border: rgb(0, 110, 255);
+    --tkview-focus-border: rgb(6, 143, 185);
 
     /* TkList */
     --tklist-selected-fill: rgba(0, 0, 0, 0.1);
@@ -43,6 +43,21 @@
     --tkcolorslider-thumb-active-fill-1: rgba(255, 255, 255, 0.8);
     --tkcolorslider-thumb-active-fill-2: rgba(255, 255, 255, 0.65);
     --tkcolorslider-thumb-active-shadow: rgba(0, 0, 0, 0.8);
+
+    /* TkToolbar */
+    --tktoolbar-fill-1: rgb(238, 238, 238);
+    --tktoolbar-fill-2: rgb(230, 230, 230);
+    --tktoolbar-border: rgb(208, 208, 208);
+
+    /* TkToolbar TkButton */
+    --tktoolbarbutton-border: rgba(0, 0, 0, 0);
+    --tktoolbarbutton-fill: rgba(0, 0, 0, 0);
+    --tktoolbarbutton-text: rgb(104, 104, 104);
+    --tktoolbarbutton-hover-border: rgb(0, 171, 223);
+    --tktoolbarbutton-hover-fill: rgb(176, 237, 255);
+    --tktoolbarbutton-active-border: rgb(6, 143, 185);
+    --tktoolbarbutton-active-fill: rgb(125, 225, 255);
+
 
     /* Misc */
     --tk-transparent-border: rgba(0, 0, 0, 0.5);
@@ -488,18 +503,31 @@
 
 /* TkToolbar */
 [tktoolbar] {    
-    background: #e4e4e4;
-    border-bottom: 1px solid #d0d0d0;
+    background: linear-gradient(180deg, var(--tktoolbar-fill-1), var(--tktoolbar-fill-2));
+    border-bottom: 1px solid var(--tktoolbar-border);
     margin-bottom: 0.5rem;
 }
 
 [tktoolbar] [tkbutton] {
-    border: 1px solid rgb(202, 202, 202);
-    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--tktoolbarbutton-border);
+    background: var(--tktoolbarbutton-fill);
     margin: 0.25rem;
     padding: 0.25rem;
     border-radius: var(--tk-border-radius);
     cursor: pointer;
+    outline: none;
+    min-width: 3.5rem;
+}
+
+[tktoolbar] [tkbutton]:hover,
+[tktoolbar] [tkbutton]:focus {
+    border: 1px solid var(--tktoolbarbutton-hover-border);
+    background: var(--tktoolbarbutton-hover-fill);
+}
+
+[tktoolbar] [tkbutton]:active {
+    border: 1px solid var(--tktoolbarbutton-active-border);
+    background: var(--tktoolbarbutton-active-fill);
 }
 
 [tktoolbar] [tkicon] {
@@ -507,7 +535,7 @@
 }
 
 [tktoolbar] [tkbutton] [tktext] {
-    color: rgb(102, 102, 102);
+    color: var(--tktoolbarbutton-text);
 }
 
 /* Helper classes */
