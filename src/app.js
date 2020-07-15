@@ -79,7 +79,7 @@ class TkApp {
 
     // TODO: Detect Cordova
     static get isCordova() {
-        return false;
+        return !!window.cordova;
     }
 
     static get isWeb() {
