@@ -92,22 +92,11 @@
         // Add toolbar buttons to edit colors
         let toolbar = new TkToolbar({ parent: "body" });
         let addButton = new TkButton({ parent: toolbar, text: "Add", iconName: "add" });
-        addButton.on("click", () => colorList.add(new TkColorItem()));
-
         let removeButton = new TkButton({ parent: toolbar, text: "Remove", iconName: "remove" });
-        removeButton.on("click", () => colorList.selectedItem?.delete());
-
         let moveToStartButton = new TkButton({ parent: toolbar, text: "Move to start", iconName: "play-skip-back" });
-        moveToStartButton.on("click", () => colorList.selectedItem?.moveToTop());
-
         let moveBackButton = new TkButton({ parent: toolbar, text: "Move backward", iconName: "play-back" });
-        moveBackButton.on("click", () => colorList.selectedItem?.moveUp());
-
         let moveForwardButton = new TkButton({ parent: toolbar, text: "Move forward", iconName: "play-forward" });
-        moveForwardButton.on("click", () => colorList.selectedItem?.moveDown());
-
         let moveToEndButton = new TkButton({ parent: toolbar, text: "Move to end", iconName: "play-skip-forward" });
-        moveToEndButton.on("click", () => colorList.selectedItem?.moveToBottom());
 
         // Field to change the gradient's angle
         let angleField = new TkField({
@@ -148,6 +137,14 @@
                 cssField.content.text = gradient;
             }
         }
+
+        // Add event handlers to the buttons
+        addButton.on("click", () => colorList.add(new TkColorItem()));
+        removeButton.on("click", () => colorList.selectedItem?.delete());
+        moveToStartButton.on("click", () => colorList.selectedItem?.moveToTop());
+        moveBackButton.on("click", () => colorList.selectedItem?.moveUp());
+        moveForwardButton.on("click", () => colorList.selectedItem?.moveDown());
+        moveToEndButton.on("click", () => colorList.selectedItem?.moveToBottom());
 
         // Update the selected item's color when the color is changed
         colorChooser.on("colorchanged", () => {
