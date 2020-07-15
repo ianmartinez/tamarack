@@ -115,6 +115,9 @@ html {
         /* Misc */
         --tk-transparent-border: rgba(192, 192, 192, 0.5);
         --tk-even-child-fill: rgba(182, 182, 182, 0.07);
+
+        /* Images */
+        --tkimg-transparent-fill: url("transparency-dark.png");
     }
 }
 
