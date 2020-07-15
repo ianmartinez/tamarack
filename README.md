@@ -1,7 +1,16 @@
 # Tamarack
-Tamarack is collection of modern, easy to use JavaScript classes for designing rich user interfaces, working with color, and many other useful functions It has no dependencies (jQuery free!) other than a modern browser (so no IE support). 
+Tamarack is collection of modern, easy to use JavaScript classes for designing rich user interfaces, working with color, and many other useful functions It has no dependencies (jQuery free!) other than a modern browser (so no IE support). Think of it as an AppKit, GTK, or QT, but for the web. Because tamarack takes care of the UI part of your app, you can focus solely app-specific features.    
+    
+Here are some of the things tamarack supports:    
+* Modern design, using ES6 classes and the latest JS features    
+* 30+ views inheriting from the TkView base class   
+* Automatic dark mode support    
+* Desktop-class color and font support with TkColor, TkColorChooser, TkFont, and TkFontChooser    
+* Easy integration with existing apps   
+* Styled with CSS variables so that the default colors can easily be overriden     
 
-**Note: Tamarack is still under development, so don't use it in production.**
+
+**Note: Tamarack is still under development, so it isn't quite ready to be used in production.**
 
 ## Examples
 The [Gradient Maker App](https://github.com/ianmartinez/tamarack/blob/master/examples/apps/gradient-maker.html) provides a good starting point for using tamarack. In about 90 lines of code, it provides a UI for building a CSS gradient with options for editing the angle and for adding, editing, and removing colors:     
