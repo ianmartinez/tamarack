@@ -14,14 +14,14 @@
     <script src="../../src/color.js"></script>
     <script src="../../src/color-chooser.js"></script>
     <script src="../../src/app.js"></script>
-    <!-- For toolbar icons -->    
+    <!-- For toolbar icons -->
     <script type="module" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
     <style>
-        :root{
+        :root {
             --body-padding: 0.5rem;
             --toolbar-margin: -0.5rem;
         }
@@ -91,22 +91,22 @@
 
         // Add toolbar buttons to edit colors
         let toolbar = new TkToolbar({ parent: "body" });
-        let addButton = new TkButton({ parent: toolbar, text: "Add", icon: new TkIcon({ name: "add" }) });
+        let addButton = new TkButton({ parent: toolbar, text: "Add", iconName: "add" });
         addButton.on("click", () => colorList.add(new TkColorItem()));
 
-        let removeButton = new TkButton({ parent: toolbar, text: "Remove", icon: new TkIcon({ name: "remove" }) });
+        let removeButton = new TkButton({ parent: toolbar, text: "Remove", iconName: "remove" });
         removeButton.on("click", () => colorList.selectedItem?.delete());
 
-        let moveToStartButton = new TkButton({ parent: toolbar, text: "Move to start", icon: new TkIcon({ name: "play-skip-back" }) });
+        let moveToStartButton = new TkButton({ parent: toolbar, text: "Move to start", iconName: "play-skip-back" });
         moveToStartButton.on("click", () => colorList.selectedItem?.moveToTop());
 
-        let moveBackButton = new TkButton({ parent: toolbar, text: "Move backward", icon: new TkIcon({ name: "play-back" }) });
+        let moveBackButton = new TkButton({ parent: toolbar, text: "Move backward", iconName: "play-back" });
         moveBackButton.on("click", () => colorList.selectedItem?.moveUp());
 
-        let moveForwardButton = new TkButton({ parent: toolbar, text: "Move forward", icon: new TkIcon({ name: "play-forward" }) });
+        let moveForwardButton = new TkButton({ parent: toolbar, text: "Move forward", iconName: "play-forward" });
         moveForwardButton.on("click", () => colorList.selectedItem?.moveDown());
 
-        let moveToEndButton = new TkButton({ parent: toolbar, text: "Move to end", icon: new TkIcon({ name: "play-skip-forward" }) });
+        let moveToEndButton = new TkButton({ parent: toolbar, text: "Move to end", iconName: "play-skip-forward" });
         moveToEndButton.on("click", () => colorList.selectedItem?.moveToBottom());
 
         // Field to change the gradient's angle

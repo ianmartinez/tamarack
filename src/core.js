@@ -89,6 +89,15 @@ class TkStateObject extends TkEmitter {
 class TkObject {
 
     /**
+     * Check if a type exists
+     * 
+     * @param {Any} type The type to check.
+     */
+    static typeExists(type) {
+        return typeof type === "function";
+    }
+
+    /**
      * Check if an object is an instance of a type.
      * 
      * @param {Any} obj The object whose type is being checked.
