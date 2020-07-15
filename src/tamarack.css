@@ -83,12 +83,12 @@ html {
         --tkview-focus-border: rgb(6, 143, 185);
 
         /* TkList */
-        --tklist-selected-fill: rgba(0, 0, 0, 0.1);
-        --tklist-selected-border: rgba(0, 0, 0, 0.1);
+        --tklist-selected-fill: rgba(255, 255, 255, 0.25);
+        --tklist-selected-border: rgba(255, 255, 255, 0.35);
 
         /* TkProgress */
-        --tkprogress-fill: rgb(242, 242, 242);
-        --tkprogress-border: rgb(218, 218, 218);
+        --tkprogress-border: rgb(90, 90, 90);
+        --tkprogress-fill: rgb(0, 0, 0);
         --tkprogress-bar-fill-1: rgb(45, 151, 237);
         --tkprogress-bar-fill-2: rgb(45, 151, 237);
         --tkprogress-bar-border: rgb(27, 113, 204);
@@ -98,9 +98,9 @@ html {
         --tkcolorslider-highlight: rgba(255, 255, 255, 0.2);
 
         /* TkToolbar */
-    --tktoolbar-fill-1: rgb(67, 67, 67);
-    --tktoolbar-fill-2: rgb(51, 51, 51);
-    --tktoolbar-border: rgb(61, 61, 61);
+        --tktoolbar-fill-1: rgb(67, 67, 67);
+        --tktoolbar-fill-2: rgb(51, 51, 51);
+        --tktoolbar-border: rgb(61, 61, 61);
 
         /* TkToolbar TkButton */
         --tktoolbarbutton-border: rgba(0, 0, 0, 0);
