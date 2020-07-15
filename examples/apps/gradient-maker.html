@@ -33,7 +33,6 @@
             padding: var(--body-padding);
             display: flex;
             flex-direction: column;
-            background: var(--tkapp-background);
             font-family: sans-serif;
             font-size: 14px;
         }
@@ -86,6 +85,9 @@
          * for editing the angle and for adding, editing,
          * and removing colors.
          */
+
+        // Call TkApp to add attributes to DOM
+        TkApp.init();
 
         // Add toolbar buttons to edit colors
         let toolbar = new TkToolbar({ parent: "body" });

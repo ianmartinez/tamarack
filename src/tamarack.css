@@ -1,4 +1,4 @@
-:root {
+html {
     /* Common */
     --tk-border-radius: 0.2rem;
 
@@ -53,11 +53,11 @@
     --tktoolbarbutton-border: rgba(0, 0, 0, 0);
     --tktoolbarbutton-fill: rgba(0, 0, 0, 0);
     --tktoolbarbutton-text: rgb(104, 104, 104);
+    --tktoolbarbutton-icon: rgb(0, 0, 0);
     --tktoolbarbutton-hover-border: rgb(0, 171, 223);
     --tktoolbarbutton-hover-fill: rgb(176, 237, 255);
     --tktoolbarbutton-active-border: rgb(6, 143, 185);
     --tktoolbarbutton-active-fill: rgb(125, 225, 255);
-
 
     /* Misc */
     --tk-transparent-border: rgba(0, 0, 0, 0.5);
@@ -65,6 +65,62 @@
 
     /* Images */
     --tkimg-transparent-fill: url("transparency.png");
+}
+
+@media (prefers-color-scheme: dark) {
+    html[tkapp] {
+        /* App */
+        --tkapp-background: rgb(34, 34, 34);
+        --tkapp-text: rgb(255, 255, 255);
+
+        /* TkView */
+        --tkview-border: rgb(90, 90, 90);
+        --tkview-fill: rgb(0, 0, 0);
+        --tkview-text: rgb(255, 255, 255);
+        --tkview-border-inactive: rgb(96, 96, 96);
+        --tkview-fill-inactive: rgb(53, 53, 53);
+        --tkview-text-inactive: rgb(131, 131, 131);
+        --tkview-focus-border: rgb(6, 143, 185);
+
+        /* TkList */
+        --tklist-selected-fill: rgba(0, 0, 0, 0.1);
+        --tklist-selected-border: rgba(0, 0, 0, 0.1);
+
+        /* TkProgress */
+        --tkprogress-fill: rgb(242, 242, 242);
+        --tkprogress-border: rgb(218, 218, 218);
+        --tkprogress-bar-fill-1: rgb(45, 151, 237);
+        --tkprogress-bar-fill-2: rgb(45, 151, 237);
+        --tkprogress-bar-border: rgb(27, 113, 204);
+
+        /* TkColorChooser */
+        --tkcolorslider-border: rgba(255, 255, 255, 0.25);
+        --tkcolorslider-highlight: rgba(255, 255, 255, 0.2);
+
+        /* TkToolbar */
+    --tktoolbar-fill-1: rgb(67, 67, 67);
+    --tktoolbar-fill-2: rgb(51, 51, 51);
+    --tktoolbar-border: rgb(61, 61, 61);
+
+        /* TkToolbar TkButton */
+        --tktoolbarbutton-border: rgba(0, 0, 0, 0);
+        --tktoolbarbutton-fill: rgba(0, 0, 0, 0);
+        --tktoolbarbutton-text: rgb(235, 235, 235);
+        --tktoolbarbutton-icon: rgb(255, 255, 255);
+        --tktoolbarbutton-hover-border: rgb(68, 159, 187);
+        --tktoolbarbutton-hover-fill: rgb(20, 96, 119);
+        --tktoolbarbutton-active-border: rgb(6, 84, 107);
+        --tktoolbarbutton-active-fill: rgb(3, 61, 78);
+        
+        /* Misc */
+        --tk-transparent-border: rgba(192, 192, 192, 0.5);
+        --tk-even-child-fill: rgba(182, 182, 182, 0.07);
+    }
+}
+
+[tkapp] body {
+    background: var(--tkapp-background);
+    color: var(--tkapp-text);
 }
 
 /* Display */
@@ -273,6 +329,7 @@
     flex-grow: 1;
     background: var(--tkview-fill);
     border: 1px solid var(--tkview-border);
+    color: var(--tkview-text);
     border-top: 0px solid transparent;
     padding: 0.75rem;
 }
@@ -321,6 +378,7 @@
     border-radius: 0;
     border: 1px solid var(--tkview-border);
     background: var(--tkview-fill);
+    color: var(--tkview-text);
 }
 
 [tklist]:focus-within {
@@ -389,6 +447,7 @@
     border-radius: var(--tk-border-radius);
     border: 1px solid var(--tkview-border);
     background: var(--tkview-fill);
+    color: var(--tkview-text);
     padding: 0.15rem;
 }
 
@@ -406,6 +465,7 @@
     border-radius: var(--tk-border-radius);
     border: 1px solid var(--tkview-border);
     background: var(--tkview-fill);
+    color: var(--tkview-text);
     padding: 0.25rem;
     margin-bottom: 0.5rem;
 }
@@ -532,6 +592,7 @@
 
 [tktoolbar] [tkicon] {
     font-size: 1.25rem;
+    color: var(--tktoolbarbutton-icon);
 }
 
 [tktoolbar] [tkbutton] [tktext] {
