@@ -69,7 +69,7 @@ html {
 
 @media (prefers-color-scheme: dark) {
     /* To enable automatic dark mode support, call TkApp.init() */
-    html[tkapp] {
+    html[tk-support-dark-mode] {
         /* App */
         --tkapp-background: rgb(34, 34, 34);
         --tkapp-text: rgb(255, 255, 255);

@@ -1,4 +1,8 @@
-/*  Handles views managing toolbars, menus, and icons */
+/**
+ * Handles functionality needed for detecting the system
+ * the app is running on and adding attributes to the
+ * root <html> node at startup.
+ */
 
 
 /**
@@ -6,14 +10,13 @@
  * the app is running in.
  * @enum {String}
  */
-const TkAppType = {
+const TkAppTarget = {
     WEB: "web",
     ELECTRON: "electron",
     CORDOVA: "cordova"
 };
 
 class TkApp {
-
 
     /**
      * Set up attributes on root <html> node to 
@@ -24,19 +27,31 @@ class TkApp {
      * returned by TkEnviroment.system.
      * 
      * Also adds [tkapp] attribute.
+     * 
+     * @param {Any} options The options object.
+     * @param {Function?} options.whenLoaded The callback to run when the init
+     * is complete.
+     * @param {Boolean?} options.supportDarkMode (defaults to true) If dark mode is
+     * automatically supported.
      */
-    static init() {
+    static init(options = {}) {
         TkDocument.whenLoaded(() => {
-            let currentSystem = TkApp.target;
+            let currentTarget = TkApp.target;
             let htmlNode = document.querySelector("html");
-            htmlNode.setAttribute(currentSystem, "true");
+            htmlNode.setAttribute(currentTarget, "true");
             htmlNode.setAttribute("tkapp", "true");
+
+            if (options.supportDarkMode !== false)
+                htmlNode.setAttribute("tk-support-dark-mode", "true");
+
+            if (options.whenLoaded !== undefined)
+                options.whenLoaded();
         });
     }
 
     static get target() {
         if (TkApp.isElectron)
-            return TkAppType.ELECTRON;
+            return TkAppTarget.ELECTRON;
         else if (TkApp.isCordova)
             return TkApp.CORDOVA;
         else
@@ -70,65 +85,4 @@ class TkApp {
     static get isWeb() {
         return !this.isCordova && !this.isElectron;
     }
-}
-
-class TkToolbar extends TkStack {
-
-    constructor(options = {}) {
-        options.direction = options.direction ?? TkStackDirection.FLOW;
-        super(options);
-        this.addViewName("tktoolbar");
-        this.buttonLayout = options.layout ?? TkLabelLayout.ICON_TOP;
-    }
-    
-    /**
-     * The layout of the TkButtons on the toolbar.
-     * @type {TkLabelLayout}
-     */
-    get buttonLayout() {
-        return this.getAttributeFromEnum(TkLabelLayout, TkLabelLayout.ICON_TOP);
-    }
-
-    set buttonLayout(value) {
-        this.addAttributeFromEnum(TkLabelLayout, value);
-    }
-
-}
-
-/**
- * A simple wrapper to make using Ionicons (https://ionicons.com/) 
- * with tamarack easy. Note: use need to include the Ionicons script
- * to use TkIcon.
- */
-class TkIcon extends TkView {
-
-    /**
-     * Create a new <ion-icon> element backed by a TkView.
-     * 
-     * @param {Any} options Same as TkView, minus the tag option.
-     * @param {String} name The name of the Ionicon.
-     */
-    constructor(options = {}) {
-        // Add name to attributes option
-        if(options.attributes === undefined)
-            options.attributes = {};
-        options.attributes.name = options.name;
-
-        // Send it to the TkView constructor
-        super(options, { tag: "ion-icon" });
-
-        // Add the view name TkIcon
-        this.addViewName("tkicon");
-    }
-
-}
-
-/* TODO */
-class TkMenuBar extends TkView {
-
-}
-
-/* TODO */
-class TkMenu extends TkView {
-
 }

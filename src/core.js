@@ -3,6 +3,20 @@
 */
 
 /**
+ * Stores info about tamarack.
+ */
+class Tamarack {
+
+    /**
+     * Get the tamarack version.
+     */
+    static get version() {
+        return 0.3;
+    }
+
+}
+
+/**
  * The sane approach would be to extend EventTarget, but since
  * Safari is really embracing its role as the new Internet Explorer, 
  * we can't do that.
