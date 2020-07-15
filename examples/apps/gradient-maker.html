@@ -90,14 +90,17 @@
         // Call TkApp to add attributes to DOM
         TkApp.init();
 
-        // Add toolbar buttons to edit colors
+        // Add buttons to edit colors
+        let addButton = new TkButton({ text: "Add", iconName: "add" });
+        let removeButton = new TkButton({ text: "Remove", iconName: "remove" });
+        let moveToStartButton = new TkButton({ text: "Move to start", iconName: "play-skip-back" });
+        let moveBackButton = new TkButton({ text: "Move backward", iconName: "play-back" });
+        let moveForwardButton = new TkButton({ text: "Move forward", iconName: "play-forward" });
+        let moveToEndButton = new TkButton({ text: "Move to end", iconName: "play-skip-forward" });
+
+        // Add buttons to a toolbar
         let toolbar = new TkToolbar({ parent: "body" });
-        let addButton = new TkButton({ parent: toolbar, text: "Add", iconName: "add" });
-        let removeButton = new TkButton({ parent: toolbar, text: "Remove", iconName: "remove" });
-        let moveToStartButton = new TkButton({ parent: toolbar, text: "Move to start", iconName: "play-skip-back" });
-        let moveBackButton = new TkButton({ parent: toolbar, text: "Move backward", iconName: "play-back" });
-        let moveForwardButton = new TkButton({ parent: toolbar, text: "Move forward", iconName: "play-forward" });
-        let moveToEndButton = new TkButton({ parent: toolbar, text: "Move to end", iconName: "play-skip-forward" });
+        toolbar.add(addButton, removeButton, moveToStartButton, moveBackButton, moveForwardButton, moveToEndButton);
 
         // Field to change the gradient's angle
         let angleField = new TkField({
