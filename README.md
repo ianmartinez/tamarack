@@ -1,5 +1,5 @@
 # Tamarack
-Tamarack is collection of modern, easy to use JavaScript classes for designing rich user interfaces, working with color, and many other useful functions It has no dependencies (jQuery free!) other than a modern browser (so no IE support). Think of it as an AppKit, GTK, or QT, but for the web. Because tamarack takes care of the UI part of your app, you can focus solely app-specific features.    
+Tamarack is collection of modern, easy to use JavaScript classes for designing rich user interfaces, working with color, and many other useful functions It has no dependencies (jQuery free!) other than a modern browser (so no IE support). Think of it as an AppKit, GTK, or QT, but for the web. Because tamarack takes care of the UI part of your app, you can focus solely on app-specific features.    
     
 Here are some of the things tamarack supports:    
 * Modern design, using ES6 classes and the latest JS features    
