@@ -147,33 +147,37 @@
     content: "";
 }
 
-[tklabel-icon-top],
-[tktoolbar-icon-top] [tkbutton] [tklabel] {
+[tklabel][tklabel-default] {
+    flex-direction: row;
+}
+
+[tklabel][tklabel-icon-top],
+[tklabel-icon-top] [tklabel] {
     flex-direction: column !important;
 }
 
-[tklabel-icon-bottom],
-[tktoolbar-icon-bottom] [tkbutton] [tklabel] {
+[tklabel][tklabel-icon-bottom],
+[tklabel-icon-bottom] [tklabel] {
     flex-direction: column-reverse !important;
 }
 
-[tklabel-icon-left],
-[tktoolbar-icon-left] [tkbutton] [tklabel] {
+[tklabel][tklabel-icon-left],
+[tklabel-icon-left] [tklabel] {
     flex-direction: row !important;
 }
 
-[tklabel-icon-right],
-[tktoolbar-icon-right] {
+[tklabel][tklabel-icon-right],
+[tklabel-icon-right] [tklabel] {
     flex-direction: row-reverse !important;
 }
 
-[tklabel-icon-only] > [tktext],
-[tktoolbar-icon-only] [tklabel] > [tktext] {
+[tklabel][tklabel-icon-only] > [tktext],
+[tklabel-icon-only] [tklabel] > [tktext] {
     display: none !important;
 }
 
-[tklabel-text-only] > [tklabel-icon],
-[tktoolbar-text-only] [tklabel] [tklabel-icon] {
+[tklabel][tklabel-text-only] > [tklabel-icon],
+[tklabel-text-only] [tklabel] [tklabel-icon] {
     display: none !important;
 }
 

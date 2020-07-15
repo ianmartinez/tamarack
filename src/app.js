@@ -1,38 +1,24 @@
 /*  Handles views managing toolbars, menus, and icons */
 
-/**
- * An enum representing the labout of
- * the text and icon in a TkLabel.
- * @enum {String}
- */
-const TkToolbarButtonLayout = {
-    ICON_TOP: "tktoolbar-icon-top",
-    ICON_BOTTOM: "tktoolbar-icon-bottom",
-    ICON_LEFT: "tktoolbar-icon-left",
-    ICON_RIGHT: "tktoolbar-icon-right",
-    ICON_ONLY: "tktoolbar-icon-only",
-    TEXT_ONLY: "tktoolbar-text-only",
-};
-
 class TkToolbar extends TkStack {
 
     constructor(options = {}) {
         options.direction = options.direction ?? TkStackDirection.FLOW;
         super(options);
         this.addViewName("tktoolbar");
-        this.buttonLayout = options.layout ?? TkToolbarButtonLayout.ICON_TOP;
+        this.buttonLayout = options.layout ?? TkLabelLayout.ICON_TOP;
     }
     
     /**
      * The layout of the TkButtons on the toolbar.
-     * @type {TkToolbarButtonLayout}
+     * @type {TkLabelLayout}
      */
     get buttonLayout() {
-        return this.getAttributeFromEnum(TkToolbarButtonLayout, TkToolbarButtonLayout.ICON_TOP);
+        return this.getAttributeFromEnum(TkLabelLayout, TkLabelLayout.ICON_TOP);
     }
 
     set buttonLayout(value) {
-        this.addAttributeFromEnum(TkToolbarButtonLayout, value);
+        this.addAttributeFromEnum(TkLabelLayout, value);
     }
 
 }
@@ -62,5 +48,15 @@ class TkIcon extends TkView {
         // Add the view name TkIcon
         this.addViewName("tkicon");
     }
+
+}
+
+/* TODO */
+class TkMenuBar extends TkView {
+
+}
+
+/* TODO */
+class TkMenu extends TkView {
 
 }

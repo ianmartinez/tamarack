@@ -20,10 +20,15 @@ const TkStackDirection = {
 
 /**
  * An enum representing the labout of
- * the text and icon in a TkLabel.
+ * the text and icon in a TkLabel. 
+ * 
+ * If applied to any label, it affects
+ * that label. If applied to a container,
+ * it affect every label in that container.
  * @enum {String}
  */
 const TkLabelLayout = {
+    DEFAULT: "tklabel-default",
     ICON_TOP: "tklabel-icon-top",
     ICON_BOTTOM: "tklabel-icon-bottom",
     ICON_LEFT: "tklabel-icon-left",
@@ -1030,7 +1035,7 @@ class TkLabel extends TkView {
         this.add(this.icon);
         this.textView = new TkText("span", { parent: this });
         this.text = options.text ?? "";
-        this.layout = options.layout ?? TkLabelLayout.ICON_LEFT;
+        this.layout = options.layout ?? TkLabelLayout.DEFAULT;
 
         if (options.icon === undefined || options.icon === null) {
             this.showIcon = false;
@@ -1088,7 +1093,7 @@ class TkLabel extends TkView {
      * @type {TkLabelLayout}
      */
     get layout() {
-        return this.getAttributeFromEnum(TkLabelLayout, TkLabelLayout.ICON_LEFT);
+        return this.getAttributeFromEnum(TkLabelLayout, TkLabelLayout.DEFAULT);
     }
 
     set layout(value) {
@@ -1151,7 +1156,7 @@ class TkButton extends TkView {
         this.role = "button";
         this.label = new TkLabel({ parent: this, icon: options.icon });
         this.text = options.text ?? "";
-        this.layout = options.layout ?? TkLabelLayout.ICON_LEFT;
+        this.layout = options.layout ?? TkLabelLayout.DEFAULT;
     }
 
     /**
