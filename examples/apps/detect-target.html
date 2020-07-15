@@ -1,0 +1,51 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <title>Detect Target</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="../../src/tamarack.css" rel="stylesheet" type="text/css" />
+    <script src="../../src/core.js"></script>
+    <script src="../../src/view.js"></script>
+    <script src="../../src/app.js"></script>
+</head>
+
+<body>
+    <style>
+        /* CSS selectors for target systems */
+        .targetText {
+            padding: 0.5rem;
+            border-radius: var(--tk-border-radius);
+        }
+
+        [web] .targetText {
+            background: rgba(255, 65, 65, 0.5);
+        }
+
+        [electron] .targetText {
+            background: rgba(65, 201, 255, 0.5);
+        }
+
+        [cordova] .targetText {
+            background: rgba(65, 255, 75, 0.5);
+        }
+    </style>
+
+    <script>
+        // Add needed attributes at startup
+        TkApp.init();
+
+        // Print the current app target
+        let targetText = new TkText("h1", {
+            parent: "body",
+            text: `App target: ${TkApp.target}`,
+            classes: ["targetText"]
+        });    
+    </script>
+</body>
+
+</html>

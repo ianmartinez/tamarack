@@ -53,9 +53,9 @@ class TkApp {
         if (TkApp.isElectron)
             return TkAppTarget.ELECTRON;
         else if (TkApp.isCordova)
-            return TkApp.CORDOVA;
+            return TkAppTarget.CORDOVA;
         else
-            return TkApp.WEB;
+            return TkAppTarget.WEB;
     }
 
     static get isElectron() {
@@ -85,4 +85,5 @@ class TkApp {
     static get isWeb() {
         return !this.isCordova && !this.isElectron;
     }
+
 }

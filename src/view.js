@@ -1025,10 +1025,17 @@ class TkLabel extends TkView {
      * @param {TkLabelLayout} options.layout The layout of the icon.
      * @param {Boolean} options.hideEmptyIcon If the icon should be hidden if 
      * its source is empty.
+     * @param {String} options.iconName The name of the ionicon icon. 
+     * Note: requires app-views.js and Ionicons. Overrides any value in options.icon.
      */
     constructor(options = {}) {
         super(options);
         this.addViewName("tklabel");
+
+        // Add ionicon, if specified
+        if(options.iconName !== undefined) {
+            options.icon = new TkIcon({ name: options.iconName });
+        }
 
         this._icon = options.icon ?? new TkView();
         this._icon.addViewName("tklabel-icon");
@@ -1147,7 +1154,7 @@ class TkButton extends TkView {
      * @param {String} options.text The text of the button.
      * @param {String} options.icon The icon of the button.
      * @param {String} options.iconName The name of the ionicon icon. 
-     * Note: requires app.js and Ionicons. Overrides any value in options.icon.
+     * Note: requires app-views.js and Ionicons. Overrides any value in options.icon.
      * @param {TkLabelLayout} options.layout The layout of the button.
      * and text.
      */
@@ -1157,12 +1164,7 @@ class TkButton extends TkView {
 
         this.role = "button";
 
-        // Add ionicon, if specified
-        if(options.iconName !== undefined) {
-            options.icon = new TkIcon({ name: options.iconName });
-        }
-
-        this.label = new TkLabel({ parent: this, icon: options.icon });
+        this.label = new TkLabel({ parent: this, icon: options.icon, iconName: options.iconName });
         this.text = options.text ?? "";
         this.layout = options.layout ?? TkLabelLayout.DEFAULT;
     }
