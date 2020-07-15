@@ -14,7 +14,7 @@ Here are some of the things tamarack supports:
 
 ## Examples
 The [Gradient Maker App](https://github.com/ianmartinez/tamarack/blob/master/examples/apps/gradient-maker.html) provides a good starting point for using tamarack. In about 90 lines of code, it provides a UI for building a CSS gradient, with options for editing the angle and adding, editing, moving, and removing colors:     
-![Gradient Maker](https://raw.githubusercontent.com/ianmartinez/tamarack/master/screenshots/GradientMakerModes.jpg?raw=true)
+![Gradient Maker](https://raw.githubusercontent.com/ianmartinez/tamarack/master/screenshots/GradientMakerTargets.jpg?raw=true)
 
 Another good starting point for cross-platform web apps is the [Detect Target App](https://github.com/ianmartinez/tamarack/blob/master/examples/apps/detect-target.html), which shows how to implement target-specific styles and detect the current app target in JavaScript: 
 ![Target Detector](https://raw.githubusercontent.com/ianmartinez/tamarack/master/screenshots/Targets.jpg?raw=true)
