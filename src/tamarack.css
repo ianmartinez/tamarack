@@ -639,6 +639,11 @@ html[tkapp] {
     justify-content: flex-start;
 }
 
+[tk-ios-toolbar-on-bottom] [tktoolbar] {
+    border-bottom: 0px solid transparent;
+    border-top: 1px solid var(--tktoolbar-border);
+}
+
 [tktoolbar] [tkbutton] {
     border: 1px solid var(--tktoolbarbutton-border);
     background: var(--tktoolbarbutton-fill);
