@@ -16,9 +16,9 @@
 
 <body>
     <style>
-        /* CSS selectors for platform systems */
-        .platformText {
+        .platformText, .deviceText {
             padding: 0.5rem;
+            margin: 0.5rem;
             border-radius: var(--tk-border-radius);
         }
 
@@ -33,6 +33,22 @@
         [cordova] .platformText {
             background: rgba(65, 255, 75, 0.5);
         }
+
+        [desktop] .deviceText {
+            background: rgba(204, 204, 204, 0.5);
+        }
+
+        [android] .deviceText {
+            background: rgba(252, 255, 65, 0.5);
+        }
+
+        [iphone] .deviceText {
+            background: rgba(255, 195, 65, 0.5);
+        }
+
+        [ipad] .deviceText {
+            background: rgba(170, 65, 255, 0.5);
+        }
     </style>
 
     <script>
@@ -44,6 +60,13 @@
             parent: "body",
             text: `App platform: ${TkApp.platform}`,
             classes: ["platformText"]
+        });
+
+        // Print the current app device
+        let deviceText = new TkText("h1", {
+            parent: "body",
+            text: `App device: ${TkApp.device}`,
+            classes: ["deviceText"]
         });    
     </script>
 </body>
