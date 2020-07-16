@@ -1956,6 +1956,7 @@ class TkInput extends TkView {
 
     constructor(options = {}) {
         super(options, { tag: "input" });
+        this.addViewName("tkinput");
 
         if (options.type !== undefined)
             this.type = options.type;

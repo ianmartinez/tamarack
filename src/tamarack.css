@@ -500,6 +500,11 @@ html[tkapp] {
     display: none !important;
 }
 
+/* TkInput */
+[tkinput] {
+    font-size: inherit;
+}
+
 /* TkSlider */
 [tkslider] {
     cursor: pointer;
