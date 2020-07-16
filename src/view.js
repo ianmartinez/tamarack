@@ -57,9 +57,9 @@ class TkView {
      * @param {String[]} [options.classes] An array of CSS classes for the view.
      * @param {String} [options.style] The value of style attribute of the element to set.
      * @param {{String|HTMLElement|TkView}[]} [options.children] An array of children of this view.
-     * @param {Boolean?} options.fill (default: false) If the view should fill its parent.
-     * @param {Boolean?} options.visible (default: true) If the view is visible.
-     * @param {Any} options.data The data associated with this view.
+     * @param {Boolean} [options.fill=false] If the view should fill its parent.
+     * @param {Boolean} [options.visible=true] If the view is visible.
+     * @param {Any} [options.data] The data associated with this view.
      */
     constructor(options = {}, additionalOptions = null) {
         if (additionalOptions !== null)
@@ -1033,7 +1033,7 @@ class TkLabel extends TkView {
         this.addViewName("tklabel");
 
         // Add ionicon, if specified
-        if(options.iconName !== undefined) {
+        if (options.iconName !== undefined) {
             options.icon = new TkIcon({ name: options.iconName });
         }
 
