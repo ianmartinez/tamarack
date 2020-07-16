@@ -4,6 +4,9 @@
  * root <html> node at startup.
  */
 
+let TkAppContentView = null;
+let TkAppToolbarView = null;
+let TkAppRootView = null;
 
 /**
  * An enum representing the platform
@@ -38,12 +41,23 @@ class TkApp {
      * Also adds [tkapp] attribute.
      * 
      * @param {Any} options The options object.
-     * @param {Function?} options.whenLoaded The callback to run when the init
+     * @param {Function} [options.whenLoaded] The callback to run when the init
      * is complete.
-     * @param {Boolean?} options.supportDarkMode (defaults to true) If dark mode is
+     * @param {Boolean} [options.supportDarkMode=true] If dark mode is
      * automatically supported.
+     * @param {Boolean} [options.iOSToolbarOnBottom=true] If TkToolbars are
+     * automatically moved to the bottom on iOS.
+     * @param {Boolean} [options.createAppViews=true] If views are automatically created
+     * to layout the app.
      */
     static init(options = {}) {
+        // Create layout elements
+        if (options.createAppViews !== false) {
+            TkAppRootView = new TkView({ parent: "body", id: "tkapp-root-view" });
+            TkAppToolbarView = new TkView({ parent: TkAppRootView, id: "tkapp-toolbar-view" });
+            TkAppContentView = new TkView({ parent: TkAppRootView, id: "tkapp-content-view" });
+        }
+
         TkDocument.whenLoaded(() => {
             let htmlNode = document.querySelector("html");
             htmlNode.setAttribute("tkapp", "true");
@@ -54,6 +68,9 @@ class TkApp {
 
             if (options.supportDarkMode !== false)
                 htmlNode.setAttribute("tk-support-dark-mode", "true");
+
+            if (options.iOSToolbarOnBottom !== false)
+                htmlNode.setAttribute("tk-ios-toolbar-on-bottom", "true");
 
             if (options.whenLoaded !== undefined)
                 options.whenLoaded();
@@ -152,7 +169,27 @@ class TkApp {
      * @type {Boolean}
      */
     static get isIPad() {
-        return navigator.platform.includes("iPad") || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        return true;
+        //return navigator.platform.includes("iPad") || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    }
+
+    /**
+     * If the app is running on an iOS/iPadOS device.
+     * @type {Boolean}
+     */
+    static get isIOS() {
+        return TkApp.isIPad || TkApp.isIPhone;
+    }
+
+
+    /**
+     * If iOSToolbarOnBottom was set as true when TkApp.init() was 
+     * called (which is thedefault functionality) and the current 
+     * device is running on iOS/iPadOS.
+     * @type {Boolean}
+     */
+    static get wantsToolbarOnBottom() {
+        return TkApp.isIOS && document.querySelector("html").hasAttribute("tk-ios-toolbar-on-bottom");
     }
 
 }

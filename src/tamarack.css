@@ -139,6 +139,16 @@ html {
     font-size: 16px;
 }
 
+
+[tkapp] #tkapp-root-view,
+[tkapp] #tkapp-content-view {
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Display */
 [tk-hide] {
     display: none !important;

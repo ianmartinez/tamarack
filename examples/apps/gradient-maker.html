@@ -77,19 +77,19 @@
         let moveToEndButton = new TkButton({ text: "Move to end", iconName: "play-skip-forward" });
 
         // Add buttons to a toolbar
-        let toolbar = new TkToolbar({ parent: "body" });
+        let toolbar = new TkToolbar({ parent: TkAppToolbarView });
         toolbar.add(addButton, removeButton, moveToStartButton, moveBackButton, moveForwardButton, moveToEndButton);
 
         // Field to change the gradient's angle
         let angleField = new TkField({
-            parent: "body",
+            parent: TkAppContentView,
             title: "Angle:",
             content: new TkStepper({ min: "0", max: "360", value: "180" })
         });
 
         // Color list to edit colors
         let colorEditStack = new TkStack({
-            parent: "body",
+            parent: TkAppContentView,
             direction: TkStackDirection.HORIZONTAL,
             classes: ["color-edit-stack"]
         });
@@ -97,8 +97,8 @@
         let colorChooser = new TkColorChooser({ parent: colorEditStack, visible: false });
 
         // Results
-        let cssField = new TkField({ parent: "body", title: "CSS:", content: new TkText("span") });
-        let gradientPreviewContainer = new TkView({ parent: "body", classes: ["gradient-preview-container", "tktransparent-area"] });
+        let cssField = new TkField({ parent: TkAppContentView, title: "CSS:", content: new TkText("span") });
+        let gradientPreviewContainer = new TkView({ parent: TkAppContentView, classes: ["gradient-preview-container", "tktransparent-area"] });
         let gradientPreview = new TkView({ parent: gradientPreviewContainer, classes: ["gradient-preview"] });
 
         // Update the preview and the CSS code

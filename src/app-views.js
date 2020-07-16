@@ -6,7 +6,7 @@ class TkToolbar extends TkStack {
         this.addViewName("tktoolbar");
         this.buttonLayout = options.layout ?? TkLabelLayout.ICON_TOP;
     }
-    
+
     /**
      * The layout of the TkButtons on the toolbar.
      * @type {TkLabelLayout}
@@ -36,7 +36,7 @@ class TkIcon extends TkView {
      */
     constructor(options = {}) {
         // Add name to attributes option
-        if(options.attributes === undefined)
+        if (options.attributes === undefined)
             options.attributes = {};
         options.attributes.name = options.name;
 

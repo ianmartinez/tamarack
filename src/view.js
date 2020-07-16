@@ -55,6 +55,7 @@ class TkView {
      * @param {Any} [options.events] The events to set for the element, in the format of 
      * {"event1": callback, "event2": callback}.
      * @param {String[]} [options.classes] An array of CSS classes for the view.
+     * @param {String} [options.id] The id of the view.
      * @param {String} [options.style] The value of style attribute of the element to set.
      * @param {{String|HTMLElement|TkView}[]} [options.children] An array of children of this view.
      * @param {Boolean} [options.fill=false] If the view should fill its parent.
@@ -100,6 +101,10 @@ class TkView {
         // Add the CSS classes, if specified 
         if (options.classes !== undefined)
             this.addClass(...options.classes);
+
+        // The view's id, if specified
+        if (options.id !== undefined)
+            this.id = options.id;
 
         // Add any attributes, if specified
         if (options.attributes !== undefined) {
