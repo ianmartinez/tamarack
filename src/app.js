@@ -45,12 +45,12 @@ class TkApp {
      */
     static init(options = {}) {
         TkDocument.whenLoaded(() => {
+            let htmlNode = document.querySelector("html");
+            htmlNode.setAttribute("tkapp", "true");
             let currentPlatform = TkApp.platform;
             let currentDevice = TkApp.device;
-            let htmlNode = document.querySelector("html");
             htmlNode.setAttribute(currentPlatform, "true");
             htmlNode.setAttribute(currentDevice, "true");
-            htmlNode.setAttribute("tkapp", "true");
 
             if (options.supportDarkMode !== false)
                 htmlNode.setAttribute("tk-support-dark-mode", "true");
@@ -152,7 +152,7 @@ class TkApp {
      * @type {Boolean}
      */
     static get isIPad() {
-        return navigator.platform.includes("iPad");
+        return navigator.platform.includes("iPad") || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     }
 
 }
