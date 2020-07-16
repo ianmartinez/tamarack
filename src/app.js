@@ -10,10 +10,17 @@
  * the app is running in.
  * @enum {String}
  */
-const TkAppPlatform = {
+const TkPlatform = {
     WEB: "web",
     ELECTRON: "electron",
     CORDOVA: "cordova"
+};
+
+const TkDevice = {
+    DESKTOP: "desktop",
+    ANDROID: "android",
+    IPHONE: "iphone",
+    IPAD: "ipad"
 };
 
 /**
@@ -39,8 +46,10 @@ class TkApp {
     static init(options = {}) {
         TkDocument.whenLoaded(() => {
             let currentPlatform = TkApp.platform;
+            let currentDevice = TkApp.device;
             let htmlNode = document.querySelector("html");
             htmlNode.setAttribute(currentPlatform, "true");
+            htmlNode.setAttribute(currentDevice, "true");
             htmlNode.setAttribute("tkapp", "true");
 
             if (options.supportDarkMode !== false)
@@ -53,15 +62,15 @@ class TkApp {
 
     /**
      * Get the platform that the app is running on.
-     * @type {TkAppPlatform}
+     * @type {TkPlatform}
      */
     static get platform() {
         if (TkApp.isElectron)
-            return TkAppPlatform.ELECTRON;
+            return TkPlatform.ELECTRON;
         else if (TkApp.isCordova)
-            return TkAppPlatform.CORDOVA;
+            return TkPlatform.CORDOVA;
         else
-            return TkAppPlatform.WEB;
+            return TkPlatform.WEB;
     }
 
     /**
@@ -100,7 +109,50 @@ class TkApp {
      * @type {Boolean}
      */
     static get isWeb() {
-        return !this.isCordova && !this.isElectron;
+        return !TkApp.isCordova && !TkApp.isElectron;
+    }
+
+    static get device() {
+        if (TkApp.isDesktop)
+            return TkDevice.DESKTOP;
+        else if (TkApp.isAndroid)
+            return TkDevice.ANDROID;
+        else if (TkApp.isIPhone)
+            return TkDevice.IPHONE;
+        else if (TkApp.isIPad)
+            return TkDevice.IPAD;
+    }
+
+    static get isDesktop() {
+        return !TkApp.isAndroid && !TkApp.isIPhone && !TkApp.isIPad;
+    }
+
+    /**
+     * If the app is running on Android.
+     * @type {Boolean}
+     */
+    static get isAndroid() {
+        return navigator.userAgent.match(/Android/i) !== null;
+    }
+
+    /**
+     * If the app is running on an iPhone.
+     * @type {Boolean}
+     */
+    static get isIPhone() {
+        for (let device of ["iPhone", "iPod"])
+            if (navigator.platform.includes(device))
+                return true;
+
+        return false;
+    }
+
+    /**
+     * If the app is running on an iPad.
+     * @type {Boolean}
+     */
+    static get isIPad() {
+        return navigator.platform.includes("iPad");
     }
 
 }
