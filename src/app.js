@@ -69,7 +69,7 @@ class TkApp {
             if (options.supportDarkMode !== false)
                 htmlNode.setAttribute("tk-support-dark-mode", "true");
 
-            if (options.iOSToolbarOnBottom !== false)
+            if (options.iOSToolbarOnBottom !== false && TkApp.isIOS)
                 htmlNode.setAttribute("tk-ios-toolbar-on-bottom", "true");
 
             if (options.whenLoaded !== undefined)
@@ -169,8 +169,7 @@ class TkApp {
      * @type {Boolean}
      */
     static get isIPad() {
-        return true;
-        //return navigator.platform.includes("iPad") || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        return navigator.platform.includes("iPad") || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     }
 
     /**

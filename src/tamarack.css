@@ -62,8 +62,7 @@ html {
     /* Misc */
     --tk-transparent-border: rgba(0, 0, 0, 0.5);
     --tk-even-child-fill: rgba(0, 0, 0, 0.07);
-    --body-padding: 0.5rem;
-    --toolbar-margin: -0.5rem;
+    --content-padding: 0.5rem;
 
     /* Images */
     --tkimg-transparent-fill: url("transparency.png");
@@ -129,16 +128,18 @@ html {
 [tkapp] body {
     background: var(--tkapp-background);
     color: var(--tkapp-text);
-    min-height: calc(100vh - 1rem);
-    min-width: calc(100vw - 1rem);
+    min-height: 100vh;
+    min-width: 100vw;
     margin: 0;
-    padding: var(--body-padding);
     display: flex;
     flex-direction: column;
     font-family: sans-serif;
-    font-size: 16px;
+    font-size: 1rem;
 }
 
+[iphone] body, [ipad] body {
+    font-size: 16px;
+}
 
 [tkapp] #tkapp-root-view,
 [tkapp] #tkapp-content-view {
@@ -147,6 +148,23 @@ html {
     padding: 0;
     display: flex;
     flex-direction: column;
+}
+
+[tkapp] #tkapp-content-view {
+    padding: var(--content-padding);
+}
+
+[tk-ios-toolbar-on-bottom] #tkapp-root-view {
+    flex-direction: column-reverse;
+}
+
+[tkapp] #tkapp-toolbar-view {
+    margin-bottom: 0.5rem;
+}
+
+[tkapp][tk-ios-toolbar-on-bottom] #tkapp-toolbar-view {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
 }
 
 /* Display */
@@ -601,16 +619,9 @@ html {
 [tktoolbar] {    
     background: linear-gradient(180deg, var(--tktoolbar-fill-1), var(--tktoolbar-fill-2));
     border-bottom: 1px solid var(--tktoolbar-border);
-    margin-bottom: 0.5rem;
     flex-wrap: nowrap;
     overflow-x: auto;
     justify-content: flex-start;
-}
-
-[tkapp] [tktoolbar] {
-    margin-left: var(--toolbar-margin);
-    margin-right: var(--toolbar-margin);
-    margin-top: var(--toolbar-margin);
 }
 
 [tktoolbar] [tkbutton] {
