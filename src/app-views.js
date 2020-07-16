@@ -1,5 +1,3 @@
-
-
 class TkToolbar extends TkStack {
 
     constructor(options = {}) {
@@ -34,7 +32,7 @@ class TkIcon extends TkView {
      * Create a new <ion-icon> element backed by a TkView.
      * 
      * @param {Any} options Same as TkView, minus the tag option.
-     * @param {String} name The name of the Ionicon.
+     * @param {String} options.name The name of the Ionicon.
      */
     constructor(options = {}) {
         // Add name to attributes option
@@ -62,5 +60,5 @@ class TkMenu extends TkView {
 }
 
 class TkSidebar extends TkView {
-    
+
 }
