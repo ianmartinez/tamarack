@@ -16,21 +16,21 @@
 
 <body>
     <style>
-        /* CSS selectors for target systems */
-        .targetText {
+        /* CSS selectors for platform systems */
+        .platformText {
             padding: 0.5rem;
             border-radius: var(--tk-border-radius);
         }
 
-        [web] .targetText {
+        [web] .platformText {
             background: rgba(255, 65, 65, 0.5);
         }
 
-        [electron] .targetText {
+        [electron] .platformText {
             background: rgba(65, 201, 255, 0.5);
         }
 
-        [cordova] .targetText {
+        [cordova] .platformText {
             background: rgba(65, 255, 75, 0.5);
         }
     </style>
@@ -39,11 +39,11 @@
         // Add needed attributes at startup
         TkApp.init();
 
-        // Print the current app target
-        let targetText = new TkText("h1", {
+        // Print the current app platform
+        let platformText = new TkText("h1", {
             parent: "body",
-            text: `App target: ${TkApp.target}`,
-            classes: ["targetText"]
+            text: `App platform: ${TkApp.platform}`,
+            classes: ["platformText"]
         });    
     </script>
 </body>

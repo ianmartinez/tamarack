@@ -1,30 +1,32 @@
 /**
- * Handles functionality needed for detecting the system
+ * Handles functionality needed for detecting the platform
  * the app is running on and adding attributes to the
  * root <html> node at startup.
  */
 
 
 /**
- * An enum representing the system
+ * An enum representing the platform
  * the app is running in.
  * @enum {String}
  */
-const TkAppTarget = {
+const TkAppPlatform = {
     WEB: "web",
     ELECTRON: "electron",
     CORDOVA: "cordova"
 };
 
+/**
+ * Static functions related to an App's environment.
+ */
 class TkApp {
 
     /**
-     * Set up attributes on root <html> node to 
-     * allow for CSS selectors to be environment-
-     * specific.
+     * Set up attributes on root <html> node to allow for CSS 
+     * selectors to be environment-specific.
      * 
      * Attributes are the same as the string value
-     * returned by TkEnviroment.system.
+     * returned by TkApp.platform.
      * 
      * Also adds [tkapp] attribute.
      * 
@@ -36,9 +38,9 @@ class TkApp {
      */
     static init(options = {}) {
         TkDocument.whenLoaded(() => {
-            let currentTarget = TkApp.target;
+            let currentPlatform = TkApp.platform;
             let htmlNode = document.querySelector("html");
-            htmlNode.setAttribute(currentTarget, "true");
+            htmlNode.setAttribute(currentPlatform, "true");
             htmlNode.setAttribute("tkapp", "true");
 
             if (options.supportDarkMode !== false)
@@ -49,15 +51,23 @@ class TkApp {
         });
     }
 
-    static get target() {
+    /**
+     * Get the platform that the app is running on.
+     * @type {TkAppPlatform}
+     */
+    static get platform() {
         if (TkApp.isElectron)
-            return TkAppTarget.ELECTRON;
+            return TkAppPlatform.ELECTRON;
         else if (TkApp.isCordova)
-            return TkAppTarget.CORDOVA;
+            return TkAppPlatform.CORDOVA;
         else
-            return TkAppTarget.WEB;
+            return TkAppPlatform.WEB;
     }
 
+    /**
+     * If the current app is running on Electron.
+     * @type {Boolean}
+     */
     static get isElectron() {
         // Renderer process
         if (typeof window !== "undefined" && typeof window.process === "object" && window.process.type === "renderer") {
@@ -69,7 +79,7 @@ class TkApp {
             return true;
         }
 
-        // Detect the user agent when the `nodeIntegration` option is set to true
+        // Detect the user agent when the "nodeIntegration" option is set to true
         if (typeof navigator === "object" && typeof navigator.userAgent === "string" && navigator.userAgent.indexOf("Electron") >= 0) {
             return true;
         }
@@ -77,11 +87,18 @@ class TkApp {
         return false;
     }
 
-    // TODO: Detect Cordova
+    /**
+     * If the current app is running on Apache Cordova.
+     * @type {Boolean}
+     */
     static get isCordova() {
         return !!window.cordova;
     }
 
+    /**
+     * If the current app is running in a web browser.
+     * @type {Boolean}
+     */
     static get isWeb() {
         return !this.isCordova && !this.isElectron;
     }
