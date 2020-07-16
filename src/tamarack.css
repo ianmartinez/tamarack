@@ -125,11 +125,16 @@ html {
     }
 }
 
+html[tkapp] {
+    width: 100%;
+    height: 100%;
+}
+
 [tkapp] body {
+    width: 100%;
+    height: 100%;
     background: var(--tkapp-background);
     color: var(--tkapp-text);
-    min-height: 100vh;
-    min-width: 100vw;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -139,6 +144,11 @@ html {
 
 [iphone] body, [ipad] body {
     font-size: 16px;
+}
+
+[tkapp] #tkapp-root-view {
+    height: 100%;
+    width: 100%;
 }
 
 [tkapp] #tkapp-root-view,
