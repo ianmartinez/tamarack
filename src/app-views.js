@@ -1,7 +1,7 @@
 class TkToolbar extends TkStack {
 
     constructor(options = {}) {
-        options.direction = options.direction ?? TkStackDirection.FLOW;
+        options.direction = options.direction ?? TkStackDirection.HORIZONTAL;
         super(options);
         this.addViewName("tktoolbar");
         this.buttonLayout = options.layout ?? TkLabelLayout.ICON_TOP;
