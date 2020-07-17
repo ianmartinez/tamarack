@@ -2181,6 +2181,16 @@ class TkModal extends TkView {
 
         this.buttonPanel = new TkView({ parent: this.window });
         this.buttonPanel.addViewName("tkmodal-button-panel");
+
+        this.on("click", (modal, event) => {
+            // If the event was actually triggered
+            // by the container and not a child view
+            if(event.target === event.currentTarget) {
+                modal.hide();
+            }
+
+            event.stopPropagation();
+        });
     }
     
     show() {
