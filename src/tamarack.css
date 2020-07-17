@@ -743,7 +743,7 @@ html[tkapp] {
 [tkmodal-container] {    
     z-index: 1050;
     position: fixed;
-    background: rgb(0 0 0 / 0.4);
+    background: rgb(0, 0, 0, 0.4);
     top: 0;
     bottom: 0;
     left: 0;
@@ -758,7 +758,7 @@ html[tkapp] {
     color: var(--tkview-text);
     border: 1px solid var(--tkview-border);
     border-radius: var(--tk-border-radius);
-    box-shadow: 0 0 4px 1px rgb(0 0 0 / 0.5);
+    box-shadow: 0 0 4px 1px rgb(0, 0, 0, 0.5);
     max-width: calc(100% - 1rem);
     max-height: calc(100% - 1rem);
 }
