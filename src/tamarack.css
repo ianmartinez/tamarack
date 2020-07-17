@@ -126,6 +126,10 @@ html {
     }
 }
 
+:root {
+    font-size: 14px;
+}
+
 html[tkapp] {
     width: 100%;
     height: 100%;
@@ -140,7 +144,6 @@ html[tkapp] {
     display: flex;
     flex-direction: column;
     font-family: sans-serif;
-    font-size: 1rem;
 }
 
 [iphone] body, [ipad] body {
@@ -197,6 +200,7 @@ html[tkapp] {
 /* TkView */
 [tkview] {
     box-sizing: border-box;
+    font-size: inherit;
 }
 
 /* TkText */
@@ -350,7 +354,7 @@ html[tkapp] {
     border-top-right-radius: 0.25rem;
 }
 
-[tknotebook] > [tknotebook-tabarea] {
+[tknotebook-tabarea] {
     width: 100%;
     padding: 0.25rem;
     padding-bottom: 0;
@@ -363,12 +367,12 @@ html[tkapp] {
     border-top-right-radius: 0.25rem;
 }
 
-[tknotebook] > [tknotebook-tabarea]::-webkit-scrollbar {
+[tknotebook-tabarea]::-webkit-scrollbar {
     width: 0;
     height: 0;
 }
 
-[tknotebook] > [tknotebook-tabarea] > [tknotebook-tab] {    
+[tknotebook-tab] {    
     background: var(--tkview-fill-inactive);
     color: var(--tkview-text-inactive);
     border: 1px solid var(--tkview-border-inactive);
@@ -379,16 +383,17 @@ html[tkapp] {
     padding: 0.2rem 0.5rem;
     white-space: nowrap;
     outline: none;
+    font-weight: normal;
 }
 
-[tknotebook] > [tknotebook-tabarea] > [tknotebook-tab].active {
+[tknotebook-tab].active {
     border-color: var(--tkview-border);
     background: var(--tkview-fill);
     color: var(--tkview-text);
     border-bottom: 1px solid transparent;
 }
 
-[tknotebook] > [tknotebook-contentarea] {
+[tknotebook-contentarea] {
     width: 100%;
     height: 100%;
     flex-grow: 1;
@@ -399,14 +404,24 @@ html[tkapp] {
     padding: 0.75rem;
 }
 
-[tknotebook] > [tknotebook-contentarea] > [tknotebook-content] {
+[tknotebook-content] {
     height: 100%;
     width: 100%;
     display: none;
 }
 
-[tknotebook] > [tknotebook-contentarea] > [tknotebook-content].active {
+[tknotebook-content].active {
     display: block;
+}
+
+@media(max-width: 767px) {
+    [tknotebook-tab] {
+        font-size: 1rem;
+    }
+
+    [tknotebook-contentarea] {
+        padding: 0.5rem;
+    }
 }
 
 [tkinfinitescroll] {
@@ -518,7 +533,7 @@ html[tkapp] {
     border: 1px solid var(--tkview-border);
     background: var(--tkview-fill);
     color: var(--tkview-text);
-    padding: 0.15rem;
+    padding: 0.25rem;
 }
 
 /* TkColorChooser */
@@ -531,7 +546,7 @@ html[tkapp] {
 }
 
 [tkcolorchooser] input[type=text] {
-    height: 1.75rem;
+    min-height: 1.75rem;
     border-radius: var(--tk-border-radius);
     border: 1px solid var(--tkview-border);
     background: var(--tkview-fill);
@@ -541,7 +556,7 @@ html[tkapp] {
 }
 
 [tkcolorchooser] [tknotebook] {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 [tkcolorchooser] .colorSystemWidth {
@@ -556,12 +571,6 @@ html[tkapp] {
     border: 0px solid transparent;
 }
 
-[tkcolorchooser] .colorText {
-    padding: 0.25rem;
-    border-radius: var(--tk-border-radius);
-    font-weight: bold;
-}
-
 [tkcolorchooser] [tkfield]:nth-child(even) {
     background: var(--tk-even-child-fill);
 }
@@ -569,7 +578,7 @@ html[tkapp] {
 [tkcolorslider-container] {
     background-image: var(--tkimg-transparent-fill);
     border-radius: var(--tk-border-radius);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
     height: 28px;
 }
 
@@ -619,6 +628,18 @@ html[tkapp] {
     background-image: var(--tkimg-transparent-fill);
     border-radius: var(--tk-border-radius);
     flex-grow: 0;
+}
+
+@media(max-width: 767px) {
+    [tkcolorslider]::-webkit-slider-thumb {
+        width: 1.25rem;
+    }
+
+    [tkcolorchooser] .colorSystemWidth {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+    }
 }
 
 [tkcolorpreview-colorview] {
