@@ -76,6 +76,12 @@
         // Call TkApp to add attributes to DOM
         TkApp.init();
 
+        // Modals
+        let aboutModal = new TkModal();
+        let aboutStack = new TkStack({ parent: aboutModal.content, direction: TkStackDirection.VERTICAL });
+        aboutStack.add(new TkText("h2", { text: "Gradient Maker 1.0" }));
+        aboutStack.add(new TkText("h5", { text: `Using tamarack ${Tamarack.version}` }));
+
         // Add buttons to edit colors
         let addButton = new TkButton({ text: "Add", iconName: "add" });
         let removeButton = new TkButton({ text: "Remove", iconName: "remove" });
@@ -83,10 +89,11 @@
         let moveBackButton = new TkButton({ text: "Move backward", iconName: "play-back" });
         let moveForwardButton = new TkButton({ text: "Move forward", iconName: "play-forward" });
         let moveToEndButton = new TkButton({ text: "Move to end", iconName: "play-skip-forward" });
+        let aboutButton = new TkButton({ text: "About", iconName: "help-outline" });
 
         // Add buttons to a toolbar
         let toolbar = new TkToolbar({ parent: TkAppToolbarView });
-        toolbar.add(addButton, removeButton, moveToStartButton, moveBackButton, moveForwardButton, moveToEndButton);
+        toolbar.add(addButton, removeButton, moveToStartButton, moveBackButton, moveForwardButton, moveToEndButton, aboutButton);
 
         // Field to change the gradient's angle
         let angleField = new TkField({
@@ -135,6 +142,7 @@
         moveBackButton.on("click", () => colorList.selectedItem?.moveUp());
         moveForwardButton.on("click", () => colorList.selectedItem?.moveDown());
         moveToEndButton.on("click", () => colorList.selectedItem?.moveToBottom());
+        aboutButton.on("click", () => aboutModal.show());
 
         // Update the selected item's color when the color is changed
         colorChooser.on("colorchanged", () => {

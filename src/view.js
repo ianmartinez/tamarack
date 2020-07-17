@@ -2154,6 +2154,57 @@ class TkProgress extends TkView {
 }
 
 /**
+ * A view that displays above other content on 
+ * the page.
+ */
+class TkModal extends TkView {
+
+    constructor(options = {}) {
+        // Redirect children into the content view
+        let children = options.children ?? [];
+        options.children = undefined;
+        options.visible = false;
+        // The parent is "body", unless specified
+        options.parent = options.parent ?? "body";
+        super(options);
+        this.addViewName("tkmodal-container");
+
+        this.window = new TkView({ parent: this });
+        this.window.addViewName("tkmodal-window");
+
+        this.title = new TkView({ parent: this.window });
+        this.title.addViewName("tkmodal-title");
+
+        this.content = new TkView({ parent: this.window });
+        this.content.addViewName("tkmodal-content");
+        this.content.add(...children);
+
+        this.buttonPanel = new TkView({ parent: this.window });
+        this.buttonPanel.addViewName("tkmodal-button-panel");
+    }
+    
+    show() {
+        document.body.classList.add("tkmodal-open");
+        this.visible = true;
+    }
+
+    hide() {
+        document.body.classList.remove("tkmodal-open");
+        this.visible = false;        
+    }
+
+}
+
+/**
+ * TODO: A generalization of a TkModal, offering common
+ * buttons to choose from.
+ * 
+ */
+class TkChoiceModal extends TkModal {
+
+}
+
+/**
  * TODO
  * 
  * Note: First version of tamarack had a mostly complete
