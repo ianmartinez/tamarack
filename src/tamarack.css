@@ -763,15 +763,19 @@ html[tkapp] {
     max-height: calc(100% - 1rem);
 }
 
-[tkmodal-title] {
-
+[tkmodal-titlebar] {
+    border-bottom: 1px solid rgb(195 195 195);
+    background: #e4e4e4;
+    padding: 0.25rem 0.5rem;
+    font-weight: bold;
+    font-size: 1.25rem;
 }
 
 [tkmodal-content] {
     padding: 0.5rem;
 }
 
-[tkmodal-button-panel] {
+[tkmodal-footer] {
 
 }
 

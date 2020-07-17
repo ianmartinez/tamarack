@@ -2172,15 +2172,15 @@ class TkModal extends TkView {
         this.window = new TkView({ parent: this });
         this.window.addViewName("tkmodal-window");
 
-        this.title = new TkView({ parent: this.window });
-        this.title.addViewName("tkmodal-title");
+        this.titlebar = new TkView({ parent: this.window });
+        this.titlebar.addViewName("tkmodal-titlebar");
 
         this.content = new TkView({ parent: this.window });
         this.content.addViewName("tkmodal-content");
         this.content.add(...children);
 
-        this.buttonPanel = new TkView({ parent: this.window });
-        this.buttonPanel.addViewName("tkmodal-button-panel");
+        this.footer = new TkView({ parent: this.window });
+        this.footer.addViewName("tkmodal-footer");
 
         this.on("click", (modal, event) => {
             // If the event was actually triggered
