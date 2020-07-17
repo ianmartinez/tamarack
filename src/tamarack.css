@@ -314,6 +314,7 @@ html[tkapp] {
 @media(max-width: 600px) {
     [tktoolbar] [tkbutton] [tklabel-icon] {
         display: block;
+        font-size: 1.5rem;
     }
 
     [tktoolbar] [tkbutton] [tklabel] > [tktext] {
