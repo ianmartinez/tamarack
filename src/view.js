@@ -2174,8 +2174,12 @@ class TkModal extends TkView {
 
         this.titlebar = new TkView({ parent: this.window });
         this.titlebar.addViewName("tkmodal-titlebar");
+        if (options.hideTitlebar === true)
+            this.titlebar.visible = false;
 
         this.content = new TkView({ parent: this.window });
+        if (options.hideContent === true)
+            this.content.visible = false;
         this.content.addViewName("tkmodal-content");
         if (options.message !== undefined)
             this.content.add(new TkText("p", { text: options.message }));
@@ -2183,7 +2187,10 @@ class TkModal extends TkView {
 
         this.footer = new TkView({ parent: this.window });
         this.footer.addViewName("tkmodal-footer");
+        if (options.hideFooter === true)
+            this.footer.visible = false;
 
+        // Close window when clicked outside
         this.on("click", (modal, event) => {
             // If the event was actually triggered
             // by the container and not a child view
