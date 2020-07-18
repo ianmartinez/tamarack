@@ -736,11 +736,11 @@ html[tkapp] {
 }
 
 /* TkModal */
-.tkmodal-open {
+.tkoverlay-open {
     overflow: hidden;
 }
 
-[tkmodal-container] {    
+[tkoverlay] {    
     z-index: 1050;
     position: fixed;
     background: rgb(0, 0, 0, 0.75);
@@ -755,7 +755,7 @@ html[tkapp] {
     align-items: center;
 }
 
-[tkmodal-window] {
+[tkoverlay-window] {
     background: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
     border: 1px solid rgb(255, 255, 255);
@@ -765,6 +765,11 @@ html[tkapp] {
     max-height: calc(100% - 1rem);
 }
 
+[tkoverlay-content] {
+    padding: 0.5rem;
+}
+
+/* TkModal */
 [tkmodal-titlebar] {    
     border-bottom: 1px solid rgb(195 195 195);
     background: #e4e4e4;
@@ -778,10 +783,6 @@ html[tkapp] {
 
 [tkmodal-titlebar] > :first-child {
     flex-grow: 1;
-}
-
-[tkmodal-content] {
-    padding: 0.5rem;
 }
 
 [tkmodal-footer] {

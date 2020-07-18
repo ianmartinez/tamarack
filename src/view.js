@@ -2163,11 +2163,7 @@ class TkTextEdit extends TkView {
 
 }
 
-/**
- * A view that displays above other content on 
- * the page.
- */
-class TkModal extends TkView {
+class TkOverlay extends TkView {
 
     constructor(options = {}) {
         // Redirect children into the content view
@@ -2177,64 +2173,92 @@ class TkModal extends TkView {
         // The parent is "body", unless specified
         options.parent = options.parent ?? "body";
         super(options);
-        this.addViewName("tkmodal-container");
+        this.addViewName("tkoverlay");
 
         this.window = new TkView({ parent: this });
-        this.window.addViewName("tkmodal-window");
+        this.window.addViewName("tkoverlay-window");
+
+        // Content
+        this.content = new TkView({ parent: this.window });
+        if (options.hideContent === true)
+            this.content.visible = false;
+        this.content.addViewName("tkoverlay-content");
+        if (options.message !== undefined)
+            this.content.add(new TkText("p", { text: options.message }));
+        this.content.add(...children);
+
+        // Store the target when the mouse event started
+        // to prevent firing when text selection
+        // ends up in the overlay background
+        this.on("mousedown", (modal, event) => {
+            modal._lastMouseTarget = event.target;
+        });
+
+        // Close window when clicked outside
+        this.on("click", (modal, event) => { 
+            // If the event was actually triggered
+            // by the container and not a child view
+            if (modal._lastMouseTarget === modal.e) {
+                modal.hide();
+            }
+
+            event.stopPropagation();
+            modal._lastMouseTarget = null;
+        });
+    }
+
+    show() {
+        this.parent.addClass("tkoverlay-open");
+        this.visible = true;
+    }
+
+    hide() {
+        this.parent.removeClass("tkoverlay-open");
+        this.visible = false;
+    }
+
+}
+
+/**
+ * A view that displays above other content on 
+ * the page. Provides common functionality, such as 
+ * a titlebar and a footer.
+ */
+class TkModal extends TkOverlay {
+
+    constructor(options = {}) {
+        super(options);
+        this.addViewName("tkmodal");
 
         // Titlebar
         this.titlebar = new TkView({ parent: this.window });
+        this.titlebar.moveToTop();
         this.titlebar.addViewName("tkmodal-titlebar");
-        if (options.hideTitlebar === true)
-            this.titlebar.visible = false;
+        let hasTitle = false;
         if (options.titleView !== undefined) {
             this.title = options.titleView;
             this.titlebar.add(this.title);
+            hasTitle = true;
         } else if (options.title !== undefined) {
             this.title = new TkText("span", { text: options.title });
             this.titlebar.add(this.title);
+            hasTitle = true;
         }
+
+        if (options.hideTitlebar === true || (options.hideTitlebar === undefined && !hasTitle)) {
+            this.titlebar.visible = false;
+        } 
         if (options.closeButton === true) {
             this.closeButton = new TkButton({ parent: this.titlebar, text: "X" });
             let modal = this;
             this.closeButton.on("click", () => modal.hide());
         }
 
-        // Content
-        this.content = new TkView({ parent: this.window });
-        if (options.hideContent === true)
-            this.content.visible = false;
-        this.content.addViewName("tkmodal-content");
-        if (options.message !== undefined)
-            this.content.add(new TkText("p", { text: options.message }));
-        this.content.add(...children);
-
         // Footer
         this.footer = new TkView({ parent: this.window });
         this.footer.addViewName("tkmodal-footer");
         if (options.hideFooter === true)
             this.footer.visible = false;
-
-        // Close window when clicked outside
-        this.on("click", (modal, event) => {
-            // If the event was actually triggered
-            // by the container and not a child view
-            if (event.target === event.currentTarget) {
-                modal.hide();
-            }
-
-            event.stopPropagation();
-        });
-    }
-
-    show() {
-        this.parent.addClass("tkmodal-open");
-        this.visible = true;
-    }
-
-    hide() {
-        this.parent.removeClass("tkmodal-open");
-        this.visible = false;
     }
 
 }
