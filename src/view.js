@@ -2182,11 +2182,13 @@ class TkModal extends TkView {
         this.window = new TkView({ parent: this });
         this.window.addViewName("tkmodal-window");
 
+        // Titlebar
         this.titlebar = new TkView({ parent: this.window });
         this.titlebar.addViewName("tkmodal-titlebar");
         if (options.hideTitlebar === true)
             this.titlebar.visible = false;
 
+        // Content
         this.content = new TkView({ parent: this.window });
         if (options.hideContent === true)
             this.content.visible = false;
@@ -2195,6 +2197,7 @@ class TkModal extends TkView {
             this.content.add(new TkText("p", { text: options.message }));
         this.content.add(...children);
 
+        // Footer
         this.footer = new TkView({ parent: this.window });
         this.footer.addViewName("tkmodal-footer");
         if (options.hideFooter === true)
@@ -2213,12 +2216,12 @@ class TkModal extends TkView {
     }
 
     show() {
-        document.body.classList.add("tkmodal-open");
+        this.parent.addClass("tkmodal-open");
         this.visible = true;
     }
 
     hide() {
-        document.body.classList.remove("tkmodal-open");
+        this.parent.removeClass("tkmodal-open");
         this.visible = false;
     }
 
