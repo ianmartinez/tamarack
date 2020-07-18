@@ -2154,6 +2154,16 @@ class TkProgress extends TkView {
 }
 
 /**
+ * TODO
+ * 
+ * Note: First version of tamarack had a mostly complete
+ * version of this.
+ */
+class TkTextEdit extends TkView {
+
+}
+
+/**
  * A view that displays above other content on 
  * the page.
  */
@@ -2232,16 +2242,6 @@ class TkLightbox extends TkModal {
 }
 
 /**
- * TODO
- * 
- * Note: First version of tamarack had a mostly complete
- * version of this.
- */
-class TkTextEdit extends TkView {
-
-}
-
-/**
  * Create a TkView from an existing node in the DOM with the attribute
  * [template={some-template-name}]. Fields representing views are automatically
  * generated for child elements with the attribute [view-name={someViewName}] and
@@ -2254,6 +2254,8 @@ class TkTemplate extends TkView {
      * 
      * @param {String} name The name in the [template={name}] attribute.
      * @param {Any} options The options object to pass to the parent class (TkView).
+     * @param {Boolean} [options.disableFieldGeneration=false] If fields shouldn't 
+     * be generated for every view with the [view-name] attribute.
      */
     constructor(name, options = {}) {
         super(options, { from: document.querySelector(`[template=${name}]`).cloneNode(true) });
