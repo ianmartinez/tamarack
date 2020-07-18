@@ -2170,8 +2170,13 @@ class TkTextEdit extends TkView {
 class TkOverlay extends TkView {
 
     /**
+     * Create a new TkOverlay.
      * 
-     * @param {Object} options 
+     * @param {Object} [options] The options object (same as TkView, minus the tag option).
+     * The "parent" option also defaults to "body", unless specified otherwise.
+     * @param {Boolean} [options.hideContent=false] If the content view should be 
+     * hidden.
+     * @param {String} [options.message] The text to show inside of the content view.
      */
     constructor(options = {}) {
         // Redirect children into the content view
@@ -2203,7 +2208,7 @@ class TkOverlay extends TkView {
         });
 
         // Close window when clicked outside
-        this.on("click", (modal, event) => { 
+        this.on("click", (modal, event) => {
             // If the event was actually triggered
             // by the container and not a child view
             if (modal._lastMouseTarget === modal.e) {
@@ -2233,6 +2238,21 @@ class TkOverlay extends TkView {
  */
 class TkModal extends TkOverlay {
 
+    /**
+     * Create a new TkModal.
+     * 
+     * @param {Object} [options] The options object (same as TkOverlay).
+     * The "parent" option also defaults to "body", unless specified otherwise.
+     * @param {TkView} [options.titleView] The view to show inside of the title (cannot
+     * be used with "title" option, which overrides it).
+     * @param {String} [options.title] The text to show inside of the titlebar (cannot
+     * be used with "titleView" option, which is overriden by this option).
+     * @param {Boolean} [options.hideTitlebar=false] If the titlebar view should be 
+     * hidden. If not specified and neither the "title" or "titleView" options are 
+     * specified, then it defaults to "true".
+     * @param {Boolean} [options.hideFooter=false] If the footer should be hidden.
+     * @param {Boolean} [options.closeButton=true] If the close button should be shown.
+     */
     constructor(options = {}) {
         super(options);
         this.addViewName("tkmodal");
@@ -2254,7 +2274,7 @@ class TkModal extends TkOverlay {
 
         if (options.hideTitlebar === true || (options.hideTitlebar === undefined && !hasTitle)) {
             this.titlebar.visible = false;
-        } 
+        }
         if (options.closeButton === true) {
             this.closeButton = new TkButton({ parent: this.titlebar, text: "X" });
             let modal = this;
