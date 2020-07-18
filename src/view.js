@@ -2177,6 +2177,8 @@ class TkModal extends TkView {
 
         this.content = new TkView({ parent: this.window });
         this.content.addViewName("tkmodal-content");
+        if (options.message !== undefined)
+            this.content.add(new TkText("p", { text: options.message }));
         this.content.add(...children);
 
         this.footer = new TkView({ parent: this.window });
@@ -2185,14 +2187,14 @@ class TkModal extends TkView {
         this.on("click", (modal, event) => {
             // If the event was actually triggered
             // by the container and not a child view
-            if(event.target === event.currentTarget) {
+            if (event.target === event.currentTarget) {
                 modal.hide();
             }
 
             event.stopPropagation();
         });
     }
-    
+
     show() {
         document.body.classList.add("tkmodal-open");
         this.visible = true;
@@ -2200,7 +2202,7 @@ class TkModal extends TkView {
 
     hide() {
         document.body.classList.remove("tkmodal-open");
-        this.visible = false;        
+        this.visible = false;
     }
 
 }
