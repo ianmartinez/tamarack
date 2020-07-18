@@ -59,6 +59,19 @@ html {
     --tktoolbarbutton-active-border: rgb(6, 143, 185);
     --tktoolbarbutton-active-fill: rgb(125, 225, 255);
 
+    /* TkOverlay */
+    --tkoverlay-backdrop: rgba(247, 247, 247, 0.45);
+    --tkoverlay-window-shadow: rgba(0, 0, 0, 0.1);
+    --tkoverlay-window-border: rgb(187, 187, 187);
+    --tkoverlay-window-fill: rgb(245, 245, 245);
+    --tkoverlay-window-text: rgb(0, 0, 0);
+
+    /* TkModal */
+    --tkmodal-titlebar-border: rgb(195, 195, 195);
+    --tkmodal-titlebar-fill-1:  rgb(233, 233, 233);
+    --tkmodal-titlebar-fill-2: rgb(228, 228, 228);
+    --tkmodal-titlebar-text: rgb(0, 0, 0);
+
     /* Misc */
     --tk-transparent-border: rgba(0, 0, 0, 0.5);
     --tk-even-child-fill: rgba(0, 0, 0, 0.07);
@@ -116,6 +129,20 @@ html {
         --tktoolbarbutton-hover-fill: rgb(20, 96, 119);
         --tktoolbarbutton-active-border: rgb(6, 84, 107);
         --tktoolbarbutton-active-fill: rgb(3, 61, 78);
+
+        /* TkOverlay */
+        --tkoverlay-backdrop: rgba(43, 43, 43, 0.7);
+        --tkoverlay-window-shadow: rgba(0, 0, 0, 0.2);
+        --tkoverlay-window-border: rgb(29, 29, 29);
+        --tkoverlay-window-fill: rgb(34, 34, 34);
+        --tkoverlay-window-text: rgb(255, 255, 255);
+
+        /* TkModal */
+        --tkmodal-titlebar-border: rgb(66, 66, 66);
+        --tkmodal-titlebar-fill-1:  rgb(58, 58, 58);
+        --tkmodal-titlebar-fill-2: rgb(51, 51, 51);
+        --tkmodal-titlebar-text: rgb(255, 255, 255);
+    
         
         /* Misc */
         --tk-transparent-border: rgba(255, 255, 255, 0.45);
@@ -743,9 +770,9 @@ html[tkapp] {
 [tkoverlay] {    
     z-index: 1050;
     position: fixed;
-    background: rgb(0, 0, 0, 0.75);
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
+    background: var(--tkoverlay-backdrop);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
     top: 0;
     bottom: 0;
     left: 0;
@@ -756,11 +783,11 @@ html[tkapp] {
 }
 
 [tkoverlay-window] {
-    background: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    border: 1px solid rgb(255, 255, 255);
+    background: var(--tkoverlay-window-fill);
+    color: var(--tkoverlay-window-text);
+    border: 1px solid var(--tkoverlay-window-border);
     border-radius: var(--tk-border-radius);
-    box-shadow: 0 0 4px 1px rgb(0, 0, 0, 0.5);
+    box-shadow: 0 0 6px 1px var(--tkoverlay-window-shadow);
     max-width: calc(100% - 1rem);
     max-height: calc(100% - 1rem);
 }
@@ -771,11 +798,12 @@ html[tkapp] {
 
 /* TkModal */
 [tkmodal-titlebar] {    
-    border-bottom: 1px solid rgb(195 195 195);
-    background: #e4e4e4;
+    color: var(--tkmodal-titlebar-text);
+    background: linear-gradient(180deg, var(--tkmodal-titlebar-fill-1), var(--tkmodal-titlebar-fill-2));
+    border-bottom: 1px solid var(--tkmodal-titlebar-border);
     padding: 0.25rem 0.5rem;
     font-weight: bold;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
