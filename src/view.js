@@ -2224,6 +2224,14 @@ class TkChoiceModal extends TkModal {
 }
 
 /**
+ * TODO: A TkModal for showing an image/video/some other
+ * media.
+ */
+class TkLightbox extends TkModal {
+
+}
+
+/**
  * TODO
  * 
  * Note: First version of tamarack had a mostly complete
@@ -2245,7 +2253,7 @@ class TkTemplate extends TkView {
      * Create a new TkView from an existing DOM node.
      * 
      * @param {String} name The name in the [template={name}] attribute.
-     * @param {Any} options The options object to pass to the parent class (TkView.
+     * @param {Any} options The options object to pass to the parent class (TkView).
      */
     constructor(name, options = {}) {
         super(options, { from: document.querySelector(`[template=${name}]`).cloneNode(true) });
