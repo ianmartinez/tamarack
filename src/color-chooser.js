@@ -439,7 +439,7 @@ class TkColorItem extends TkLabel {
 
     /**
      * 
-     * @param {Any} options The options object (same as TkLabel, minus the icon option).
+     * @param {Object} options The options object (same as TkLabel, minus the icon option).
      * @param {String} options.color The color of the item.
      * @param {Boolean} options.textMatchesColor If the text should automatically
      * update to match the color value.

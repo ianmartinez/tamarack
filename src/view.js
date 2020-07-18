@@ -894,7 +894,7 @@ class TkStack extends TkView {
     /**
      * Create a TkStack.
      * 
-     * @param {Any} options Same as TkView, minus options.tag.
+     * @param {Object} options Same as TkView, minus options.tag.
      * @param {String} options.direction The direction of the child elements.
      */
     constructor(options) {
@@ -941,7 +941,7 @@ class TkText extends TkView {
      * Create a TkText.
      * 
      * @param {String} tag The tag of the text element.
-     * @param {Any} options Same as TkView, minus options.tag.
+     * @param {Object} options Same as TkView, minus options.tag.
      * @param {String} options.text The text to set inside the element.
      */
     constructor(tag, options = {}) {
@@ -974,7 +974,7 @@ class TkImage extends TkView {
     /*** 
      * Create a TkImage.
      * 
-     * @param {Any} options Same as TkView, minus options.tag.
+     * @param {Object} options Same as TkView, minus options.tag.
      * @param {String} options.source The image's source.
      * @param {String} options.alt The alternate text of the image.
      */
@@ -1024,7 +1024,7 @@ class TkLabel extends TkView {
     /**
      * Create a TkLabel.
      * 
-     * @param {Any} options Same as TkView, minus options.tag.
+     * @param {Object} options Same as TkView, minus options.tag.
      * @param {String} options.text The text of the label.
      * @param {String} options.icon The icon of the button.
      * @param {TkLabelLayout} options.layout The layout of the icon.
@@ -1122,7 +1122,7 @@ class TkLink extends TkLabel {
     /**
      * Create a TkLink.
      * 
-     * @param {Any} options Same as TkLabel.
+     * @param {Object} options Same as TkLabel.
      * @param {String} options.url The url of the link.
      */
     constructor(options = {}) {
@@ -1155,7 +1155,7 @@ class TkButton extends TkView {
     /**
      * Create a TkButton.
      * 
-     * @param {Any} options Same as TkView, minus options.tag.
+     * @param {Object} options Same as TkView, minus options.tag.
      * @param {String} options.text The text of the button.
      * @param {String} options.icon The icon of the button.
      * @param {String} options.iconName The name of the ionicon icon. 
@@ -1242,13 +1242,13 @@ class TkNotebookPage {
     /**
      * Create a TkNotebookPage.
      * 
-     * @param {Any} options The options object.
+     * @param {Object} options The options object.
      * @param {String} options.title The tab's title.
      * @param {TkView[]} options.content An array of TkViews to be the page's content.
      * @param {TkNotebook} options.parent The parent notebook.
-     * @param {Any} options.tabOptions The options object for 
+     * @param {Object} options.tabOptions The options object for 
      * creating the tab button, which is a TkButton.
-     * @param {Any} options.contentOptions The options object for 
+     * @param {Object} options.contentOptions The options object for 
      * creating the content panel, which is a TkView. 
      */
     constructor(options = {}) {
@@ -1383,13 +1383,13 @@ class TkNotebook extends TkView {
     /**
      * Create a TkNotebook.
      * 
-     * @param {Any} options The options object.
+     * @param {Object} options The options object.
      * @param {Boolean} options.wrap (default: true) If the page navigation should wrap around.
      * @param {Boolean} options.newestPageActive (default: false) If the notebook should 
      * jump to new pages when they are added.
-     * @param {Any} options.tabAreaOptions The options object for creating the tab 
+     * @param {Object} options.tabAreaOptions The options object for creating the tab 
      * panel, which is a TkView. 
-     * @param {Any} options.contentAreaOptions The options object for creating the content 
+     * @param {Object} options.contentAreaOptions The options object for creating the content 
      * area panel, which is a TkView. 
      */
     constructor(options = {}) {
@@ -1797,7 +1797,7 @@ class TkList extends TkStack {
     /**
      * Create a TkList.
      * 
-     * @param {Any} options The options object.
+     * @param {Object} options The options object.
      * @param {Boolean} options.wrap (default: true) If the selection should wrap around.
      */
     constructor(options = {}) {
@@ -2163,8 +2163,16 @@ class TkTextEdit extends TkView {
 
 }
 
+/**
+ * A view that displays above other content on 
+ * the page.
+ */
 class TkOverlay extends TkView {
 
+    /**
+     * 
+     * @param {Object} options 
+     */
     constructor(options = {}) {
         // Redirect children into the content view
         let children = options.children ?? [];
@@ -2219,9 +2227,8 @@ class TkOverlay extends TkView {
 
 }
 
-/**
- * A view that displays above other content on 
- * the page. Provides common functionality, such as 
+/** 
+ * A more specialized overlay. Provides common functionality, such as 
  * a titlebar and a footer.
  */
 class TkModal extends TkOverlay {
@@ -2292,7 +2299,7 @@ class TkTemplate extends TkView {
      * Create a new TkView from an existing DOM node.
      * 
      * @param {String} name The name in the [template={name}] attribute.
-     * @param {Any} options The options object to pass to the parent class (TkView).
+     * @param {Object} options The options object to pass to the parent class (TkView).
      * @param {Boolean} [options.disableFieldGeneration=false] If fields shouldn't 
      * be generated for every view with the [view-name] attribute.
      */

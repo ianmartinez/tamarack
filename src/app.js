@@ -40,7 +40,7 @@ class TkApp {
      * 
      * Also adds [tkapp] attribute.
      * 
-     * @param {Any} options The options object.
+     * @param {Object} options The options object.
      * @param {Function} [options.whenLoaded] The callback to run when the init
      * is complete.
      * @param {Boolean} [options.supportDarkMode=true] If dark mode is

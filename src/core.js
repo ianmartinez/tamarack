@@ -45,7 +45,7 @@ class TkStateObject extends TkEmitter {
     /**
      * Create a TkStateObject.
      * 
-     * @param {Any} options The options object.
+     * @param {Object} options The options object.
      * @param {Boolean} options.hasIntialized If the object has been fully initialized.
      * @param {Boolean} options.isValid If the object is in a valid state.
      */

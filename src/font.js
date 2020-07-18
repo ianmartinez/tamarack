@@ -23,7 +23,7 @@ class TkFont extends TkStateObject {
     /**
      * Create an new TkFont instance.
      * 
-     * @param {Any} options The options object.
+     * @param {Object} options The options object.
      * @param {TkFontSize} options.size The size of the font.  
      * @param {TkFontStyle} options.style The style of the font.
      * @param {TkFontWeight} options.weight The weight of the font.

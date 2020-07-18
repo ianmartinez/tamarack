@@ -31,7 +31,7 @@ class TkIcon extends TkView {
     /**
      * Create a new <ion-icon> element backed by a TkView.
      * 
-     * @param {Any} options Same as TkView, minus the tag option.
+     * @param {Object} options Same as TkView, minus the tag option.
      * @param {String} options.name The name of the Ionicon.
      */
     constructor(options = {}) {
