@@ -743,7 +743,7 @@ html[tkapp] {
 [tkmodal-container] {    
     z-index: 1050;
     position: fixed;
-    background: rgb(0, 0, 0, 0.9);
+    background: rgb(0, 0, 0, 0.75);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     top: 0;
@@ -756,21 +756,28 @@ html[tkapp] {
 }
 
 [tkmodal-window] {
-    background: var(--tkview-fill);
-    color: var(--tkview-text);
-    border: 1px solid var(--tkview-border);
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(255, 255, 255);
     border-radius: var(--tk-border-radius);
     box-shadow: 0 0 4px 1px rgb(0, 0, 0, 0.5);
     max-width: calc(100% - 1rem);
     max-height: calc(100% - 1rem);
 }
 
-[tkmodal-titlebar] {
+[tkmodal-titlebar] {    
     border-bottom: 1px solid rgb(195 195 195);
     background: #e4e4e4;
     padding: 0.25rem 0.5rem;
     font-weight: bold;
     font-size: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+[tkmodal-titlebar] > :first-child {
+    flex-grow: 1;
 }
 
 [tkmodal-content] {

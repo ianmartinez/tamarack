@@ -2187,6 +2187,18 @@ class TkModal extends TkView {
         this.titlebar.addViewName("tkmodal-titlebar");
         if (options.hideTitlebar === true)
             this.titlebar.visible = false;
+        if (options.titleView !== undefined) {
+            this.title = options.titleView;
+            this.titlebar.add(this.title);
+        } else if (options.title !== undefined) {
+            this.title = new TkText("span", { text: options.title });
+            this.titlebar.add(this.title);
+        }
+        if (options.closeButton === true) {
+            this.closeButton = new TkButton({ parent: this.titlebar, text: "X" });
+            let modal = this;
+            this.closeButton.on("click", () => modal.hide());
+        }
 
         // Content
         this.content = new TkView({ parent: this.window });

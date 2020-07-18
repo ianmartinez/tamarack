@@ -77,10 +77,10 @@
         TkApp.init();
 
         // Modals
-        let aboutModal = new TkModal();
-        let aboutStack = new TkStack({ parent: aboutModal.content, direction: TkStackDirection.VERTICAL });
-        aboutModal.titlebar.add(new TkText("span", { text: "Gradient Maker 1.0" }));
-        aboutStack.add(new TkText("span", { text: `Built with tamarack ${Tamarack.version}` }));
+        let aboutModal = new TkModal({
+            title: "Gradient Maker 1.0",
+            message: `Built with tamarack ${Tamarack.version}.`
+        });
 
         // Add buttons to edit colors
         let addButton = new TkButton({ text: "Add", iconName: "add" });
