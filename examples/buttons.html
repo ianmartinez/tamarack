@@ -21,7 +21,11 @@
          */
 
         // Declare layout views
-        let stack = new TkStack({
+        let layoutStack = new TkStack({
+            parent: "body",
+            direction: TkStackDirection.FLOW
+        });
+        let styleStack = new TkStack({
             parent: "body",
             direction: TkStackDirection.FLOW
         });
@@ -29,7 +33,7 @@
         // Add a button for each layout
         for (let layout in TkLabelLayout) {
             let button = new TkButton({
-                parent: stack,
+                parent: layoutStack,
                 text: layout,
                 icon: new TkImage({ source: "media/test.png" }),
                 layout: TkLabelLayout[layout],
@@ -37,6 +41,18 @@
                 events: { click: () => alert(`Clicked "${layout}"`) }
             });
         }
+
+
+        for (let style in TkButtonStyle) {
+            let button = new TkButton({
+                parent: styleStack,
+                text: style,
+                classes: [TkButtonStyle[style]],
+                style: "margin: 0.25rem;"
+            });
+        }
+
+
     </script>
 </body>
 

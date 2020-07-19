@@ -38,6 +38,19 @@ const TkLabelLayout = {
 };
 
 /**
+ * An enum for the different classes of button style.
+ * @enum {String}
+ */
+const TkButtonStyle = {
+    NONE: "",
+    PRIMARY: "tkprimary",
+    SECONDARY: "tksecondary",
+    SUCCESS: "tksuccess",
+    DANGER: "tkdanger",
+    WARNING: "tkwarning"
+};
+
+/**
  * An enum representing the
  * button clicked on a TkChoiceBox.
  */
@@ -640,7 +653,7 @@ class TkView {
      */
     addClass(...classes) {
         classes.forEach((className) => {
-            if (!this.hasClass(className))
+            if (!this.hasClass(className) && className != "")
                 this.e.classList.add(className);
         });
     }
