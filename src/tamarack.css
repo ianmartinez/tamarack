@@ -1017,7 +1017,7 @@ color: #fff;
 }
 
 [tkoverlay-content] {
-    padding: 1rem;
+    padding: 0.5rem 1rem;
 }
 
 /* TkModal */
@@ -1025,7 +1025,7 @@ color: #fff;
     color: var(--tkmodal-titlebar-text);
     background: linear-gradient(180deg, var(--tkmodal-titlebar-fill-1), var(--tkmodal-titlebar-fill-2));
     border-bottom: 1px solid var(--tkmodal-titlebar-border);
-    padding: 0.25rem 0.5rem;
+    padding: 0.25rem 1rem;
     font-weight: bold;
     font-size: 1.15rem;
     display: flex;
@@ -1040,7 +1040,7 @@ color: #fff;
 }
 
 [tkmodal-footer] {
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     display: flex;
     border-bottom-left-radius: var(--tk-border-radius);
     border-bottom-right-radius: var(--tk-border-radius);

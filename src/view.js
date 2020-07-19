@@ -2256,16 +2256,20 @@ class TkOverlay extends TkView {
         });
     }
 
-    show() {
+    show(callback) {
         this.parent.addClass("tkoverlay-open");
         this.visible = true;
         this.trigger("modalshown");
+        this._callback = callback ?? null;
     }
 
     close() {
         this.parent.removeClass("tkoverlay-open");
         this.visible = false;
         this.trigger("modalclosed");
+
+        if (this._callback)
+            this._callback();
     }
 
 }
@@ -2398,30 +2402,18 @@ class TkModal extends TkOverlay {
         }
     }
 
-    show() {
-        super.show();
-        this._callback = null;
-    }
-
     show(callback) {
-        super.show();
-        this._callback = callback;
+        super.show(callback);
     }
 
     close() {
         this.result = TkModalResult.NOTHING;
-        super.close();
-
-        if (this._callback)
-            this._callback();
+        super.close(this._callback);
     }
 
     closeWithResult(result) {
         this.result = result;
-        super.close();
-
-        if (this._callback)
-            this._callback();
+        super.close(this._callback);
     }
 
     buttonFor(choice) {
