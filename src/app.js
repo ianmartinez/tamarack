@@ -66,8 +66,8 @@ class TkApp {
             htmlNode.setAttribute(currentPlatform, "true");
             htmlNode.setAttribute(currentDevice, "true");
 
-            if (options.supportDarkMode === false)
-                htmlNode.setAttribute("tk-disable-dark-mode", "true");
+            if (options.supportDarkMode !== false)
+                htmlNode.setAttribute("tk-support-dark-mode", "true");
 
             if (options.iOSToolbarOnBottom !== false && TkApp.isIOS)
                 htmlNode.setAttribute("tk-ios-toolbar-on-bottom", "true");
