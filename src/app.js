@@ -77,6 +77,17 @@ class TkApp {
         });
     }
 
+    static get supportDarkMode() {
+        return document.querySelector("html").hasAttribute("tk-support-dark-mode");
+    }
+
+    static set supportDarkMode(value) {
+        if (value)
+            document.querySelector("html").setAttribute("tk-support-dark-mode", "true");
+        else 
+            document.querySelector("html").removeAttribute("tk-support-dark-mode");
+    }
+
     /**
      * Get the platform that the app is running on.
      * @type {TkPlatform}

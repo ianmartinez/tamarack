@@ -1006,6 +1006,7 @@ color: #fff;
     box-shadow: 0 0 6px 1px var(--tkoverlay-window-shadow);
     max-width: calc(100% - 1rem);
     max-height: calc(100% - 1rem);
+    min-width: 256px;
 }
 
 [tkoverlay-content] {
@@ -1036,10 +1037,15 @@ color: #fff;
     display: flex;
     border-bottom-left-radius: var(--tk-border-radius);
     border-bottom-right-radius: var(--tk-border-radius);
+    justify-content: flex-end;
 }
 
 [tkmodal-footer] [tkbutton] {
     margin-right: 0.5rem;
+}
+
+[tkmodal-footer] [tkbutton]:last-child {
+    margin-right: 0;
 }
 
 /* Helper classes */
