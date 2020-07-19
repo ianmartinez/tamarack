@@ -449,7 +449,11 @@ class TkColorItem extends TkLabel {
         this.addViewName("tkcoloritem");
         this.icon = new TkView({ classes: ["color-icon"] });
         this._textMatchesColor = options.textMatchesColor ?? true;
-        this.color = options.color ?? "#ffffff";
+
+        if (options.color !== undefined)
+            this.color = options.color.toString();
+        else
+            this.color = "#ffffff";
     }
 
     /**
@@ -495,7 +499,7 @@ class TkColorWell extends TkButton {
         super(options);
 
         this.on("click", (colorWell) => {
-            
+
         });
     }
 

@@ -1160,7 +1160,8 @@ class TkButton extends TkView {
      * @param {String} options.icon The icon of the button.
      * @param {String} options.iconName The name of the ionicon icon. 
      * Note: requires app-views.js and Ionicons. Overrides any value in options.icon.
-     * @param {TkLabel} options.label The TkLabel to use as the buttons content. 
+     * @param {TkLabel} options.label The TkLabel to use as the buttons content. Ignores
+     * "text", "icon", "iconName" and layout options. 
      * @param {TkLabelLayout} options.layout The layout of the button.
      * and text.
      */
@@ -1173,16 +1174,11 @@ class TkButton extends TkView {
         if (options.label !== undefined) {
             this.label = options.label;
             this.add(this.label);
-
-            if (options.iconName !== undefined)
-                this.label.icon = new TkIcon({ name: options.iconName });
-            else if (options.icon !== undefined)
-                this.label.icon = options.icon;
         } else {
             this.label = new TkLabel({ parent: this, icon: options.icon, iconName: options.iconName });
+            this.layout = options.layout ?? TkLabelLayout.DEFAULT;
+            this.text = options.text ?? "";
         }
-        this.text = options.text ?? "";
-        this.layout = options.layout ?? TkLabelLayout.DEFAULT;
     }
 
     /**
