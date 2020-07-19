@@ -2248,7 +2248,7 @@ class TkOverlay extends TkView {
             // If the event was actually triggered
             // by the container and not a child view
             if (modal._lastMouseTarget === modal.e) {
-                modal.hide();
+                modal.close();
             }
 
             event.stopPropagation();
@@ -2259,11 +2259,13 @@ class TkOverlay extends TkView {
     show() {
         this.parent.addClass("tkoverlay-open");
         this.visible = true;
+        this.trigger("modalshown");
     }
 
-    hide() {
+    close() {
         this.parent.removeClass("tkoverlay-open");
         this.visible = false;
+        this.trigger("modalclosed");
     }
 
 }
@@ -2287,7 +2289,13 @@ class TkModal extends TkOverlay {
      * hidden. If not specified and neither the "title" or "titleView" options are 
      * specified, then it defaults to "true".
      * @param {Boolean} [options.hideFooter=false] If the footer should be hidden.
+     * If not specified and neither the "buttons" or "choices" options are 
+     * specified, then it defaults to "true".
      * @param {Boolean} [options.closeButton=true] If the close button should be shown.
+     * @param {TkButton[]} [options.buttons] The buttons to add to the footer.
+     * @param {TkModalResult[]} [options.choices] The button choices to add.
+     * @param {TkModalResult} [options.defaultChoice] The button choices to select
+     * as the default choice from the "choices" option.
      */
     constructor(options = {}) {
         super(options);
@@ -2314,14 +2322,24 @@ class TkModal extends TkOverlay {
         if (options.closeButton === true) {
             this.closeButton = new TkButton({ parent: this.titlebar, text: "X" });
             let modal = this;
-            this.closeButton.on("click", () => modal.hide());
+            this.closeButton.on("click", () => modal.close());
         }
+
+        // Choice buttons
+        this._choiceButtons = [];
+        this._defaultButton = null;
 
         // Footer
         this.footer = new TkView({ parent: this.window });
+        if (options.buttons !== undefined)
+            this.footer.add(options.buttons);
+        this.choices = options.choices ?? [];
+        this.defaultChoice = options.defaultChoice ?? null;
+        let hasFooterButtons = (this.choices.length > 0 || options.buttons !== undefined);
         this.footer.addViewName("tkmodal-footer");
-        if (options.hideFooter === true)
+        if (options.hideFooter === true || (options.hideFooter === undefined && !hasFooterButtons)) {
             this.footer.visible = false;
+        }
 
         // The modal result
         this._result;
@@ -2335,22 +2353,96 @@ class TkModal extends TkOverlay {
         this._result = value;
     }
 
+    get choices() {
+        return this._choices;
+    }
+
+    set choices(value) {
+        this._choices = value;
+
+        // Remove existing choice buttons, if they exist
+        if (this._choiceButtons.length > 0) {
+            this.remove(...this._choiceButtons);
+            this._choiceButtons = [];
+        }
+
+        // Add a new choice button for each
+        let modal = this;
+        for (let choice of value) {
+            let choiceButton = new TkButton({
+                parent: this.footer,
+                attributes: { choice: choice },
+                text: choice
+            });
+
+            choiceButton.on("click", (button) => {
+                modal.closeWithResult(button.getAttribute("choice"));
+            });
+
+            this._choiceButtons.push(choiceButton);
+        }
+    }
+
+    get defaultChoice() {
+        return this._defaultButton.getAttribute("choice");
+    }
+
+    set defaultChoice(value) {
+        for (let button of this._choiceButtons) {
+            if (button.getAttribute("choice") === value) {
+                button.addClass(TkButtonStyle.PRIMARY);
+                this._defaultButton = button;
+            } else {
+                button.addClass(TkButtonStyle.SECONDARY);
+            }
+        }
+    }
+
+    show() {
+        super.show();
+        this._callback = null;
+    }
+
+    show(callback) {
+        super.show();
+        this._callback = callback;
+    }
+
+    close() {
+        this.result = TkModalResult.NOTHING;
+        super.close();
+
+        if (this._callback)
+            this._callback();
+    }
+
+    closeWithResult(result) {
+        this.result = result;
+        super.close();
+
+        if (this._callback)
+            this._callback();
+    }
+
+    buttonFor(choice) {
+        for (let button of this._choiceButtons)
+            if (button.getAttribute("choice") === choice)
+                return button;
+
+        return null;
+    }
+
+    get defaultButton() {
+        return this._defaultButton;
+    }
+
 }
 
 /**
- * TODO: A generalization of a TkModal, offering common
- * buttons to choose from.
- * 
- */
-class TkChoiceBox extends TkModal {
-
-}
-
-/**
- * TODO: A TkModal for showing an image/video/some other
+ * A simple TkOverlay for showing an image/video/some other
  * media.
  */
-class TkLightbox extends TkModal {
+class TkLightbox extends TkOverlay {
 
 }
 

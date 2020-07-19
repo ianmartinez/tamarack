@@ -1,0 +1,42 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <title>Modal</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="../src/tamarack.css" rel="stylesheet" type="text/css" />
+    <script src="../src/core.js"></script>
+    <script src="../src/view.js"></script>
+</head>
+
+<body>
+    <script>
+        /**
+         * Show a modal.
+         */
+        let button = new TkButton({ parent: "body", text: "Show a modal" });
+        let modal = new TkModal({
+            message: "Do you like tamarack?",
+            choices: [TkModalResult.YES, TkModalResult.NO],
+            defaultChoice: TkModalResult.YES
+        });
+
+        button.on("click", () => {
+            modal.show(() => {
+                switch(modal.result) {
+                    case TkModalResult.YES:
+                        alert("Thanks!");
+                        break;
+                    case TkModalResult.NO:
+                        alert("Well then...");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -14,6 +14,9 @@ html {
     --tkview-text-inactive: rgb(89, 89, 89);
     --tkview-focus-border: rgb(6, 143, 185);
 
+    /* TkButton */
+    --tkbutton-padding: 0.25rem 0.5rem;
+
     /* TkList */
     --tklist-selected-fill: rgba(0, 0, 0, 0.1);
     --tklist-selected-border: rgba(0, 0, 0, 0.1);
@@ -387,6 +390,7 @@ html[tkapp] {
     text-decoration: none;
     outline: none;
     text-shadow: 0 0 1px rgb(0, 0, 0, 0.5);
+    padding: var(--tkbutton-padding);
 }
 
 [tkbutton].tkprimary:hover,
@@ -429,6 +433,7 @@ html[tkapp] {
     text-decoration: none;
     outline: none;
     text-shadow: 0 0 1px rgb(0, 0, 0, 0.5);
+    padding: var(--tkbutton-padding);
 }
 
 [tkbutton].tksecondary:hover,
@@ -471,6 +476,7 @@ html[tkapp] {
     text-decoration: none;
     outline: none;
     text-shadow: 0 0 1px rgb(0, 0, 0, 0.5);
+    padding: var(--tkbutton-padding);
 }
 
 [tkbutton].tksuccess:hover,
@@ -513,6 +519,7 @@ color: #fff;
     text-decoration: none;
     outline: none;
     text-shadow: 0 0 1px rgb(0, 0, 0, 0.5);
+    padding: var(--tkbutton-padding);
 }
 
 [tkbutton].tkdanger:hover,
@@ -555,6 +562,7 @@ color: #fff;
     text-decoration: none;
     outline: none;
     text-shadow: 0 0 1px rgb(0, 0, 0, 0.5);
+    padding: var(--tkbutton-padding);
 }
 
 [tkbutton].tkwarning:hover,
@@ -1009,7 +1017,7 @@ color: #fff;
 }
 
 [tkoverlay-content] {
-    padding: 0.5rem;
+    padding: 1rem;
 }
 
 /* TkModal */
@@ -1030,7 +1038,12 @@ color: #fff;
 }
 
 [tkmodal-footer] {
+    padding: 0.5rem;
+    display: flex;
+}
 
+[tkmodal-footer] [tkbutton] {
+    margin-right: 0.5rem;
 }
 
 /* Helper classes */
