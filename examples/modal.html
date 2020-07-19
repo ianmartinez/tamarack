@@ -26,11 +26,11 @@
 
         let button = new TkButton({ parent: "body", text: "Show a modal" });
         let modal = new TkModal({
+            iconName: "help-outline",
             title: "Question...",
             message: "Do you like tamarack?",
             choices: [TkModalResult.YES, TkModalResult.NO],
-            defaultChoice: TkModalResult.YES,
-            iconName: "help-outline"
+            defaultChoice: TkModalResult.YES
         });
         button.on("click", () => modal.show());
 
