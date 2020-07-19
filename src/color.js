@@ -740,6 +740,14 @@ class TkColor extends TkStateObject {
         });
     }
 
+    /**
+     * Returns the TkColor as a string. The same
+     * this as calling this.asHsla().
+     */
+    toString() {
+        return this.asHsla();
+    }
+
 }
 
 /**

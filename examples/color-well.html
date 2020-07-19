@@ -1,0 +1,40 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <title>Color Well</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="../src/tamarack.css" rel="stylesheet" type="text/css" />
+    <script src="../src/core.js"></script>
+    <script src="../src/view.js"></script>
+    <script src="../src/color.js"></script>
+    <script src="../src/color-chooser.js"></script>
+</head>
+
+<body>
+    <style>
+        body {
+            background: forestgreen;
+        }
+    </style>
+
+    <script>
+        /**
+         * Change the background from a color well color.
+         */
+        let colorWell = new TkColorWell({
+            parent: "body",
+            color: TkColor.fromProperty(document.body, "background")
+        });
+
+        colorWell.on("colorchanged", () => {
+            document.body.style.background = colorWell.color.asHex()
+        });
+    </script>
+</body>
+
+</html>

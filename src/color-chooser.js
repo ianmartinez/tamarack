@@ -168,11 +168,11 @@ class TkColorChooser extends TkStack {
             classes: ["colorList"]
         });
         for (let color of TkColor.hueOrderedCssColors) {
-            let cssColorItem = new TkColorItem({ 
-                color: color.raw, 
-                text: color.name, 
+            let cssColorItem = new TkColorItem({
+                color: color.raw,
+                text: color.name,
                 textMatchesColor: false,
-                data: color 
+                data: color
             });
 
             this.cssColorList.add(cssColorItem);
@@ -411,7 +411,7 @@ class TkColorSlider extends TkStack {
 }
 
 /**
- * The color preview view used inside a TkColorChooser.
+ * A view to preview color in.
  */
 class TkColorPreview extends TkView {
 
@@ -464,7 +464,7 @@ class TkColorItem extends TkLabel {
         this._colorData = value;
         this.icon.e.style.background = this._colorData;
 
-        if(this.textMatchesColor)
+        if (this.textMatchesColor)
             this.text = this._colorData;
     }
 
@@ -479,11 +479,32 @@ class TkColorItem extends TkLabel {
 
     set textMatchesColor(value) {
         this._textMatchesColor = value;
-        
+
         let currentBackground = this.icon.e.style.background;
-        if(value && currentBackground.length > 0) {
+        if (value && currentBackground.length > 0) {
             this.content.text = this.icon.e.style.background;
         }
+    }
+
+}
+
+class TkColorWell extends TkButton {
+
+    constructor(options = {}) {
+        options.label = new TkColorItem({ color: options.color });
+        super(options);
+
+        this.on("click", (colorWell) => {
+            
+        });
+    }
+
+    get color() {
+        return this.label.color;
+    }
+
+    set color(value) {
+        this.label.color = value;
     }
 
 }
