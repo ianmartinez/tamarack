@@ -20,8 +20,10 @@
 <body>
     <script>
         /**
-         * Show a modal.
+         * Show a modal when a button is clicked and evaluate the
+         * modal's result.
          */
+
         let button = new TkButton({ parent: "body", text: "Show a modal" });
         let modal = new TkModal({
             title: "Question...",
@@ -30,17 +32,20 @@
             defaultChoice: TkModalResult.YES,
             iconName: "help-outline"
         });
+        button.on("click", () => modal.show());
 
-        button.on("click", () => {
-            modal.show(() => {
-                switch(modal.result) {
-                    case TkModalResult.YES:
-                        alert("Thanks!");
-                        break;
-                    case TkModalResult.NO:
-                        alert("Well then...");
-                }
-            });
+        // Fires when the modal is closed, you 
+        // can also pass a function as the parameter
+        // of the modal.show(callback) function to
+        // achieve the same effect
+        modal.on("modalclosed", () => {
+            switch (modal.result) {
+                case TkModalResult.YES:
+                    alert("Thanks!");
+                    break;
+                case TkModalResult.NO:
+                    alert("Well then...");
+            }
         });
     </script>
 </body>
