@@ -38,6 +38,22 @@ const TkLabelLayout = {
 };
 
 /**
+ * An enum representing the
+ * button clicked on a TkChoiceBox.
+ */
+const TkModalResult = {
+    NOTHING: "Nothing",
+    OK: "OK",
+    CANCEL: "Cancel",
+    CLOSE: "Close",
+    ABORT: "Abort",
+    IGNORE: "Ignore",
+    YES: "Yes",
+    NO: "No",
+    RETRY: "Retry"
+};
+
+/**
  * Represents an HTML element and exposes additional 
  * functionality that makes manipulating elements easier.
  */
@@ -2293,6 +2309,17 @@ class TkModal extends TkOverlay {
         this.footer.addViewName("tkmodal-footer");
         if (options.hideFooter === true)
             this.footer.visible = false;
+
+        // The modal result
+        this._result;
+    }
+
+    get result() {
+        return this._result;
+    }
+
+    set result(value) {
+        this._result = value;
     }
 
 }
@@ -2302,7 +2329,7 @@ class TkModal extends TkOverlay {
  * buttons to choose from.
  * 
  */
-class TkChoiceModal extends TkModal {
+class TkChoiceBox extends TkModal {
 
 }
 
