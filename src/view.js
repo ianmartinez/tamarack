@@ -2289,6 +2289,9 @@ class TkModal extends TkOverlay {
      * be used with "title" option, which overrides it).
      * @param {String} [options.title] The text to show inside of the titlebar (cannot
      * be used with "titleView" option, which is overriden by this option).
+     * @param {String} [options.icon] The icon of the modal titlebar.
+     * @param {String} [options.iconName] The name of the ionicon icon. 
+     * Note: requires app-views.js and Ionicons. Overrides any value in options.icon.
      * @param {Boolean} [options.hideTitlebar=false] If the titlebar view should be 
      * hidden. If not specified and neither the "title" or "titleView" options are 
      * specified, then it defaults to "true".
@@ -2315,7 +2318,7 @@ class TkModal extends TkOverlay {
             this.titlebar.add(this.title);
             hasTitle = true;
         } else if (options.title !== undefined) {
-            this.title = new TkText("span", { text: options.title });
+            this.title = new TkLabel({ parent: this, icon: options.icon, iconName: options.iconName, text: options.title });
             this.titlebar.add(this.title);
             hasTitle = true;
         }
