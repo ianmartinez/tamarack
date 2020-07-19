@@ -1031,6 +1031,8 @@ color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-top-left-radius: var(--tk-border-radius);
+    border-top-right-radius: var(--tk-border-radius);
 }
 
 [tkmodal-titlebar] > :first-child {
@@ -1040,6 +1042,8 @@ color: #fff;
 [tkmodal-footer] {
     padding: 0.5rem;
     display: flex;
+    border-bottom-left-radius: var(--tk-border-radius);
+    border-bottom-right-radius: var(--tk-border-radius);
 }
 
 [tkmodal-footer] [tkbutton] {
