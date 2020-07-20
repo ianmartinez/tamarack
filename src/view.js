@@ -55,7 +55,7 @@ const TkButtonStyle = {
  * button clicked on a TkChoiceBox.
  */
 const TkChoice = {
-    NOTHING: "Nothing",
+    NONE: "Nothing",
     OK: "OK",
     CANCEL: "Cancel",
     CLOSE: "Close",
@@ -2263,13 +2263,23 @@ class TkOverlay extends TkView {
         });
     }
 
+    /**
+     * Show the overlay.
+     * 
+     * @param {Function} [callback] The callback to
+     * run after the overlay has closed.
+     */
     show(callback) {
+        this.trigger("beforeshow");
         this.parent.addClass("tkoverlay-open");
         this.visible = true;
         this.trigger("modalshown");
         this._callback = callback ?? null;
     }
 
+    /**
+     * Close the overlay.
+     */
     close() {
         this.parent.removeClass("tkoverlay-open");
         this.visible = false;
@@ -2359,6 +2369,10 @@ class TkModal extends TkOverlay {
         this._result;
     }
 
+    /**
+     * The result of the modal.
+     * @type {TkChoice} 
+     */
     get result() {
         return this._result;
     }
@@ -2367,6 +2381,11 @@ class TkModal extends TkOverlay {
         this._result = value;
     }
 
+    /**
+     * The available choices that the user can
+     * choose from. 
+     * @type {TkChoice[]}
+     */
     get choices() {
         return this._choices;
     }
@@ -2397,6 +2416,11 @@ class TkModal extends TkOverlay {
         }
     }
 
+    /**
+     * The choice whose button receives focus when the modal 
+     * is opened.
+     * @type {TkChoice}
+     */
     get defaultChoice() {
         return this._defaultButton.getAttribute("choice");
     }
@@ -2413,16 +2437,31 @@ class TkModal extends TkOverlay {
         }
     }
 
+    /**
+     * Show the modal.
+     * 
+     * @param {Function} [callback] The callback to
+     * run after the modal has closed.
+     */
     show(callback) {
         super.show(callback);
         this._defaultButton?.focus();
     }
 
+    /**
+     * Close the modal with the result TkChoice.NONE.
+     */
     close() {
-        this.result = TkChoice.NOTHING;
+        this.result = TkChoice.NONE;
         super.close(this._callback);
     }
 
+    /**
+     * Close the modal with a result.
+     * 
+     * @param {TkChoice} result The result to
+     * close with.
+     */
     closeWith(result) {
         this.result = result;
         super.close(this._callback);
