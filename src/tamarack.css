@@ -766,11 +766,16 @@ html[tkapp] {
     height: 0;
 }
 
-[tknotebook-tab] {    
+[tknotebook] [tknotebook-tab]:hover, 
+[tknotebook] [tknotebook-tab]:focus-within,
+[tknotebook] [tknotebook-tab]:not(:disabled):not(.disabled):active,
+[tknotebook] [tknotebook-tab]:not(:disabled):not(.disabled):active:focus-within,
+[tknotebook] [tknotebook-tab] {    
     background: var(--tkview-fill-inactive);
     color: var(--tkview-text-inactive);
     border: 1px solid var(--tkview-border-inactive);
     border-bottom: 1px solid var(--tkview-border);
+    border-radius: 0;
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
     margin: 0 0.1rem;
@@ -778,13 +783,16 @@ html[tkapp] {
     white-space: nowrap;
     outline: none;
     font-weight: normal;
+    text-shadow: none;
+    box-shadow: none;
 }
 
-[tknotebook-tab].active {
+[tknotebook] [tknotebook-tab].active {
     border-color: var(--tkview-border);
     background: var(--tkview-fill);
     color: var(--tkview-text);
     border-bottom: 1px solid transparent;
+    text-shadow: none;
 }
 
 [tknotebook-contentarea] {
