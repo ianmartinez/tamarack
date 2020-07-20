@@ -394,14 +394,14 @@ html[tkapp] {
 }
 
 [tkbutton].tkprimary:hover,
-[tkbutton].tkprimary:focus {
+[tkbutton].tkprimary:focus-within {
     color: #fff;
     background: linear-gradient(180deg, #20bdd6, #26afe4);
     border: 1px solid #308abb;
     outline: none;
 }
 
-[tkbutton].tkprimary:focus {
+[tkbutton].tkprimary:focus-within {
     box-shadow: 0 0 0 0.2rem rgba(102, 207, 255, 0.5);
 }
 
@@ -419,8 +419,8 @@ html[tkapp] {
     border: 1px solid #0d545e;
 }
 
-[tkbutton].tkprimary:not(:disabled):not(.disabled):active:focus,
-.show > [tkbutton].tkprimary.dropdown-toggle:focus {
+[tkbutton].tkprimary:not(:disabled):not(.disabled):active:focus-within,
+.show > [tkbutton].tkprimary.dropdown-toggle:focus-within {
     box-shadow: 0 0 0 0.2rem rgba(31, 223, 255, 0.5);
     outline-color: rgba(66, 194, 255, 0.82);
 }
@@ -437,14 +437,14 @@ html[tkapp] {
 }
 
 [tkbutton].tksecondary:hover,
-[tkbutton].tksecondary:focus {
+[tkbutton].tksecondary:focus-within {
     color: #000;
     background: linear-gradient(180deg, #eaeaea, #dedede);
     border: 1px solid #c1c1c1;
     outline: none;
 }
 
-[tkbutton].tksecondary:focus {
+[tkbutton].tksecondary:focus-within {
     box-shadow: 0 0 0 0.2rem rgba(206, 206, 206, 0.5);
 }
 
@@ -461,7 +461,7 @@ html[tkapp] {
     border: 1px solid #9e9e9e;
 }
 
-[tkbutton].tksecondary:not(:disabled):not(.disabled):active:focus {
+[tkbutton].tksecondary:not(:disabled):not(.disabled):active:focus-within {
     box-shadow: 0 0 0 0.2rem rgba(219, 219, 219, 0.5);
     outline-color: rgba(177, 177, 177, 0.82);
 }
@@ -478,14 +478,14 @@ html[tkapp] {
 }
 
 [tkbutton].tksuccess:hover,
-[tkbutton].tksuccess:focus {
+[tkbutton].tksuccess:focus-within {
     color: #fff;
     background: linear-gradient(180deg, #79c714, #47c113);
     border: 1px solid #31b61a;
     outline: none;
 }
 
-[tkbutton].tksuccess:focus {
+[tkbutton].tksuccess:focus-within {
     box-shadow: 0 0 0 0.2rem rgba(111, 214, 22, 0.4);
 }
 
@@ -502,7 +502,7 @@ color: #fff;
     border: 1px solid #125a06;
 }
 
-[tkbutton].tksuccess:not(:disabled):not(.disabled):active:focus {    
+[tkbutton].tksuccess:not(:disabled):not(.disabled):active:focus-within {    
     box-shadow: 0 0 0 0.2rem rgba(136, 255, 52, 0.5);
     outline-color: rgba(147, 255, 66, 0.5);
 }
@@ -519,14 +519,14 @@ color: #fff;
 }
 
 [tkbutton].tkdanger:hover,
-[tkbutton].tkdanger:focus {
+[tkbutton].tkdanger:focus-within {
     color: #fff;
     background: linear-gradient(180deg, #d6733d, #ee4545);
     border: 1px solid #c2330f;
     outline: none;
 }
 
-[tkbutton].tkdanger:focus {
+[tkbutton].tkdanger:focus-within {
     box-shadow: 0 0 0 0.2rem rgba(214, 103, 22, 0.5);
 }
 
@@ -543,7 +543,7 @@ color: #fff;
     border: 1px solid #531f02;
 }
 
-[tkbutton].tkdanger:not(:disabled):not(.disabled):active:focus {
+[tkbutton].tkdanger:not(:disabled):not(.disabled):active:focus-within {
     box-shadow: 0 0 0 0.2rem rgba(255, 137, 52, 0.5);
     outline-color: rgba(255, 66, 66, 0.82);
 }
@@ -560,14 +560,14 @@ color: #fff;
 }
 
 [tkbutton].tkwarning:hover,
-[tkbutton].tkwarning:focus {
+[tkbutton].tkwarning:focus-within {
     color: #fff;
     background: linear-gradient(180deg, #dac003, #d6a802);
     border: 1px solid #e49e1e;
     outline: none;
 }
 
-[tkbutton].tkwarning:focus {
+[tkbutton].tkwarning:focus-within {
     box-shadow: 0 0 0 0.2rem rgba(204, 165, 9, 0.5);
 }
 
@@ -584,7 +584,7 @@ color: #fff;
     border: 1px solid #573b01;
 }
 
-[tkbutton].tkwarning:not(:disabled):not(.disabled):active:focus {
+[tkbutton].tkwarning:not(:disabled):not(.disabled):active:focus-within {
     box-shadow: 0 0 0 0.2rem rgba(255, 241, 52, 0.5);
     outline-color: rgba(255, 195, 66, 0.82);
 }

@@ -41,10 +41,10 @@
         modal.on("modalclosed", () => {
             switch (modal.result) {
                 case TkModalResult.YES:
-                    alert("Thanks!");
+                    TkModal.alert("Thanks!");
                     break;
                 case TkModalResult.NO:
-                    alert("Well then...");
+                    TkModal.alert("Well then...");
             }
         });
     </script>

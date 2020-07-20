@@ -603,6 +603,13 @@ class TkView {
     }
 
     /**
+     * Focus the view.
+     */
+    focus() {
+        this.e.focus();
+    }
+
+    /**
      * If the element is visible or not.
      * 
      * @type {Boolean}
@@ -2399,6 +2406,7 @@ class TkModal extends TkOverlay {
             if (button.getAttribute("choice") === value) {
                 button.addClass(TkButtonStyle.PRIMARY);
                 this._defaultButton = button;
+                this._defaultButton.focus();
             } else {
                 button.addClass(TkButtonStyle.SECONDARY);
             }
@@ -2407,6 +2415,7 @@ class TkModal extends TkOverlay {
 
     show(callback) {
         super.show(callback);
+        this._defaultButton?.focus();
     }
 
     close() {
@@ -2429,6 +2438,42 @@ class TkModal extends TkOverlay {
 
     get defaultButton() {
         return this._defaultButton;
+    }
+
+    set defaultButton(value) {
+        for (let child of this.footer.children) {
+            if (TkObject.is(child, TkButton)) {
+                if (child === value) {
+                    child.addClass(TkButtonStyle.PRIMARY);
+                    this._defaultButton = child;
+                    this._defaultButton.focus();
+                } else {
+                    child.addClass(TkButtonStyle.SECONDARY);
+                }
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param {String} message The message to show as the content
+     * @param {Object} options The options object
+     * @param {String} [options.title] The title of the alert.
+     * @param {Boolean} [options.okButton=true] If the OK button should be shown.
+     */
+    static alert(message, options = {}) {
+        if (options.okButton === undefined)
+            options.okButton = true;
+        let choices = options.okButton ? [TkModalResult.OK] : [];
+        let alertModal = new TkModal({
+            message: message,
+            title: options.title,
+            choices: choices,
+            defaultChoice: TkModalResult.OK
+        });
+
+        alertModal.on("modalclosed", () => alertModal.delete());
+        alertModal.show();
     }
 
 }
