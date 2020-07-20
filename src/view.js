@@ -2455,9 +2455,11 @@ class TkModal extends TkOverlay {
     }
 
     /**
+     * Creates a simple modal displaying a message. Can be used in place of 
+     * a plain Javascript alert() and allows for a few extra options.
      * 
      * @param {String} message The message to show as the content
-     * @param {Object} options The options object
+     * @param {Object} [options] The options object
      * @param {String} [options.title] The title of the alert.
      * @param {Boolean} [options.okButton=true] If the OK button should be shown.
      */
