@@ -43,8 +43,8 @@ const TkLabelLayout = {
  */
 const TkButtonStyle = {
     NONE: "",
+    NORMAL: "tknormal",
     PRIMARY: "tkprimary",
-    SECONDARY: "tksecondary",
     SUCCESS: "tksuccess",
     DANGER: "tkdanger",
     WARNING: "tkwarning"

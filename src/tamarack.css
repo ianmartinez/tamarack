@@ -17,6 +17,25 @@ html {
     /* TkButton */
     --tkbutton-padding: 0.25rem 0.5rem;
 
+    /* TkButtonStyle.NORMAL */
+    --tknormal-text: hsl(0, 0%, 0%);
+    --tknormal-fill-1: hsl(0, 0%, 92%);
+    --tknormal-fill-2: hsl(0, 0%, 87%);
+    --tknormal-border: hsl(0, 0%, 70%);
+    --tknormal-text-shadow: hsla(0, 0%, 100%, 0.5);
+    --tknormal-hover-text: hsl(0, 0%, 0%);
+    --tknormal-hover-fill-1:  hsl(0, 0%, 94%);
+    --tknormal-hover-fill-2: hsl(0, 0%, 89%);
+    --tknormal-hover-border: hsl(0, 0%, 75%);
+    --tknormal-hover-text-shadow: hsla(0, 0%, 100%, 0.5);
+    --tknormal-active-text: hsl(0, 0%, 20%);
+    --tknormal-active-fill-1: hsl(0, 0%, 75%);
+    --tknormal-active-fill-2: hsl(0, 0%, 85%);
+    --tknormal-active-border: hsl(0, 0%, 60%);
+    --tknormal-active-text-shadow: hsla(0, 0%, 100%, 0.5);
+    --tknormal-focus-ring: hsla(0, 0%, 80%, 0.5);
+    --tknormal-focus-outline: hsla(0, 0%, 70%, 0.8);
+
     /* TkButtonStyle.PRIMARY */
     --tkprimary-text: hsl(0, 0%, 100%);
     --tkprimary-fill-1: hsl(188, 100%, 36%);
@@ -35,25 +54,6 @@ html {
     --tkprimary-active-text-shadow: hsla(0, 0%, 0%, 0.5);
     --tkprimary-focus-ring: hsla(199, 100%, 70%, 0.5);
     --tkprimary-focus-outline: hsla(199, 100%, 63%, 0.8);
-
-    /* TkButtonStyle.SECONDARY */
-    --tksecondary-text: hsl(0, 0%, 0%);
-    --tksecondary-fill-1: hsl(0, 0%, 92%);
-    --tksecondary-fill-2: hsl(0, 0%, 87%);
-    --tksecondary-border: hsl(0, 0%, 70%);
-    --tksecondary-text-shadow: hsla(0, 0%, 100%, 0.5);
-    --tksecondary-hover-text: hsl(0, 0%, 0%);
-    --tksecondary-hover-fill-1:  hsl(0, 0%, 94%);
-    --tksecondary-hover-fill-2: hsl(0, 0%, 89%);
-    --tksecondary-hover-border: hsl(0, 0%, 75%);
-    --tksecondary-hover-text-shadow: hsla(0, 0%, 100%, 0.5);
-    --tksecondary-active-text: hsl(0, 0%, 20%);
-    --tksecondary-active-fill-1: hsl(0, 0%, 75%);
-    --tksecondary-active-fill-2: hsl(0, 0%, 85%);
-    --tksecondary-active-border: hsl(0, 0%, 60%);
-    --tksecondary-active-text-shadow: hsla(0, 0%, 100%, 0.5);
-    --tksecondary-focus-ring: hsla(0, 0%, 80%, 0.5);
-    --tksecondary-focus-outline: hsla(0, 0%, 70%, 0.8);
 
     /* TkButtonStyle.SUCCESS */
     --tksuccess-text: hsl(0, 0%, 100%);
@@ -100,13 +100,13 @@ html {
     --tkwarning-border: hsl(39, 100%, 38%);
     --tkwarning-text-shadow: hsla(0, 0%, 0%, 0.5);
     --tkwarning-hover-text: hsl(0, 0%, 100%);
-    --tkwarning-hover-fill-1: #dac003;
-    --tkwarning-hover-fill-2: #d6a802;
-    --tkwarning-hover-border: #e49e1e;
+    --tkwarning-hover-fill-1: hsl(53, 97%, 43%);
+    --tkwarning-hover-fill-2: hsl(47, 98%, 42%);
+    --tkwarning-hover-border: hsl(39, 79%, 51%);
     --tkwarning-hover-text-shadow: hsla(0, 0%, 0%, 0.5);
     --tkwarning-active-text: hsl(0, 0%, 84%);
     --tkwarning-active-fill-1: hsl(51, 82%, 24%);
-    --tkwarning-active-fill-2: hsl(46, 72%, 26%);
+    --tkwarning-active-fill-2: hsl(46, 71%, 31%);
     --tkwarning-active-border: hsl(40, 98%, 17%);
     --tkwarning-active-text-shadow: hsla(0, 0%, 0%, 0.5);
     --tkwarning-focus-ring: hsla(49, 93%, 49%, 0.5);
@@ -156,6 +156,7 @@ html {
     --tktoolbarbutton-hover-fill: rgb(176, 237, 255);
     --tktoolbarbutton-active-border: rgb(6, 143, 185);
     --tktoolbarbutton-active-fill: rgb(125, 225, 255);
+    --tktoolbarbutton-focus-ring: hsla(199, 100%, 70%, 0.5);
 
     /* TkOverlay */
     --tkoverlay-backdrop: rgba(247, 247, 247, 0.45);
@@ -477,6 +478,48 @@ html[tkapp] {
 }
 
 /* TkButtonStyle */
+[tkapp] [tkbutton],
+[tkbutton].tknormal {
+    border-radius: var(--tk-border-radius);
+    color: var(--tknormal-text);
+    background: linear-gradient(180deg, var(--tknormal-fill-1), var(--tknormal-fill-2));
+    border: 1px solid var(--tknormal-border);
+    text-decoration: none;
+    outline: none;
+    text-shadow: 0 0 1px var(--tknormal-text-shadow);
+    padding: var(--tkbutton-padding);
+}
+
+[tkapp] [tkbutton]:hover,
+[tkbutton].tknormal:hover,
+[tkapp] [tkbutton]:focus-within,
+[tkbutton].tknormal:focus-within {
+    color: var(--tknormal-hover-text);
+    background: linear-gradient(180deg, var(--tknormal-hover-fill-1), var(--tknormal-hover-fill-2));
+    border: 1px solid var(--tknormal-hover-border);
+    outline: none;
+    text-shadow: 0 0 1px var(--tknormal-hover-text-shadow);
+}
+
+[tkapp] [tkbutton]:focus-within,
+[tkbutton].tknormal:focus-within {
+    box-shadow: 0 0 0 0.2rem var(--tknormal-focus-ring);
+}
+
+[tkapp] [tkbutton]:not(:disabled):not(.disabled):active,
+[tkbutton].tknormal:not(:disabled):not(.disabled):active {   
+    color: var(--tknormal-active-text);
+    background: linear-gradient(180deg, var(--tknormal-active-fill-1), var(--tknormal-active-fill-2));
+    border: 1px solid var(--tknormal-active-border);
+    text-shadow: 0 0 1px var(--tknormal-active-text-shadow);
+}
+
+[tkapp] [tkbutton]:not(:disabled):not(.disabled):active:focus-within,
+[tkbutton].tknormal:not(:disabled):not(.disabled):active:focus-within {
+    box-shadow: 0 0 0 0.2rem var(--tknormal-focus-ring);
+    outline-color: var(--tknormal-focus-outline);
+}
+
 [tkbutton].tkprimary {
     border-radius: var(--tk-border-radius);
     color: var(--tkprimary-text);
@@ -513,42 +556,6 @@ html[tkapp] {
 .show > [tkbutton].tkprimary.dropdown-toggle:focus-within {
     box-shadow: 0 0 0 0.2rem var(--tkprimary-focus-ring);
     outline-color: var(--tkprimary-focus-outline);
-}
-
-[tkbutton].tksecondary {
-    border-radius: var(--tk-border-radius);
-    color: var(--tksecondary-text);
-    background: linear-gradient(180deg, var(--tksecondary-fill-1), var(--tksecondary-fill-2));
-    border: 1px solid var(--tksecondary-border);
-    text-decoration: none;
-    outline: none;
-    text-shadow: 0 0 1px var(--tksecondary-text-shadow);
-    padding: var(--tkbutton-padding);
-}
-
-[tkbutton].tksecondary:hover,
-[tkbutton].tksecondary:focus-within {
-    color: var(--tksecondary-hover-text);
-    background: linear-gradient(180deg, var(--tksecondary-hover-fill-1), var(--tksecondary-hover-fill-2));
-    border: 1px solid var(--tksecondary-hover-border);
-    outline: none;
-    text-shadow: 0 0 1px var(--tksecondary-hover-text-shadow);
-}
-
-[tkbutton].tksecondary:focus-within {
-    box-shadow: 0 0 0 0.2rem var(--tksecondary-focus-ring);
-}
-
-[tkbutton].tksecondary:not(:disabled):not(.disabled):active {   
-    color: var(--tksecondary-active-text);
-    background: linear-gradient(180deg, var(--tksecondary-active-fill-1), var(--tksecondary-active-fill-2));
-    border: 1px solid var(--tksecondary-active-border);
-    text-shadow: 0 0 1px var(--tksecondary-active-text-shadow);
-}
-
-[tkbutton].tksecondary:not(:disabled):not(.disabled):active:focus-within {
-    box-shadow: 0 0 0 0.2rem var(--tksecondary-focus-ring);
-    outline-color: var(--tksecondary-focus-outline);
 }
 
 [tkbutton].tksuccess {
@@ -661,8 +668,8 @@ html[tkapp] {
 
 [tkbutton].tkprimary.disabled,
 [tkbutton].tkprimary:disabled, 
-[tkbutton].tksecondary.disabled,
-[tkbutton].tksecondary:disabled,
+[tkbutton].tknormal.disabled,
+[tkbutton].tknormal:disabled,
 [tkbutton].tksuccess.disabled,
 [tkbutton].tksuccess:disabled,
 [tkbutton].tkdanger.disabled,
@@ -1033,14 +1040,25 @@ html[tkapp] {
 }
 
 [tktoolbar] [tkbutton]:hover,
-[tktoolbar] [tkbutton]:focus {
+[tktoolbar] [tkbutton]:focus-within {
     border: 1px solid var(--tktoolbarbutton-hover-border);
     background: var(--tktoolbarbutton-hover-fill);
 }
 
-[tktoolbar] [tkbutton]:active {
+[tktoolbar] [tkbutton]:focus-within {
+    box-shadow: 0 0 0 0.2rem var(--tktoolbarbutton-focus-ring);
+}
+
+[tktoolbar] [tkbutton]:not(:disabled):not(.disabled):active {
     border: 1px solid var(--tktoolbarbutton-active-border);
     background: var(--tktoolbarbutton-active-fill);
+    box-shadow: 0 0 0 0.2rem var(--tktoolbarbutton-focus-ring);
+}
+
+[tktoolbar] [tkbutton]:not(:disabled):not(.disabled):active:focus-within, 
+[tktoolbar] [tkbutton]:not(:disabled):not(.disabled):active:focus-within {
+    box-shadow: 0 0 0 0.2rem var(--tktoolbarbutton-focus-ring);
+    outline: none;
 }
 
 [tktoolbar] [tkicon] {
