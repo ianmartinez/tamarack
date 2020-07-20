@@ -198,10 +198,10 @@ html {
         --tkview-focus-border: rgb(6, 143, 185);
 
         /* TkButtonStyle.NORMAL */
-        --tknormal-text: hsl(0, 0%, 0%);
-        --tknormal-fill-1: hsl(0, 0%, 92%);
-        --tknormal-fill-2: hsl(0, 0%, 87%);
-        --tknormal-border: hsl(0, 0%, 70%);
+        --tknormal-text: hsl(0, 0%, 100%);
+        --tknormal-fill-1: hsl(0, 0%, 17%);
+        --tknormal-fill-2: hsl(0, 0%, 12%);
+        --tknormal-border: hsl(0, 0%, 29%);
         --tknormal-text-shadow: hsla(0, 0%, 100%, 0.5);
         --tknormal-hover-text: hsl(0, 0%, 0%);
         --tknormal-hover-fill-1:  hsl(0, 0%, 94%);

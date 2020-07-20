@@ -2432,7 +2432,7 @@ class TkModal extends TkOverlay {
                 this._defaultButton = button;
                 this._defaultButton.focus();
             } else {
-                button.addClass(TkButtonStyle.SECONDARY);
+                button.addClass(TkButtonStyle.NORMAL);
             }
         }
     }
@@ -2497,7 +2497,7 @@ class TkModal extends TkOverlay {
                     this._defaultButton = child;
                     this._defaultButton.focus();
                 } else {
-                    child.addClass(TkButtonStyle.SECONDARY);
+                    child.addClass(TkButtonStyle.NORMAL);
                 }
             }
         }
