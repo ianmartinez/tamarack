@@ -54,7 +54,7 @@ const TkButtonStyle = {
  * An enum representing the
  * button clicked on a TkChoiceBox.
  */
-const TkModalResult = {
+const TkChoice = {
     NOTHING: "Nothing",
     OK: "OK",
     CANCEL: "Cancel",
@@ -2307,8 +2307,8 @@ class TkModal extends TkOverlay {
      * specified, then it defaults to "true".
      * @param {Boolean} [options.closeButton=true] If the close button should be shown.
      * @param {TkButton[]} [options.buttons] The buttons to add to the footer.
-     * @param {TkModalResult[]} [options.choices] The button choices to add.
-     * @param {TkModalResult} [options.defaultChoice] The button choices to select
+     * @param {TkChoice[]} [options.choices] The button choices to add.
+     * @param {TkChoice} [options.defaultChoice] The button choices to select
      * as the default choice from the "choices" option.
      */
     constructor(options = {}) {
@@ -2390,7 +2390,7 @@ class TkModal extends TkOverlay {
             });
 
             choiceButton.on("click", (button) => {
-                modal.closeWithResult(button.getAttribute("choice"));
+                modal.closeWith(button.getAttribute("choice"));
             });
 
             this._choiceButtons.push(choiceButton);
@@ -2419,15 +2419,20 @@ class TkModal extends TkOverlay {
     }
 
     close() {
-        this.result = TkModalResult.NOTHING;
+        this.result = TkChoice.NOTHING;
         super.close(this._callback);
     }
 
-    closeWithResult(result) {
+    closeWith(result) {
         this.result = result;
         super.close(this._callback);
     }
 
+    /**
+     * Find the button matching a choice.
+     * 
+     * @param {TkChoice} choice The choice to look for.
+     */
     buttonFor(choice) {
         for (let button of this._choiceButtons)
             if (button.getAttribute("choice") === choice)
@@ -2436,6 +2441,11 @@ class TkModal extends TkOverlay {
         return null;
     }
 
+    /**
+     * The button that receives focus when the modal 
+     * is opened.
+     * @type {TkButton}
+     */
     get defaultButton() {
         return this._defaultButton;
     }
@@ -2466,12 +2476,12 @@ class TkModal extends TkOverlay {
     static alert(message, options = {}) {
         if (options.okButton === undefined)
             options.okButton = true;
-        let choices = options.okButton ? [TkModalResult.OK] : [];
+        let choices = options.okButton ? [TkChoice.OK] : [];
         let alertModal = new TkModal({
             message: message,
             title: options.title,
             choices: choices,
-            defaultChoice: TkModalResult.OK
+            defaultChoice: TkChoice.OK
         });
 
         alertModal.on("modalclosed", () => alertModal.delete());

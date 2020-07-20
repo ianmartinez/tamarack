@@ -29,8 +29,8 @@
             iconName: "help-outline",
             title: "Question...",
             message: "Do you like tamarack?",
-            choices: [TkModalResult.YES, TkModalResult.NO],
-            defaultChoice: TkModalResult.YES
+            choices: [TkChoice.YES, TkChoice.NO],
+            defaultChoice: TkChoice.YES
         });
         button.on("click", () => modal.show());
 
@@ -40,10 +40,10 @@
         // achieve the same effect
         modal.on("modalclosed", () => {
             switch (modal.result) {
-                case TkModalResult.YES:
+                case TkChoice.YES:
                     TkModal.alert("Thanks!");
                     break;
-                case TkModalResult.NO:
+                case TkChoice.NO:
                     TkModal.alert("Well then...");
             }
         });
