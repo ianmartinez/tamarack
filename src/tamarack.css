@@ -95,9 +95,9 @@ html {
 
     /* TkButtonStyle.WARNING */
     --tkwarning-text: hsl(0, 0%, 100%);
-    --tkwarning-fill-1: hsl(53, 100%, 40%);
-    --tkwarning-fill-2: hsl(47, 100%, 38%);
-    --tkwarning-border: hsl(39, 100%, 38%);
+    --tkwarning-fill-1: hsl(53, 100%, 43%);
+    --tkwarning-fill-2: hsl(47, 91%, 43%);
+    --tkwarning-border: hsl(39, 96%, 40%);
     --tkwarning-text-shadow: hsla(0, 0%, 0%, 0.5);
     --tkwarning-hover-text: hsl(0, 0%, 100%);
     --tkwarning-hover-fill-1: hsl(53, 97%, 43%);
@@ -196,6 +196,45 @@ html {
         --tkview-fill-inactive: rgb(53, 53, 53);
         --tkview-text-inactive: rgb(131, 131, 131);
         --tkview-focus-border: rgb(6, 143, 185);
+
+        /* TkButtonStyle.NORMAL */
+        --tknormal-text: hsl(0, 0%, 0%);
+        --tknormal-fill-1: hsl(0, 0%, 92%);
+        --tknormal-fill-2: hsl(0, 0%, 87%);
+        --tknormal-border: hsl(0, 0%, 70%);
+        --tknormal-text-shadow: hsla(0, 0%, 100%, 0.5);
+        --tknormal-hover-text: hsl(0, 0%, 0%);
+        --tknormal-hover-fill-1:  hsl(0, 0%, 94%);
+        --tknormal-hover-fill-2: hsl(0, 0%, 89%);
+        --tknormal-hover-border: hsl(0, 0%, 75%);
+        --tknormal-hover-text-shadow: hsla(0, 0%, 100%, 0.5);
+        --tknormal-active-text: hsl(0, 0%, 20%);
+        --tknormal-active-fill-1: hsl(0, 0%, 75%);
+        --tknormal-active-fill-2: hsl(0, 0%, 85%);
+        --tknormal-active-border: hsl(0, 0%, 60%);
+        --tknormal-active-text-shadow: hsla(0, 0%, 100%, 0.5);
+        --tknormal-focus-ring: hsla(0, 0%, 80%, 0.5);
+        --tknormal-focus-outline: hsla(0, 0%, 70%, 0.8);
+    
+        /* TkButtonStyle.PRIMARY */
+        --tkprimary-border: hsl(198, 68%, 52%);
+        --tkprimary-hover-border: hsl(201, 82%, 64%);
+        --tkprimary-active-border: hsl(187, 61%, 37%);
+    
+        /* TkButtonStyle.SUCCESS */
+        --tksuccess-border: hsl(111, 64%, 47%);
+        --tksuccess-hover-border: hsl(111, 61%, 51%);
+        --tksuccess-active-border: hsl(111, 76%, 31%);
+    
+        /* TkButtonStyle.DANGER */
+        --tkdanger-border: hsl(7, 66%, 53%);
+        --tkdanger-hover-border: hsl(12, 77%, 59%);
+        --tkdanger-active-border: hsl(21, 69%, 37%);
+    
+        /* TkButtonStyle.WARNING */
+        --tkwarning-border: hsl(39, 97%, 64%);
+        --tkwarning-hover-border: hsl(39, 82%, 59%);
+        --tkwarning-active-border: hsl(40, 80%, 37%);
 
         /* TkList */
         --tklist-selected-fill: rgba(255, 255, 255, 0.25);
