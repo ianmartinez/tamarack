@@ -40,7 +40,7 @@
                 icon: new TkImage({ source: "media/test.png" }),
                 layout: TkLabelLayout[layout],
                 style: "margin: 0.25rem;",
-                events: { click: () => alert(`Clicked "${layout}"`) }
+                events: { click: () => TkModal.alert(`Clicked "${layout}"`) }
             });
         }
 
