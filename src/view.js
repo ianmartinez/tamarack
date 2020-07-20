@@ -2530,10 +2530,9 @@ class TkModal extends TkOverlay {
 }
 
 /**
- * A simple TkOverlay for showing an image/video/some other
- * media.
+ * A TkModal for displaying some type of media. Fills the screen.
  */
-class TkLightbox extends TkOverlay {
+class TkLightbox extends TkModal {
 
 }
 
