@@ -200,19 +200,19 @@ html {
         /* TkButtonStyle.NORMAL */
         --tknormal-text: hsl(0, 0%, 100%);
         --tknormal-fill-1: hsl(0, 0%, 17%);
-        --tknormal-fill-2: hsl(0, 0%, 12%);
+        --tknormal-fill-2: hsl(0, 0%, 14%);
         --tknormal-border: hsl(0, 0%, 29%);
-        --tknormal-text-shadow: hsla(0, 0%, 100%, 0.5);
-        --tknormal-hover-text: hsl(0, 0%, 0%);
-        --tknormal-hover-fill-1:  hsl(0, 0%, 94%);
-        --tknormal-hover-fill-2: hsl(0, 0%, 89%);
-        --tknormal-hover-border: hsl(0, 0%, 75%);
-        --tknormal-hover-text-shadow: hsla(0, 0%, 100%, 0.5);
-        --tknormal-active-text: hsl(0, 0%, 20%);
-        --tknormal-active-fill-1: hsl(0, 0%, 75%);
-        --tknormal-active-fill-2: hsl(0, 0%, 85%);
-        --tknormal-active-border: hsl(0, 0%, 60%);
-        --tknormal-active-text-shadow: hsla(0, 0%, 100%, 0.5);
+        --tknormal-text-shadow: hsla(0, 0%, 0%, 0.5);
+        --tknormal-hover-text: hsl(0, 0%, 100%);
+        --tknormal-hover-fill-1: hsl(0, 0%, 21%);
+        --tknormal-hover-fill-2: hsl(0, 0%, 18%);
+        --tknormal-hover-border: hsl(0, 0%, 34%);
+        --tknormal-hover-text-shadow: hsla(0, 0%, 0%, 0.5);
+        --tknormal-active-text: hsl(0, 0%, 100%);
+        --tknormal-active-fill-1: hsl(0, 0%, 14%);
+        --tknormal-active-fill-2: hsl(0, 0%, 19%);
+        --tknormal-active-border: hsl(0, 0%, 18%);
+        --tknormal-active-text-shadow: hsla(0, 0%, 0%, 0.5);
         --tknormal-focus-ring: hsla(0, 0%, 80%, 0.5);
         --tknormal-focus-outline: hsla(0, 0%, 70%, 0.8);
     
