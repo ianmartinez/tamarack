@@ -4,69 +4,6 @@
  */
 
 /**
- * An enum representing the direction 
- * to place the child elements in a 
- * TkStack. 
- * @enum {String}
- */
-const TkStackDirection = {
-    HORIZONTAL: "tkstack-h",
-    VERTICAL: "tkstack-v",
-    HORIZONTAL_REVERSE: "tkstack-hr",
-    VERTICAL_REVERSE: "tkstack-vr",
-    FLOW: "tkstack-flow",
-    FLOW_REVERSE: "tkstack-flowr"
-};
-
-/**
- * An enum representing the labout of
- * the text and icon in a TkLabel. 
- * 
- * If applied to any label, it affects
- * that label. If applied to a container,
- * it affect every label in that container.
- * @enum {String}
- */
-const TkLabelLayout = {
-    DEFAULT: "tklabel-default",
-    ICON_TOP: "tklabel-icon-top",
-    ICON_BOTTOM: "tklabel-icon-bottom",
-    ICON_LEFT: "tklabel-icon-left",
-    ICON_RIGHT: "tklabel-icon-right",
-    ICON_ONLY: "tklabel-icon-only",
-    TEXT_ONLY: "tklabel-text-only",
-};
-
-/**
- * An enum for the different classes of button style.
- * @enum {String}
- */
-const TkButtonStyle = {
-    NONE: "",
-    NORMAL: "tknormal",
-    PRIMARY: "tkprimary",
-    SUCCESS: "tksuccess",
-    DANGER: "tkdanger",
-    WARNING: "tkwarning"
-};
-
-/**
- * An enum representing the
- * button clicked on a TkChoiceBox.
- */
-const TkChoice = {
-    NONE: "Nothing",
-    OK: "OK",
-    CANCEL: "Cancel",
-    CLOSE: "Close",
-    ABORT: "Abort",
-    IGNORE: "Ignore",
-    YES: "Yes",
-    NO: "No",
-    RETRY: "Retry"
-};
-
-/**
  * Represents an HTML element and exposes additional 
  * functionality that makes manipulating elements easier.
  */
@@ -2592,3 +2529,66 @@ class TkTemplate extends TkView {
     }
 
 }
+
+/**
+ * An enum representing the direction 
+ * to place the child elements in a 
+ * TkStack. 
+ * @enum {String}
+ */
+const TkStackDirection = {
+    HORIZONTAL: "tkstack-h",
+    VERTICAL: "tkstack-v",
+    HORIZONTAL_REVERSE: "tkstack-hr",
+    VERTICAL_REVERSE: "tkstack-vr",
+    FLOW: "tkstack-flow",
+    FLOW_REVERSE: "tkstack-flowr"
+};
+
+/**
+ * An enum representing the labout of
+ * the text and icon in a TkLabel. 
+ * 
+ * If applied to any label, it affects
+ * that label. If applied to a container,
+ * it affect every label in that container.
+ * @enum {String}
+ */
+const TkLabelLayout = {
+    DEFAULT: "tklabel-default",
+    ICON_TOP: "tklabel-icon-top",
+    ICON_BOTTOM: "tklabel-icon-bottom",
+    ICON_LEFT: "tklabel-icon-left",
+    ICON_RIGHT: "tklabel-icon-right",
+    ICON_ONLY: "tklabel-icon-only",
+    TEXT_ONLY: "tklabel-text-only",
+};
+
+/**
+ * An enum for the different classes of button style.
+ * @enum {String}
+ */
+const TkButtonStyle = {
+    NONE: "",
+    NORMAL: "tknormal",
+    PRIMARY: "tkprimary",
+    SUCCESS: "tksuccess",
+    DANGER: "tkdanger",
+    WARNING: "tkwarning"
+};
+
+/**
+ * An enum representing the
+ * button clicked on a TkChoiceBox.
+ */
+const TkChoice = {
+    NONE: "Nothing",
+    OK: "OK",
+    CANCEL: "Cancel",
+    CLOSE: "Close",
+    ABORT: "Abort",
+    IGNORE: "Ignore",
+    YES: "Yes",
+    NO: "No",
+    RETRY: "Retry"
+};
