@@ -64,11 +64,10 @@ class TkSidebar extends TkView {
     constructor(options = {}) {
         super(options);
         this.addViewName("tksidebar");
-        this.addClass(options.width ?? TkWidth.W20);
         this.autoCollapse = options.autoCollapse ?? true;
-        if(options.at === TkSidebarPosition.START)
+        if (options.at === TkSidebarPosition.START)
             this.moveToTop();
-        else if(options.at === TkSidebarPosition.END)
+        else if (options.at === TkSidebarPosition.END)
             this.moveToBottom();
     }
 
@@ -81,11 +80,11 @@ class TkSidebar extends TkView {
     }
 
     get autoCollapse() {
-        return this.hasClass("tksidebar-autocollapse");        
+        return this.hasClass("tksidebar-autocollapse");
     }
 
     set autoCollapse(value) {
-        return this.classIf(value, "tksidebar-autocollapse");         
+        return this.classIf(value, "tksidebar-autocollapse");
     }
 
 }
