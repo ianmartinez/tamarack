@@ -1857,6 +1857,19 @@ class TkList extends TkStack {
     }
 
     /**
+     * The items in the list.
+     * @type {TkView[]}
+     */
+    get items() {
+        return this.children;
+    }
+
+    set items(value) {
+        this.remove(...this.children);
+        this.add(...value);
+    }
+
+    /**
      * The selected item in the list. Always returns a TkView, but when setting 
      * the value, it can also accept CSS selectors or HTMLElements.
      * @type {TkView|String|HTMLElement}

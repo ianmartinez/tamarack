@@ -338,6 +338,7 @@ html[tkapp] {
     flex-direction: column;
     max-width: 100%;
     max-height: 100%;
+    min-height: 1rem;
 }
 
 [tkapp] #tkapp-content-outer-view {
@@ -1236,6 +1237,7 @@ html[tkapp] {
     min-width: 175px;
     max-width: 265px;
     border-right: 1px solid var(--tksidebar-border);
+    overflow-y: auto;
 }
 
 [tksidebar]:first-child {
@@ -1333,6 +1335,8 @@ html[tkapp] {
     flex-direction: column;
     background: var(--tkimg-transparent-fill);
     border: 1px solid var(--tkview-border);
+    min-height: 30px;
+    width: 100%;
 }
 
 [tkpreview] > * {
