@@ -2592,3 +2592,26 @@ const TkChoice = {
     NO: "No",
     RETRY: "Retry"
 };
+
+/**
+ * An enum for the tkw-* column width
+ * classes.
+ */
+const TkWidth = {
+    NONE: "",
+    W0: "tkw-0",
+    W10: "tkw-10",
+    W20: "tkw-20",
+    W25: "tkw-25",
+    W30: "tkw-30",
+    W33: "tkw-33",
+    W40: "tkw-40",
+    W50: "tkw-50",
+    W60: "tkw-60",
+    W66: "tkw-66",
+    W70: "tkw-70",
+    W75: "tkw-75",
+    W80: "tkw-80",
+    W90: "tkw-90",
+    W100: "tkw-100"
+};
