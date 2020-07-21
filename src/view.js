@@ -2487,6 +2487,22 @@ class TkLightbox extends TkModal {
 }
 
 /**
+ * A view with a transparency pattern behind a content view.
+ */
+class TkPreview extends TkView {
+
+    constructor(options = {}) {
+        super(options);
+        this.addViewName("tkpreview");
+
+        // The content view
+        this.content = options.content ?? new TkView();
+        this.add(this.content);
+    }
+
+}
+
+/**
  * Create a TkView from an existing node in the DOM with the attribute
  * [template={some-template-name}]. Fields representing views are automatically
  * generated for child elements with the attribute [view-name={someViewName}] and

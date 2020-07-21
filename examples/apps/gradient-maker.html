@@ -43,20 +43,11 @@
             margin: 0.25rem 0;
         }
 
-        .gradient-preview-container {
+        .gradient-preview {
             width: calc(100% - 0.5rem);
             margin: 0.25rem;
             margin-top: 0.5rem;
             flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .gradient-preview {
-            width: 100%;
-            height: 100%;
-            flex-grow: 1;
-            border: 1px solid var(--tkview-border);
         }
 
         @media (max-width: 768px) {
@@ -119,24 +110,23 @@
 
         // Results
         let cssField = new TkField({ parent: TkAppContentView, title: "CSS:", content: new TkText("span") });
-        let gradientPreviewContainer = new TkView({ parent: TkAppContentView, classes: ["gradient-preview-container", "tktransparent-area"] });
-        let gradientPreview = new TkView({ parent: gradientPreviewContainer, classes: ["gradient-preview"] });
+        let gradientPreview = new TkPreview({ parent: TkAppContentView, classes: ["gradient-preview"] });
 
         // Update the preview and the CSS code
         function updatePreview() {
             let colorCount = colorList.children.length;
 
             if (colorCount === 0) {
-                gradientPreview.style.background = "#ffffff";
+                gradientPreview.content.style.background = "#ffffff";
                 cssField.content.text = "";
             } else if (colorCount === 1) {
                 let color = colorList.children[0].color;
-                gradientPreview.style.background = color;
+                gradientPreview.content.style.background = color;
                 cssField.content.text = color;
             } else {
                 let gradient =
                     TkGradient.linear(angleField.content.valueAsNumber, colorList.children.map((item) => item.color));
-                gradientPreview.style.background = gradient;
+                gradientPreview.content.style.background = gradient;
                 cssField.content.text = gradient;
             }
         }
