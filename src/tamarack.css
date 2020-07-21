@@ -362,6 +362,91 @@ html[tkapp] {
     height: 100% !important;
 }
 
+/* Columns (tkw, short for tkwidth) */
+.tkw-0, .tkw-10, .tkw-20, .tkw-25, .tkw-30,
+.tkw-33, .tkw-40, .tkw-50, .tkw-60, .tkw-66,
+.tkw-70, .tkw-75, .tkw-80, .tkw-90, .tkw-100 {
+    position: relative;
+    width: 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.tkw-0 {
+    flex-basis: 0%;
+    max-width: 0%;
+}
+
+.tkw-10 {
+    flex-basis: 10%;
+    max-width: 10%;
+}
+
+.tkw-20 {
+    flex-basis: 20%;
+    max-width: 20%;
+}
+
+.tkw-25 {
+    flex-basis: 25%;
+    max-width: 20%;
+}
+
+.tkw-30 {
+    flex-basis: 30%;
+    max-width: 30%;
+}
+
+.tkw-33 {
+    flex-basis: 33%;
+    max-width: 33%;
+}
+
+.tkw-40 {
+    flex-basis: 40%;
+    max-width: 40%;
+}
+
+.tkw-50 {
+    flex-basis: 50%;
+    max-width: 50%;
+}
+
+.tkw-60 {
+    flex-basis: 60%;
+    max-width: 60%;
+}
+
+.tkw-66 {
+    flex-basis: 66%;
+    max-width: 66%;
+}
+
+.tkw-70 {
+    flex-basis: 70%;
+    max-width: 70%;
+}
+
+.tkw-75 {
+    flex-basis: 75%;
+    max-width: 75%;
+}
+
+.tkw-80 {
+    flex-basis: 80%;
+    max-width: 80%;
+}
+
+.tkw-90 {
+    flex-basis: 90%;
+    max-width: 90%;
+}
+
+.tkw-100 {
+    flex-basis: 100%;
+    max-width: 100%;
+}
+
 /* TkView */
 [tkview] {
     box-sizing: border-box;
