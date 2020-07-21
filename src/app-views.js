@@ -61,6 +61,40 @@ class TkMenu extends TkView {
 
 class TkSidebar extends TkView {
 
-    
+    constructor(options = {}) {
+        super(options);
+        this.addViewName("tksidebar");
+        this.addClass(options.width ?? TkWidth.W20);
+        this.autoCollapse = options.autoCollapse ?? true;
+        if(options.at === TkSidebarPosition.START)
+            this.moveToTop();
+        else if(options.at === TkSidebarPosition.END)
+            this.moveToBottom();
+    }
+
+    get collapse() {
+        return this.visible;
+    }
+
+    set collapse(value) {
+        this.visible = value;
+    }
+
+    get autoCollapse() {
+        return this.hasClass("tksidebar-autocollapse");        
+    }
+
+    set autoCollapse(value) {
+        return this.classIf(value, "tksidebar-autocollapse");         
+    }
 
 }
+
+/**
+ * Enum representing where the TkSidebar should be moved to.
+ */
+const TkSidebarPosition = {
+    AUTO: 0, // Don't move
+    START: 1, // Move to start
+    END: 2 // Move to end
+};

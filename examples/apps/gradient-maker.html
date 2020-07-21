@@ -95,6 +95,12 @@
         let toolbar = new TkToolbar({ parent: TkAppToolbarView });
         toolbar.add(addButton, removeButton, moveToStartButton, moveBackButton, moveForwardButton, moveToEndButton, aboutButton);
 
+        // Sidebar
+        let presetsSidebar = new TkSidebar({ parent: TkAppContentOuterView, at: TkSidebarPosition.START });
+        presetsSidebar.add(new TkButton({ text: "I'm a sidebar button", classes: [TkButtonStyle.SUCCESS] }));
+        presetsSidebar.add(new TkButton({ text: "So am I", classes: [TkButtonStyle.PRIMARY] }));
+        presetsSidebar.add(new TkButton({ text: "Me too", classes: [TkButtonStyle.DANGER] }));
+
         // Field to change the gradient's angle
         let angleField = new TkField({
             parent: TkAppContentView,

@@ -646,6 +646,20 @@ class TkView {
     }
 
     /**
+     * Add a set of classes if a condition is true, remove them
+     * if it is not.
+     * 
+     * @param {Boolean} condition If the classes should be added (true) or removed (false).
+     * @param  {...String} classes The classes' names.
+     */
+    classIf(condition, ...classes) {
+        if (condition)
+            this.addClass(...classes);
+        else
+            this.removeClass(...classes);
+    }
+
+    /**
      * Check if the view's element has an attribute.
      * 
      * @param {String} attribute The attribute's name.
@@ -666,7 +680,6 @@ class TkView {
     getAttribute(attribute) {
         return this.e.getAttribute(attribute);
     }
-
 
     /**
      * Set the value of an attribute of the view's element.

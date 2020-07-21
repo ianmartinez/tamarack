@@ -4,9 +4,24 @@
  * root <html> node at startup.
  */
 
-let TkAppContentView = null;
-let TkAppToolbarView = null;
+
+/**
+ * The root view of the app.
+ */
 let TkAppRootView = null;
+/**
+ * The area where toolbars are placed.
+ */
+let TkAppToolbarView = null;
+/**
+ * The view surrounding the content view.
+ */
+let TkAppContentOuterView = null;
+/**
+ * Where most of the app's views will go, except
+ * for toolbars and sidebars.
+ */
+let TkAppContentView = null;
 
 /**
  * An enum representing the platform
@@ -55,7 +70,8 @@ class TkApp {
         if (options.createAppViews !== false) {
             TkAppRootView = new TkView({ parent: "body", id: "tkapp-root-view" });
             TkAppToolbarView = new TkView({ parent: TkAppRootView, id: "tkapp-toolbar-view" });
-            TkAppContentView = new TkView({ parent: TkAppRootView, id: "tkapp-content-view" });
+            TkAppContentOuterView = new TkView({ parent: TkAppRootView, id: "tkapp-content-outer-view" });
+            TkAppContentView = new TkView({ parent: TkAppContentOuterView, id: "tkapp-content-view" });
         }
 
         TkDocument.whenLoaded(() => {
