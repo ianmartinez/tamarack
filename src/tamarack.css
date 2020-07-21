@@ -264,7 +264,7 @@ html {
         
         /* TkSidebar */
         --tksidebar-border: hsl(0, 0%, 24%);
-        --tksidebar-fill: hsl(0, 0%, 15%);
+        --tksidebar-fill: hsl(0, 0%, 18%);
 
         /* TkToolbar TkButton */
         --tktoolbarbutton-border: hsla(0, 0%, 0%, 0);
