@@ -16,23 +16,19 @@
 </head>
 
 <body>
-    <style>
-        body {
-            background: forestgreen;
-        }
-    </style>
-
     <script>
         /**
          * Change the background from a color well color.
          */
+        document.body.style.background = "skyblue";
         let colorWell = new TkColorWell({
             parent: "body",
             color: TkColor.fromProperty(document.body, "background")
         });
 
+        // Change the background when a new color is set
         colorWell.on("colorchanged", () => {
-            document.body.style.background = colorWell.color.asHex()
+            document.body.style.background = colorWell.color.asHex();
         });
     </script>
 </body>

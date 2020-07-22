@@ -498,8 +498,23 @@ class TkColorWell extends TkButton {
         options.label = new TkColorItem({ color: options.color });
         super(options);
 
-        this.on("click", (colorWell) => {
+        this.colorModal = new TkModal({
+            title: "Color",
+            choices: [TkChoice.OK, TkChoice.CANCEL],
+            defaultChoice: TkChoice.OK
+        });
+        this.colorChooser = new TkColorChooser({ parent: this.colorModal.content });
 
+        let well = this;
+        this.on("click", () => {
+            well.colorChooser.color = new TkColor(this.label.color);
+            well.colorModal.show();
+        });
+
+        this.colorModal.on("modalclosed", () => {
+            if (well.colorModal.result === TkChoice.OK) {
+                well.color = well.colorChooser.color;
+            }
         });
     }
 
@@ -509,6 +524,7 @@ class TkColorWell extends TkButton {
 
     set color(value) {
         this.label.color = value;
+        this.trigger("colorchanged");
     }
 
 }

@@ -59,7 +59,12 @@ class TkColor extends TkStateObject {
 
         this._a = -1;
 
-        this.setString(value);
+        // Read the actual color value
+        if(TkObject.is(value, TkColor)) { // Existing TkColor
+            this.setString(value.asHsla());
+        } else { // Color String
+            this.setString(value);
+        }
 
         if (this._h === -1 || this._s === -1 || this._l === -1
             || this._a === -1 || this._r === -1 || this._g === -1 || this._b === -1) {

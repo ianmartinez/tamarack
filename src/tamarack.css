@@ -306,6 +306,7 @@ html {
 html[tkapp] {
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 [tkapp] body {
@@ -463,6 +464,7 @@ html[tkapp] {
 [tkview] {
     box-sizing: border-box;
     font-size: inherit;
+    font-family: sans-serif;
 }
 
 [tkview] h1 {
@@ -1038,6 +1040,8 @@ html[tkapp] {
 /* TkColorChooser */
 [tkcolorchooser] {
     align-items: flex-start;
+    width: 400px;
+    max-width: 100%;
 }
 
 [tkcolorchooser] > div {
@@ -1299,8 +1303,8 @@ html[tkapp] {
     color: var(--tkmodal-titlebar-text);
     background: linear-gradient(180deg, var(--tkmodal-titlebar-fill-1), var(--tkmodal-titlebar-fill-2));
     border-bottom: 1px solid var(--tkmodal-titlebar-border);
-    padding: 0.25rem;
-    font-weight: bold;
+    padding: 0.25rem 0.5rem;
+    font-weight: normal;
     font-size: 1.15rem;
     display: flex;
     justify-content: space-between;

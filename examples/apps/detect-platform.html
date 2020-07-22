@@ -57,14 +57,14 @@
 
         // Print the current app platform
         let platformText = new TkText("h1", {
-            parent: "body",
+            parent: TkAppContentView,
             text: `App platform: ${TkApp.platform}`,
             classes: ["platformText"]
         });
 
         // Print the current app device
         let deviceText = new TkText("h1", {
-            parent: "body",
+            parent: TkAppContentView,
             text: `App device: ${TkApp.device}`,
             classes: ["deviceText"]
         });    

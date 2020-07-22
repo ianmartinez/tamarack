@@ -2250,6 +2250,11 @@ class TkProgress extends TkView {
  */
 class TkTextEdit extends TkView {
 
+    constructor(options = {}) {
+        super(options);
+        
+    }
+
 }
 
 /**
