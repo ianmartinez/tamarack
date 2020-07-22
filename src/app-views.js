@@ -65,10 +65,6 @@ class TkSidebar extends TkView {
         super(options);
         this.addViewName("tksidebar");
         this.autoCollapse = options.autoCollapse ?? true;
-        if (options.at === TkSidebarPosition.START)
-            this.moveToTop();
-        else if (options.at === TkSidebarPosition.END)
-            this.moveToBottom();
     }
 
     get collapse() {
@@ -88,12 +84,3 @@ class TkSidebar extends TkView {
     }
 
 }
-
-/**
- * Enum representing where the TkSidebar should be moved to.
- */
-const TkSidebarPosition = {
-    AUTO: 0, // Don't move
-    START: 1, // Move to start
-    END: 2 // Move to end
-};

@@ -26,6 +26,7 @@ class TkView {
      * @param {{String|HTMLElement|TkView}[]} [options.children] An array of children of this view.
      * @param {Boolean} [options.fill=false] If the view should fill its parent.
      * @param {Boolean} [options.visible=true] If the view is visible.
+     * @param {TkPosition} [options.at] Where to move this view inside of its parent.
      * @param {Any} [options.data] The data associated with this view.
      */
     constructor(options = {}, additionalOptions = null) {
@@ -117,6 +118,17 @@ class TkView {
         // Set data, if specified
         if (options.data !== undefined)
             this.data = options.data;
+
+        // Where to move the view inside its parent
+        if (options.at !== undefined) {
+            switch (options.at) {
+                case TkPosition.START:
+                    this.moveToTop();
+                    break;
+                case TkPosition.END:
+                    this.moveToBottom();
+            }
+        }
     }
 
     /**
@@ -513,6 +525,67 @@ class TkView {
         }
 
         return false;
+    }
+
+    /**
+     * Move this view before another item.
+     * 
+     * @param {TkView|String|HTMLElement} item The other item.
+     */
+    moveBefore(item) {
+        let otherView = TkView.viewFrom(item);
+        let parent = this.parent;
+        let viewParent = otherView.parent;
+
+        if(parent === null) { // No parent
+            viewParent.add(this);
+            viewParent.e.insertBefore(this.e, otherView.e);
+        } else if (viewParent !== null && viewParent.e === parent.e) { // Within same parent view
+            parent.e.insertBefore(this.e, otherView.e);
+            this.trigger("childremoved", item);
+        } else if (viewParent !== null) { // Different parent view
+            parent.remove(this);
+            viewParent.add(this);
+            viewParent.e.insertBefore(this.e, otherView.e);
+        }
+    }
+
+    /**
+     * Move this view after another item.
+     * 
+     * @param {TkView|String|HTMLElement} item The other item.
+     */
+    moveAfter(item) {
+        let otherView = TkView.elementFrom(item);
+        this.moveBefore(otherView.nextSibling);
+    }
+
+    /**
+     * Get the view of an item, be it an existing TkView, 
+     * CSS selector, or an HTMLElement. Mostly used interally by
+     * tamarack.
+     * 
+     * @param {TkView|String|HTMLElement} item The item.
+     */
+    static viewFrom(item) {
+        return (TkObject.is(item, TkView)) ? item : new TkView({ from: item });
+    }
+
+    /**
+     * Get the underlying element from an item, be it a TkView, 
+     * CSS selector, or an HTMLElement. Mostly used interally by
+     * tamarack.
+     * 
+     * @param {TkView|String|HTMLElement} item The item.
+     */
+    static elementFrom(item) {
+        if (TkObject.is(item, TkView)) { // Other TkView
+            return item.e;
+        } else if (TkObject.is(item, String)) { // Selector
+            return document.querySelector(item);
+        } else if (TkObject.is(item, HTMLElement)) { // HTMLElement
+           return item;
+        }
     }
 
     /**
@@ -2571,6 +2644,15 @@ class TkTemplate extends TkView {
     }
 
 }
+
+/**
+ * Enum representing where the TkSidebar should be moved to.
+ */
+const TkPosition = {
+    AUTO: 0, // Don't move
+    START: 1, // Move to start
+    END: 2 // Move to end
+};
 
 /**
  * An enum representing the direction 
