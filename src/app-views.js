@@ -65,6 +65,15 @@ class TkSidebar extends TkView {
         super(options);
         this.addViewName("tksidebar");
         this.autoCollapse = options.autoCollapse ?? true;
+
+        let sidebar = this;
+        document.addEventListener("click", (event) => {
+            // Hide the sidebar if there was a click and 
+            // and the sidebar is an overlay
+            if (!sidebar.e.contains(event.target) && sidebar.hasClass("tksidebar-overlay")) {
+                sidebar.overlay = false;
+            }
+        });
     }
 
     get collapse() {
@@ -81,6 +90,14 @@ class TkSidebar extends TkView {
 
     set autoCollapse(value) {
         return this.classIf(value, "tksidebar-autocollapse");
+    }
+
+    get overlay() {
+        return this.hasClass("tksidebar-overlay");
+    }
+
+    set overlay(value) {
+        this.classIf(value, "tksidebar-overlay");
     }
 
 }
