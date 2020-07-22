@@ -364,6 +364,20 @@ html[tkapp] {
     display: none !important;
 }
 
+@media(max-width: 600px) {
+    /* Hide on large displays */
+    [tk-hide-small] {
+        display: none !important;
+    }
+}
+
+@media(min-width: 601px) {
+    /* Hide on large displays */
+    [tk-hide-large] {
+        display: none !important;
+    }
+}
+
 /* Sizing */
 [tk-auto-size] {
     width: auto !important;

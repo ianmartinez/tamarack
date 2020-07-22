@@ -29,6 +29,7 @@ class TkView {
      * @param {TkPosition} [options.at] Where to move this view inside of its parent.
      * @param {String|HTMLElement|TkView} [options.before] The view to move this view before.
      * @param {String|HTMLElement|TkView} [options.after] The view to move this view after.
+     * @param {TkHide} [options.hideOn] When to hide this view.
      * @param {Any} [options.data] The data associated with this view.
      */
     constructor(options = {}, additionalOptions = null) {
@@ -139,6 +140,11 @@ class TkView {
         // Move the view after another, if specifed
         if (options.after !== undefined)
             this.moveAfter(options.after);
+
+
+        // Hide view conditionally, if specified
+        if (options.hideOn !== undefined)
+            this.hideOn = options.hideOn;
     }
 
     /**
@@ -646,6 +652,18 @@ class TkView {
     }
 
     /**
+     * When to hide the element conditionally.
+     * @type {TkHide}
+     */
+    get hideOn() {
+        return this.getAttributeFromEnum(TkHide, TkHide.NONE);
+    }
+
+    set hideOn(value) {
+        this.addAttributeFromEnum(TkHide, value);
+    }
+
+    /**
      * The CSS classes of the view's element. The setter 
      * will also accept a string array of class names.
      * @type {DOMTokenList}
@@ -791,7 +809,8 @@ class TkView {
      */
     addAttribute(...attributes) {
         for (let attribute of attributes)
-            this.e.setAttributeNode(document.createAttribute(attribute));
+            if (attribute != "")
+                this.e.setAttributeNode(document.createAttribute(attribute));
     }
 
     /**
@@ -2252,7 +2271,7 @@ class TkTextEdit extends TkView {
 
     constructor(options = {}) {
         super(options);
-        
+
     }
 
 }
@@ -2659,6 +2678,15 @@ class TkTemplate extends TkView {
     }
 
 }
+
+/**
+ * Enum hiding of views by display size.
+ */
+const TkHide = {
+    UNSET: "", // No conditional hiding
+    LARGE_SCREEN: "tk-hide-large", // Hide on large displays (> 600px displays)
+    SMALL_SCREEN: "tk-hide-small", // Hide on small displays (<= 600px displays)
+};
 
 /**
  * Enum representing where the TkSidebar should be moved to.
