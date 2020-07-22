@@ -27,6 +27,8 @@ class TkView {
      * @param {Boolean} [options.fill=false] If the view should fill its parent.
      * @param {Boolean} [options.visible=true] If the view is visible.
      * @param {TkPosition} [options.at] Where to move this view inside of its parent.
+     * @param {String|HTMLElement|TkView} [options.before] The view to move this view before.
+     * @param {String|HTMLElement|TkView} [options.after] The view to move this view after.
      * @param {Any} [options.data] The data associated with this view.
      */
     constructor(options = {}, additionalOptions = null) {
@@ -129,6 +131,14 @@ class TkView {
                     this.moveToBottom();
             }
         }
+
+        // Move the view before another, if specifed
+        if (options.before !== undefined)
+            this.moveBefore(options.before);
+
+        // Move the view after another, if specifed
+        if (options.after !== undefined)
+            this.moveAfter(options.after);
     }
 
     /**
@@ -213,7 +223,7 @@ class TkView {
     }
 
     /**
-     * Replace an existing child view with a new
+     * Replace an existing child view with a new view.
      * 
      * @param {TkView} oldChild The old child view.
      * @param {TkView} newChild The new child view.
@@ -537,7 +547,7 @@ class TkView {
         let parent = this.parent;
         let viewParent = otherView.parent;
 
-        if(parent === null) { // No parent
+        if (parent === null) { // No parent
             viewParent.add(this);
             viewParent.e.insertBefore(this.e, otherView.e);
         } else if (viewParent !== null && viewParent.e === parent.e) { // Within same parent view
@@ -584,7 +594,7 @@ class TkView {
         } else if (TkObject.is(item, String)) { // Selector
             return document.querySelector(item);
         } else if (TkObject.is(item, HTMLElement)) { // HTMLElement
-           return item;
+            return item;
         }
     }
 
