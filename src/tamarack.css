@@ -1269,9 +1269,6 @@ html[tkapp] {
     overflow-y: auto;
 }
 
-[tksidebar].tksidebar-autocollapse {
-}
-
 [tksidebar].tksidebar-overlay {
     position: absolute;
     top: 0;
@@ -1289,7 +1286,7 @@ html[tkapp] {
 }
 
 @media(max-width: 600px) {
-    [tksidebar].tksidebar-autocollapse:not(.tksidebar-overlay) {        
+    [tksidebar]:not(.tksidebar-overlay) {        
         position: absolute;
         top: 0;
         bottom: 0;

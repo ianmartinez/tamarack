@@ -60,16 +60,30 @@ class TkMenu extends TkView {
 }
 
 /**
- * TODO: 
- * - Automatic gestures
- * - Fix rendering issue in safari with blur behind overlay
+ * A view that displays on the left side of an app and automatically collapses when
+ * the window is too small (i.e. on mobile) and can be opened and closed by gestures,
+ * or manually via the "overlay" property. 
+ * 
+ * The parent should be set as TkAppContentOuterView and only one should be
+ * created per app.
+ * 
+ * Note: In order to support gestures, such as swiping to close the sidebar
+ * overlay, include Hammer.JS (https://hammerjs.github.io/).
+ * 
+ * TODO: Add gesture to show.
  */
 class TkSidebar extends TkView {
 
+    /**
+     * Create a new TkSidebar.
+     * 
+     * @param {Object} options Same as TkView.
+     * @param {Boolean} [options.useGestures=true] If the sidebar can be shown and
+     * hidden with gestures.
+     */
     constructor(options = {}) {
         super(options);
         this.addViewName("tksidebar");
-        this.autoCollapse = options.autoCollapse ?? true;
         this.content = new TkView({ parent: this });
         this.content.addViewName("tksidebar-content");
 
@@ -81,16 +95,32 @@ class TkSidebar extends TkView {
                 sidebar.overlay = false;
             }
         });
+
+        // If Hammer.JS detected, use it to support gestures
+        if (Hammer && (options.useGestures !== false)) {
+            // Allow the sidebar overlay to be swiped away 
+            let gestureRecognizer = this.gestureRecognizer();
+            gestureRecognizer.add(new Hammer.Pan({ direction: Hammer.DIRECTION_HORIZONTAL }));
+            gestureRecognizer.on("panleft", (event) => {
+                // For some reason hammer's panleft still fires even if panning vertcally (to scroll) 
+                if (Math.abs(event.deltaY) > Math.abs(event.deltaX))
+                    return false;
+
+                sidebar.overlay = false;
+            });
+        }
     }
 
-    get autoCollapse() {
-        return this.hasClass("tksidebar-autocollapse");
-    }
-
-    set autoCollapse(value) {
-        return this.classIf(value, "tksidebar-autocollapse");
-    }
-
+    /**
+     * If the sidebar overlay is visible.
+     * 
+     * Note: In order to set this property correctly in
+     * a click event handler, you *have* to call event.stopPropagation()
+     * or the click event will propagate to the sidebar's internal handler
+     * to automatically close the sidebar overlay when a click is
+     * detected outside of it, which will override whatever value you set.
+     * @type {Boolean}
+     */
     get overlay() {
         return this.hasClass("tksidebar-overlay");
     }
