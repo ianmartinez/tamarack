@@ -11,7 +11,7 @@ Here are some of the things tamarack supports:
 
 # Dependencies
 While tamarack has no hard dependencies, there are a few soft dependencies that are needed for a small subset of functionality:
-- **[Hammer.JS](https://hammerjs.github.io/)** for supporting touch gestures, such as pull to refresh and swiping to open a sidebar on mobile. It is exposed by the TkView.gestureRecognizer property, which automatically creates a Hammer.Manager for the TkView's element.    
+- **[Hammer.JS](https://hammerjs.github.io/)** for supporting touch gestures, such as pull to refresh and swiping to open a sidebar on mobile. It is exposed by TkView.gestureRecognizer(), which automatically creates a Hammer.Manager for the TkView's element.    
 - **[Ionicons](https://ionicons.com/)** for using TkIcon, which is a simple TkView wrapper around an **<ionicon>** element, which lets you add icons to your app in an easy way.  
 
 **Note: Tamarack is still under development, so it isn't quite ready to be used in production.**
