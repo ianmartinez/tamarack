@@ -70,6 +70,8 @@ class TkSidebar extends TkView {
         super(options);
         this.addViewName("tksidebar");
         this.autoCollapse = options.autoCollapse ?? true;
+        this.content = new TkView({ parent: this });
+        this.content.addViewName("tksidebar-content");
 
         let sidebar = this;
         document.addEventListener("click", (event) => {

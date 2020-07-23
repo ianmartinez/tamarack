@@ -199,7 +199,7 @@
             { angle: 180, colors: ["#000000", "#00000000"] }
         ];
         for (let preset of presets) {
-            let previewView = new TkPreview({ parent: presetsSidebar, classes: ["gradient-preset"] });
+            let previewView = new TkPreview({ parent: presetsSidebar.content, classes: ["gradient-preset"] });
             previewView.content.style.background = TkGradient.linear(preset.angle, preset.colors);
 
             // When a preset is clicked, clear the old list and replace it with the preset
