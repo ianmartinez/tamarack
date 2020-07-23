@@ -333,6 +333,7 @@ html[tkapp] {
     width: 100%;
 }
 
+[tkapp] .tk-root-parent-view,
 [tkapp] #tkapp-root-view,
 [tkapp] #tkapp-content-view,
 [tkapp] #tkapp-content-outer-view {

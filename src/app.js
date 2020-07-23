@@ -4,6 +4,12 @@
  * root <html> node at startup.
  */
 
+/**
+ * The root parent view of the app (same as 
+ * 'new TkView({ from: "body" })' if the "rootParent" 
+ * option of TkApp.init() is undefined).
+ */
+let TkAppRootParentView = null;
 
 /**
  * The root view of the app.
@@ -69,7 +75,10 @@ class TkApp {
     static init(options = {}) {
         // Create layout elements
         if (options.createAppViews !== false) {
-            TkAppRootView = new TkView({ parent: TkView.viewFrom(options.rootParent ?? "body"), id: "tkapp-root-view" });
+            TkAppRootParentView = TkView.viewFrom(options.rootParent ?? "body");
+            TkAppRootView = new TkView({ parent: TkAppRootParentView, id: "tkapp-root-view" });
+            if (options.rootParent !== undefined)
+                TkAppRootParentView.addClass("tk-root-parent-view");
             TkAppToolbarView = new TkView({ parent: TkAppRootView, id: "tkapp-toolbar-view" });
             TkAppContentOuterView = new TkView({ parent: TkAppRootView, id: "tkapp-content-outer-view" });
             TkAppContentView = new TkView({ parent: TkAppContentOuterView, id: "tkapp-content-view" });
@@ -101,7 +110,7 @@ class TkApp {
     static set supportDarkMode(value) {
         if (value)
             document.querySelector("html").setAttribute("tk-support-dark-mode", "true");
-        else 
+        else
             document.querySelector("html").removeAttribute("tk-support-dark-mode");
     }
 
