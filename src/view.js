@@ -2288,6 +2288,40 @@ class TkTextEdit extends TkView {
 }
 
 /**
+ * A view representing an <iframe> element.
+ */
+class TkWebView extends TkView {
+
+    /**
+     * Create a new TkWebView.
+     * 
+     * @param {Object} options Same as TkView, minus the "tag" option.
+     * @param {String} [options.url] The url of the internal frame.
+     */
+    constructor(options = {}) {
+        options.tag = "iframe";
+        super(options);
+        this.addViewName("tkwebview");
+        
+        if(options.url !== undefined)
+            this.url = options.url;
+    }
+
+    /**
+     * The URL of the internal frame.
+     * @type {String}
+     */
+    get url() {
+        return this.getAttribute("src");
+    }
+
+    set url(value) {
+        this.setAttribute("src", value);
+    }
+
+}
+
+/**
  * A view that displays above other content on 
  * the page.
  */

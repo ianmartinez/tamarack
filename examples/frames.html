@@ -1,0 +1,39 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <title>Frames</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="../src/tamarack.css" rel="stylesheet" type="text/css" />
+    <script src="../src/core.js"></script>
+    <script src="../src/view.js"></script>
+</head>
+
+<body>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            background: blue;
+            padding: 2rem;
+            margin: 0;
+            display: flex;
+            height: calc(100% - 4rem);
+        }
+    </style>
+
+    <script>
+        /**
+         * Show a website in an internal frame.
+         */
+        new TkWebView({ parent: "body", url: "https://ianmtz.com/" });
+    </script>
+</body>
+
+</html>

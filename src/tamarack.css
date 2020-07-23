@@ -1296,6 +1296,11 @@ html[tkapp] {
     }
 }
 
+/* TkWebView */
+[tkwebview] {
+    flex-grow: 1;
+}
+
 /* TkModal */
 .tkoverlay-open {
     overflow: hidden;
