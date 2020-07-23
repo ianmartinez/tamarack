@@ -1,5 +1,5 @@
 # Tamarack
-Tamarack is collection of modern, easy to use JavaScript classes for designing rich user interfaces, working with color, and many other useful functions It has no dependencies (jQuery free!) other than a modern browser (so no IE support). Think of it as an AppKit, GTK, or QT, but for the web. Because tamarack takes care of the UI part of your app, you can focus solely on app-specific features.    
+Tamarack is collection of modern, easy to use JavaScript classes for designing rich user interfaces, working with color, and many other useful functions It has no hard dependencies (jQuery free!) other than a modern browser (so no IE support). Think of it as an AppKit, GTK, or QT, but for the web. Because tamarack takes care of the UI part of your app, you can focus solely on app-specific features.    
     
 Here are some of the things tamarack supports:    
 * Modern design, using ES6 classes and the latest JS features    
@@ -9,6 +9,10 @@ Here are some of the things tamarack supports:
 * Easy integration with existing apps   
 * Styled with CSS variables so that the default colors can easily be overriden     
 
+# Dependencies
+While tamarack has no hard dependencies, there are a few soft dependencies that are needed for a small subset of functionality:
+- **[Hammer.JS](https://hammerjs.github.io/)** for supporting touch gestures, such as pull to refresh and swiping to open a sidebar on mobile. It is exposed by getting the TkView.recognizer({ Hammer.JS options }) property, which automatically creates a Hammer.Manager for the TkView's element.    
+- **[Ionicons](https://ionicons.com/)** for using TkIcon, which is a simple TkView wrapper around an **<ionicon>** element, which lets you add icons to your app in an easy way.  
 
 **Note: Tamarack is still under development, so it isn't quite ready to be used in production.**
 
