@@ -59,6 +59,11 @@ class TkMenu extends TkView {
 
 }
 
+/**
+ * TODO: 
+ * - Automatic gestures
+ * - Fix rendering issue in safari with blur behind overlay
+ */
 class TkSidebar extends TkView {
 
     constructor(options = {}) {
