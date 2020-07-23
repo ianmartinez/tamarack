@@ -76,14 +76,6 @@ class TkSidebar extends TkView {
         });
     }
 
-    get collapse() {
-        return this.visible;
-    }
-
-    set collapse(value) {
-        this.visible = value;
-    }
-
     get autoCollapse() {
         return this.hasClass("tksidebar-autocollapse");
     }

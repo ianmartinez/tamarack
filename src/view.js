@@ -970,6 +970,17 @@ class TkView {
         this.trigger("datachanged", this._data);
     }
 
+    /**
+     * Create a Hammer.JS manager for the TkView.
+     * 
+     * Note: Requires Hammer.JS. See (http://hammerjs.github.io/api) for usage.
+     * 
+     * @param {Object} options The options object passed to Hammer.JS.
+     */
+    gestureRecognizer(options = {}) {
+        return new Hammer.Manager(this.e, options);
+    }
+
 }
 
 /**
