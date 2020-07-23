@@ -228,8 +228,12 @@
 
         // Allow the sidebar overlay to be swiped away 
         let gestureRecognizer = presetsSidebar.gestureRecognizer();
-        gestureRecognizer.add(new Hammer.Pan());
+        gestureRecognizer.add(new Hammer.Pan({ direction: Hammer.DIRECTION_HORIZONTAL }));
         gestureRecognizer.on("panleft", (e) => {
+            // For some reason hammer's panleft still fires even if panning vertcally (to scroll) 
+            if (Math.abs(e.deltaY) > Math.abs(e.deltaX))
+                return false; 
+
             presetsSidebar.overlay = false;
         });
     </script>
