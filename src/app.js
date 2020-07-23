@@ -64,11 +64,12 @@ class TkApp {
      * automatically moved to the bottom on iOS.
      * @param {Boolean} [options.createAppViews=true] If views are automatically created
      * to layout the app.
+     * @param {TkView|String|HTMLElement} [options.rootParent="body"] The root view's parent.
      */
     static init(options = {}) {
         // Create layout elements
         if (options.createAppViews !== false) {
-            TkAppRootView = new TkView({ parent: "body", id: "tkapp-root-view" });
+            TkAppRootView = new TkView({ parent: TkView.viewFrom(options.rootParent ?? "body"), id: "tkapp-root-view" });
             TkAppToolbarView = new TkView({ parent: TkAppRootView, id: "tkapp-toolbar-view" });
             TkAppContentOuterView = new TkView({ parent: TkAppRootView, id: "tkapp-content-outer-view" });
             TkAppContentView = new TkView({ parent: TkAppContentOuterView, id: "tkapp-content-view" });
