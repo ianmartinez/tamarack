@@ -634,7 +634,6 @@ html[tkapp] {
 }
 
 /* TkButtonStyle */
-[tkapp] [tkbutton],
 [tkbutton].tknormal {
     border-radius: var(--tk-border-radius);
     color: var(--tknormal-text);
@@ -646,9 +645,7 @@ html[tkapp] {
     padding: var(--tkbutton-padding);
 }
 
-[tkapp] [tkbutton]:hover,
 [tkbutton].tknormal:hover,
-[tkapp] [tkbutton]:focus-within,
 [tkbutton].tknormal:focus-within {
     color: var(--tknormal-hover-text);
     background: linear-gradient(180deg, var(--tknormal-hover-fill-1), var(--tknormal-hover-fill-2));
@@ -657,12 +654,10 @@ html[tkapp] {
     text-shadow: 0 0 1px var(--tknormal-hover-text-shadow);
 }
 
-[tkapp] [tkbutton]:focus-within,
 [tkbutton].tknormal:focus-within {
     box-shadow: 0 0 0 0.2rem var(--tknormal-focus-ring);
 }
 
-[tkapp] [tkbutton]:not(:disabled):not(.disabled):active,
 [tkbutton].tknormal:not(:disabled):not(.disabled):active {   
     color: var(--tknormal-active-text);
     background: linear-gradient(180deg, var(--tknormal-active-fill-1), var(--tknormal-active-fill-2));
@@ -670,7 +665,6 @@ html[tkapp] {
     text-shadow: 0 0 1px var(--tknormal-active-text-shadow);
 }
 
-[tkapp] [tkbutton]:not(:disabled):not(.disabled):active:focus-within,
 [tkbutton].tknormal:not(:disabled):not(.disabled):active:focus-within {
     box-shadow: 0 0 0 0.2rem var(--tknormal-focus-ring);
     outline-color: var(--tknormal-focus-outline);

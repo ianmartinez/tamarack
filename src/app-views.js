@@ -97,7 +97,7 @@ class TkSidebar extends TkView {
         });
 
         // If Hammer.JS detected, use it to support gestures
-        if (Hammer && (options.useGestures !== false)) {
+        if (typeof Hammer !== "undefined" && (options.useGestures !== false)) {
             // Allow the sidebar overlay to be swiped away 
             let gestureRecognizer = this.gestureRecognizer();
             gestureRecognizer.add(new Hammer.Pan({ direction: Hammer.DIRECTION_HORIZONTAL }));
