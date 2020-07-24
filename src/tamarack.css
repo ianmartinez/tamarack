@@ -1042,6 +1042,14 @@ html[tkapp] {
 }
 
 /* TkCheckbox */
+[tkcheckbox] {
+    display: inline-flex;
+    align-items: center;
+}
+
+[tkcheckbox] [tkinput] {
+    margin-right: 0.25rem;
+}
 
 /* TkSlider */
 [tkslider] {
