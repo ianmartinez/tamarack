@@ -30,6 +30,8 @@ class TkView {
      * @param {String|HTMLElement|TkView} [options.before] The view to move this view before.
      * @param {String|HTMLElement|TkView} [options.after] The view to move this view after.
      * @param {TkHide} [options.hideOn] When to hide this view.
+     * @param {Boolean} [options.editable=false] If the view is editable.
+     * @param {String} [options.placeholder] The placeholder text for the view.
      * @param {Any} [options.data] The data associated with this view.
      */
     constructor(options = {}, additionalOptions = null) {
@@ -141,10 +143,17 @@ class TkView {
         if (options.after !== undefined)
             this.moveAfter(options.after);
 
+        // Set the view's editable property, if specifed
+        if (options.editable !== undefined)
+            this.editable = options.editable;
 
         // Hide view conditionally, if specified
         if (options.hideOn !== undefined)
             this.hideOn = options.hideOn;
+
+        // Set the view's editable property, if specifed
+        if (options.placeholder !== undefined)
+            this.placeholder = options.placeholder;
     }
 
     /**
@@ -871,6 +880,33 @@ class TkView {
         }
 
         return defaultValue;
+    }
+
+    /**
+     * If the content is editable (i.e. has the
+     * "contenteditable" attribute).
+     * 
+     * @type {Boolean}
+     */
+    get editable() {
+        return this.hasAttribute("contenteditable");
+    }
+
+    set editable(value) {
+        this.attributeIf(value, "contenteditable");
+    }
+
+    /**
+     * The placeholder text.
+     * 
+     * @type {String}
+     */
+    get placeholder() {
+        return this.getAttribute("tkplaceholder");
+    }
+
+    set placeholder(value) {
+        this.setAttribute("tkplaceholder", value);
     }
 
     /**
@@ -2164,6 +2200,33 @@ class TkInput extends TkView {
 
 }
 
+class TkCheckbox extends TkView {
+
+    constructor(options = {}) {
+        super(options);
+
+        this.input = new TkInput({ parent: this, type: "checkbox" });
+        this.label = new TkText("label", { parent: this, text: options.text });
+
+        if(options.checked !== undefined)
+            this.checked =  options.checked; 
+    }
+
+    /**
+     * If the checkbox is checked.
+     * 
+     * @type {Boolean}
+     */
+    get checked() {
+        return this.input.hasAttribute("checked");
+    }
+
+    set checked(value) {
+        this.input.attributeIf(value, "checked");
+    }
+
+}
+
 class TkSlider extends TkInput {
 
     constructor(options = {}) {
@@ -2302,8 +2365,8 @@ class TkWebView extends TkView {
         options.tag = "iframe";
         super(options);
         this.addViewName("tkwebview");
-        
-        if(options.url !== undefined)
+
+        if (options.url !== undefined)
             this.url = options.url;
     }
 

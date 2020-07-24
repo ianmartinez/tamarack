@@ -1,6 +1,7 @@
 html {
     /* Common */
     --tk-border-radius: 0.2rem;
+    --tkplaceholder-text: gray;
 
     /* App */
     --tkapp-background: hsl(0, 0%, 96%);
@@ -484,6 +485,11 @@ html[tkapp] {
     box-sizing: border-box;
     font-size: inherit;
     font-family: sans-serif;
+}
+
+[tkplaceholder]:empty:not(:focus):before {
+    content: attr(tkplaceholder);
+    color: var(--tkplaceholder-text);
 }
 
 [tkview] h1 {
