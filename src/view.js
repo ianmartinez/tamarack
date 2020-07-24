@@ -2471,7 +2471,7 @@ class TkModal extends TkOverlay {
         // Footer
         this.footer = new TkView({ parent: this.window });
         if (options.buttons !== undefined)
-            this.footer.add(options.buttons);
+            this.footer.add(...options.buttons);
         this.choices = options.choices ?? [];
         this.defaultChoice = options.defaultChoice ?? null;
         let hasFooterButtons = (this.choices.length > 0 || options.buttons !== undefined);
