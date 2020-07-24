@@ -1041,6 +1041,8 @@ html[tkapp] {
     font-size: inherit;
 }
 
+/* TkCheckbox */
+
 /* TkSlider */
 [tkslider] {
     cursor: pointer;

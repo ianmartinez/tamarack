@@ -2203,10 +2203,13 @@ class TkInput extends TkView {
 class TkCheckbox extends TkView {
 
     constructor(options = {}) {
+        options.tag = "label";
         super(options);
+        this.addViewName("tkcheckbox");
 
         this.input = new TkInput({ parent: this, type: "checkbox" });
-        this.label = new TkText("label", { parent: this, text: options.text });
+        this.textNode = document.createTextNode(options.text ?? "");
+        this.e.appendChild(this.textNode);
 
         if(options.checked !== undefined)
             this.checked =  options.checked; 
@@ -2218,11 +2221,24 @@ class TkCheckbox extends TkView {
      * @type {Boolean}
      */
     get checked() {
-        return this.input.hasAttribute("checked");
+        return this.input.e.checked;
     }
 
     set checked(value) {
-        this.input.attributeIf(value, "checked");
+        this.input.e.checked = value;
+    }
+
+    /**
+     * The text of the checkbox's label.
+     * 
+     * @type {String}
+     */
+    get text() {
+        return this.textNode.nodeValue;
+    }
+
+    set text(value) {
+        this.textNode.nodeValue = value;
     }
 
 }

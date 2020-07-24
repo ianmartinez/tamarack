@@ -18,8 +18,9 @@
         /**
          * Display a checkbox
          */
-         let checkbox1 = new TkCheckbox({ parent: "body", text: "I'm not checked" });
-         let checkbox2 = new TkCheckbox({ parent: "body", text: "I'm checked", checked: true });
+         let checkbox = new TkCheckbox({ parent: "body", text: "Some Item (Checked)", checked: true });
+         checkbox.input.on("change", () => checkbox.text = checkbox.checked ? "Some Item (Checked)" : "Some Item");
+
     </script>
 </body>
 
