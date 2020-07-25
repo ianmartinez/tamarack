@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Conditional Hiding</title>
+    <title>Meters</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,26 +15,18 @@
 </head>
 
 <body>
-    <style>
-        [tk-hide-small] {
-            color: blue;
-        }
-
-        [tk-hide-large] {
-            color: orchid;
-        }
-    </style>
-
     <script>
         // Init Tamarack App so we can support dark mode and other nice things
         TkApp.init({ autolayout: false });
 
         /**
-         * Conditionally hide views based on screen size.
+         * Display progress bars ranging from 0-100%.
          */
-        let stack = new TkStack({ parent: "body", direction: TkStackDirection.VERTICAL });
-        for (let style in TkHide)
-            new TkText("h1", { parent: stack, text: `Hide on: ${style}`, hideOn: TkHide[style] });
+        let stack = new TkStack({ parent: "body", direction: TkStackDirection.FLOW });
+
+        for (let i = 0; i <= 100; i += 10) {
+            stack.add(new TkInputLabel({ parent: stack, text: `${i}%`, input: new TkProgress({ value: i }) }));
+        }
     </script>
 </body>
 

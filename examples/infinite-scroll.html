@@ -12,10 +12,14 @@
     <script src="../src/core.js"></script>
     <script src="../src/view.js"></script>
     <script src="../src/infinite-scroll.js"></script>
+    <script src="../src/app.js"></script>
 </head>
 
 <body>
     <script>
+        // Init Tamarack App so we can support dark mode and other nice things
+        TkApp.init({ autolayout: false });
+
         /**
          * Create infinite scroller that scrolls through
          * a list of items.
@@ -59,7 +63,7 @@
                     view.text = item.name;
                     return view;
                 } else {
-                    return new TkText("h1", { text: item.name, style: "color: blue;" });
+                    return new TkText("h1", { text: item.name, style: "color: green;" });
                 }
             }
         });

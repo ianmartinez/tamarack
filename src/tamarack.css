@@ -316,14 +316,17 @@ html[tkapp] {
 }
 
 [tkapp] body {
-    width: 100%;
-    height: 100%;
     background: var(--tkapp-background);
     color: var(--tkapp-text);
-    margin: 0;
+    font-family: sans-serif;
+}
+
+[tk-autolayout] body {
     display: flex;
     flex-direction: column;
-    font-family: sans-serif;
+    margin: 0;
+    width: 100%;
+    height: 100%;
 }
 
 [iphone] body, [ipad] body {
@@ -1084,6 +1087,7 @@ html[tkapp] {
 [tkinputlabel][tkinputlabel-input-right],
 [tkinputlabel-input-right] [tkinputlabel] {
     flex-direction: row-reverse !important;
+    justify-content: flex-end;
 }
 
 [tkinputlabel][tkinputlabel-input-only] > [tktext],

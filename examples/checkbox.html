@@ -11,10 +11,14 @@
     <link href="../src/tamarack.css" rel="stylesheet" type="text/css" />
     <script src="../src/core.js"></script>
     <script src="../src/view.js"></script>
+    <script src="../src/app.js"></script>
 </head>
 
 <body>
     <script>
+        // Init Tamarack App so we can support dark mode and other nice things
+        TkApp.init({ autolayout: false });
+
         /**
          * Display a checkbox
          */

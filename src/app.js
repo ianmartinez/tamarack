@@ -68,13 +68,15 @@ class TkApp {
      * automatically supported.
      * @param {Boolean} [options.iOSToolbarOnBottom=true] If TkToolbars are
      * automatically moved to the bottom on iOS.
-     * @param {Boolean} [options.createAppViews=true] If views are automatically created
+     * @param {Boolean} [options.autolayout=true] If views are automatically created
      * to layout the app.
      * @param {TkView|String|HTMLElement} [options.rootParent="body"] The root view's parent.
      */
     static init(options = {}) {
+        let htmlNode = document.querySelector("html");
+
         // Create layout elements
-        if (options.createAppViews !== false) {
+        if (options.autolayout !== false) {
             TkAppRootParentView = TkView.viewFrom(options.rootParent ?? "body");
             TkAppRootView = new TkView({ parent: TkAppRootParentView, id: "tkapp-root-view" });
             if (options.rootParent !== undefined)
@@ -82,10 +84,10 @@ class TkApp {
             TkAppToolbarView = new TkView({ parent: TkAppRootView, id: "tkapp-toolbar-view" });
             TkAppContentOuterView = new TkView({ parent: TkAppRootView, id: "tkapp-content-outer-view" });
             TkAppContentView = new TkView({ parent: TkAppContentOuterView, id: "tkapp-content-view" });
+            htmlNode.setAttribute("tk-autolayout" , true);
         }
 
         TkDocument.whenLoaded(() => {
-            let htmlNode = document.querySelector("html");
             htmlNode.setAttribute("tkapp", "true");
             let currentPlatform = TkApp.platform;
             let currentDevice = TkApp.device;

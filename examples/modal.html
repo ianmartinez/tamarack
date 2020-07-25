@@ -12,6 +12,7 @@
     <script src="../src/core.js"></script>
     <script src="../src/view.js"></script>
     <script src="../src/app-views.js"></script>
+    <script src="../src/app.js"></script>
     <!-- For icons -->
     <script type="module" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>
@@ -19,12 +20,19 @@
 
 <body>
     <script>
+        // Init Tamarack App so we can support dark mode and other nice things
+        TkApp.init({ autolayout: false });
+        
         /**
          * Show a modal when a button is clicked and evaluate the
          * modal's result.
          */
+        let button = new TkButton({
+            parent: "body",
+            text: "Show a modal",
+            classes: [TkButtonStyle.NORMAL]
+        });
 
-        let button = new TkButton({ parent: "body", text: "Show a modal" });
         let modal = new TkModal({
             iconName: "help-outline",
             title: "Question...",

@@ -12,14 +12,18 @@
     <script src="../src/core.js"></script>
     <script src="../src/view.js"></script>
     <script src="../src/color.js"></script>
+    <script src="../src/app.js"></script>
+    <script src="../src/app.js"></script>
 </head>
 
 <body>
     <script>
+        // Init Tamarack App so we can support dark mode and other nice things        
+        TkApp.init({ autolayout: false });
+
         /**
          * Change the favicon to a random color every second.
          */
-
         let faviconColorText = new TkText("h2", { parent: "body" });
 
         setInterval(() => {

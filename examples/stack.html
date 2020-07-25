@@ -12,10 +12,14 @@
     <script src="../src/core.js"></script>
     <script src="../src/view.js"></script>
     <script src="../src/color.js"></script>
+    <script src="../src/app.js"></script>
 </head>
 
 <body>
     <script>
+        // Init Tamarack App so we can support dark mode and other nice things
+        TkApp.init({ autolayout: false });
+
         /**
          * Show a stack of items.
          */
@@ -37,6 +41,7 @@
             let button = new TkButton({
                 parent: buttonStack,
                 text: direction,
+                classes: [TkButtonStyle.NORMAL],
                 style: "margin: 0.25rem;"
             });
 

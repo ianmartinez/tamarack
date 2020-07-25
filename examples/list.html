@@ -11,10 +11,14 @@
     <link href="../src/tamarack.css" rel="stylesheet" type="text/css" />
     <script src="../src/core.js"></script>
     <script src="../src/view.js"></script>
+    <script src="../src/app.js"></script>
 </head>
 
 <body>
     <script>
+        // Init Tamarack App so we can support dark mode and other nice things
+        TkApp.init({ autolayout: false });
+
         /**
          * Create a list of items that a user can select from.
          */
@@ -36,18 +40,22 @@
         buttonStack.add(
             new TkButton({
                 text: "Move to top",
+                classes: [TkButtonStyle.NORMAL],
                 events: { click: () => list.selectedItem?.moveToTop() }
             }),
             new TkButton({
                 text: "Move up",
+                classes: [TkButtonStyle.NORMAL],
                 events: { click: () => list.selectedItem?.moveUp() }
             }),
             new TkButton({
                 text: "Move down",
+                classes: [TkButtonStyle.NORMAL],
                 events: { click: () => list.selectedItem?.moveDown() }
             }),
             new TkButton({
                 text: "Move to bottom",
+                classes: [TkButtonStyle.NORMAL],
                 events: { click: () => list.selectedItem?.moveToBottom() }
             })
         );

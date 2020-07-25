@@ -11,20 +11,24 @@
     <link href="../src/tamarack.css" rel="stylesheet" type="text/css" />
     <script src="../src/core.js"></script>
     <script src="../src/view.js"></script>
+    <script src="../src/app.js"></script>
 </head>
 
 <body>
     <script>
+        // Init Tamarack App so we can support dark mode and other nice things
+        TkApp.init({ autolayout: false });
+
         /**
          * Toss a coin and display the result.
          */
 
-        let tossCoinButton = new TkButton({ parent: "body", text: "Toss Coin" });
+        let tossCoinButton = new TkButton({ parent: "body", text: "Toss Coin", classes: [TkButtonStyle.NORMAL] });
         let results = new TkStack({ parent: "body", direction: TkStackDirection.VERTICAL });
 
         tossCoinButton.on("click", () => {
             let result = TkArray.random("Heads", "Tails");
-            let resultColor = (result == "Heads") ? "maroon" : "midnightblue";
+            let resultColor = (result == "Heads") ? "red" : "teal";
             let resultText = new TkText("h2", {
                 parent: results,
                 text: result,

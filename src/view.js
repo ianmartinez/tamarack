@@ -2756,6 +2756,7 @@ class TkModal extends TkOverlay {
             defaultChoice: TkChoice.OK
         });
 
+        // Remove old modal from the DOM when closed
         alertModal.on("modalclosed", () => alertModal.delete());
         alertModal.show();
     }
