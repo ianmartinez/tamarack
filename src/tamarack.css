@@ -120,9 +120,10 @@ html {
     /* TkProgress */
     --tkprogress-fill: hsl(0, 0%, 95%);
     --tkprogress-border: hsl(0, 0%, 85%);
-    --tkprogress-bar-fill-1: hsl(207, 84%, 55%);
-    --tkprogress-bar-fill-2: hsl(207, 84%, 55%);
-    --tkprogress-bar-border: hsl(211, 77%, 45%);
+    --tkprogress-bar-fill-1: hsl(212, 66%, 53%);
+    --tkprogress-bar-fill-2: hsl(212, 81%, 44%);
+    --tkprogress-bar-border: hsl(212, 67%, 38%);
+    --tkprogress-radius: var(--tk-border-radius);
 
     /* TkColorChooser */
     --tkcolorslider-border: hsla(0, 0%, 0%, 0.3);
@@ -248,11 +249,11 @@ html {
         --tklist-selected-border: hsla(0, 0%, 100%, 0.35);
 
         /* TkProgress */
-        --tkprogress-border: hsl(0, 0%, 35%);
-        --tkprogress-fill: hsl(0, 0%, 0%);
-        --tkprogress-bar-fill-1: hsl(207, 84%, 55%);
-        --tkprogress-bar-fill-2: hsl(207, 84%, 55%);
-        --tkprogress-bar-border: hsl(211, 77%, 45%);
+        --tkprogress-border: hsl(0, 0%, 37%);
+        --tkprogress-fill: hsl(0, 0%, 5%);
+        --tkprogress-bar-fill-1: hsl(212, 66%, 53%);
+        --tkprogress-bar-fill-2: hsl(212, 81%, 44%);
+        --tkprogress-bar-border: hsl(212, 85%, 64%);
 
         /* TkColorChooser */
         --tkcolorslider-border: hsla(0, 0%, 100%, 0.35);
@@ -1013,22 +1014,36 @@ html[tkapp] {
 /* TkProgress */
 [tkprogress] {
     display: inline-block;
-    height: 1.5rem;
-    padding: 0.15rem;
-    margin: 0.25rem;
+    height: 1.25rem;
+    margin: 0;
+}
+
+[tkprogress][value] {
+    border-radius: var(--tkprogress-radius);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+[tkprogress][value]::-webkit-progress-value {
+    border-radius: var(--tkprogress-radius);
+    background: linear-gradient(180deg, var(--tkprogress-bar-fill-1), var(--tkprogress-bar-fill-2));
+    border: 1px solid var(--tkprogress-bar-border);
+}
+
+[tkprogress][value]::-moz-progress-bar {
+    border-radius: var(--tkprogress-radius);
+    background: linear-gradient(180deg, var(--tkprogress-bar-fill-1), var(--tkprogress-bar-fill-2));
+    border: 1px solid var(--tkprogress-bar-border);
+}
+  
+[tkprogress][value]::-webkit-progress-bar {
+    padding: 1px;
     background: var(--tkprogress-fill);
     border: 1px solid var(--tkprogress-border);
     border-radius: var(--tk-border-radius);
-    width: 100%;
-}
-
-[tkprogress] [tkprogress-bar] {
-    height: 100%;
-    width: 50%;
-    display: block;
-    border-radius: var(--tk-border-radius);
-    background: linear-gradient(0deg, var(--tkprogress-bar-fill-1), var(--tkprogress-bar-fill-2));
-    border: 1px solid var(--tkprogress-bar-border);
+    display: inline-block;
+    border-radius: var(--tkprogress-radius);
 }
 
 /* TkTemplate */
@@ -1041,6 +1056,46 @@ html[tkapp] {
     font-size: inherit;
 }
 
+/* TkInputLabel */
+[tkinputlabel] {
+    display: flex;
+    padding: 0.25rem;
+}
+
+[tkinputlabel][tkinputlabel-default] {
+    flex-direction: column;
+}
+
+[tkinputlabel][tkinputlabel-input-top],
+[tkinputlabel-input-top] [tkinputlabel] {
+    flex-direction: column !important;
+}
+
+[tkinputlabel][tkinputlabel-input-bottom],
+[tkinputlabel-input-bottom] [tkinputlabel] {
+    flex-direction: column-reverse !important;
+}
+
+[tkinputlabel][tkinputlabel-input-left],
+[tkinputlabel-input-left] [tkinputlabel] {
+    flex-direction: row !important;
+}
+
+[tkinputlabel][tkinputlabel-input-right],
+[tkinputlabel-input-right] [tkinputlabel] {
+    flex-direction: row-reverse !important;
+}
+
+[tkinputlabel][tkinputlabel-input-only] > [tktext],
+[tkinputlabel-input-only] [tkinputlabel] > [tktext] {
+    display: none !important;
+}
+
+[tkinputlabel][tkinputlabel-text-only] > [tkinputlabel-input],
+[tkinputlabel-text-only] [tkinputlabel] [tkinputlabel-input] {
+    display: none !important;
+}
+
 /* TkCheckbox */
 [tkcheckbox] {
     display: inline-flex;
@@ -1048,7 +1103,7 @@ html[tkapp] {
 }
 
 [tkcheckbox] [tkinput] {
-    margin-right: 0.25rem;
+    margin: 0.25rem;
 }
 
 /* TkSlider */

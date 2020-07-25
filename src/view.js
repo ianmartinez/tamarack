@@ -2200,6 +2200,82 @@ class TkInput extends TkView {
 
 }
 
+class TkInputLabel extends TkView {
+
+    constructor(options = {}) {
+        options.tag = "label";
+        super(options);
+        this.addViewName("tkinputlabel");
+
+        this.textNode = document.createTextNode(options.text ?? "");
+        this.e.appendChild(this.textNode);
+
+        this._input = null;
+        if (options.input !== undefined)
+            this.input = options.input;
+
+        this.layout = options.layout ?? TkInputLabelLayout.DEFAULT;
+    }
+
+    get input() {
+        return this._input;
+    }
+
+    set input(value) {
+        if (this._input !== null) {
+            this.remove(this._input);
+            this._input.removeAttribute("tkinputlabel-input");
+        }
+
+        if (value !== null) {
+            let view = TkView.viewFrom(value);
+            this.add(view);
+            view.addAttribute("tkinputlabel-input");
+            this._input = view;
+        } else {
+            this._input = null;
+        }
+    }
+    /**
+     * The layout of the input and text.
+     * @type {TkInputLabelLayout}
+     */
+    get layout() {
+        return this.getAttributeFromEnum(TkInputLabelLayout, TkInputLabelLayout.DEFAULT);
+    }
+
+    set layout(value) {
+        this.addAttributeFromEnum(TkInputLabelLayout, value);
+    }
+
+    /**
+     * The text of the label.
+     * 
+     * @type {String}
+     */
+    get text() {
+        return this.textNode.nodeValue;
+    }
+
+    set text(value) {
+        this.textNode.nodeValue = value;
+    }
+
+    /**
+     * The label's "for" attribute.
+     * 
+     * @type {String}
+     */
+    get target() {
+        return this.getAttribute("for");
+    }
+
+    set target(value) {
+        this.setAttribute("for", value);
+    }
+
+}
+
 class TkCheckbox extends TkView {
 
     constructor(options = {}) {
@@ -2211,8 +2287,8 @@ class TkCheckbox extends TkView {
         this.textNode = document.createTextNode(options.text ?? "");
         this.e.appendChild(this.textNode);
 
-        if(options.checked !== undefined)
-            this.checked =  options.checked; 
+        if (options.checked !== undefined)
+            this.checked = options.checked;
     }
 
     /**
@@ -2299,54 +2375,33 @@ class TkSwitch extends TkView {
 
 }
 
-/* TODO */
+/**
+ * A progress bar.
+ */
 class TkProgress extends TkView {
 
     constructor(options = {}) {
-        super(options, { tag: "div", viewName: "tkprogress" });
+        super(options, { tag: "progress" });
         this.addViewName("tkprogress");
 
-        this.bar = new TkView({ parent: this });
-        this.bar.addViewName("tkprogress-bar");
-
-        this.valueText = new TkText("span", { parent: this.bar });
-        this.valueText.addViewName("tkprogress-valuetext");
+        this.value = options.value ?? 0;
+        this.max = options.max ?? 100;
     }
 
     get max() {
-        return null;
+        return this.getAttribute("max");
     }
 
     set max(value) {
-
+        this.setAttribute("max", value)
     }
 
-    get min() {
-        return null;
+    get value() {
+        return this.getAttribute("value");
     }
 
-    set min(value) {
-
-    }
-
-    get useThresholds() {
-        return null;
-    }
-
-    set useThresholds(value) {
-
-    }
-
-    get currentThreshold() {
-        return null;
-    }
-
-    get showValue() {
-        return null;
-    }
-
-    set showValue(value) {
-
+    set value(value) {
+        this.setAttribute("value", value);
     }
 
 }
@@ -2853,6 +2908,25 @@ const TkLabelLayout = {
     ICON_RIGHT: "tklabel-icon-right",
     ICON_ONLY: "tklabel-icon-only",
     TEXT_ONLY: "tklabel-text-only",
+};
+
+/**
+ * An enum representing the labout of
+ * the text and input in a TkInputLabel. 
+ * 
+ * If applied to any label, it affects
+ * that input label. If applied to a container,
+ * it affect every input label in that container.
+ * @enum {String}
+ */
+const TkInputLabelLayout = {
+    DEFAULT: "tkinputlabel-default",
+    INPUT_TOP: "tkinputlabel-input-top",
+    INPUT_BOTTOM: "tkinputlabel-input-bottom",
+    INPUT_LEFT: "tkinputlabel-input-left",
+    INPUT_RIGHT: "tkinputlabel-input-right",
+    INPUT_ONLY: "tkinputlabel-input-only",
+    TEXT_ONLY: "tkinputlabel-text-only",
 };
 
 /**
