@@ -132,10 +132,10 @@ html {
     --tkmeter-bad-fill-2: hsl(0, 81%, 44%);
     --tkmeter-bad-border: hsl(12, 84%, 31%);
     --tkmeter-suboptimum-fill-1: hsl(49, 83%, 67%);
-    --tkmeter-suboptimum-fill-2: hsl(49, 76%, 60%);
-    --tkmeter-suboptimum-border: hsl(49, 57%, 51%);
+    --tkmeter-suboptimum-fill-2: hsl(44, 76%, 60%);
+    --tkmeter-suboptimum-border: hsl(44, 57%, 51%);
     --tkmeter-optimum-fill-1: hsl(106, 66%, 53%);
-    --tkmeter-optimum-fill-2: hsl(123, 63%, 49%);
+    --tkmeter-optimum-fill-2: hsl(123, 74%, 43%);
     --tkmeter-optimum-border: hsl(123, 67%, 38%);
     --tkmeter-radius: var(--tk-border-radius);
 
@@ -268,6 +268,20 @@ html {
         --tkprogress-bar-fill-1: hsl(212, 66%, 53%);
         --tkprogress-bar-fill-2: hsl(212, 81%, 44%);
         --tkprogress-bar-border: hsl(212, 85%, 64%);
+
+        /* TkMeter */
+        --tkmeter-border: hsl(0, 0%, 37%);
+        --tkmeter-fill: hsl(0, 0%, 5%);
+        --tkmeter-bad-fill-1: hsl(17, 81%, 62%);
+        --tkmeter-bad-fill-2: hsl(0, 71%, 46%);
+        --tkmeter-bad-border: hsl(12, 75%, 57%);
+        --tkmeter-suboptimum-fill-1: hsl(49, 92%, 66%);
+        --tkmeter-suboptimum-fill-2: hsl(39, 76%, 56%);
+        --tkmeter-suboptimum-border: hsl(49, 100%, 77%);
+        --tkmeter-optimum-fill-1: hsl(106, 86%, 61%);
+        --tkmeter-optimum-fill-2: hsl(123, 93%, 35%);
+        --tkmeter-optimum-border: hsl(123, 89%, 64%);
+        --tkmeter-radius: var(--tk-border-radius);
 
         /* TkColorChooser */
         --tkcolorslider-border: hsla(0, 0%, 100%, 0.35);
