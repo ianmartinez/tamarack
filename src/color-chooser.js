@@ -495,7 +495,6 @@ class TkColorItem extends TkLabel {
 class TkColorWell extends TkButton {
 
     constructor(options = {}) {
-        options.classes = options.classes ?? [TkButtonStyle.NORMAL];
         options.label = new TkColorItem({ color: options.color });
         super(options);
         

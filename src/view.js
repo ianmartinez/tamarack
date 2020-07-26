@@ -1290,19 +1290,28 @@ class TkButton extends TkView {
     /**
      * Create a TkButton.
      * 
-     * @param {Object} options Same as TkView, minus options.tag.
-     * @param {String} options.text The text of the button.
-     * @param {String} options.icon The icon of the button.
-     * @param {String} options.iconName The name of the ionicon icon. 
+     * @param {Object} options Same as TkView, minus options.tag and the
+     * "classes" option defaults to [TkButtonStyle.NORMAL] unless specified.
+     * @param {String} [options.text] The text of the button.
+     * @param {String} [options.icon] The icon of the button.
+     * @param {String} [options.iconName] The name of the ionicon icon. 
      * Note: requires app-views.js and Ionicons. Overrides any value in options.icon.
-     * @param {TkLabel} options.label The TkLabel to use as the buttons content. Ignores
+     * @param {TkLabel} [options.label] The TkLabel to use as the buttons content. Ignores
      * "text", "icon", "iconName" and layout options. 
-     * @param {TkLabelLayout} options.layout The layout of the button.
+     * @param {TkLabelLayout} [options.layout] The layout of the button.
      * and text.
      */
     constructor(options = {}) {
+        let autoStyled = false;
+        if(options.classes === undefined) {
+            autoStyled = true;
+            options.classes = [TkButtonStyle.NORMAL];
+        }
+
         super(options, { tag: "button" });
         this.addViewName("tkbutton");
+        // If the default styles for a button were automatically added
+        this.autoStyled = autoStyled;
 
         this.role = "button";
 
@@ -1395,6 +1404,8 @@ class TkNotebookPage {
      */
     constructor(options = {}) {
         // Create the tab view
+        options.tabOptions = options.tabOptions ?? {};
+        options.tabOptions.classes = options.tabOptions.classes ?? [];
         this.tab = new TkButton(options.tabOptions);
         this.tab.addViewName("tknotebook-tab");
         this.tab.associatedPage = this;
@@ -2694,7 +2705,7 @@ class TkModal extends TkOverlay {
             this.titlebar.visible = false;
         }
         if (options.closeButton === true) {
-            this.closeButton = new TkButton({ parent: this.titlebar, text: "X" });
+            this.closeButton = new TkButton({ parent: this.titlebar, text: "X", classes: [] });
             let modal = this;
             this.closeButton.on("click", () => modal.close());
         }

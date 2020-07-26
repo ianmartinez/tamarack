@@ -53,7 +53,7 @@
         let listStack = new TkStack({ parent: "body", direction: TkStackDirection.FLOW });
 
         // A button to create a new list from the template
-        let newListButton = new TkButton({ parent: buttonStack, text: "New from template", classes: [TkButtonStyle.NORMAL] });
+        let newListButton = new TkButton({ parent: buttonStack, text: "New from template" });
         newListButton.on("click", () => {
             let captionedList = new CaptionedList({ parent: listStack });
 

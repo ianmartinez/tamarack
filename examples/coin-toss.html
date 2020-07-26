@@ -23,7 +23,7 @@
          * Toss a coin and display the result.
          */
 
-        let tossCoinButton = new TkButton({ parent: "body", text: "Toss Coin", classes: [TkButtonStyle.NORMAL] });
+        let tossCoinButton = new TkButton({ parent: "body", text: "Toss Coin" });
         let results = new TkStack({ parent: "body", direction: TkStackDirection.VERTICAL });
 
         tossCoinButton.on("click", () => {

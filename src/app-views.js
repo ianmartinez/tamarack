@@ -7,6 +7,26 @@ class TkToolbar extends TkStack {
         this.buttonLayout = options.layout ?? TkLabelLayout.ICON_TOP;
     }
 
+    
+    /**
+     * Add child items to this view. The child items can be
+     * other TkViews, HTMLElements, or CSS selectors representing
+     * HTMLElements.
+     * 
+     * @param  {...String|HTMLElement|TkView} items The items to add.
+     */
+    add(...items) {
+        for(let item of items) {
+            let view = TkView.viewFrom(item);
+
+            // Remove autostyle from buttons
+            if(view.autoStyled)
+                view.removeClass(TkButtonStyle.NORMAL);
+
+            super.add(view);
+        }
+    }
+
     /**
      * The layout of the TkButtons on the toolbar.
      * @type {TkLabelLayout}

@@ -918,8 +918,6 @@ html[tkapp] {
 
 [tknotebook] [tknotebook-tab]:hover, 
 [tknotebook] [tknotebook-tab]:focus-within,
-[tknotebook] [tknotebook-tab]:not(:disabled):not(.disabled):active,
-[tknotebook] [tknotebook-tab]:not(:disabled):not(.disabled):active:focus-within,
 [tknotebook] [tknotebook-tab] {    
     background: var(--tkview-fill-inactive);
     color: var(--tkview-text-inactive);

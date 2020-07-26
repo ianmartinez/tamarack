@@ -40,22 +40,18 @@
         buttonStack.add(
             new TkButton({
                 text: "Move to top",
-                classes: [TkButtonStyle.NORMAL],
                 events: { click: () => list.selectedItem?.moveToTop() }
             }),
             new TkButton({
                 text: "Move up",
-                classes: [TkButtonStyle.NORMAL],
                 events: { click: () => list.selectedItem?.moveUp() }
             }),
             new TkButton({
                 text: "Move down",
-                classes: [TkButtonStyle.NORMAL],
                 events: { click: () => list.selectedItem?.moveDown() }
             }),
             new TkButton({
                 text: "Move to bottom",
-                classes: [TkButtonStyle.NORMAL],
                 events: { click: () => list.selectedItem?.moveToBottom() }
             })
         );
