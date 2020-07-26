@@ -20,12 +20,12 @@
         TkApp.init({ autolayout: false });
 
         /**
-         * Display progress bars ranging from 0-100%.
+         * Display meters ranging from 0-100%.
          */
         let stack = new TkStack({ parent: "body", direction: TkStackDirection.FLOW });
 
         for (let i = 0; i <= 100; i += 10) {
-            stack.add(new TkInputLabel({ parent: stack, text: `${i}%`, input: new TkProgress({ value: i }) }));
+            stack.add(new TkInputLabel({ parent: stack, text: `${i}%`, input: new TkMeter({ value: i }) }));
         }
     </script>
 </body>

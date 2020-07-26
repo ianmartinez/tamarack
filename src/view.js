@@ -2372,6 +2372,10 @@ class TkProgress extends TkView {
         this.max = options.max ?? 100;
     }
 
+    /**
+     * The maximum value.
+     * @type {Number}
+     */
     get max() {
         return this.getAttribute("max");
     }
@@ -2380,12 +2384,124 @@ class TkProgress extends TkView {
         this.setAttribute("max", value)
     }
 
+    /**
+     * The value.
+     * @type {Number}
+     */
     get value() {
         return this.getAttribute("value");
     }
 
     set value(value) {
         this.setAttribute("value", value);
+    }
+}
+
+/**
+ * A view for a <meter> element.
+ */
+class TkMeter extends TkView {
+
+    /**
+     * Create a TkMeter.
+     * 
+     * @param {Object} options The options object. Same as TkView, minus
+     * the "tag" option.
+     * @param {Number} [options.value=0] The value.
+     * @param {Number} [options.min=0] The minimum value.
+     * @param {Number} [options.max=100] The maximum value.
+     * @param {Number} [options.low] The low value bound.
+     * @param {Number} [options.optimum] The optimum value bound.
+     * @param {Number} [options.high] The high value bound.
+     */
+    constructor(options = {}) {
+        options.tag = "meter";
+        super(options);
+
+        this.value = options.value ?? 0;
+        this.min = options.min ?? 0;
+        this.max = options.max ?? 100;
+
+        if (options.low !== undefined)
+            this.low = options.low;
+
+        if (options.optimum !== undefined)
+            this.optimum = options.optimum;
+
+        if (options.high !== undefined)
+            this.high = options.high;
+    }
+
+    /**
+     * The minimum value.
+     * @type {Number}
+     */
+    get min() {
+        return this.getAttribute("min");
+    }
+
+    set min(value) {
+        this.setAttribute("min", value)
+    }
+
+    /**
+     * The maximum value.
+     * @type {Number}
+     */
+    get max() {
+        return this.getAttribute("max");
+    }
+
+    set max(value) {
+        this.setAttribute("max", value)
+    }
+
+    /**
+     * The value.
+     * @type {Number}
+     */
+    get value() {
+        return this.getAttribute("value");
+    }
+
+    set value(value) {
+        this.setAttribute("value", value);
+    }
+
+    /**
+     * The low value bound.
+     * @type {Number}
+     */
+    get low() {
+        return this.getAttribute("low");
+    }
+
+    set low(value) {
+        this.setAttribute("low", value)
+    }
+
+    /**
+     * The optimum value bound.
+     * @type {Number}
+     */
+    get optimum() {
+        return this.getAttribute("optimum");
+    }
+
+    set optimum(value) {
+        this.setAttribute("optimum", value)
+    }
+
+    /**
+     * The high value bound.
+     * @type {Number}
+     */
+    get high() {
+        return this.getAttribute("high");
+    }
+
+    set high(value) {
+        this.setAttribute("high", value)
     }
 
 }
