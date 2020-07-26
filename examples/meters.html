@@ -25,7 +25,18 @@
         let stack = new TkStack({ parent: "body", direction: TkStackDirection.FLOW });
 
         for (let i = 0; i <= 100; i += 10) {
-            stack.add(new TkInputLabel({ parent: stack, text: `${i}%`, input: new TkMeter({ value: i }) }));
+            stack.add(new TkInputLabel({
+                parent: stack,
+                text: `${i}%`,
+                input: new TkMeter({
+                    value: i,
+                    min: 0,
+                    max: 100,
+                    low: 30,
+                    high: 70,
+                    optimum: 80
+                })
+            }));
         }
     </script>
 </body>

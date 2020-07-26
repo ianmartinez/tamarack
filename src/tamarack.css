@@ -118,12 +118,26 @@ html {
     --tklist-selected-border: hsla(0, 0%, 0%, 0.1);
 
     /* TkProgress */
-    --tkprogress-fill: hsl(0, 0%, 95%);
+    --tkprogress-fill: hsl(0, 0%, 100%);
     --tkprogress-border: hsl(0, 0%, 85%);
     --tkprogress-bar-fill-1: hsl(212, 66%, 53%);
     --tkprogress-bar-fill-2: hsl(212, 81%, 44%);
     --tkprogress-bar-border: hsl(212, 67%, 38%);
     --tkprogress-radius: var(--tk-border-radius);
+
+    /* TkMeter */
+    --tkmeter-fill: hsl(0, 0%, 100%);
+    --tkmeter-border: hsl(0, 0%, 85%);
+    --tkmeter-bad-fill-1: hsl(17, 64%, 52%);
+    --tkmeter-bad-fill-2: hsl(0, 81%, 44%);
+    --tkmeter-bad-border: hsl(12, 84%, 31%);
+    --tkmeter-suboptimum-fill-1: hsl(49, 83%, 67%);
+    --tkmeter-suboptimum-fill-2: hsl(49, 76%, 60%);
+    --tkmeter-suboptimum-border: hsl(49, 57%, 51%);
+    --tkmeter-optimum-fill-1: hsl(106, 66%, 53%);
+    --tkmeter-optimum-fill-2: hsl(123, 63%, 49%);
+    --tkmeter-optimum-border: hsl(123, 67%, 38%);
+    --tkmeter-radius: var(--tk-border-radius);
 
     /* TkColorChooser */
     --tkcolorslider-border: hsla(0, 0%, 0%, 0.3);
@@ -1047,6 +1061,79 @@ html[tkapp] {
     border-radius: var(--tk-border-radius);
     display: inline-block;
     border-radius: var(--tkprogress-radius);
+}
+
+/* TkMeter */
+[tkmeter] {
+    display: inline-block;
+    height: 1.25rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: var(--tkmeter-radius);
+    background: var(--tkmeter-fill);
+    border: 1px solid var(--tkmeter-border);
+    padding: 0;
+}
+
+[tkmeter]::-webkit-meter-inner-element {
+    /* Work around chrome setting to display: none; */
+    display: inline;
+}
+
+[tkmeter]::-webkit-meter-bar {
+    border-radius: var(--tkmeter-radius);
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 0;
+}
+
+[tkmeter]::-webkit-meter-even-less-good-value {
+    border-radius: var(--tkmeter-radius);
+    background: linear-gradient(180deg, var(--tkmeter-bad-fill-1), var(--tkmeter-bad-fill-2));
+    border: 1px solid var(--tkmeter-bad-border);    
+}
+
+[tkmeter]::-webkit-meter-suboptimum-value {
+    border-radius: var(--tkmeter-radius);
+    background: linear-gradient(180deg, var(--tkmeter-suboptimum-fill-1), var(--tkmeter-suboptimum-fill-2));
+    border: 1px solid var(--tkmeter-suboptimum-border);    
+}
+
+[tkmeter]::-webkit-meter-optimum-value {
+    border-radius: var(--tkmeter-radius);
+    background: linear-gradient(180deg, var(--tkmeter-optimum-fill-1), var(--tkmeter-optimum-fill-2));
+    border: 1px solid var(--tkmeter-optimum-border);    
+}
+
+/* See how Firefox styles its meters here: https://dxr.mozilla.org/mozilla-central/source/layout/style/res/forms.css */
+[tkmeter]::-moz-meter-bar {
+    -moz-appearance: none;
+    border-radius: var(--tkmeter-radius);
+    background: var(--tkmeter-fill);
+    border: 1px solid var(--tkmeter-border);
+    padding: 1px;
+    margin: 1px;
+    /* Weird rendering glitch in Firefox where it's always off by 6 pixels for some reason */
+    height: calc(100% - 6px);
+}
+
+[tkmeter]:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+    border-radius: var(--tkmeter-radius);
+    background: linear-gradient(180deg, var(--tkmeter-bad-fill-1), var(--tkmeter-bad-fill-2));
+    border: 1px solid var(--tkmeter-bad-border);    
+}
+
+[tkmeter]:-moz-meter-sub-optimum::-moz-meter-bar {
+    border-radius: var(--tkmeter-radius);
+    background: linear-gradient(180deg, var(--tkmeter-suboptimum-fill-1), var(--tkmeter-suboptimum-fill-2));
+    border: 1px solid var(--tkmeter-suboptimum-border);    
+}
+
+[tkmeter]:-moz-meter-optimum::-moz-meter-bar {
+    border-radius: var(--tkmeter-radius);
+    background: linear-gradient(180deg, var(--tkmeter-optimum-fill-1), var(--tkmeter-optimum-fill-2));
+    border: 1px solid var(--tkmeter-optimum-border);    
 }
 
 /* TkTemplate */

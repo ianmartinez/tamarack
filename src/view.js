@@ -2417,6 +2417,7 @@ class TkMeter extends TkView {
     constructor(options = {}) {
         options.tag = "meter";
         super(options);
+        this.addViewName("tkmeter");
 
         this.value = options.value ?? 0;
         this.min = options.min ?? 0;
