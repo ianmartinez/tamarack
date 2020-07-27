@@ -1215,6 +1215,10 @@ html[tkapp] {
     outline: none !important;
 }
 
+[tkinput][type=text]:focus {
+    border-color: var(--tkview-focus-border);
+}
+
 /* TkCheckbox */
 [tkcheckbox] {
     display: inline-flex;
@@ -1262,7 +1266,7 @@ html[tkapp] {
     margin-bottom: 0.5rem;
 }
 
-[tkcolorchooser] .colorSystemWidth {
+[tkcolorchooser] .tkcolor-system-width {
     margin-left: 1rem;
     margin-right: 1rem;
     width: calc(100% - 2rem);
@@ -1348,7 +1352,7 @@ html[tkapp] {
         width: 1.25rem;
     }
 
-    [tkcolorchooser] .colorSystemWidth {
+    [tkcolorchooser] .tkcolor-system-width {
         margin-left: 0;
         margin-right: 0;
         width: 100%;

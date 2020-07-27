@@ -194,10 +194,10 @@ class TkColorChooser extends TkStack {
             value: 1
         });
         this.aSlider.sliderInput.on("change", this.colorChangeHandler);
-        this.aSlider.addClass("colorSystemWidth");
+        this.aSlider.addClass("tkcolor-system-width");
 
         // Text input
-        this.textInput = new TkInput({ parent: this.editStack, type: "text", classes: ["colorSystemWidth"] });
+        this.textInput = new TkInput({ parent: this.editStack, type: "text", classes: ["tkcolor-system-width"] });
         this.textInput.on("input", () => {
             let color = new TkColor(colorChooser.textInput.value);
 
