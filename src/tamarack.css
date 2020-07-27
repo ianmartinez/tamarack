@@ -680,7 +680,7 @@ html[tkapp] {
 }
 
 /* TkButtonStyle */
-[tkbutton].tknormal {
+.tknormal {
     border-radius: var(--tk-border-radius);
     color: var(--tknormal-text);
     background: linear-gradient(180deg, var(--tknormal-fill-1), var(--tknormal-fill-2));
@@ -691,32 +691,33 @@ html[tkapp] {
     padding: var(--tkbutton-padding);
 }
 
-[tkbutton].tknormal:hover,
-[tkbutton].tknormal:focus-within {
+.tknormal:hover,
+.tknormal:focus-within {
     color: var(--tknormal-hover-text);
     background: linear-gradient(180deg, var(--tknormal-hover-fill-1), var(--tknormal-hover-fill-2));
     border: 1px solid var(--tknormal-hover-border);
     outline: none;
     text-shadow: 0 0 1px var(--tknormal-hover-text-shadow);
+    text-decoration: none;
 }
 
-[tkbutton].tknormal:focus-within {
+.tknormal:focus-within {
     box-shadow: 0 0 0 0.2rem var(--tknormal-focus-ring);
 }
 
-[tkbutton].tknormal:not(:disabled):not(.disabled):active {   
+.tknormal:not(:disabled):not(.disabled):active {   
     color: var(--tknormal-active-text);
     background: linear-gradient(180deg, var(--tknormal-active-fill-1), var(--tknormal-active-fill-2));
     border: 1px solid var(--tknormal-active-border);
     text-shadow: 0 0 1px var(--tknormal-active-text-shadow);
 }
 
-[tkbutton].tknormal:not(:disabled):not(.disabled):active:focus-within {
+.tknormal:not(:disabled):not(.disabled):active:focus-within {
     box-shadow: 0 0 0 0.2rem var(--tknormal-focus-ring);
     outline-color: var(--tknormal-focus-outline);
 }
 
-[tkbutton].tkprimary {
+.tkprimary {
     border-radius: var(--tk-border-radius);
     color: var(--tkprimary-text);
     background: linear-gradient(180deg, var(--tkprimary-fill-1), var(--tkprimary-fill-2));
@@ -727,34 +728,35 @@ html[tkapp] {
     padding: var(--tkbutton-padding);
 }
 
-[tkbutton].tkprimary:hover,
-[tkbutton].tkprimary:focus-within {
+.tkprimary:hover,
+.tkprimary:focus-within {
     color: var(--tkprimary-hover-text);
     background: linear-gradient(180deg, var(--tkprimary-hover-fill-1), var(--tkprimary-hover-fill-2));
     border: 1px solid var(--tkprimary-hover-border);
     outline: none;
     text-shadow: 0 0 1px var(--tkprimary-hover-text-shadow);
+    text-decoration: none;
 }
 
-[tkbutton].tkprimary:focus-within {
+.tkprimary:focus-within {
     box-shadow: 0 0 0 0.2rem var(--tkprimary-focus-ring);
 }
 
-[tkbutton].tkprimary:not(:disabled):not(.disabled):active,
-.show > [tkbutton].tkprimary.dropdown-toggle {
+.tkprimary:not(:disabled):not(.disabled):active,
+.show > .tkprimary.dropdown-toggle {
     color: var(--tkprimary-active-text);
     background: linear-gradient(180deg, var(--tkprimary-active-fill-1), var(--tkprimary-active-fill-2));
     border: 1px solid var(--tkprimary-active-border);
     text-shadow: 0 0 1px var(--tkprimary-active-text-shadow);
 }
 
-[tkbutton].tkprimary:not(:disabled):not(.disabled):active:focus-within,
-.show > [tkbutton].tkprimary.dropdown-toggle:focus-within {
+.tkprimary:not(:disabled):not(.disabled):active:focus-within,
+.show > .tkprimary.dropdown-toggle:focus-within {
     box-shadow: 0 0 0 0.2rem var(--tkprimary-focus-ring);
     outline-color: var(--tkprimary-focus-outline);
 }
 
-[tkbutton].tksuccess {
+.tksuccess {
     border-radius: var(--tk-border-radius);
     color: var(--tksuccess-text);
     background: linear-gradient(180deg, var(--tksuccess-fill-1), var(--tksuccess-fill-2));
@@ -765,32 +767,33 @@ html[tkapp] {
     padding: var(--tkbutton-padding);
 }
 
-[tkbutton].tksuccess:hover,
-[tkbutton].tksuccess:focus-within {
+.tksuccess:hover,
+.tksuccess:focus-within {
     color: var(--tksuccess-hover-text);
     background: linear-gradient(180deg, var(--tksuccess-hover-fill-1), var(--tksuccess-hover-fill-2));
     border: 1px solid var(--tksuccess-hover-border);
     outline: none;
     text-shadow: 0 0 1px var(--tksuccess-hover-text-shadow);
+    text-decoration: none;
 }
 
-[tkbutton].tksuccess:focus-within {
+.tksuccess:focus-within {
     box-shadow: 0 0 0 0.2rem var(--tksuccess-focus-ring);
 }
 
-[tkbutton].tksuccess:not(:disabled):not(.disabled):active {
+.tksuccess:not(:disabled):not(.disabled):active {
     color: var(--tksuccess-active-text);
     background: linear-gradient(180deg, var(--tksuccess-active-fill-1), var(--tksuccess-active-fill-2));
     border: 1px solid var(--tksuccess-active-border);
     text-shadow: 0 0 1px var(--tksuccess-active-text-shadow);
 }
 
-[tkbutton].tksuccess:not(:disabled):not(.disabled):active:focus-within {    
+.tksuccess:not(:disabled):not(.disabled):active:focus-within {    
     box-shadow: 0 0 0 0.2rem var(--tksuccess-focus-ring);
     outline-color: var(--tksuccess-focus-outline);
 }
 
-[tkbutton].tkdanger {
+.tkdanger {
     border-radius: var(--tk-border-radius);
     color: var(--tkdanger-text);
     background: linear-gradient(180deg, var(--tkdanger-fill-1), var(--tkdanger-fill-2));
@@ -801,32 +804,33 @@ html[tkapp] {
     padding: var(--tkbutton-padding);
 }
 
-[tkbutton].tkdanger:hover,
-[tkbutton].tkdanger:focus-within {
+.tkdanger:hover,
+.tkdanger:focus-within {
     color: var(--tkdanger-hover-text);
     background: linear-gradient(180deg, var(--tkdanger-hover-fill-1), var(--tkdanger-hover-fill-2));
     border: 1px solid var(--tkdanger-hover-border);
     outline: none;
     text-shadow: 0 0 1px var(--tkdanger-hover-text-shadow);
+    text-decoration: none;
 }
 
-[tkbutton].tkdanger:focus-within {
+.tkdanger:focus-within {
     box-shadow: 0 0 0 0.2rem var(--tkdanger-focus-ring);
 }
 
-[tkbutton].tkdanger:not(:disabled):not(.disabled):active {
+.tkdanger:not(:disabled):not(.disabled):active {
     color: var(--tkdanger-active-text);
     background: linear-gradient(180deg, var(--tkdanger-active-fill-1), var(--tkdanger-active-fill-2));
     border: 1px solid var(--tkdanger-active-border);
     text-shadow: 0 0 1px var(--tkdanger-active-text-shadow);
 }
 
-[tkbutton].tkdanger:not(:disabled):not(.disabled):active:focus-within { 
+.tkdanger:not(:disabled):not(.disabled):active:focus-within { 
     box-shadow: 0 0 0 0.2rem var(--tkdanger-focus-ring);
     outline-color: var(--tkdanger-focus-outline);
 }
 
-[tkbutton].tkwarning {
+.tkwarning {
     border-radius: var(--tk-border-radius);
     color: var(--tkwarning-text);
     background: linear-gradient(180deg, var(--tkwarning-fill-1), var(--tkwarning-fill-2));
@@ -837,41 +841,42 @@ html[tkapp] {
     padding: var(--tkbutton-padding);
 }
 
-[tkbutton].tkwarning:hover,
-[tkbutton].tkwarning:focus-within {
+.tkwarning:hover,
+.tkwarning:focus-within {
     color: var(--tkwarning-hover-text);
     background: linear-gradient(180deg, var(--tkwarning-hover-fill-1), var(--tkwarning-hover-fill-2));
     border: 1px solid var(--tkwarning-hover-border);
     outline: none;
     text-shadow: 0 0 1px var(--tkwarning-hover-text-shadow);
+    text-decoration: none;
 }
 
-[tkbutton].tkwarning:focus-within {
+.tkwarning:focus-within {
     box-shadow: 0 0 0 0.2rem var(--tkwarning-focus-ring);
 }
 
-[tkbutton].tkwarning:not(:disabled):not(.disabled):active {
+.tkwarning:not(:disabled):not(.disabled):active {
     color: var(--tkwarning-active-text);
     background: linear-gradient(180deg, var(--tkwarning-active-fill-1), var(--tkwarning-active-fill-2));
     border: 1px solid var(--tkwarning-active-border);
     text-shadow: 0 0 1px var(--tkwarning-active-text-shadow);
 }
 
-[tkbutton].tkwarning:not(:disabled):not(.disabled):active:focus-within {
+.tkwarning:not(:disabled):not(.disabled):active:focus-within {
     box-shadow: 0 0 0 0.2rem var(--tkwarning-focus-ring);
     outline-color: var(--tkwarning-focus-outline);
 }
 
-[tkbutton].tkprimary.disabled,
-[tkbutton].tkprimary:disabled, 
-[tkbutton].tknormal.disabled,
-[tkbutton].tknormal:disabled,
-[tkbutton].tksuccess.disabled,
-[tkbutton].tksuccess:disabled,
-[tkbutton].tkdanger.disabled,
-[tkbutton].tkdanger:disabled,
-[tkbutton].tkwarning.disabled,
-[tkbutton].tkwarning:disabled {
+.tkprimary.disabled,
+.tkprimary:disabled, 
+.tknormal.disabled,
+.tknormal:disabled,
+.tksuccess.disabled,
+.tksuccess:disabled,
+.tkdanger.disabled,
+.tkdanger:disabled,
+.tkwarning.disabled,
+.tkwarning:disabled {
     color: #fff;
     background: linear-gradient(0deg, #757575, #757575);
     border: 1px solid #757575;
