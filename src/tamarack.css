@@ -193,6 +193,11 @@ html, [tkview][light-mode] {
     --tkmodal-titlebar-fill-2: hsl(0, 0%, 89%);
     --tkmodal-titlebar-text: hsl(0, 0%, 0%);
 
+    /* TkInput */
+    --tkinput-border: hsl(0, 0%, 76%);
+    --tkinput-fill: hsl(0, 0%, 100%);
+    --tkinput-text: hsl(0, 0%, 0%);
+
     /* Misc */
     --tk-transparent-border: hsla(0, 0%, 0%, 0.5);
     --tk-even-child-fill: hsla(0, 0%, 0%, 0.07);
@@ -321,6 +326,11 @@ html[tk-support-dark-mode][dark-mode], [tkview][dark-mode] {
     --tkmodal-titlebar-fill-1:  hsl(0, 0%, 23%);
     --tkmodal-titlebar-fill-2: hsl(0, 0%, 20%);
     --tkmodal-titlebar-text: hsl(0, 0%, 100%);
+
+    /* TkInput */
+    --tkinput-border: hsl(0, 0%, 35%);
+    --tkinput-fill: hsl(0, 0%, 8%);
+    --tkinput-text: hsl(0, 0%, 100%);
     
     /* Misc */
     --tk-transparent-border: hsla(0, 0%, 100%, 0.45);
@@ -1197,9 +1207,9 @@ html[tkapp] {
 }
 
 [tkinput][type=text] {
-    border: 1px solid var(--tkview-border);
-    background: var(--tkview-fill);
-    color: var(--tkview-text);
+    border: 1px solid var(--tkinput-border);
+    background: var(--tkinput-fill);
+    color: var(--tkinput-text);
     border-radius: var(--tk-border-radius);
     cursor: text;
     outline: none !important;
@@ -1224,9 +1234,9 @@ html[tkapp] {
 /* TkStepper */
 [tkstepper] {
     border-radius: var(--tk-border-radius);
-    border: 1px solid var(--tkview-border);
-    background: var(--tkview-fill);
-    color: var(--tkview-text);
+    border: 1px solid var(--tkinput-border);
+    background: var(--tkinput-fill);
+    color: var(--tkinput-text);
     padding: 0.25rem;
 }
 
@@ -1244,9 +1254,6 @@ html[tkapp] {
 [tkcolorchooser] input[type=text] {
     min-height: 1.75rem;
     border-radius: var(--tk-border-radius);
-    border: 1px solid var(--tkview-border);
-    background: var(--tkview-fill);
-    color: var(--tkview-text);
     padding: 0.25rem;
     margin-bottom: 0.5rem;
 }
