@@ -114,8 +114,8 @@ html, [tkview][light-mode] {
     --tkwarning-focus-outline: hsla(41, 100%, 63%, 0.82);
 
     /* TkList */
-    --tklist-selected-fill: hsla(0, 0%, 0%, 0.1);
-    --tklist-selected-border: hsla(0, 0%, 0%, 0.1);
+    --tklist-selected-fill: hsla(194, 78%, 52%, 0.5);
+    --tklist-selected-border: hsla(194, 94%, 37%, 0.5);
 
     /* TkProgress */
     --tkprogress-fill: hsl(0, 0%, 100%);
@@ -263,8 +263,8 @@ html[tk-support-dark-mode][dark-mode], [tkview][dark-mode] {
     --tkwarning-active-border: hsl(40, 80%, 37%);
 
     /* TkList */
-    --tklist-selected-fill: hsla(0, 0%, 100%, 0.25);
-    --tklist-selected-border: hsla(0, 0%, 100%, 0.35);
+    --tklist-selected-fill: hsla(194, 100%, 60%, 0.5);
+    --tklist-selected-border: hsla(194, 100%, 72%, 0.5);
 
     /* TkProgress */
     --tkprogress-border: hsl(0, 0%, 37%);
