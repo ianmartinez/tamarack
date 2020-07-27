@@ -508,4 +508,24 @@ class TkDocument {
         window.matchMedia("(prefers-color-scheme: dark)").addListener(callback);
     }
 
+    /**
+     * Update the attribute on the HTML element to either [dark-mode]
+     * or [light-mode].
+     */
+    static updateDarkModeAttribute() {
+        let htmlNode = document.querySelector("html");
+        if (TkDocument.isInDarkMode()) {
+            htmlNode.removeAttribute("light-mode");
+            htmlNode.setAttribute("dark-mode", "");
+        } else {
+            htmlNode.setAttribute("light-mode", "");
+            htmlNode.removeAttribute("dark-mode");
+        }
+    }
+
 }
+
+// Update the dark mode attribute so that tamarack.css dark mode works
+// and attach handler to watch for change
+TkDocument.updateDarkModeAttribute();
+TkDocument.onChangeDarkMode(() => TkDocument.updateDarkModeAttribute());

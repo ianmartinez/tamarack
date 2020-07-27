@@ -12,14 +12,17 @@
     <script src="../src/core.js"></script>
     <script src="../src/view.js"></script>
     <script src="../src/color.js"></script>
+    <script src="../src/app.js"></script>
 </head>
 
 <body>
     <script>
+        // Init Tamarack App so we can support dark mode and other nice things
+        TkApp.init({ autolayout: false });
+
         /**
          * Detect dark mode.
          */
-
         let modeText = new TkText("h1", { parent: "body" });
 
         // Update the text and document colors when the system is 
@@ -35,6 +38,10 @@
                 modeText.text = "Light Mode";
             }
         }
+
+        // Force a specific mode
+        let lightButton = new TkButton({ parent: "body", text: "I'm always light", forceMode: TkMode.LIGHT });
+        let darkButton = new TkButton({ parent: "body", text: "I'm always dark", forceMode: TkMode.DARK });
 
         // Attach the handler to watch for the change
         TkDocument.onChangeDarkMode(updateMode);

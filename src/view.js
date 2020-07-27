@@ -33,6 +33,8 @@ class TkView {
      * @param {Boolean} [options.editable=false] If the view is editable.
      * @param {String} [options.placeholder] The placeholder text for the view.
      * @param {Any} [options.data] The data associated with this view.
+     * @param {TkMode} [options.forceMode] If dark or light mode should be forced
+     * for this view and its children.
      */
     constructor(options = {}, additionalOptions = null) {
         if (additionalOptions !== null)
@@ -154,6 +156,10 @@ class TkView {
         // Set the view's editable property, if specifed
         if (options.placeholder !== undefined)
             this.placeholder = options.placeholder;
+
+        // Force dark or light mode, if specifed
+        if (options.forceMode !== undefined)
+            this.colorMode = options.forceMode;
     }
 
     /**
@@ -1017,6 +1023,25 @@ class TkView {
         return new Hammer.Manager(this.e, options);
     }
 
+    /**
+     * If dark or light mode should be forced
+     * for this view and its children.
+     * 
+     * @type {TkMode}
+     */
+    get colorMode() {
+        if(this.hasAttribute(TkMode.LIGHT)) 
+            return TkMode.LIGHT;
+        else if (this.hasAttribute(TkMode.DARK))
+            return TkMode.DARK;
+        else
+            return TkMode.AUTO;
+    }
+
+    set colorMode(value) {
+        this.addAttributeFromEnum(TkMode, value);
+    }
+
 }
 
 /**
@@ -1303,7 +1328,7 @@ class TkButton extends TkView {
      */
     constructor(options = {}) {
         let autoStyled = false;
-        if(options.classes === undefined) {
+        if (options.classes === undefined) {
             autoStyled = true;
             options.classes = [TkButtonStyle.NORMAL];
         }
@@ -2987,6 +3012,16 @@ const TkPosition = {
     AUTO: 0, // Don't move
     START: 1, // Move to start
     END: 2 // Move to end
+};
+
+
+/**
+ * An enum representing the color mode (dark/light).
+ */
+const TkMode = {
+    AUTO: "", // Auto
+    DARK: "dark-mode", // Dark mode
+    LIGHT: "light-mode" // Light mode
 };
 
 /**

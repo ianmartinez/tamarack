@@ -1,4 +1,4 @@
-html {
+html, [tkview][light-mode] {
     /* Common */
     --tk-border-radius: 0.2rem;
     --tkplaceholder-text: gray;
@@ -203,134 +203,132 @@ html {
     --tkimg-transparent-fill:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAIAAACQKrqGAAAILGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS41LjAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICAgeG1sbnM6ZXhpZj0iaHR0cDovL25zLmFkb2JlLmNvbS9leGlmLzEuMC8iCiAgICB4bWxuczpwaG90b3Nob3A9Imh0dHA6Ly9ucy5hZG9iZS5jb20vcGhvdG9zaG9wLzEuMC8iCiAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyIKICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIKICAgIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIgogICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgZGM6Zm9ybWF0PSJpbWFnZS9wbmciCiAgIGV4aWY6Q29sb3JTcGFjZT0iMSIKICAgZXhpZjpQaXhlbFhEaW1lbnNpb249IjE0IgogICBleGlmOlBpeGVsWURpbWVuc2lvbj0iMTQiCiAgIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiCiAgIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIKICAgdGlmZjpJbWFnZUxlbmd0aD0iMTQiCiAgIHRpZmY6SW1hZ2VXaWR0aD0iMTQiCiAgIHRpZmY6T3JpZW50YXRpb249IjEiCiAgIHRpZmY6UmVzb2x1dGlvblVuaXQ9IjIiCiAgIHRpZmY6WFJlc29sdXRpb249IjcyLjAiCiAgIHRpZmY6WVJlc29sdXRpb249IjcyLjAiCiAgIHhtcDpDcmVhdGVEYXRlPSIyMDE3LTA0LTA3VDEyOjI0OjAwLTA1OjAwIgogICB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IChXaW5kb3dzKSIKICAgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyMC0wNy0xNlQyMTo0NDoyMC0wNTowMCIKICAgeG1wOk1vZGlmeURhdGU9IjIwMjAtMDctMTZUMjE6NDQ6MjAtMDU6MDAiCiAgIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDplZmIzNzk3Yi0xYmI2LTExZTctYjdkYi1mNjg2N2IxMmUwYTMiCiAgIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Y2IzYzk1MDQtYzk3My1hMjQxLTgxZDctYThhZjM4N2VmYWZlIgogICB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6Y2U2ZjEwZjktZTRjYS0zNzRhLTk2ODgtM2YwYWUxZDIyZGZmIj4KICAgPHhtcE1NOkhpc3Rvcnk+CiAgICA8cmRmOlNlcT4KICAgICA8cmRmOmxpCiAgICAgIHhtcE1NOmFjdGlvbj0iY3JlYXRlZCIKICAgICAgeG1wTU06aW5zdGFuY2VJRD0ieG1wLmlpZDpjZTZmMTBmOS1lNGNhLTM3NGEtOTY4OC0zZjBhZTFkMjJkZmYiCiAgICAgIHhtcE1NOnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IChXaW5kb3dzKSIKICAgICAgeG1wTU06d2hlbj0iMjAxNy0wNC0wN1QxMjoyNDowMC0wNTowMCIvPgogICAgIDxyZGY6bGkKICAgICAgeG1wTU06YWN0aW9uPSJzYXZlZCIKICAgICAgeG1wTU06Y2hhbmdlZD0iLyIKICAgICAgeG1wTU06aW5zdGFuY2VJRD0ieG1wLmlpZDpjYjNjOTUwNC1jOTczLWEyNDEtODFkNy1hOGFmMzg3ZWZhZmUiCiAgICAgIHhtcE1NOnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IChXaW5kb3dzKSIKICAgICAgeG1wTU06d2hlbj0iMjAxNy0wNC0wN1QxMjoyNDowMC0wNTowMCIvPgogICAgIDxyZGY6bGkKICAgICAgc3RFdnQ6YWN0aW9uPSJwcm9kdWNlZCIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWZmaW5pdHkgUGhvdG8gKE1hciAzMSAyMDIwKSIKICAgICAgc3RFdnQ6d2hlbj0iMjAyMC0wNy0xNlQyMTo0NDoyMC0wNTowMCIvPgogICAgPC9yZGY6U2VxPgogICA8L3htcE1NOkhpc3Rvcnk+CiAgPC9yZGY6RGVzY3JpcHRpb24+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+n5Pm1QAAAYNpQ0NQc1JHQiBJRUM2MTk2Ni0yLjEAACiRdZHPK0RRFMc/M0MjRkMsLCwmMVnMyI+a2CgzaShpGqMMNjPP/FDz4/XeSLJVtlOU2Pi14C9gq6yVIlKysrAmNkzPeTNqJHNu557P/d57TveeC9ZIRsnqdf2QzRW0cNDvmovOu+zP2GnFSi/umKKrY6HQFDXt4w6LGW+8Zq3a5/61pqWEroClQXhUUbWC8ITw1GpBNXlbuF1Jx5aET4U9mlxQ+NbU4xV+MTlV4S+TtUg4ANYWYVfqF8d/sZLWssLycrqzmRXl5z7mSxyJ3OyMxC7xTnTCBPHjYpJxAvgYYERmH14G6ZMVNfL7y/nT5CVXkVllDY1lUqQp4BF1RaonJCZFT8jIsGb2/29f9eTQYKW6ww/1T4bx1gP2LSgVDePz0DBKR2B7hItcNT9/AMPvoherWvc+ODfg7LKqxXfgfBM6HtSYFitLNnFrMgmvJ9AchbZraFyo9Oxnn+N7iKzLV13B7h645bxz8RtYDmffZZjhHQAAAAlwSFlzAAALEwAACxMBAJqcGAAAACpJREFUKJFjfPr0KQMGkJKSwhRkwhTCBYapUsb///9jij579oxeDhhKSgGIOQjHBD1IOQAAAABJRU5ErkJggg==');
 }
 
-@media (prefers-color-scheme: dark) {
-    /* To enable automatic dark mode support, call TkApp.init() */
-    html[tk-support-dark-mode] {
-        /* App */
-        --tkapp-background: hsl(0, 0%, 13%);
-        --tkapp-text: hsl(0, 0%, 100%);
+/* To enable automatic dark mode support, call TkApp.init() */
+html[tk-support-dark-mode][dark-mode], [tkview][dark-mode] {
+    /* App */
+    --tkapp-background: hsl(0, 0%, 13%);
+    --tkapp-text: hsl(0, 0%, 100%);
 
-        /* TkView */
-        --tkview-border: hsl(0, 0%, 35%);
-        --tkview-fill: hsl(0, 0%, 0%);
-        --tkview-text: hsl(0, 0%, 100%);
-        --tkview-border-inactive: hsl(0, 0%, 38%);
-        --tkview-fill-inactive: hsl(0, 0%, 21%);
-        --tkview-text-inactive: hsl(0, 0%, 51%);
-        --tkview-focus-border: hsl(194, 94%, 37%);
+    /* TkView */
+    --tkview-border: hsl(0, 0%, 35%);
+    --tkview-fill: hsl(0, 0%, 0%);
+    --tkview-text: hsl(0, 0%, 100%);
+    --tkview-border-inactive: hsl(0, 0%, 38%);
+    --tkview-fill-inactive: hsl(0, 0%, 21%);
+    --tkview-text-inactive: hsl(0, 0%, 51%);
+    --tkview-focus-border: hsl(194, 94%, 37%);
 
-        /* TkButtonStyle.NORMAL */
-        --tknormal-text: hsl(0, 0%, 100%);
-        --tknormal-fill-1: hsl(0, 0%, 17%);
-        --tknormal-fill-2: hsl(0, 0%, 14%);
-        --tknormal-border: hsl(0, 0%, 29%);
-        --tknormal-text-shadow: hsla(0, 0%, 0%, 0.5);
-        --tknormal-hover-text: hsl(0, 0%, 100%);
-        --tknormal-hover-fill-1: hsl(0, 0%, 21%);
-        --tknormal-hover-fill-2: hsl(0, 0%, 18%);
-        --tknormal-hover-border: hsl(0, 0%, 34%);
-        --tknormal-hover-text-shadow: hsla(0, 0%, 0%, 0.5);
-        --tknormal-active-text: hsl(0, 0%, 100%);
-        --tknormal-active-fill-1: hsl(0, 0%, 14%);
-        --tknormal-active-fill-2: hsl(0, 0%, 19%);
-        --tknormal-active-border: hsl(0, 0%, 18%);
-        --tknormal-active-text-shadow: hsla(0, 0%, 0%, 0.5);
-        --tknormal-focus-ring: hsla(0, 0%, 80%, 0.5);
-        --tknormal-focus-outline: hsla(0, 0%, 70%, 0.8);
+    /* TkButtonStyle.NORMAL */
+    --tknormal-text: hsl(0, 0%, 100%);
+    --tknormal-fill-1: hsl(0, 0%, 17%);
+    --tknormal-fill-2: hsl(0, 0%, 14%);
+    --tknormal-border: hsl(0, 0%, 29%);
+    --tknormal-text-shadow: hsla(0, 0%, 0%, 0.5);
+    --tknormal-hover-text: hsl(0, 0%, 100%);
+    --tknormal-hover-fill-1: hsl(0, 0%, 21%);
+    --tknormal-hover-fill-2: hsl(0, 0%, 18%);
+    --tknormal-hover-border: hsl(0, 0%, 34%);
+    --tknormal-hover-text-shadow: hsla(0, 0%, 0%, 0.5);
+    --tknormal-active-text: hsl(0, 0%, 100%);
+    --tknormal-active-fill-1: hsl(0, 0%, 14%);
+    --tknormal-active-fill-2: hsl(0, 0%, 19%);
+    --tknormal-active-border: hsl(0, 0%, 18%);
+    --tknormal-active-text-shadow: hsla(0, 0%, 0%, 0.5);
+    --tknormal-focus-ring: hsla(0, 0%, 80%, 0.5);
+    --tknormal-focus-outline: hsla(0, 0%, 70%, 0.8);
+
+    /* TkButtonStyle.PRIMARY */
+    --tkprimary-border: hsl(198, 68%, 52%);
+    --tkprimary-hover-border: hsl(201, 82%, 64%);
+    --tkprimary-active-border: hsl(187, 61%, 37%);
+
+    /* TkButtonStyle.SUCCESS */
+    --tksuccess-border: hsl(111, 64%, 47%);
+    --tksuccess-hover-border: hsl(111, 61%, 51%);
+    --tksuccess-active-border: hsl(111, 76%, 31%);
+
+    /* TkButtonStyle.DANGER */
+    --tkdanger-border: hsl(7, 66%, 53%);
+    --tkdanger-hover-border: hsl(12, 77%, 59%);
+    --tkdanger-active-border: hsl(21, 69%, 37%);
+
+    /* TkButtonStyle.WARNING */
+    --tkwarning-border: hsl(39, 97%, 64%);
+    --tkwarning-hover-border: hsl(39, 82%, 59%);
+    --tkwarning-active-border: hsl(40, 80%, 37%);
+
+    /* TkList */
+    --tklist-selected-fill: hsla(0, 0%, 100%, 0.25);
+    --tklist-selected-border: hsla(0, 0%, 100%, 0.35);
+
+    /* TkProgress */
+    --tkprogress-border: hsl(0, 0%, 37%);
+    --tkprogress-fill: hsl(0, 0%, 5%);
+    --tkprogress-bar-fill-1: hsl(212, 66%, 53%);
+    --tkprogress-bar-fill-2: hsl(212, 81%, 44%);
+    --tkprogress-bar-border: hsl(212, 85%, 64%);
+
+    /* TkMeter */
+    --tkmeter-border: hsl(0, 0%, 37%);
+    --tkmeter-fill: hsl(0, 0%, 5%);
+    --tkmeter-bad-fill-1: hsl(17, 81%, 62%);
+    --tkmeter-bad-fill-2: hsl(0, 71%, 46%);
+    --tkmeter-bad-border: hsl(12, 75%, 57%);
+    --tkmeter-suboptimum-fill-1: hsl(49, 92%, 66%);
+    --tkmeter-suboptimum-fill-2: hsl(39, 76%, 56%);
+    --tkmeter-suboptimum-border: hsl(49, 100%, 77%);
+    --tkmeter-optimum-fill-1: hsl(106, 86%, 61%);
+    --tkmeter-optimum-fill-2: hsl(123, 93%, 35%);
+    --tkmeter-optimum-border: hsl(123, 89%, 64%);
+    --tkmeter-radius: var(--tk-border-radius);
+
+    /* TkColorChooser */
+    --tkcolorslider-border: hsla(0, 0%, 100%, 0.35);
+    --tkcolorslider-highlight: hsla(0, 0%, 100%, 0.3);
+    --tkcolorslider-thumb-border: hsla(0, 0%, 0%, 0.8);
+    --tkcolorslider-thumb-highlight: hsla(0, 0%, 100%, 0.75);
+
+    /* TkToolbar */
+    --tktoolbar-fill-1: hsl(0, 0%, 23%);
+    --tktoolbar-fill-2: hsl(0, 0%, 20%);
+    --tktoolbar-border: hsl(0, 0%, 24%);
     
-        /* TkButtonStyle.PRIMARY */
-        --tkprimary-border: hsl(198, 68%, 52%);
-        --tkprimary-hover-border: hsl(201, 82%, 64%);
-        --tkprimary-active-border: hsl(187, 61%, 37%);
+    /* TkSidebar */
+    --tksidebar-border: hsl(0, 0%, 24%);
+    --tksidebar-fill: hsl(0, 0%, 18%);
+    --tksidebar-overlay-border: hsla(0, 0%, 32%, 1);
+    --tksidebar-overlay-fill: hsla(0, 0%, 0%, 0.9);
+
+    /* TkToolbar TkButton */
+    --tktoolbarbutton-border: hsla(0, 0%, 0%, 0);
+    --tktoolbarbutton-fill: hsla(0, 0%, 0%, 0);
+    --tktoolbarbutton-text: hsl(0, 0%, 92%);
+    --tktoolbarbutton-icon: hsl(0, 0%, 100%);
+    --tktoolbarbutton-hover-border: hsl(194, 47%, 50%);
+    --tktoolbarbutton-hover-fill: hsl(194, 71%, 27%);
+    --tktoolbarbutton-active-border: hsl(194, 89%, 22%);
+    --tktoolbarbutton-active-fill: hsl(194, 93%, 16%);
+
+    /* TkOverlay */
+    --tkoverlay-backdrop: hsla(0, 0%, 17%, 0.7);
+    --tkoverlay-window-shadow: hsla(0, 0%, 0%, 0.2);
+    --tkoverlay-window-border: hsl(0, 0%, 11%);
+    --tkoverlay-window-fill: hsl(0, 0%, 13%);
+    --tkoverlay-window-text: hsl(0, 0%, 100%);
+
+    /* TkModal */
+    --tkmodal-titlebar-border: hsl(0, 0%, 26%);
+    --tkmodal-titlebar-fill-1:  hsl(0, 0%, 23%);
+    --tkmodal-titlebar-fill-2: hsl(0, 0%, 20%);
+    --tkmodal-titlebar-text: hsl(0, 0%, 100%);
+
     
-        /* TkButtonStyle.SUCCESS */
-        --tksuccess-border: hsl(111, 64%, 47%);
-        --tksuccess-hover-border: hsl(111, 61%, 51%);
-        --tksuccess-active-border: hsl(111, 76%, 31%);
-    
-        /* TkButtonStyle.DANGER */
-        --tkdanger-border: hsl(7, 66%, 53%);
-        --tkdanger-hover-border: hsl(12, 77%, 59%);
-        --tkdanger-active-border: hsl(21, 69%, 37%);
-    
-        /* TkButtonStyle.WARNING */
-        --tkwarning-border: hsl(39, 97%, 64%);
-        --tkwarning-hover-border: hsl(39, 82%, 59%);
-        --tkwarning-active-border: hsl(40, 80%, 37%);
+    /* Misc */
+    --tk-transparent-border: hsla(0, 0%, 100%, 0.45);
+    --tk-even-child-fill: hsla(0, 0%, 100%, 0.1);
 
-        /* TkList */
-        --tklist-selected-fill: hsla(0, 0%, 100%, 0.25);
-        --tklist-selected-border: hsla(0, 0%, 100%, 0.35);
-
-        /* TkProgress */
-        --tkprogress-border: hsl(0, 0%, 37%);
-        --tkprogress-fill: hsl(0, 0%, 5%);
-        --tkprogress-bar-fill-1: hsl(212, 66%, 53%);
-        --tkprogress-bar-fill-2: hsl(212, 81%, 44%);
-        --tkprogress-bar-border: hsl(212, 85%, 64%);
-
-        /* TkMeter */
-        --tkmeter-border: hsl(0, 0%, 37%);
-        --tkmeter-fill: hsl(0, 0%, 5%);
-        --tkmeter-bad-fill-1: hsl(17, 81%, 62%);
-        --tkmeter-bad-fill-2: hsl(0, 71%, 46%);
-        --tkmeter-bad-border: hsl(12, 75%, 57%);
-        --tkmeter-suboptimum-fill-1: hsl(49, 92%, 66%);
-        --tkmeter-suboptimum-fill-2: hsl(39, 76%, 56%);
-        --tkmeter-suboptimum-border: hsl(49, 100%, 77%);
-        --tkmeter-optimum-fill-1: hsl(106, 86%, 61%);
-        --tkmeter-optimum-fill-2: hsl(123, 93%, 35%);
-        --tkmeter-optimum-border: hsl(123, 89%, 64%);
-        --tkmeter-radius: var(--tk-border-radius);
-
-        /* TkColorChooser */
-        --tkcolorslider-border: hsla(0, 0%, 100%, 0.35);
-        --tkcolorslider-highlight: hsla(0, 0%, 100%, 0.3);
-        --tkcolorslider-thumb-border: hsla(0, 0%, 0%, 0.8);
-        --tkcolorslider-thumb-highlight: hsla(0, 0%, 100%, 0.75);
-
-        /* TkToolbar */
-        --tktoolbar-fill-1: hsl(0, 0%, 23%);
-        --tktoolbar-fill-2: hsl(0, 0%, 20%);
-        --tktoolbar-border: hsl(0, 0%, 24%);
-        
-        /* TkSidebar */
-        --tksidebar-border: hsl(0, 0%, 24%);
-        --tksidebar-fill: hsl(0, 0%, 18%);
-        --tksidebar-overlay-border: hsla(0, 0%, 32%, 1);
-        --tksidebar-overlay-fill: hsla(0, 0%, 0%, 0.9);
-
-        /* TkToolbar TkButton */
-        --tktoolbarbutton-border: hsla(0, 0%, 0%, 0);
-        --tktoolbarbutton-fill: hsla(0, 0%, 0%, 0);
-        --tktoolbarbutton-text: hsl(0, 0%, 92%);
-        --tktoolbarbutton-icon: hsl(0, 0%, 100%);
-        --tktoolbarbutton-hover-border: hsl(194, 47%, 50%);
-        --tktoolbarbutton-hover-fill: hsl(194, 71%, 27%);
-        --tktoolbarbutton-active-border: hsl(194, 89%, 22%);
-        --tktoolbarbutton-active-fill: hsl(194, 93%, 16%);
-
-        /* TkOverlay */
-        --tkoverlay-backdrop: hsla(0, 0%, 17%, 0.7);
-        --tkoverlay-window-shadow: hsla(0, 0%, 0%, 0.2);
-        --tkoverlay-window-border: hsl(0, 0%, 11%);
-        --tkoverlay-window-fill: hsl(0, 0%, 13%);
-        --tkoverlay-window-text: hsl(0, 0%, 100%);
-
-        /* TkModal */
-        --tkmodal-titlebar-border: hsl(0, 0%, 26%);
-        --tkmodal-titlebar-fill-1:  hsl(0, 0%, 23%);
-        --tkmodal-titlebar-fill-2: hsl(0, 0%, 20%);
-        --tkmodal-titlebar-text: hsl(0, 0%, 100%);
-    
-        
-        /* Misc */
-        --tk-transparent-border: hsla(0, 0%, 100%, 0.45);
-        --tk-even-child-fill: hsla(0, 0%, 100%, 0.1);
-
-        /* Images */
-        --tkimg-transparent-fill: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAIAAACQKrqGAAAIv2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS41LjAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICAgeG1sbnM6ZXhpZj0iaHR0cDovL25zLmFkb2JlLmNvbS9leGlmLzEuMC8iCiAgICB4bWxuczpwaG90b3Nob3A9Imh0dHA6Ly9ucy5hZG9iZS5jb20vcGhvdG9zaG9wLzEuMC8iCiAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyIKICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIKICAgIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIgogICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgZGM6Zm9ybWF0PSJpbWFnZS9wbmciCiAgIGV4aWY6Q29sb3JTcGFjZT0iMSIKICAgZXhpZjpQaXhlbFhEaW1lbnNpb249IjE0IgogICBleGlmOlBpeGVsWURpbWVuc2lvbj0iMTQiCiAgIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiCiAgIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIKICAgdGlmZjpJbWFnZUxlbmd0aD0iMTQiCiAgIHRpZmY6SW1hZ2VXaWR0aD0iMTQiCiAgIHRpZmY6T3JpZW50YXRpb249IjEiCiAgIHRpZmY6UmVzb2x1dGlvblVuaXQ9IjIiCiAgIHRpZmY6WFJlc29sdXRpb249IjcyLjAiCiAgIHRpZmY6WVJlc29sdXRpb249IjcyLjAiCiAgIHhtcDpDcmVhdGVEYXRlPSIyMDE3LTA0LTA3VDEyOjI0OjAwLTA1OjAwIgogICB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IChXaW5kb3dzKSIKICAgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyMC0wNy0xNlQyMTo0NjoxMi0wNTowMCIKICAgeG1wOk1vZGlmeURhdGU9IjIwMjAtMDctMTZUMjE6NDY6MTItMDU6MDAiCiAgIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDplZmIzNzk3Yi0xYmI2LTExZTctYjdkYi1mNjg2N2IxMmUwYTMiCiAgIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Y2IzYzk1MDQtYzk3My1hMjQxLTgxZDctYThhZjM4N2VmYWZlIgogICB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6Y2U2ZjEwZjktZTRjYS0zNzRhLTk2ODgtM2YwYWUxZDIyZGZmIj4KICAgPHhtcE1NOkhpc3Rvcnk+CiAgICA8cmRmOlNlcT4KICAgICA8cmRmOmxpCiAgICAgIHhtcE1NOmFjdGlvbj0iY3JlYXRlZCIKICAgICAgeG1wTU06aW5zdGFuY2VJRD0ieG1wLmlpZDpjZTZmMTBmOS1lNGNhLTM3NGEtOTY4OC0zZjBhZTFkMjJkZmYiCiAgICAgIHhtcE1NOnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IChXaW5kb3dzKSIKICAgICAgeG1wTU06d2hlbj0iMjAxNy0wNC0wN1QxMjoyNDowMC0wNTowMCIvPgogICAgIDxyZGY6bGkKICAgICAgeG1wTU06YWN0aW9uPSJzYXZlZCIKICAgICAgeG1wTU06Y2hhbmdlZD0iLyIKICAgICAgeG1wTU06aW5zdGFuY2VJRD0ieG1wLmlpZDpjYjNjOTUwNC1jOTczLWEyNDEtODFkNy1hOGFmMzg3ZWZhZmUiCiAgICAgIHhtcE1NOnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IChXaW5kb3dzKSIKICAgICAgeG1wTU06d2hlbj0iMjAxNy0wNC0wN1QxMjoyNDowMC0wNTowMCIvPgogICAgIDxyZGY6bGkKICAgICAgeG1wTU06YWN0aW9uPSJwcm9kdWNlZCIKICAgICAgeG1wTU06c29mdHdhcmVBZ2VudD0iQWZmaW5pdHkgUGhvdG8gKE1hciAzMSAyMDIwKSIKICAgICAgeG1wTU06d2hlbj0iMjAyMC0wNy0xNFQyMjozNToxMy0wNTowMCIvPgogICAgIDxyZGY6bGkKICAgICAgc3RFdnQ6YWN0aW9uPSJwcm9kdWNlZCIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWZmaW5pdHkgUGhvdG8gKE1hciAzMSAyMDIwKSIKICAgICAgc3RFdnQ6d2hlbj0iMjAyMC0wNy0xNlQyMTo0NjoxMi0wNTowMCIvPgogICAgPC9yZGY6U2VxPgogICA8L3htcE1NOkhpc3Rvcnk+CiAgPC9yZGY6RGVzY3JpcHRpb24+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+NbxIWgAAAYNpQ0NQc1JHQiBJRUM2MTk2Ni0yLjEAACiRdZHPK0RRFMc/M0MjRkMsLCwmMVnMyI+a2CgzaShpGqMMNjPP/FDz4/XeSLJVtlOU2Pi14C9gq6yVIlKysrAmNkzPeTNqJHNu557P/d57TveeC9ZIRsnqdf2QzRW0cNDvmovOu+zP2GnFSi/umKKrY6HQFDXt4w6LGW+8Zq3a5/61pqWEroClQXhUUbWC8ITw1GpBNXlbuF1Jx5aET4U9mlxQ+NbU4xV+MTlV4S+TtUg4ANYWYVfqF8d/sZLWssLycrqzmRXl5z7mSxyJ3OyMxC7xTnTCBPHjYpJxAvgYYERmH14G6ZMVNfL7y/nT5CVXkVllDY1lUqQp4BF1RaonJCZFT8jIsGb2/29f9eTQYKW6ww/1T4bx1gP2LSgVDePz0DBKR2B7hItcNT9/AMPvoherWvc+ODfg7LKqxXfgfBM6HtSYFitLNnFrMgmvJ9AchbZraFyo9Oxnn+N7iKzLV13B7h645bxz8RtYDmffZZjhHQAAAAlwSFlzAAALEwAACxMBAJqcGAAAACZJREFUKJFj1NTUZMAA169fxxRkwhTCBYapUkasolhDcMDdOuBKAXsrA5Yx2F8HAAAAAElFTkSuQmCC');
-    }
+    /* Images */
+    --tkimg-transparent-fill: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAIAAACQKrqGAAAIv2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS41LjAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICAgeG1sbnM6ZXhpZj0iaHR0cDovL25zLmFkb2JlLmNvbS9leGlmLzEuMC8iCiAgICB4bWxuczpwaG90b3Nob3A9Imh0dHA6Ly9ucy5hZG9iZS5jb20vcGhvdG9zaG9wLzEuMC8iCiAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyIKICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIKICAgIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIgogICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgZGM6Zm9ybWF0PSJpbWFnZS9wbmciCiAgIGV4aWY6Q29sb3JTcGFjZT0iMSIKICAgZXhpZjpQaXhlbFhEaW1lbnNpb249IjE0IgogICBleGlmOlBpeGVsWURpbWVuc2lvbj0iMTQiCiAgIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiCiAgIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIKICAgdGlmZjpJbWFnZUxlbmd0aD0iMTQiCiAgIHRpZmY6SW1hZ2VXaWR0aD0iMTQiCiAgIHRpZmY6T3JpZW50YXRpb249IjEiCiAgIHRpZmY6UmVzb2x1dGlvblVuaXQ9IjIiCiAgIHRpZmY6WFJlc29sdXRpb249IjcyLjAiCiAgIHRpZmY6WVJlc29sdXRpb249IjcyLjAiCiAgIHhtcDpDcmVhdGVEYXRlPSIyMDE3LTA0LTA3VDEyOjI0OjAwLTA1OjAwIgogICB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IChXaW5kb3dzKSIKICAgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyMC0wNy0xNlQyMTo0NjoxMi0wNTowMCIKICAgeG1wOk1vZGlmeURhdGU9IjIwMjAtMDctMTZUMjE6NDY6MTItMDU6MDAiCiAgIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDplZmIzNzk3Yi0xYmI2LTExZTctYjdkYi1mNjg2N2IxMmUwYTMiCiAgIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Y2IzYzk1MDQtYzk3My1hMjQxLTgxZDctYThhZjM4N2VmYWZlIgogICB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6Y2U2ZjEwZjktZTRjYS0zNzRhLTk2ODgtM2YwYWUxZDIyZGZmIj4KICAgPHhtcE1NOkhpc3Rvcnk+CiAgICA8cmRmOlNlcT4KICAgICA8cmRmOmxpCiAgICAgIHhtcE1NOmFjdGlvbj0iY3JlYXRlZCIKICAgICAgeG1wTU06aW5zdGFuY2VJRD0ieG1wLmlpZDpjZTZmMTBmOS1lNGNhLTM3NGEtOTY4OC0zZjBhZTFkMjJkZmYiCiAgICAgIHhtcE1NOnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IChXaW5kb3dzKSIKICAgICAgeG1wTU06d2hlbj0iMjAxNy0wNC0wN1QxMjoyNDowMC0wNTowMCIvPgogICAgIDxyZGY6bGkKICAgICAgeG1wTU06YWN0aW9uPSJzYXZlZCIKICAgICAgeG1wTU06Y2hhbmdlZD0iLyIKICAgICAgeG1wTU06aW5zdGFuY2VJRD0ieG1wLmlpZDpjYjNjOTUwNC1jOTczLWEyNDEtODFkNy1hOGFmMzg3ZWZhZmUiCiAgICAgIHhtcE1NOnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IChXaW5kb3dzKSIKICAgICAgeG1wTU06d2hlbj0iMjAxNy0wNC0wN1QxMjoyNDowMC0wNTowMCIvPgogICAgIDxyZGY6bGkKICAgICAgeG1wTU06YWN0aW9uPSJwcm9kdWNlZCIKICAgICAgeG1wTU06c29mdHdhcmVBZ2VudD0iQWZmaW5pdHkgUGhvdG8gKE1hciAzMSAyMDIwKSIKICAgICAgeG1wTU06d2hlbj0iMjAyMC0wNy0xNFQyMjozNToxMy0wNTowMCIvPgogICAgIDxyZGY6bGkKICAgICAgc3RFdnQ6YWN0aW9uPSJwcm9kdWNlZCIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWZmaW5pdHkgUGhvdG8gKE1hciAzMSAyMDIwKSIKICAgICAgc3RFdnQ6d2hlbj0iMjAyMC0wNy0xNlQyMTo0NjoxMi0wNTowMCIvPgogICAgPC9yZGY6U2VxPgogICA8L3htcE1NOkhpc3Rvcnk+CiAgPC9yZGY6RGVzY3JpcHRpb24+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+NbxIWgAAAYNpQ0NQc1JHQiBJRUM2MTk2Ni0yLjEAACiRdZHPK0RRFMc/M0MjRkMsLCwmMVnMyI+a2CgzaShpGqMMNjPP/FDz4/XeSLJVtlOU2Pi14C9gq6yVIlKysrAmNkzPeTNqJHNu557P/d57TveeC9ZIRsnqdf2QzRW0cNDvmovOu+zP2GnFSi/umKKrY6HQFDXt4w6LGW+8Zq3a5/61pqWEroClQXhUUbWC8ITw1GpBNXlbuF1Jx5aET4U9mlxQ+NbU4xV+MTlV4S+TtUg4ANYWYVfqF8d/sZLWssLycrqzmRXl5z7mSxyJ3OyMxC7xTnTCBPHjYpJxAvgYYERmH14G6ZMVNfL7y/nT5CVXkVllDY1lUqQp4BF1RaonJCZFT8jIsGb2/29f9eTQYKW6ww/1T4bx1gP2LSgVDePz0DBKR2B7hItcNT9/AMPvoherWvc+ODfg7LKqxXfgfBM6HtSYFitLNnFrMgmvJ9AchbZraFyo9Oxnn+N7iKzLV13B7h645bxz8RtYDmffZZjhHQAAAAlwSFlzAAALEwAACxMBAJqcGAAAACZJREFUKJFj1NTUZMAA169fxxRkwhTCBYapUkasolhDcMDdOuBKAXsrA5Yx2F8HAAAAAElFTkSuQmCC');
 }
 
 :root {
@@ -1115,7 +1113,7 @@ html[tkapp] {
 [tkmeter]::-webkit-meter-optimum-value {
     border-radius: var(--tkmeter-radius);
     background: linear-gradient(180deg, var(--tkmeter-optimum-fill-1), var(--tkmeter-optimum-fill-2));
-    border: 1px solid var(--tkmeter-optimum-border);    
+    border: 1px solid var(--tkmeter-optimum-border);
 }
 
 /* See how Firefox styles its meters here: https://dxr.mozilla.org/mozilla-central/source/layout/style/res/forms.css */
@@ -1197,6 +1195,15 @@ html[tkapp] {
 [tkinputlabel][tkinputlabel-text-only] > [tkinputlabel-input],
 [tkinputlabel-text-only] [tkinputlabel] [tkinputlabel-input] {
     display: none !important;
+}
+
+[tkinput][type=text] {
+    border: 1px solid var(--tkview-border);
+    background: var(--tkview-fill);
+    color: var(--tkview-text);
+    border-radius: var(--tk-border-radius);
+    cursor: text;
+    outline: none !important;
 }
 
 /* TkCheckbox */
