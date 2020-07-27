@@ -312,7 +312,7 @@ html[tk-support-dark-mode][dark-mode], [tkview][dark-mode] {
     /* TkOverlay */
     --tkoverlay-backdrop: hsla(0, 0%, 17%, 0.7);
     --tkoverlay-window-shadow: hsla(0, 0%, 0%, 0.2);
-    --tkoverlay-window-border: hsl(0, 0%, 11%);
+    --tkoverlay-window-border: hsl(0, 0%, 26%);
     --tkoverlay-window-fill: hsl(0, 0%, 13%);
     --tkoverlay-window-text: hsl(0, 0%, 100%);
 
@@ -321,7 +321,6 @@ html[tk-support-dark-mode][dark-mode], [tkview][dark-mode] {
     --tkmodal-titlebar-fill-1:  hsl(0, 0%, 23%);
     --tkmodal-titlebar-fill-2: hsl(0, 0%, 20%);
     --tkmodal-titlebar-text: hsl(0, 0%, 100%);
-
     
     /* Misc */
     --tk-transparent-border: hsla(0, 0%, 100%, 0.45);
