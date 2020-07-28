@@ -15,6 +15,14 @@ html, [tkview][light-mode] {
     --tkview-text-inactive: hsl(0, 0%, 35%);
     --tkview-focus-border: hsl(194, 94%, 37%);
 
+    /* TkNotebook */
+    --tknotebook-border: hsl(0, 0%, 76%);
+    --tknotebook-fill: hsl(0, 0%, 100%);
+    --tknotebook-text: hsl(0, 0%, 0%);
+    --tknotebook-border-inactive: hsl(0, 0%, 81%);
+    --tknotebook-fill-inactive: hsl(0, 0%, 93%);
+    --tknotebook-text-inactive: hsl(0, 0%, 35%);
+
     /* TkBox */
     --tkbox-border: var(--tkview-border);
     --tkbox-fill: var(--tkview-fill);
@@ -230,6 +238,14 @@ html[tk-support-dark-mode][dark-mode], [tkview][dark-mode] {
     --tkview-fill-inactive: hsl(0, 0%, 21%);
     --tkview-text-inactive: hsl(0, 0%, 51%);
     --tkview-focus-border: hsl(194, 94%, 37%);
+
+    /* TkNotebook */
+    --tknotebook-border: hsl(0, 0%, 35%);
+    --tknotebook-fill: hsl(0, 0%, 10%);
+    --tknotebook-text: hsl(0, 0%, 100%);
+    --tknotebook-border-inactive: hsl(0, 0%, 38%);
+    --tknotebook-fill-inactive: hsl(0, 0%, 21%);
+    --tknotebook-text-inactive: hsl(0, 0%, 51%);
     
     /* TkBox */
     --tkbox-border: var(--tkview-border);
@@ -972,7 +988,7 @@ html[tkapp] {
     padding-bottom: 0;
     display: flex;
     max-width: 100%;
-    box-shadow: inset 0 -1px 0 0 var(--tkview-border);
+    box-shadow: inset 0 -1px 0 0 var(--tknotebook-border);
     overflow-x: scroll;
     scrollbar-width: none;
     border-top-left-radius: 0.25rem;
@@ -987,10 +1003,10 @@ html[tkapp] {
 [tknotebook] [tknotebook-tab]:hover, 
 [tknotebook] [tknotebook-tab]:focus-within,
 [tknotebook] [tknotebook-tab] {    
-    background: var(--tkview-fill-inactive);
-    color: var(--tkview-text-inactive);
-    border: 1px solid var(--tkview-border-inactive);
-    border-bottom: 1px solid var(--tkview-border);
+    background: var(--tknotebook-fill-inactive);
+    color: var(--tknotebook-text-inactive);
+    border: 1px solid var(--tknotebook-border-inactive);
+    border-bottom: 1px solid var(--tknotebook-border);
     border-radius: 0;
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
@@ -1004,9 +1020,9 @@ html[tkapp] {
 }
 
 [tknotebook] [tknotebook-tab].active {
-    border-color: var(--tkview-border);
-    background: var(--tkview-fill);
-    color: var(--tkview-text);
+    border-color: var(--tknotebook-border);
+    background: var(--tknotebook-fill);
+    color: var(--tknotebook-text);
     border-bottom: 1px solid transparent;
     text-shadow: none;
 }
@@ -1015,9 +1031,9 @@ html[tkapp] {
     width: 100%;
     height: 100%;
     flex-grow: 1;
-    background: var(--tkview-fill);
-    border: 1px solid var(--tkview-border);
-    color: var(--tkview-text);
+    background: var(--tknotebook-fill);
+    border: 1px solid var(--tknotebook-border);
+    color: var(--tknotebooks-text);
     border-top: 0px solid transparent;
     padding: 0.75rem;
 }
@@ -1274,6 +1290,7 @@ html[tkapp] {
 }
 
 [tkinput][type=text],
+[tktextarea],
 [tkstepper] {
     border: 1px solid var(--tkinput-border);
     background: var(--tkinput-fill);
@@ -1284,6 +1301,7 @@ html[tkapp] {
 }
 
 [tkinput][type=text]:focus,
+[tktextarea]:focus,
 [tkstepper]:focus {
     border-color: var(--tkview-focus-border);
 }
@@ -1321,6 +1339,11 @@ html[tkapp] {
     background: var(--tkinput-fill);
     color: var(--tkinput-text);
     padding: 0.25rem;
+}
+
+/* TkTextArea */
+[tktextarea] {
+    flex-grow: 1;
 }
 
 /* TkColorChooser */

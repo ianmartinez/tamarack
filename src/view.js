@@ -2607,18 +2607,18 @@ class TkMeter extends TkView {
 }
 
 /**
- * TODO
- * 
- * Note: First version of tamarack had a mostly complete
- * version of this.
+ * TODO: 
+ * - Implement what was already
+ * implemented in old version (but without jQuery)
  */
-class TkTextEdit extends TkView {
+class TkTextArea extends TkView {
 
     constructor(options = {}) {
+        options.tag = "textarea";
         super(options);
-
+        this.addViewName("tktextarea")
     }
-
+    
 }
 
 /**
