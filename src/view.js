@@ -2353,7 +2353,7 @@ class TkInputLabel extends TkView {
 class TkCheckbox extends TkInputLabel {
 
     constructor(options = {}) {
-        options.layout = options.layout ?? TkInputLabelLayout.INPUT_RIGHT;
+        options.layout = options.layout ?? TkInputLabelLayout.INPUT_LEFT;
         options.input = new TkInput({ type: "checkbox" });
         super(options);
         this.addViewName("tkcheckbox");
@@ -2379,7 +2379,7 @@ class TkCheckbox extends TkInputLabel {
 class TkRadio extends TkInputLabel {
 
     constructor(options = {}) {
-        options.layout = options.layout ?? TkInputLabelLayout.INPUT_RIGHT;
+        options.layout = options.layout ?? TkInputLabelLayout.INPUT_LEFT;
         options.input = new TkInput({ type: "radio" });
         super(options);
         this.addViewName("tkradio");

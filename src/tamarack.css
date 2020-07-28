@@ -1230,6 +1230,11 @@ html[tkapp] {
 [tkinputlabel] {
     display: flex;
     padding: 0.25rem;
+    align-items: center;
+}
+
+[tkinputlabel] > * {
+    margin: 0.15rem;
 }
 
 [tkinputlabel][tkinputlabel-default] {
@@ -1248,13 +1253,14 @@ html[tkapp] {
 
 [tkinputlabel][tkinputlabel-input-left],
 [tkinputlabel-input-left] [tkinputlabel] {
-    flex-direction: row !important;
+    flex-direction: row-reverse !important;
+    justify-content: flex-end;
 }
 
 [tkinputlabel][tkinputlabel-input-right],
 [tkinputlabel-input-right] [tkinputlabel] {
-    flex-direction: row-reverse !important;
-    justify-content: flex-end;
+    flex-direction: row !important;
+    justify-content: flex-start;
 }
 
 [tkinputlabel][tkinputlabel-input-only] > [tktext],
@@ -1267,7 +1273,8 @@ html[tkapp] {
     display: none !important;
 }
 
-[tkinput][type=text] {
+[tkinput][type=text],
+[tkstepper] {
     border: 1px solid var(--tkinput-border);
     background: var(--tkinput-fill);
     color: var(--tkinput-text);
@@ -1276,7 +1283,8 @@ html[tkapp] {
     outline: none !important;
 }
 
-[tkinput][type=text]:focus {
+[tkinput][type=text]:focus,
+[tkstepper]:focus {
     border-color: var(--tkview-focus-border);
 }
 
@@ -1587,7 +1595,7 @@ html[tkapp] {
     box-shadow: 0 0 6px 1px var(--tkoverlay-window-shadow);
     max-width: calc(100% - 1rem);
     max-height: calc(100% - 1rem);
-    min-width: 256px;
+    min-width: 300px;
 }
 
 [tkoverlay-content] {
