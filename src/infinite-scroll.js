@@ -448,4 +448,18 @@ class TkInfiniteScroll extends TkView {
         this._fetchCallback = value;
     }
 
+    /**
+     * Inherited from TkView, but the setter also triggers
+     * a recalculation of element positioning so that the 
+     * scroll works correctly afterwards.
+     */
+    get parent() {
+        return super.parent;
+    }
+
+    set parent(value) {
+        super.parent = value;
+        this.onResize();
+    }
+
 }
