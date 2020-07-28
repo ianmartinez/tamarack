@@ -547,34 +547,33 @@ html[tkapp] {
     color: var(--tkplaceholder-text);
 }
 
+[tkview] h1, [tkview] h2, [tkview] h3,
+[tkview] h4, [tkview] h5, [tkview] h6 {    
+    margin: 0.5rem 0;
+}
+
 [tkview] h1 {
     font-size: 2rem;
-    margin: 0.5rem 0;
 }
 
 [tkview] h2 {
     font-size: 1.75rem;
-    margin: 0.5rem 0;
 }
 
 [tkview] h3 {
     font-size: 1.5rem;
-    margin: 0.5rem 0;
 }
 
 [tkview] h4 {
     font-size: 1.25rem;
-    margin: 0.5rem 0;
 }
 
 [tkview] h5 {
     font-size: 1.15rem;
-    margin: 0.5rem 0;
 }
 
 [tkview] h6 {
     font-size: 1rem;
-    margin: 0.5rem 0;
 }
 
 /* TkText */
@@ -960,8 +959,7 @@ html[tkapp] {
 
 /* TkNotebook */
 [tknotebook] {
-    width: 100%;
-    height: 100%;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     border-top-left-radius: 0.25rem;
@@ -1289,6 +1287,16 @@ html[tkapp] {
 }
 
 [tkcheckbox] [tkinput] {
+    margin: 0.25rem;
+}
+
+/* TkRadio */
+[tkradio] {
+    display: inline-flex;
+    align-items: center;
+}
+
+[tkradio] [tkinput] {
     margin: 0.25rem;
 }
 

@@ -1030,7 +1030,7 @@ class TkView {
      * @type {TkMode}
      */
     get colorMode() {
-        if(this.hasAttribute(TkMode.LIGHT)) 
+        if (this.hasAttribute(TkMode.LIGHT))
             return TkMode.LIGHT;
         else if (this.hasAttribute(TkMode.DARK))
             return TkMode.DARK;
@@ -1102,7 +1102,7 @@ class TkBox extends TkView {
         this.content = new TkView({ parent: this });
         this.content.addViewName("tkbox-content");
 
-        if(options.title !== undefined)
+        if (options.title !== undefined)
             this.titleLabel.text = options.title;
     }
 
@@ -2274,6 +2274,9 @@ class TkInputLabel extends TkView {
         if (options.input !== undefined)
             this.input = options.input;
 
+        if (options.name !== undefined)
+            this.name = options.name;
+
         this.layout = options.layout ?? TkInputLabelLayout.DEFAULT;
     }
 
@@ -2296,6 +2299,7 @@ class TkInputLabel extends TkView {
             this._input = null;
         }
     }
+
     /**
      * The layout of the input and text.
      * @type {TkInputLabelLayout}
@@ -2310,7 +2314,6 @@ class TkInputLabel extends TkView {
 
     /**
      * The text of the label.
-     * 
      * @type {String}
      */
     get text() {
@@ -2323,7 +2326,6 @@ class TkInputLabel extends TkView {
 
     /**
      * The label's "for" attribute.
-     * 
      * @type {String}
      */
     get target() {
@@ -2332,6 +2334,18 @@ class TkInputLabel extends TkView {
 
     set target(value) {
         this.setAttribute("for", value);
+    }
+
+    /**
+     * The name of the input.
+     * @type {String}
+     */
+    get name() {
+        return this.input.name;
+    }
+
+    set name(value) {
+        this.input.name = value;
     }
 
 }
@@ -2350,7 +2364,32 @@ class TkCheckbox extends TkInputLabel {
 
     /**
      * If the checkbox is checked.
-     * 
+     * @type {Boolean}
+     */
+    get checked() {
+        return this.input.e.checked;
+    }
+
+    set checked(value) {
+        this.input.e.checked = value;
+    }
+
+}
+
+class TkRadio extends TkInputLabel {
+
+    constructor(options = {}) {
+        options.layout = options.layout ?? TkInputLabelLayout.INPUT_RIGHT;
+        options.input = new TkInput({ type: "radio" });
+        super(options);
+        this.addViewName("tkradio");
+
+        if (options.checked !== undefined)
+            this.checked = options.checked;
+    }
+
+    /**
+     * If the radio is checked.
      * @type {Boolean}
      */
     get checked() {
