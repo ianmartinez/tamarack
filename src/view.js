@@ -1086,9 +1086,33 @@ class TkSplit extends TkView {
 }
 
 /**
- * TODO: A group box with a TkLabel title
+ * A group box with a TkLabel title
  */
-class TkGroup extends TkView {
+class TkBox extends TkView {
+
+    constructor(options = {}) {
+        options.tag = "div";
+        super(options);
+        this.addViewName("tkbox");
+
+        this.titlebar = new TkView({ parent: this });
+        this.titlebar.addViewName("tkbox-titlebar");
+        this.titleLabel = new TkText("span", { parent: this.titlebar });
+        this.titleLabel.addViewName("tkbox-title-label");
+        this.content = new TkView({ parent: this });
+        this.content.addViewName("tkbox-content");
+
+        if(options.title !== undefined)
+            this.titleLabel.text = options.title;
+    }
+
+    get title() {
+        return this.titleLabel.text;
+    }
+
+    set title(value) {
+        this.titleLabel.text = value;
+    }
 
 }
 

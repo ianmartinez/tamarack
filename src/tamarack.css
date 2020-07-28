@@ -15,6 +15,14 @@ html, [tkview][light-mode] {
     --tkview-text-inactive: hsl(0, 0%, 35%);
     --tkview-focus-border: hsl(194, 94%, 37%);
 
+    /* TkBox */
+    --tkbox-border: var(--tkview-border);
+    --tkbox-fill: var(--tkview-fill);
+    --tkbox-titlebar-border: var(--tkview-border);
+    --tkbox-titlebar-fill-1: hsl(0, 0%, 92%);
+    --tkbox-titlebar-fill-2: hsl(0, 0%, 85%);
+    --tkbox-titlebar-text: hsl(0, 0%, 0%);
+
     /* TkButton */
     --tkbutton-padding: 0.25rem 0.5rem;
 
@@ -222,6 +230,14 @@ html[tk-support-dark-mode][dark-mode], [tkview][dark-mode] {
     --tkview-fill-inactive: hsl(0, 0%, 21%);
     --tkview-text-inactive: hsl(0, 0%, 51%);
     --tkview-focus-border: hsl(194, 94%, 37%);
+    
+    /* TkBox */
+    --tkbox-border: var(--tkview-border);
+    --tkbox-fill: var(--tkview-fill);
+    --tkbox-titlebar-border: var(--tkview-border);
+    --tkbox-titlebar-fill-1: hsl(0, 0%, 13%);
+    --tkbox-titlebar-fill-2: hsl(0, 0%, 5%);
+    --tkbox-titlebar-text: hsl(0, 0%, 100%);
 
     /* TkButtonStyle.NORMAL */
     --tknormal-text: hsl(0, 0%, 100%);
@@ -533,26 +549,32 @@ html[tkapp] {
 
 [tkview] h1 {
     font-size: 2rem;
+    margin: 0.5rem 0;
 }
 
 [tkview] h2 {
     font-size: 1.75rem;
+    margin: 0.5rem 0;
 }
 
 [tkview] h3 {
     font-size: 1.5rem;
+    margin: 0.5rem 0;
 }
 
 [tkview] h4 {
     font-size: 1.25rem;
+    margin: 0.5rem 0;
 }
 
 [tkview] h5 {
     font-size: 1.15rem;
+    margin: 0.5rem 0;
 }
 
 [tkview] h6 {
     font-size: 1rem;
+    margin: 0.5rem 0;
 }
 
 /* TkText */
@@ -612,6 +634,42 @@ html[tkapp] {
     flex-direction: row-reverse !important;
     flex-wrap: wrap !important;
     justify-content: flex-end;
+}
+
+/* TkBox */
+[tkbox] {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem;
+    border: 1px solid var(--tkbox-border);
+    border-radius: var(--tk-border-radius);
+    background: var(--tkbox-fill);
+}
+
+[tkbox-titlebar] {
+    display: flex;
+    flex-direction: row;
+    padding: 0.25rem;
+    border-bottom: 1px solid var(--tkbox-titlebar-border);
+    border-top-left-radius: var(--tk-border-radius);
+    border-top-right-radius: var(--tk-border-radius);
+    background: linear-gradient(180deg, var(--tkbox-titlebar-fill-1), var(--tkbox-titlebar-fill-2));
+}
+
+[tkbox-content] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 0.5rem;
+}
+
+[tkbox-content] > * {
+    max-width: 100%;
+    max-height: 100%;
+    height: inherit;
 }
 
 /* TkLabel */
