@@ -30,6 +30,7 @@ html, [tkview][light-mode] {
     --tkbox-titlebar-fill-1: hsl(0, 0%, 92%);
     --tkbox-titlebar-fill-2: hsl(0, 0%, 85%);
     --tkbox-titlebar-text: hsl(0, 0%, 0%);
+    --tkbox-shadow: hsla(0, 0%, 0%, 0.1);
 
     /* TkButton */
     --tkbutton-padding: 0.25rem 0.5rem;
@@ -248,12 +249,13 @@ html[tk-support-dark-mode][dark-mode], [tkview][dark-mode] {
     --tknotebook-text-inactive: hsl(0, 0%, 51%);
     
     /* TkBox */
-    --tkbox-border: var(--tkview-border);
-    --tkbox-fill: var(--tkview-fill);
-    --tkbox-titlebar-border: var(--tkview-border);
+    --tkbox-border: hsl(0, 0%, 22%);
+    --tkbox-fill:  hsl(0, 0%, 0%);
+    --tkbox-titlebar-border: hsl(0, 0%, 22%);
     --tkbox-titlebar-fill-1: hsl(0, 0%, 13%);
     --tkbox-titlebar-fill-2: hsl(0, 0%, 5%);
     --tkbox-titlebar-text: hsl(0, 0%, 100%);
+    --tkbox-shadow: hsla(0, 0%, 0%, 0.9);
 
     /* TkButtonStyle.NORMAL */
     --tknormal-text: hsl(0, 0%, 100%);
@@ -659,6 +661,7 @@ html[tkapp] {
     border: 1px solid var(--tkbox-border);
     border-radius: var(--tk-border-radius);
     background: var(--tkbox-fill);
+    box-shadow: 0 0 4px 1px var(--tkbox-shadow);
 }
 
 [tkbox-titlebar] {
