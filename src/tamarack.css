@@ -978,8 +978,8 @@ html[tkapp] {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
+    border-top-left-radius: var(--tk-border-radius);
+    border-top-right-radius: var(--tk-border-radius);
 }
 
 [tknotebook-tabarea] {
@@ -991,8 +991,8 @@ html[tkapp] {
     box-shadow: inset 0 -1px 0 0 var(--tknotebook-border);
     overflow-x: scroll;
     scrollbar-width: none;
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
+    border-top-left-radius: var(--tk-border-radius);
+    border-top-right-radius: var(--tk-border-radius);
 }
 
 [tknotebook-tabarea]::-webkit-scrollbar {
@@ -1008,8 +1008,8 @@ html[tkapp] {
     border: 1px solid var(--tknotebook-border-inactive);
     border-bottom: 1px solid var(--tknotebook-border);
     border-radius: 0;
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
+    border-top-left-radius: var(--tk-border-radius);
+    border-top-right-radius: var(--tk-border-radius);
     margin: 0 0.1rem;
     padding: 0.2rem 0.5rem;
     white-space: nowrap;
