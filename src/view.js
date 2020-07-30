@@ -1097,7 +1097,7 @@ class TkBox extends TkView {
 
         this.titlebar = new TkView({ parent: this });
         this.titlebar.addViewName("tkbox-titlebar");
-        this.titleLabel = new TkText("span", { parent: this.titlebar });
+        this.titleLabel = new TkLabel({ parent: this.titlebar });
         this.titleLabel.addViewName("tkbox-title-label");
         this.content = new TkView({ parent: this });
         this.content.addViewName("tkbox-content");
@@ -1112,6 +1112,14 @@ class TkBox extends TkView {
 
     set title(value) {
         this.titleLabel.text = value;
+    }
+
+    get icon() {
+        return this.titleLabel.icon;
+    }
+
+    set icon(value) {
+        this.titleLabel.icon = value;
     }
 
 }
