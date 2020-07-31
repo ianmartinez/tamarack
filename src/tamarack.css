@@ -675,6 +675,10 @@ html[tkapp] {
     flex-shrink: 0;
 }
 
+[tkbox-titlebar] > [tklabel] {
+    flex-grow: 1;
+}
+
 [tkbox-content] {
     display: flex;
     justify-content: center;
