@@ -1001,7 +1001,8 @@ html[tkapp] {
     overflow-x: scroll;
     scrollbar-width: none;
     border-top-left-radius: var(--tk-border-radius);
-    border-top-right-radius: var(--tk-border-radius);
+    border-top-right-radius: var(--tk-border-radius);    
+    flex-shrink: 0;
 }
 
 [tknotebook-tabarea]::-webkit-scrollbar {
