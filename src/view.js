@@ -1440,15 +1440,15 @@ class TkField extends TkView {
 }
 
 /**
- * A TkNotebookPage is not a view but represents the
+ * A TkPage is not a view but represents the
  * two views that make up a notebook page: the tab, 
  * which is a TkButton, and the content, which is a 
  * TkView.
  */
-class TkNotebookPage {
+class TkPage {
 
     /**
-     * Create a TkNotebookPage.
+     * Create a TkPage.
      * 
      * @param {Object} options The options object.
      * @param {String} options.title The tab's title.
@@ -1563,7 +1563,7 @@ class TkNotebookPage {
     /**
      * If the tab page is visible.
      * 
-     * _DO NOT_ set this directly on a TkNotebookPage, instead set the
+     * _DO NOT_ set this directly on a TkPage, instead set the
      * active tab in a notebook via TkNotebook.active, which will handle 
      * the hiding of other pages correctly.
      * @type {Boolean}
@@ -1626,14 +1626,14 @@ class TkNotebook extends TkView {
     }
 
     /**
-     * Add pages and items to the notebook. If an item is not a TkNotebookPage, 
+     * Add pages and items to the notebook. If an item is not a TkPage, 
      * it will be passed on to TkView.add().
      * 
-     * @param  {...TkNotebookPage|String|HTMLElement|TkView} items The pages/items to add.
+     * @param  {...TkPage|String|HTMLElement|TkView} items The pages/items to add.
      */
     add(...items) {
         for (let item of items) {
-            if (TkObject.is(item, TkNotebookPage)) {
+            if (TkObject.is(item, TkPage)) {
                 let page = item;
 
                 // Add the page to the notebook
@@ -1661,14 +1661,14 @@ class TkNotebook extends TkView {
     }
 
     /**
-     * Remove pages and items from the notebook. If an item is not a TkNotebookPage, 
+     * Remove pages and items from the notebook. If an item is not a TkPage, 
      * it will be passed on to TkView.remove(). 
      * 
-     * @param  {...TkNotebookPage|String|HTMLElement|TkView} items The pages/items to remove.
+     * @param  {...TkPage|String|HTMLElement|TkView} items The pages/items to remove.
      */
     remove(...items) {
         for (let item of items) {
-            if (TkObject.is(item, TkNotebookPage)) {
+            if (TkObject.is(item, TkPage)) {
                 let page = item;
                 let oldActiveIndex = this.activeIndex;
 
@@ -1704,7 +1704,7 @@ class TkNotebook extends TkView {
 
     /**
      * The active page in the notebook. 
-     * @type {TkNotebookPage}
+     * @type {TkPage}
      */
     get active() {
         let activeIndex = this.activeIndex;
@@ -1750,7 +1750,7 @@ class TkNotebook extends TkView {
     /**
      * Get the index of a page in the notebook.
      * 
-     * @param {TkNotebookPage} page The page to look for.
+     * @param {TkPage} page The page to look for.
      */
     indexOf(page) {
         return this.pages.indexOf(page);
@@ -1839,6 +1839,30 @@ class TkNotebook extends TkView {
     goToLast() {
         if (this.pageCount > 0)
             this.activeIndex = this.pages.length - 1;
+    }
+
+}
+
+/**
+ * A variant of TkNoteook styled for pagination.
+ */
+class TkPaginator extends TkNotebook {
+
+    constructor(options = {}) {
+        super(options);
+        this.addViewName("tkpaginator");
+    }
+
+    /**
+     * The layout of the page buttons and the content.
+     * @type {TkPaginatorLayout}
+     */
+    get layout() {
+        return this.getAttributeFromEnum(TkPaginatorLayout, TkPaginatorLayout.TOP_BUTTONS);
+    }
+
+    set layout(value) {
+        this.addAttributeFromEnum(TkPaginatorLayout, value);
     }
 
 }
@@ -3198,4 +3222,12 @@ const TkWidth = {
     W80: "tkw-80",
     W90: "tkw-90",
     W100: "tkw-100"
+};
+
+/**
+ * An enum for the layout of paginator buttons.
+ */
+const TkPaginatorLayout = {
+    TOP_BUTTONS: "tkpaginator-top-buttons",
+    BOTTOM_BUTTONS: "tkpaginator-bottom-buttons"
 };

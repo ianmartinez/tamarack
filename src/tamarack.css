@@ -1071,6 +1071,40 @@ html[tkapp] {
     }
 }
 
+/* TkPaginator */
+[tkpaginator] [tknotebook-tabarea] {
+    box-shadow: none;
+}
+
+[tkpaginator]  [tknotebook-contentarea] {
+    border: 1px solid var(--tknotebook-border);
+}
+
+[tkpaginator] [tknotebook-tab]:hover, 
+[tkpaginator] [tknotebook-tab]:focus-within,
+[tkpaginator] [tknotebook-tab] {    
+    background: var(--tknotebook-fill-inactive);
+    color: var(--tknotebook-text-inactive);
+    border: 1px solid var(--tknotebook-border-inactive);
+    border-radius: var(--tk-border-radius);
+    margin: 0.25rem 0.1rem;
+}
+
+[tkpaginator] [tknotebook-tab].active {
+    border-color: var(--tknotebook-border);
+    background: var(--tknotebook-fill);
+    color: var(--tknotebook-text);
+}
+
+[tkpaginator-top-buttons] {
+    flex-direction: column;
+}
+
+[tkpaginator-bottom-buttons] {
+    flex-direction: column-reverse;
+}
+
+/* TkInfiniteScroll */
 [tkinfinitescroll] {
     margin: 0px;
     display: flex;

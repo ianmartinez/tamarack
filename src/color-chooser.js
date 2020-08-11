@@ -32,10 +32,10 @@ class TkColorChooser extends TkStack {
 
         // Set up notebook
         this.colorSystemNotebook = new TkNotebook({ parent: this.editStack });
-        this.hslPage = new TkNotebookPage({ title: "HSL" });
-        this.rgbPage = new TkNotebookPage({ title: "RGB" });
-        this.cssPage = new TkNotebookPage({ title: "CSS" });
-        this.infoPage = new TkNotebookPage({ title: "Info" });
+        this.hslPage = new TkPage({ title: "HSL" });
+        this.rgbPage = new TkPage({ title: "RGB" });
+        this.cssPage = new TkPage({ title: "CSS" });
+        this.infoPage = new TkPage({ title: "Info" });
         this.colorSystemNotebook.add(this.hslPage, this.rgbPage, this.cssPage, this.infoPage);
 
         // Set up stacks
