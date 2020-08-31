@@ -1,13 +1,13 @@
 html, [tkview][light-mode] {
     /* Common */
-    --tk-border-radius: 0.2rem;
+    --tk-border-radius: 0.25rem;
     --tkplaceholder-text: gray;
 
     /* App */
     --tkapp-background: hsl(0, 0%, 96%);
 
     /* TkView */
-    --tkview-border: hsl(0, 0%, 76%);
+    --tkview-border: hsl(0, 0%, 80%);
     --tkview-fill: hsl(0, 0%, 100%);
     --tkview-text: hsl(0, 0%, 0%);
     --tkview-border-inactive: hsl(0, 0%, 81%);
@@ -27,8 +27,8 @@ html, [tkview][light-mode] {
     --tkbox-border: var(--tkview-border);
     --tkbox-fill: var(--tkview-fill);
     --tkbox-titlebar-border: var(--tkview-border);
-    --tkbox-titlebar-fill-1: hsl(0, 0%, 92%);
-    --tkbox-titlebar-fill-2: hsl(0, 0%, 85%);
+    --tkbox-titlebar-fill-1: hsl(0, 0%, 93%);
+    --tkbox-titlebar-fill-2: hsl(0, 0%, 89%);
     --tkbox-titlebar-text: hsl(0, 0%, 0%);
     --tkbox-shadow: hsla(0, 0%, 0%, 0.1);
 
@@ -176,9 +176,9 @@ html, [tkview][light-mode] {
     --tkcolorslider-thumb-active-shadow: hsla(0, 0%, 0%, 0.8);
 
     /* TkToolbar */
-    --tktoolbar-fill-1: hsl(0, 0%, 93%);
+    --tktoolbar-fill-1: hsl(0, 0%, 91%);
     --tktoolbar-fill-2: hsl(0, 0%, 90%);
-    --tktoolbar-border: hsl(0, 0%, 82%);
+    --tktoolbar-border: hsl(0, 0%, 86%);
 
     /* TkSidebar */
     --tksidebar-border: hsl(0, 0%, 82%);
@@ -191,11 +191,11 @@ html, [tkview][light-mode] {
     --tktoolbarbutton-fill: hsla(0, 0%, 0%, 0);
     --tktoolbarbutton-text: hsl(0, 0%, 41%);
     --tktoolbarbutton-icon: hsl(0, 0%, 0%);
-    --tktoolbarbutton-hover-border: hsl(194, 100%, 44%);
+    --tktoolbarbutton-hover-border: hsl(194, 100%, 65%);
     --tktoolbarbutton-hover-fill: hsl(194, 100%, 85%);
-    --tktoolbarbutton-active-border: hsl(194, 94%, 37%);
-    --tktoolbarbutton-active-fill: hsl(194, 100%, 75%);
-    --tktoolbarbutton-focus-ring: hsla(199, 100%, 70%, 0.5);
+    --tktoolbarbutton-active-border: hsl(194, 94%, 62%);
+    --tktoolbarbutton-active-fill: hsl(194, 100%, 72%);
+    --tktoolbarbutton-focus-ring: hsla(199, 100%, 70%, 0.4);
 
     /* TkOverlay */
     --tkoverlay-backdrop: hsla(0, 0%, 97%, 0.45);
@@ -232,7 +232,7 @@ html[tk-support-dark-mode][dark-mode], [tkview][dark-mode] {
     --tkapp-text: hsl(0, 0%, 100%);
 
     /* TkView */
-    --tkview-border: hsl(0, 0%, 35%);
+    --tkview-border: hsl(0, 0%, 28%);
     --tkview-fill: hsl(0, 0%, 0%);
     --tkview-text: hsl(0, 0%, 100%);
     --tkview-border-inactive: hsl(0, 0%, 38%);
@@ -241,19 +241,19 @@ html[tk-support-dark-mode][dark-mode], [tkview][dark-mode] {
     --tkview-focus-border: hsl(194, 94%, 37%);
 
     /* TkNotebook */
-    --tknotebook-border: hsl(0, 0%, 35%);
+    --tknotebook-border: hsl(0, 0%, 21%);
     --tknotebook-fill: hsl(0, 0%, 10%);
     --tknotebook-text: hsl(0, 0%, 100%);
-    --tknotebook-border-inactive: hsl(0, 0%, 38%);
+    --tknotebook-border-inactive: hsl(0, 0%, 31%);
     --tknotebook-fill-inactive: hsl(0, 0%, 21%);
     --tknotebook-text-inactive: hsl(0, 0%, 51%);
     
     /* TkBox */
-    --tkbox-border: hsl(0, 0%, 22%);
-    --tkbox-fill:  hsl(0, 0%, 0%);
-    --tkbox-titlebar-border: hsl(0, 0%, 22%);
+    --tkbox-border: hsl(0, 0%, 21%);
+    --tkbox-fill:  hsl(0, 0%, 5%);
+    --tkbox-titlebar-border: hsl(0, 0%, 21%);
     --tkbox-titlebar-fill-1: hsl(0, 0%, 13%);
-    --tkbox-titlebar-fill-2: hsl(0, 0%, 5%);
+    --tkbox-titlebar-fill-2: hsl(0, 0%, 10%);
     --tkbox-titlebar-text: hsl(0, 0%, 100%);
     --tkbox-shadow: hsla(0, 0%, 0%, 0.9);
 
@@ -261,7 +261,7 @@ html[tk-support-dark-mode][dark-mode], [tkview][dark-mode] {
     --tknormal-text: hsl(0, 0%, 100%);
     --tknormal-fill-1: hsl(0, 0%, 17%);
     --tknormal-fill-2: hsl(0, 0%, 14%);
-    --tknormal-border: hsl(0, 0%, 29%);
+    --tknormal-border: hsl(0, 0%, 27%);
     --tknormal-text-shadow: hsla(0, 0%, 0%, 0.5);
     --tknormal-hover-text: hsl(0, 0%, 100%);
     --tknormal-hover-fill-1: hsl(0, 0%, 21%);
@@ -271,7 +271,7 @@ html[tk-support-dark-mode][dark-mode], [tkview][dark-mode] {
     --tknormal-active-text: hsl(0, 0%, 100%);
     --tknormal-active-fill-1: hsl(0, 0%, 14%);
     --tknormal-active-fill-2: hsl(0, 0%, 19%);
-    --tknormal-active-border: hsl(0, 0%, 18%);
+    --tknormal-active-border: hsl(0, 0%, 22%);
     --tknormal-active-text-shadow: hsla(0, 0%, 0%, 0.5);
     --tknormal-focus-ring: hsla(0, 0%, 80%, 0.5);
     --tknormal-focus-outline: hsla(0, 0%, 70%, 0.8);
@@ -322,15 +322,15 @@ html[tk-support-dark-mode][dark-mode], [tkview][dark-mode] {
     --tkmeter-radius: var(--tk-border-radius);
 
     /* TkColorChooser */
-    --tkcolorslider-border: hsla(0, 0%, 100%, 0.35);
+    --tkcolorslider-border: hsla(0, 0%, 100%, 0.15);
     --tkcolorslider-highlight: hsla(0, 0%, 100%, 0.3);
-    --tkcolorslider-thumb-border: hsla(0, 0%, 0%, 0.8);
-    --tkcolorslider-thumb-highlight: hsla(0, 0%, 100%, 0.75);
+    --tkcolorslider-thumb-border: hsla(0, 0%, 0%, 0.6);
+    --tkcolorslider-thumb-highlight: hsla(0, 0%, 100%, 0.4);
 
     /* TkToolbar */
-    --tktoolbar-fill-1: hsl(0, 0%, 23%);
-    --tktoolbar-fill-2: hsl(0, 0%, 20%);
-    --tktoolbar-border: hsl(0, 0%, 24%);
+    --tktoolbar-fill-1: hsl(0, 0%, 16%);
+    --tktoolbar-fill-2: hsl(0, 0%, 15%);
+    --tktoolbar-border: hsl(0, 0%, 18%);
     
     /* TkSidebar */
     --tksidebar-border: hsl(0, 0%, 24%);
@@ -343,7 +343,7 @@ html[tk-support-dark-mode][dark-mode], [tkview][dark-mode] {
     --tktoolbarbutton-fill: hsla(0, 0%, 0%, 0);
     --tktoolbarbutton-text: hsl(0, 0%, 92%);
     --tktoolbarbutton-icon: hsl(0, 0%, 100%);
-    --tktoolbarbutton-hover-border: hsl(194, 47%, 50%);
+    --tktoolbarbutton-hover-border: hsl(194, 47%, 40%);
     --tktoolbarbutton-hover-fill: hsl(194, 71%, 27%);
     --tktoolbarbutton-active-border: hsl(194, 89%, 22%);
     --tktoolbarbutton-active-fill: hsl(194, 93%, 16%);
@@ -362,7 +362,7 @@ html[tk-support-dark-mode][dark-mode], [tkview][dark-mode] {
     --tkmodal-titlebar-text: hsl(0, 0%, 100%);
 
     /* TkInput */
-    --tkinput-border: hsl(0, 0%, 35%);
+    --tkinput-border: hsl(0, 0%, 28%);
     --tkinput-fill: hsl(0, 0%, 8%);
     --tkinput-text: hsl(0, 0%, 100%);
     
