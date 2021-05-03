@@ -66,7 +66,7 @@ class TkInfiniteScroll extends TkView {
         this._placeholderView = null;
         if (options.placeholder !== undefined) {
             this.placeholder = options.placeholder;
-        }
+        } 
 
         // Set template
         this._templateView = null;
@@ -459,7 +459,8 @@ class TkInfiniteScroll extends TkView {
 
     set parent(value) {
         super.parent = value;
-        this.onResize();
+        if(this._placeholderView)
+            this.onResize();
     }
 
 }
